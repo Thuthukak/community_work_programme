@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <title>Documentation - Pipex</title>
+
+    <link rel="shortcut icon" href="images/logo/icon.png" />
+    <link rel="apple-touch-icon" href="images/logo/icon.png" />
+    <link rel="apple-touch-icon-precomposed" href="images/logo/icon.png" />
+
+    <!-- Bootstrap4.6.0 CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+
+    <link rel="stylesheet" href="css/animate.css">
+
+    <!-- Documentation CSS -->
+    <link rel="stylesheet" href="css/core.css">
+    <link rel="stylesheet" href="css/doc.css">
+    <link rel="stylesheet" href="css/documentation.css">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="top"></div>
+
+    <div class="wrapper">
+        <div class="sidebar-wrapper">
+            <div id="menu-toggle" class="toggle-sidebar">
+                <div class="bar1"></div>
+                <div class="bar2"></div>
+                <div class="bar3"></div>
+            </div>
+            <div class="logo-wrapper">
+                <img src="images/logo.png" class="img-fluid" width="200" alt="">
+            </div>
+            <nav class="sidebar-nav">
+                <ul class="nav">
+                    <!--Introduction-->
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Introduction</a>
+                    </li>
+
+                    <!--Installation-->
+                    <li class="nav-item active">
+                        <a href="installation.html" class="nav-link d-flex align-items-center justify-content-between">
+                            Installation
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="sub-menu-item active">
+                                <a href="installation.html" class="sub-menu-link js-page-scrolling">
+                                    How to Install
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="sub-menu-item active">
+                                        <a href="installation.html" class="sub-menu-link js-page-scrolling">Root</a>
+                                    </li>
+                                    <li class="sub-menu-item">
+                                        <a href="install_sub_folder.html" class="sub-menu-link js-page-scrolling">Sub Folder</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="sub-menu-item">
+                                <a href="server-requirement.html" class="sub-menu-link js-page-scrolling">
+                                    Server Requirements
+                                </a>
+                                <ul class="sub-menu d-none">
+                                    <li class="sub-menu-item">
+                                        <a href="#php_version" class="sub-menu-link js-page-scrolling">PHP version</a>
+                                    </li>
+                                    <li class="sub-menu-item">
+                                        <a href="#php_environment" class="sub-menu-link js-page-scrolling">
+                                            Php Environment
+                                        </a>
+                                    </li>
+                                    <li class="sub-menu-item">
+                                        <a href="#php_option" class="sub-menu-link js-page-scrolling">
+                                            Php option
+                                        </a>
+                                    </li>
+                                    <li class="sub-menu-item">
+                                        <a href="#mysql_version" class="sub-menu-link js-page-scrolling">
+                                            Mysql version
+                                        </a>
+                                    </li>
+                                    <li class="sub-menu-item">
+                                        <a href="#folder_permission" class="sub-menu-link js-page-scrolling">
+                                            Folder Permission
+                                        </a>
+                                    </li>
+                                    <li class="sub-menu-item">
+                                        <a href="#symlink_permission" class="sub-menu-link js-page-scrolling">
+                                            Symlink Permission
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="sub-menu-item">
+                                <a href="common-errors-issues.html" class="sub-menu-link js-page-scrolling">
+                                    Common Errors & Issues
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!-- Important settings -->
+                    <li class="nav-item">
+                        <a href="important-settings.html"
+                            class="nav-link d-flex align-items-center justify-content-between">
+                            Important settings
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </a>
+                        <ul class="sub-menu d-none">
+                            <li class="sub-menu-item">
+                                <a href="delivery-setting.html" class="sub-menu-link js-page-scrolling">
+                                    Delivery settings
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="sub-menu-item">
+                                        <a href="#smtp" class="sub-menu-link js-page-scrolling">
+                                            SMTP
+                                        </a>
+                                    </li>
+                                    <li class="sub-menu-item">
+                                        <a href="#send_mail" class="sub-menu-link js-page-scrolling">
+                                            Send Mail
+                                        </a>
+                                    </li>
+                                    <li class="sub-menu-item">
+                                        <a href="#mailgun" class="sub-menu-link js-page-scrolling">
+                                            Mailgun
+                                        </a>
+                                    </li>
+                                    <li class="sub-menu-item">
+                                        <a href="#amazon-ses" class="sub-menu-link js-page-scrolling">
+                                            Amazon SES
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="sub-menu-item">
+                                <a href="configuration-guide.html" class="sub-menu-link js-page-scrolling">
+                                    Configuration
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!--Instruction Guide-->
+                    <li class="nav-item">
+                        <a href="instruction-guide.html"
+                            class="nav-link d-flex align-items-center justify-content-between">
+                            Instruction Guide
+
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </a>
+                        <ul class="sub-menu d-none">
+                            <li class="sub-menu-item">
+                                <a href="instruction-guide.html#dashboard" class="sub-menu-link js-page-scrolling">
+                                    Dashboard
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="sub-menu-item">
+                                        <a href="#leads" class="sub-menu-link js-page-scrolling">
+                                            Leads
+                                        </a>
+                                    </li>
+                                    <li class="sub-menu-item">
+                                        <a href="#deals" class="sub-menu-link js-page-scrolling">
+                                            Deals
+                                        </a>
+                                    </li>
+                                    <li class="sub-menu-item">
+                                        <a href="#proposals" class="sub-menu-link js-page-scrolling">
+                                            Proposal
+                                        </a>
+                                    </li>
+                                    <li class="sub-menu-item">
+                                        <a href="#activities" class="sub-menu-link js-page-scrolling">
+                                            Activities
+                                        </a>
+                                    </li>
+                                    <li class="sub-menu-item">
+                                        <a href="#reports" class="sub-menu-link js-page-scrolling">
+                                            Reports
+                                        </a>
+                                    </li>
+
+                                    <li class="sub-menu-item">
+                                        <a href="#userRoles" class="sub-menu-link js-page-scrolling">
+                                            User & Roles
+                                        </a>
+                                    </li>
+                                    <li class="sub-menu-item">
+                                        <a href="#settings" class="sub-menu-link js-page-scrolling">
+                                            Settings
+                                        </a>
+                                    </li>
+                                    <li class="sub-menu-item">
+                                        <a href="#importingGuideline" class="sub-menu-link js-page-scrolling">
+                                            Importing guidelines
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!--Development Guide-->
+                    <li class="nav-item">
+                        <a href="developer-guide.html"
+                            class="nav-link d-flex align-items-center justify-content-between">
+                            Development Guide
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-chevron-down" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                            </svg>
+                        </a>
+                        <ul class="sub-menu d-none">
+                            <li class="sub-menu-item">
+                                <a href="#languageSettings" class="sub-menu-link js-page-scrolling">
+                                    Add/Change Language
+                                </a>
+                            <li class="sub-menu-item">
+                                <a href="#instalLocallly" class="sub-menu-link js-page-scrolling">
+                                    How to install Locally
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <!--Upgrade Guide-->
+                    <li class="nav-item">
+                        <a href="upgrade-guide.html" class="nav-link">Upgrade Guide</a>
+                    </li>
+
+                    <!--Change Log-->
+                    <li class="nav-item">
+                        <a href="change-log.html" class="nav-link">
+                            Change Log
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+        <div class="page-content-wrapper">
+            <section class="scrollspy-section" id="usageOfAppLevel">
+                <div class="scrollspy-section mb-5" id="dashboard">
+                    <div class="scrollspy-section mb-5" data-for="dashboard" id="root">
+                        <h3>Installation in root directory</h3>
+                        <div class="alert alert-warning text-dark">
+                            <b>Installation Video: </b>
+                            <br>
+                            <b>This video shows you the steps on how to install Pipex Application (Cpanel):</b>
+                            <a href="https://youtu.be/Ann2VbRe9cg">Click here</a>
+                        </div>
+                        <p>Please follow the procedure.</p>
+                        <!-- Filter Job post-->
+                        <ul>
+                            <li>Download the zipped file from CodeCanyon.</li>
+                            <li>Upload the zipped file into cPanel / server.</li>
+                            <li>
+                                Unzip the zipped file. Inside the unzipped folder you will get two folders
+                                "Documentation"
+                                and "upload".
+                            </li>
+                            <li>
+                                Move all the items from the "upload" folder to the root directory. Please remember to
+                                show
+                                hidden files. There are 2 files named .env and .htaccess which are hidden by default.
+                                Remember to move all files.
+                            </li>
+                            <li>
+                                <p>Make sure you have correct access permission for these directories and files.</p>
+                                <ul>
+                                    <li>'src/env' => '644'</li>
+                                    <li>'src/config/' => '644'</li>
+                                    <li>'src/bootstrap/' => '755'</li>
+                                    <li>'src/bootstrap/cache/' => '755'</li>
+                                    <li>'src/storage/' => '755'</li>
+                                    <li>'src/storage/logs/' => '755'</li>
+                                    <li>'src/storage/framework/' => '755'</li>
+                                    <img src="images/folder_permission.png" class="img-fluid mx-auto mt-3" width="560"
+                                        alt="">
+                                </ul>
+                            </li>
+                            <li>
+                                Create the database and remember these things for future usage.
+                                <ul>
+                                    <li>Database name.</li>
+                                    <li>Username.</li>
+                                    <li>Password.</li>
+                                </ul>
+                                <div class="note note-warning p-4">
+                                    <ul>
+                                        <li>
+                                            <p>Database name, username and Password must not contain # or white space.
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                Make sure that your server must meet our <a target="_blank"
+                                    href="server-requirement.html">
+                                    Server Requirements </a>.
+                            </li>
+                            <li>
+                                Go to URL <span style="color:#007bff">your_domain/install/</span>. Follow the easy
+                                installer
+                                procedures step by step and install the application.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="setup_wizard" class="scrollspy-section mb-5" data-for="setup_wizard">
+                        <h4>Set Up Wizard</h4>
+
+                        <p>Please follow the procedure.</p>
+                        <ul style="list-style: none">
+                            <li class="pt-4">
+                                <h5>01. Required Environment</h5>
+                                <p>You will find the installer using this URL: <span
+                                        style="color:#007bff">your_domain/install/</span>.
+                                </p>
+                                <img src="images/installation/install_requirement.png" class="img-fluid mx-auto" alt="">
+                            </li>
+                            <li class="pt-4">
+                                <h5>02. Additional Requirement</h5>
+                                <p>Make sure you have symlink permission enabled otherwise you won't able change any
+                                    images.</p>
+                                <img src="images/installation/additional_requirement.png" class="img-fluid mx-auto"
+                                    alt="">
+                            </li>
+                            <li class="pt-4">
+                                <h5>03. Purchase Code</h5>
+                                <p>Make sure you use correct purchase code. On success you will get "Purchase code
+                                    verified
+                                    successfully" message and redirection on next step.</p>
+                                <p>Possible Error Cases response are "Invalid Purchase code", "Request Failed" etc.</p>
+                                <p><span style="font-weight: bold"><i>"Invalid Purchase code"</i></span> : Re check you
+                                    purchase code again.</p>
+                                <p><span style="font-weight: bold"><i>"Request Failed"</i></span>: Your server could
+                                    able to
+                                    communicate with another server to verify purchase code.</p>
+                                <p>If there is any problem occurs in this section then please check Error log and copy
+                                    error
+                                    log and contact <span style="color:#007bff">support@gainhq.com</span> to further
+                                    assistance.</p>
+                                <img src="images/installation/purchase_code.png" class="img-fluid mx-auto" alt="">
+                            </li>
+                            <li class="pt-4">
+                                <h5>04. Database Configuration</h5>
+                                <p>Make sure you use correct credentials.</p>
+                                <ul>
+                                    <li>
+                                        <p><span style="font-weight: bold"><i>Database Host</i></span> usually used
+                                            localhost. (Some VPS Server it might differs).</p>
+                                    </li>
+                                    <li>
+                                        <p><span style="font-weight: bold"><i>Database Port</i></span> usually used
+                                            3306.
+                                            (It might differs in some case and if the port is occupied use different
+                                            port).</p>
+                                    </li>
+                                </ul>
+                                <div class="note note-warning p-4">
+                                    <ul>
+                                        <li>
+                                            <p>Database name, username and Password must not contain # or white space.
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <img src="images/installation/database_configuration.png" class="img-fluid mx-auto"
+                                    alt="">
+                            </li>
+                            <li class="pt-4">
+                                <h5>05. Admin Login Details</h5>
+                                <p>This email and password will be used as admin credentials to log in.</p>
+                                <p>Fill up necessary information and click Save and Next.</p>
+                                <img src="images/installation/admin_info.png" class="img-fluid mx-auto" alt="">
+                            </li>
+                            <li class="pt-4">
+                                <h5>06. Email Setup</h5>
+                                <p>Select any email delivery service (Sendmail, SMTP, Mailgun, Amazon SES) and fill up
+                                    the necessary information and click Save and Next. Or you can skip it and add it
+                                    after completing the installation from settings.</p>
+                                <img src="images/installation/email_setup.png" class="img-fluid mx-auto" alt="">
+                            </li>
+                            <li class="pt-4">
+                                <h5>07. Broadcast setup</h5>
+                                <p>Select "Pusher or Ajax" for Broadcast events. If you want to use "Pusher", you have
+                                    to generate "Broadcast event" credentials following this <a
+                                        href="">documentation</a>.</p>
+                                <img src="images/installation/broadcast_setup.png" class="img-fluid mx-auto" alt="">
+                            </li>
+                            <li class="pt-4">
+                                <h5>08. Login page</h5>
+                                <p>Login using admin email and password.</p>
+                                <img src="images/installation/login.png" class="img-fluid mx-auto" alt="">
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div id="after_installation" class="scrollspy-section mb-5" data-for="after_installation">
+                        <h4>After Installation</h4>
+                        <div class="note note-warning p-4">
+                            <ul>
+                                <li>
+                                    <p class="font-italic font-weight-bold mb-0">
+                                        Configure your email delivery service from <span style="color:#007bff">Settings
+                                            > App Settings > Email Setup</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="font-italic font-weight-bold mb-0">
+                                        Make sure that your email delivery service credentials is correct. Otherwise,
+                                        you
+                                        will
+                                        get
+                                        this type of message alert "Configure email setup properly" / "Server error"
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="scrollspy-section mb-5" id="dashboard">
+
+                    <div class="scrollspy-section mb-5" data-for="dashboard">
+                        <h3>Installation in root directory</h3>
+
+                        <p>Please follow the procedure.</p>
+                        <!-- Filter Job post-->
+                        <ul>
+                            <li>Download the zipped file from CodeCanyon.</li>
+                            <li>Upload the zipped file into cPanel / server.</li>
+                            <li>
+                                Unzip the zipped file. Inside the unzipped folder you will get two folders
+                                "Documentation"
+                                and "upload".
+                            </li>
+                            <li>
+                                Move all the items from the "upload" folder to the root directory. Please remember to
+                                show
+                                hidden files. There are 2 files named .env and .htaccess which are hidden by default.
+                                Remember to move all files.
+                            </li>
+                            <li>
+                                <p>Make sure you have correct access permission for these directories and files.</p>
+                                <ul>
+                                    <li>'src/env' => '644'</li>
+                                    <li>'src/config/' => '644'</li>
+                                    <li>'src/bootstrap/' => '755'</li>
+                                    <li>'src/bootstrap/cache/' => '755'</li>
+                                    <li>'src/storage/' => '755'</li>
+                                    <li>'src/storage/logs/' => '755'</li>
+                                    <li>'src/storage/framework/' => '755'</li>
+                                    <img src="images/folder_permission.png" class="img-fluid mx-auto mt-3" width="560"
+                                        alt="">
+                                </ul>
+                            </li>
+                            <li>
+                                Create the database and remember these things for future usage.
+                                <ul>
+                                    <li>Database name.</li>
+                                    <li>Username.</li>
+                                    <li>Password.</li>
+                                </ul>
+                                <div class="note note-warning p-4">
+                                    <ul>
+                                        <li>
+                                            <p>Database name, username and Password must not contain # or white space.
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>
+                                Make sure that your server must meet our <a target="_blank"
+                                    href="server-requirement.html">
+                                    Server Requirements </a>.
+                            </li>
+                            <li>
+                                Go to URL <span style="color:#007bff">your_domain/sub_folder/install/</span>. Follow the
+                                easy installer
+                                procedures step by step and install the application.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div id="setup_wizard" class="scrollspy-section mb-5" data-for="setup_wizard">
+                        <h4>Set Up Wizard</h4>
+
+                        <p>Please follow the procedure.</p>
+                        <ul style="list-style: none">
+                            <li class="pt-4">
+                                <h5>01. Required Environment</h5>
+                                <p>You will find the installer using this URL: <span
+                                        style="color:#007bff">your_domain/sub_folder/install/</span>.
+                                </p>
+                                <img src="images/installation/install_requirement.png" class="img-fluid mx-auto" alt="">
+                            </li>
+                            <li class="pt-4">
+                                <h5>02. Additional Requirement</h5>
+                                <p>Make sure you have symlink permission enabled otherwise you won't able change any
+                                    images.</p>
+                                <img src="images/installation/additional_requirement.png" class="img-fluid mx-auto"
+                                    alt="">
+                            </li>
+                            <li class="pt-4">
+                                <h5>03. Purchase Code</h5>
+                                <p>Make sure you use correct purchase code. On success you will get "Purchase code
+                                    verified
+                                    successfully" message and redirection on next step.</p>
+                                <p>Possible Error Cases response are "Invalid Purchase code", "Request Failed" etc.</p>
+                                <p><span style="font-weight: bold"><i>"Invalid Purchase code"</i></span> : Re check you
+                                    purchase code again.</p>
+                                <p><span style="font-weight: bold"><i>"Request Failed"</i></span>: Your server could
+                                    able to
+                                    communicate with another server to verify purchase code.</p>
+                                <p>If there is any problem occurs in this section then please check Error log and copy
+                                    error
+                                    log and contact <span style="color:#007bff">support@gainhq.com</span> to further
+                                    assistance.</p>
+                                <img src="images/installation/purchase_code.png" class="img-fluid mx-auto" alt="">
+                            </li>
+                            <li class="pt-4">
+                                <h5>04. Database Configuration</h5>
+                                <p>Make sure you use correct credentials.</p>
+                                <ul>
+                                    <li>
+                                        <p><span style="font-weight: bold"><i>Database Host</i></span> usually used
+                                            localhost. (Some VPS Server it might differs).</p>
+                                    </li>
+                                    <li>
+                                        <p><span style="font-weight: bold"><i>Database Port</i></span> usually used
+                                            3306.
+                                            (It might differs in some case and if the port is occupied use different
+                                            port).</p>
+                                    </li>
+                                </ul>
+                                <div class="note note-warning p-4">
+                                    <ul>
+                                        <li>
+                                            <p>Database name, username and Password must not contain # or white space.
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <img src="images/installation/database_configuration.png" class="img-fluid mx-auto"
+                                    alt="">
+                            </li>
+                            <li class="pt-4">
+                                <h5>05. Admin Login Details</h5>
+                                <p>This email and password will be used as admin credentials to log in.</p>
+                                <p>Fill up necessary information and click Save and Next.</p>
+                                <img src="images/installation/admin_info.png" class="img-fluid mx-auto" alt="">
+                            </li>
+                            <li class="pt-4">
+                                <h5>06. Login page</h5>
+                                <p>Login using admin email and password.</p>
+                                <img src="images/installation/login.png" class="img-fluid mx-auto" alt="">
+                            </li>
+
+                        </ul>
+                    </div>
+
+                    <div id="after_installation" class="scrollspy-section mb-5" data-for="after_installation">
+                        <h4>After Installation</h4>
+                        <div class="note note-warning p-4">
+                            <ul>
+                                <li>
+                                    <p class="font-italic font-weight-bold mb-0">
+                                        Configure your email delivery service from <span style="color:#007bff">Settings
+                                            > App Settings > Email Setup</span>
+                                    </p>
+                                </li>
+                                <li>
+                                    <p class="font-italic font-weight-bold mb-0">
+                                        Make sure that your email delivery service credentials is correct. Otherwise,
+                                        you
+                                        will
+                                        get
+                                        this type of message alert "Configure email setup properly" / "Server error"
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+            <section class="scrollspy-section" id="subFolder">
+
+            </section>
+        </div>
+    </div>
+    </div>
+
+    <a class="js-page-scrolling back-to-top" href="#top">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-up"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+                d="M7.646 4.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1-.708.708L8 5.707l-5.646 5.647a.5.5 0 0 1-.708-.708l6-6z" />
+        </svg>
+    </a>
+
+    <!-- JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+    <script src="js/documentation.js" type="text/javascript"></script>
+</body>
+
+</html>
