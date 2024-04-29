@@ -80,12 +80,12 @@
                 ],
             ],
         ],
-        [
+        /*[
            'icon' => 'file-text',
            'name' => __('default.invoices',[],$locale),
            'url' => request()->root().'/invoices/list',
            'permission' => authorize_any(['view_invoice']),
-        ],
+        ],*/
 
         [
             'id' => 'proposals',
