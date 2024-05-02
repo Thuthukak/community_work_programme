@@ -124,6 +124,14 @@
             ],
         ],
         [
+            'id' => 'Project management',
+            'icon' => 'clipboard',
+            'name' => __('Project management', [], $locale),
+            'url' => 'http://localhost:8000',
+            'permission' => authorize_any(['manage_dashboard']),
+            
+        ],
+        [
             'id' => __t('expenses'),
             'icon' => 'dollar-sign',
             'name' => __t('expenses'),

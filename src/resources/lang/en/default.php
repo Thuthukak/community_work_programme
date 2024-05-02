@@ -118,6 +118,7 @@ return array_merge(
         'show_password' => 'Show password',
         'hide_password' => 'Hide password',
         'allowed' => 'allowed',
+        'project_management' => 'Project management',
         'profile_picture' => 'Profile picture',
         'delivery_settings' => 'Delivery settings',
         'brand_settings' => 'Brand settings',

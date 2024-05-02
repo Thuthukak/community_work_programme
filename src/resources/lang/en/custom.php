@@ -97,6 +97,7 @@ return array_merge([
     'no_job_title_here' => 'No job title here',
     'follower' => 'Followers',
     'edit_follower' => 'Edit followers',
+    'project_management' => 'Project management',
     'type_to_create_or_search_tag' => 'Type to create or search tag',
     'request' => 'Request',
     'back_to_login' => 'Back to login',
@@ -653,6 +654,10 @@ return array_merge([
     'this_deal_person_has_no_email'=>'This deal person has no email',
     'invoice_email_send' => 'Invoice email send',
     'invoice_sending_attachment' => 'Invoice Sending Attachment',
+
+    //Project management
+    'projects_management' => 'Project Management',
+    'projects' => 'Projects',
 
 
     // CSV Import //
