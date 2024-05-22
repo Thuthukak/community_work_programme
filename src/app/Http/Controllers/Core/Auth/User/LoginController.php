@@ -8,8 +8,31 @@ use App\Services\Core\Auth\UserService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\RedirectResponse;
 use App\Hooks\User\CustomRoute;
+use Illuminate\Testing\Fluent\Concerns\Debugging; // Include the Debugging trait
+use Illuminate\Support\Stringable;
+// use Illuminate\Foundation\Auth\AuthenticatesUsers;
+
+
+
 class LoginController extends Controller
 {
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles authenticating users for the application and
+    | redirecting them to your home screen. The controller uses a trait
+    | to conveniently provide its functionality to your applications.
+    |
+    */
+
+
+
+
+//    use  AuthenticatesUsers;
     public function __construct(UserService $service)
     {
         $this->service = $service;
@@ -26,9 +49,15 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
+
+
         try {
             $this->service->login();
-            // custom hook
+            
+            //  Log::info(session()->all());
+
+            // $this->sendLoginResponse($request);
+            // custom hook  
             $route = CustomRoute::new(true)->handle();
             $route = count($route) ? $route : home_route();
             return route(

@@ -18,10 +18,16 @@ use App\Services\Core\BaseService;
 use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+// use Illuminate\Foundation\Auth\ThrottlesLogins;
+// use Illuminate\Foundation\Auth\ThrottlesLogins;
+use App\Models\ProjectManagement\Users\User as PMUser;
+
 
 class UserService extends BaseService
 {
     use FileHandler, Helpers, HasWhen, HasUserActions;
+        //  ThrottlesLogins;
 
     protected $role;
 
@@ -189,6 +195,17 @@ class UserService extends BaseService
                 ->setModel($user)
                 ->handle();
 
+
+                Log::info($user);
+                Log::info(session()->all());
+
+
+            // Log in the PM user
+            $this->loginPMUser(request()->get('email'), request()->get('password'));
+
+          
+
+
             return $user;
         }
 
@@ -198,6 +215,36 @@ class UserService extends BaseService
                 'email' => trans('default.email')
             ])
         );
+    }
+
+    protected function loginPMUser($email, $password)
+    {
+        $pmUser = PMUser::where('email', $email)->first();
+
+
+        Log::info($pmUser);
+
+
+        if ($pmUser && Hash::check($password, $pmUser->password)) {
+            auth()->guard('pm')->login($pmUser);
+
+                 // Manually generate the session for the PM user
+        // session()->put('pm_user', $pmUser->id);
+        session()->regenerate();
+
+        Log::info(session()->all());
+
+
+        } else {
+            throw new AuthenticationException(
+                trans('default.incorrect_user_password', [
+                    'password' => trans('default.password'),
+                    'email' => trans('default.email')
+                ])
+            );
+        }
+
+
     }
 
 
@@ -219,4 +266,37 @@ class UserService extends BaseService
     {
         return User::allAdmin() <= 1;
     }
+
+
+       /**
+     * The user has been authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function authenticated(Request $request, $user)
+    {
+        //
+    }
+
+     /**
+     * Send the response after the user was authenticated.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    protected function sendLoginResponse(Request $request)
+    {
+        $request->session()->regenerate();
+
+
+        Log::info(session()->all());
+
+        $this->clearLoginAttempts($request);
+
+        flash(__('auth.welcome', ['name' => $request->user()->name]));
+
+        return $this->authenticated($request, $this->guard()->user());   
+     }
 }

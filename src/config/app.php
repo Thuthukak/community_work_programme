@@ -190,6 +190,8 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
+        Barryvdh\Debugbar\ServiceProvider::class,
+
 
         // Package Service Providers that aren't auto-discover...
         Maatwebsite\Excel\ExcelServiceProvider::class,
@@ -254,5 +256,12 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
+
+         // Reference Facades
+        'PaymentType'      => App\Entities\Payments\Type::class,
+        'SubscriptionType' => App\Entities\Subscriptions\Type::class, 
+        'ProjectStatus'    => App\Entities\Projects\Status::class,
+        // 'AdminDashboard'   => Facades\App\Queries\AdminDashboardQuery::class,
+        'Option'           => Facades\App\Services\Option::class,
     ],
 ];
