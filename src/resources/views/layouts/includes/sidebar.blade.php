@@ -124,13 +124,34 @@
             ],
         ],
         [
-            'id' => 'Project management',
-            'icon' => 'clipboard',
-            'name' => __('Project management', [], $locale),
-            'url' => 'http://localhost:8000',
-            'permission' => authorize_any(['manage_dashboard']),
-            
+            'id' => 'project_management',
+            'icon' => 'project',
+            'name' => __('default.project_management',[],$locale),
+            'permission' => authorize_any(['view_projects']),
+            'subMenu' => [
+                [
+                    'name' => __('default.project_list',[],$locale),
+                    'url' => request()->root().'/activities/calendar/view/',
+                    'permission' => authorize_any(['view_activities']),
+                ],
+                [
+                    'name' => __('default.job_list',[],$locale),
+                    'url' => request()->root().'/activities/list/view',
+                    'permission' => authorize_any(['view_activities']),
+                ],
+                [
+                    'name' => __('default.issues',[],$locale),
+                    'url' => request()->root().'/activities/list/view',
+                    'permission' => authorize_any(['view_activities']),
+                ],  [
+                    'name' => __('default.subscriptions',[],$locale),
+                    'url' => request()->root().'/activities/list/view',
+                    'permission' => authorize_any(['view_activities']),
+                ],  
+              
+            ],
         ],
+    
         [
             'id' => __t('expenses'),
             'icon' => 'dollar-sign',

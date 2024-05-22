@@ -2,6 +2,8 @@
 
 namespace App\Models\Core\Auth;
 
+
+
 use Altek\Eventually\Eventually;
 use App\Models\Core\Auth\Traits\SendUserPasswordReset;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,6 +19,9 @@ abstract class BaseUser extends Authenticatable
         Notifiable,
         SendUserPasswordReset,
         SoftDeletes;
+
+    protected $connection = 'mysql'; // CRM database connection
+
 
     /**
      * The attributes that are mass assignable.
