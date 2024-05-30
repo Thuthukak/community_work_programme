@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ProjectManagement\Projects;
 
 use App\Models\Payments\Payment;
-use App\Models\Projects\Project;
+use App\Models\ProjectManagement\Projects\Project;
 use App\Models\Users\User;
 use App\Http\Controllers\Controller;
 
@@ -17,7 +17,7 @@ class FeesController extends Controller
     /**
      * Show create project fee form.
      *
-     * @param  \App\Entities\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
      * @return \Illuminate\View\View
      */
     public function create(Project $project)
@@ -26,13 +26,13 @@ class FeesController extends Controller
 
         $partners = User::pluck('name', 'id')->all();
 
-        return view('projects.fees.create', compact('project', 'partners'));
+        return view('crm.projects.fees.create', compact('project', 'partners'));
     }
 
     /**
      * Store new fee entry to the database.
      *
-     * @param  \App\Entities\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
      * @return \Illuminate\Routing\Redirector
      */
     public function store(Project $project)

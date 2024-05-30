@@ -17,6 +17,14 @@ class Task extends Model
         'deleted' => 'App\Events\Tasks\Deleted',
     ];
 
+
+    /**
+     *  project management database connection
+     */
+
+     protected $connection = 'mysql_second';
+
+
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     protected $touches = ['job'];

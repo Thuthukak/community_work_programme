@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\ProjectManagement\Projects;
 
-use App\Entities\Projects\Project;
+use App\Models\ProjectManagement\Projects\Project;
 use App\Http\Requests\Request;
 
 class UpdateRequest extends Request

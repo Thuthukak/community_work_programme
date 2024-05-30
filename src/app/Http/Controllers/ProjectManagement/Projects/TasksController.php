@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\ProjectManagement\Projects;
 
-use App\Models\Projects\Job;
-use App\Models\Projects\Task;
+use App\Models\ProjectManagement\Projects\Job;
+use App\Models\ProjectManagement\Projects\Task;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Tasks\CreateRequest;
 use App\Http\Requests\Tasks\DeleteRequest;
@@ -21,7 +21,7 @@ class TasksController extends Controller
      * Store a created job task to the database.
      *
      * @param  \App\Http\Requests\Tasks\CreateRequest  $request
-     * @param  \App\Entities\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return \Illuminate\Routing\Redirector
      */
     public function store(CreateRequest $request, Job $job)
@@ -39,7 +39,7 @@ class TasksController extends Controller
      * Update a task on the database.
      *
      * @param  \App\Http\Requests\Tasks\UpdateRequest  $request
-     * @param  \App\Entities\Projects\Task  $task
+     * @param  \App\Models\ProjectManagement\Projects\Task  $task
      * @return \Illuminate\Routing\Redirector
      */
     public function update(UpdateRequest $request, Task $task)
@@ -55,7 +55,7 @@ class TasksController extends Controller
      * Delete task from the database.
      *
      * @param  \App\Http\Requests\Tasks\DeleteRequest  $request
-     * @param  \App\Entities\Projects\Task  $task
+     * @param  \App\Models\ProjectManagement\Projects\Task  $task
      * @return \Illuminate\Routing\Redirector
      */
     public function destroy(DeleteRequest $request, Task $task)
@@ -73,7 +73,7 @@ class TasksController extends Controller
     /**
      * Set a task to become a job.
      *
-     * @param  \App\Entities\Projects\Task  $task
+     * @param  \App\Models\ProjectManagement\Projects\Task  $task
      * @return \Illuminate\Routing\Redirector
      */
     public function setAsJob(Task $task)

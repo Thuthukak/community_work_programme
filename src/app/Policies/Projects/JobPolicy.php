@@ -2,7 +2,7 @@
 
 namespace App\Policies\Projects;
 
-use App\Entities\Projects\Job;
+use App\Models\ProjectManagement\Projects\Job;
 use App\Entities\Users\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -19,7 +19,7 @@ class JobPolicy
      * Determine whether the user can view the job.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return mixed
      */
     public function view(User $user, Job $job)
@@ -32,7 +32,7 @@ class JobPolicy
      * Determine whether the user can create jobs.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return mixed
      */
     public function create(User $user, Job $job)
@@ -44,7 +44,7 @@ class JobPolicy
      * Determine whether the user can update the job.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return mixed
      */
     public function update(User $user, Job $job)
@@ -56,7 +56,7 @@ class JobPolicy
      * Determine whether the user can delete the job.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return mixed
      */
     public function delete(User $user, Job $job)
@@ -68,7 +68,7 @@ class JobPolicy
      * Determine whether the user can see job pricings.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return mixed
      */
     public function seePricings(User $user, Job $job)
@@ -80,7 +80,7 @@ class JobPolicy
      * Determine whether the user can view job comments.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return bool
      */
     public function viewComments(User $user, Job $job)
@@ -94,7 +94,7 @@ class JobPolicy
      * Determine whether the user can add comment to a job.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return bool
      */
     public function commentOn(User $user, Job $job)

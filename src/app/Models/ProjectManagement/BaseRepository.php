@@ -2,9 +2,9 @@
 
 namespace App\Models\ProjectManagement;
 
-use App\Entities\Partners\Customer;
-use App\Entities\Projects\Job;
-use App\Entities\Users\User;
+use App\Models\ProjectManagement\Partners\Customer;
+use App\Models\ProjectManagement\Projects\Job;
+use App\Models\ProjectManagement\Users\User;
 
 /**
  * Base Repository Class.
@@ -39,7 +39,7 @@ abstract class BaseRepository extends EloquentRepository
      * Get Job by it's id.
      *
      * @param  int  $jobId
-     * @return \App\Entities\Projects\Job
+     * @return \App\Models\ProjectManagement\Projects\Job
      */
     public function requireJobById($jobId)
     {

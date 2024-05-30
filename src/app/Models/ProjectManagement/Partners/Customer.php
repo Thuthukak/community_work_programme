@@ -13,6 +13,14 @@ class Customer extends Model
      */
     protected $fillable = ['name', 'email', 'phone', 'pic', 'address', 'website', 'notes', 'is_active'];
 
+
+
+    /**
+     *  project management database connection
+     */
+
+     protected $connection = 'mysql_second';
+
     /**
      * Customer has many projects.
      *
@@ -20,7 +28,7 @@ class Customer extends Model
      */
     public function projects()
     {
-        return $this->hasMany('App\Entities\Projects\Project');
+        return $this->hasMany('App\Models\ProjectManagement\Projects\Project');
     }
 
     /**
@@ -30,7 +38,7 @@ class Customer extends Model
      */
     public function payments()
     {
-        return $this->morphMany('App\Entities\Payments\Payment', 'partner');
+        return $this->morphMany('App\Models\ProjectManagement\Payments\Payment', 'partner');
     }
 
     /**
@@ -40,7 +48,7 @@ class Customer extends Model
      */
     public function subscriptions()
     {
-        return $this->hasMany('App\Entities\Subscriptions\Subscription');
+        return $this->hasMany('App\Models\ProjectManagement\Subscriptions\Subscription');
     }
 
     /**
@@ -50,7 +58,7 @@ class Customer extends Model
      */
     public function invoices()
     {
-        return $this->hasManyThrough('App\Entities\Invoices\Invoice', 'App\Entities\Projects\Project');
+        return $this->hasManyThrough('App\Models\ProjectManagement\Invoices\Invoice', 'App\Models\ProjectManagement\Projects\Project');
     }
 
     /**

@@ -3,8 +3,8 @@
 namespace App\Queries;
 
 use App\Entities\Payments\Payment;
-use App\Entities\Projects\Job;
-use App\Entities\Projects\Project;
+use App\Models\ProjectManagement\Projects\Job;
+use App\Models\ProjectManagement\Projects\Project;
 use App\Entities\Subscriptions\Subscription;
 use App\Entities\Users\User;
 use Carbon\Carbon;

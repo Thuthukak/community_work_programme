@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ProjectManagement\Invoices;
 
 use App\Models\Invoices\BankAccount;
 use App\Models\Invoices\Invoice;
-use App\Models\Projects\Project;
+use App\Models\ProjectManagement\Projects\Project;
 use App\Http\Controllers\Controller;
 
 /**

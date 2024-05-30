@@ -2,7 +2,7 @@
 
 namespace App\Events\Tasks;
 
-use App\Entities\Projects\Task;
+use App\Models\ProjectManagement\Projects\Task;
 
 class Created
 {

@@ -2,8 +2,8 @@
 
 namespace App\Http\Requests\ProjectManagement;
 
-use App\Entities\Projects\Project;
-use App\Entities\Subscriptions\Subscription;
+use App\Models\ProjectManagement\Projects\Project;
+use App\Models\ProjectManagement\Subscriptions\Subscription;
 
 class SubscriptionRequest extends Request
 {

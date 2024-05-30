@@ -125,27 +125,23 @@
         ],
         [
             'id' => 'project_management',
-            'icon' => 'project',
+            'icon' => 'clipboard',
             'name' => __('default.project_management',[],$locale),
             'permission' => authorize_any(['view_projects']),
             'subMenu' => [
                 [
                     'name' => __('default.project_list',[],$locale),
-                    'url' => request()->root().'/activities/calendar/view/',
-                    'permission' => authorize_any(['view_activities']),
+                    'url' => request()->root().'/projects',
+                    'permission' => authorize_any(['view_projects']),
                 ],
                 [
                     'name' => __('default.job_list',[],$locale),
-                    'url' => request()->root().'/activities/list/view',
+                    'url' => request()->root().'/jobs',
                     'permission' => authorize_any(['view_activities']),
                 ],
-                [
-                    'name' => __('default.issues',[],$locale),
-                    'url' => request()->root().'/activities/list/view',
-                    'permission' => authorize_any(['view_activities']),
-                ],  [
+               [
                     'name' => __('default.subscriptions',[],$locale),
-                    'url' => request()->root().'/activities/list/view',
+                    'url' => request()->root().'/subscriptions',
                     'permission' => authorize_any(['view_activities']),
                 ],  
               

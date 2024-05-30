@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\ProjectManagement\Jobs;
 
-use App\Models\Projects\Comment;
-use App\Models\Projects\Job;
+use App\Models\ProjectManagement\Projects\Comment;
+use App\Models\ProjectManagement\Projects\Job;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -12,7 +12,7 @@ class CommentsController extends Controller
     /**
      * Display a listing of the job comments.
      *
-     * @param  \App\Entities\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return \Illuminate\View\View
      */
     public function index(Job $job)
@@ -33,7 +33,7 @@ class CommentsController extends Controller
      * Store a new comment in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Entities\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, Job $job)
@@ -58,7 +58,7 @@ class CommentsController extends Controller
      * Update the specified comment.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Entities\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @param  \App\Entities\Jobs\Comment  $comment
      * @return \Illuminate\Http\Response
      */

@@ -2,7 +2,7 @@
 
 namespace App\Models\ProjectManagement\Users;
 
-use App\Entities\Projects\Project;
+use App\Models\ProjectManagement\Projects\Project;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -25,6 +25,13 @@ class Event extends Model
      * @var array
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+
+     /**
+     *  project management database connection
+     */
+
+     protected $connection = 'mysql_second';
 
     /**
      * The attributes that should be cast to native types.

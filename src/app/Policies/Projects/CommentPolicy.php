@@ -2,7 +2,7 @@
 
 namespace App\Policies\Projects;
 
-use App\Entities\Projects\Comment;
+use App\Models\ProjectManagement\Projects\Comment;
 use App\Entities\Users\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -19,7 +19,7 @@ class CommentPolicy
      * Determine whether the user can update the comment.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Comment  $comment
+     * @param  \App\Models\ProjectManagement\Projects\Comment  $comment
      * @return bool
      */
     public function update(User $user, Comment $comment)
@@ -33,7 +33,7 @@ class CommentPolicy
      * Determine whether the user can delete the comment.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Comment  $comment
+     * @param  \App\Models\ProjectManagement\Projects\Comment  $comment
      * @return bool
      */
     public function delete(User $user, Comment $comment)

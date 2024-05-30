@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\ProjectManagement\Projects;
 
-use App\Models\Projects\Comment;
-use App\Models\Projects\Issue;
-use App\Models\Projects\IssueStatus;
-use App\Models\Projects\Priority;
-use App\Models\Projects\Project;
+use App\Models\ProjectManagement\Projects\Comment;
+use App\Models\ProjectManagement\Projects\Issue;
+use App\Models\ProjectManagement\Projects\IssueStatus;
+use App\Models\ProjectManagement\Projects\Priority;
+use App\Models\ProjectManagement\Projects\Project;
 use App\Models\Users\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -30,7 +30,7 @@ class IssueController extends Controller
 
         $issues = $issueQuery->get();
 
-        return view('projects.issues.index', compact('project', 'issues'));
+        return view('crm.projects.issues.index', compact('project', 'issues'));
     }
 
     public function create(Project $project)

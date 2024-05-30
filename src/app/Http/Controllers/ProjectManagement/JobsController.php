@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\ProjectManagement;
 
-use App\Models\Projects\Comment;
-use App\Models\Projects\Job;
-use App\Models\Projects\JobsRepository;
-use App\Models\Projects\Project;
+use App\Models\ProjectManagement\Projects\Comment;
+use App\Models\ProjectManagement\Projects\Job;
+use App\Models\ProjectManagement\Projects\JobsRepository;
+use App\Models\ProjectManagement\Projects\Project;
 use App\Http\Requests\Jobs\DeleteRequest;
 use App\Http\Requests\Jobs\UpdateRequest;
 use Illuminate\Http\Request;
@@ -18,14 +18,14 @@ use Illuminate\Http\Request;
 class JobsController extends Controller
 {
     /**
-     * @var \App\Entities\Projects\JobsRepository
+     * @var \App\Models\ProjectManagement\Projects\JobsRepository
      */
     private $repo;
 
     /**
      * Create new Jobs Controller.
      *
-     * @param  \App\Entities\Projects\JobsRepository  $repo
+     * @param  \App\Models\ProjectManagement\Projects\JobsRepository  $repo
      */
     public function __construct(JobsRepository $repo)
     {
@@ -58,7 +58,7 @@ class JobsController extends Controller
      * Show a job detail.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Entities\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return \Illuminate\View\View
      */
     public function show(Request $request, Job $job)
@@ -87,7 +87,7 @@ class JobsController extends Controller
     /**
      * Show a job edit form.
      *
-     * @param  \App\Entities\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return \Illuminate\View\View
      */
     public function edit(Job $job)
@@ -103,7 +103,7 @@ class JobsController extends Controller
      * Update a job on database.
      *
      * @param  \App\Http\Requests\Jobs\UpdateRequest  $request
-     * @param  \App\Entities\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return \Illuminate\Routing\Redirector
      */
     public function update(UpdateRequest $request, Job $job)
@@ -117,7 +117,7 @@ class JobsController extends Controller
     /**
      * Show job delete confirmation page.
      *
-     * @param  \App\Entities\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return \Illuminate\View\View
      */
     public function delete(Job $job)
@@ -129,7 +129,7 @@ class JobsController extends Controller
      * Show job delete confirmation page.
      *
      * @param  \App\Http\Requests\Jobs\DeleteRequest  $request
-     * @param  \App\Entities\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return \Illuminate\View\View
      */
     public function destroy(DeleteRequest $request, Job $job)
@@ -151,7 +151,7 @@ class JobsController extends Controller
      * Reorder job task position.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Entities\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return string|null
      */
     public function tasksReorder(Request $request, Job $job)

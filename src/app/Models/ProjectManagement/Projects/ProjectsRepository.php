@@ -2,9 +2,9 @@
 
 namespace App\Models\ProjectManagement\Projects;
 
-use App\Entities\BaseRepository;
-use App\Entities\Partners\Customer;
-use App\Entities\Users\User;
+use App\Models\ProjectManagement\BaseRepository;
+use App\Models\ProjectManagement\Partners\Customer;
+use App\Models\ProjectManagement\Users\User;
 use DB;
 use ProjectStatus;
 
@@ -22,9 +22,12 @@ class ProjectsRepository extends BaseRepository
 
     public function getProjects($q, $statusId, User $user)
     {
-        $statusIds = array_keys(ProjectStatus::toArray());
+        // $statusIds = array_keys(ProjectStatus::toArray());
 
-        if ($user->hasRole('admin') == false) {
+        $statusIds = 1;
+
+
+        if ($user->hasRole('admin') == true) {
             return $user->projects()
                 ->where(function ($query) use ($q, $statusId, $statusIds) {
                     $query->where('projects.name', 'like', '%'.$q.'%');

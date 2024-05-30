@@ -2,8 +2,8 @@
 
 namespace App\Models\ProjectManagement\Projects;
 
-use App\Entities\BaseRepository;
-use App\Entities\Users\User;
+use App\Models\ProjectManagement\BaseRepository;
+use App\Models\ProjectManagement\Users\User;
 use App\Queries\AdminDashboardQuery;
 use DB;
 

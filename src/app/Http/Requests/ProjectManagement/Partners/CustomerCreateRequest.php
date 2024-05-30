@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\ProjectManagement\Partners;
 
-use App\Entities\Partners\Customer;
+use App\Models\ProjectManagement\Partners\Customer;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CustomerCreateRequest extends FormRequest

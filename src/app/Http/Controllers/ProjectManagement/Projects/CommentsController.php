@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\ProjectManagement\Projects;
 
-use App\Models\Projects\Comment;
-use App\Models\Projects\Project;
+use App\Models\ProjectManagement\Projects\Comment;
+use App\Models\ProjectManagement\Projects\Project;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -12,7 +12,7 @@ class CommentsController extends Controller
     /**
      * Display a listing of the project comments.
      *
-     * @param  \App\Entities\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
      * @return \Illuminate\View\View
      */
     public function index(Project $project)
@@ -26,14 +26,14 @@ class CommentsController extends Controller
             $editableComment = Comment::find(request('comment_id'));
         }
 
-        return view('projects.comments', compact('project', 'comments', 'editableComment'));
+        return view('crm.projects.comments', compact('project', 'comments', 'editableComment'));
     }
 
     /**
      * Store a new comment in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Entities\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, Project $project)
@@ -58,8 +58,8 @@ class CommentsController extends Controller
      * Update the specified comment.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Entities\Projects\Project  $project
-     * @param  \App\Entities\Projects\Comment  $comment
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Comment  $comment
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Project $project, Comment $comment)
@@ -78,7 +78,7 @@ class CommentsController extends Controller
     /**
      * Remove the specified comment.
      *
-     * @param  \App\Entities\Projects\Comment  $comment
+     * @param  \App\Models\ProjectManagement\Projects\Comment  $comment
      * @return \Illuminate\Routing\Redirector
      */
     public function destroy(Project $project, Comment $comment)

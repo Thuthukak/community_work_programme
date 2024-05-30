@@ -2,7 +2,7 @@
 
 namespace App\Models\ProjectManagement\Projects;
 
-use App\Entities\ReferenceAbstract;
+use App\Models\ProjectManagement\ReferenceAbstract;
 
 class Priority extends ReferenceAbstract
 {

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ProjectManagement\Issues;
 
-use App\Models\Projects\Issue;
+use App\Models\ProjectManagement\Projects\Issue;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

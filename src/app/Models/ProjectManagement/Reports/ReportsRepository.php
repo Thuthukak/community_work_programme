@@ -2,8 +2,8 @@
 
 namespace App\Models\ProjectManagement\Reports;
 
-use App\Entities\Payments\Payment;
-use App\Entities\Projects\Project;
+use App\Models\ProjectManagement\Payments\Payment;
+use App\Models\ProjectManagement\Projects\Project;
 use DB;
 
 /**
@@ -16,14 +16,14 @@ class ReportsRepository extends BaseRepository
     /**
      * Payment model.
      *
-     * @var \App\Entities\Payments\Payment
+     * @var \App\Models\ProjectManagement\Payments\Payment
      */
     protected $model;
 
     /**
      * Create ReportsRepository class instance.
      *
-     * @param  \App\Entities\Payments\Payment  $model
+     * @param  \App\Models\ProjectManagement\Payments\Payment  $model
      */
     public function __construct(Payment $model)
     {

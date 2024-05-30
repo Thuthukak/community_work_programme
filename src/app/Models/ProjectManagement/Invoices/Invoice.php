@@ -2,8 +2,8 @@
 
 namespace App\Models\ProjectManagement\Invoices;
 
-use App\Entities\Projects\Project;
-use App\Entities\Users\User;
+use App\Models\ProjectManagement\Projects\Project;
+use App\Models\ProjectManagement\Users\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**

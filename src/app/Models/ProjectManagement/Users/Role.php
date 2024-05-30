@@ -2,7 +2,7 @@
 
 namespace App\Models\ProjectManagement\Users;
 
-use App\Entities\ReferenceAbstract;
+use App\Models\ProjectManagement\ReferenceAbstract;
 
 /**
  * Role reference class.

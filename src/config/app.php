@@ -260,7 +260,7 @@ return [
          // Reference Facades
         'PaymentType'      => App\Entities\Payments\Type::class,
         'SubscriptionType' => App\Entities\Subscriptions\Type::class, 
-        'ProjectStatus'    => App\Entities\Projects\Status::class,
+        'ProjectStatus'    => App\Models\ProjectManagement\Projects\Status::class,
         // 'AdminDashboard'   => Facades\App\Queries\AdminDashboardQuery::class,
         'Option'           => Facades\App\Services\Option::class,
     ],

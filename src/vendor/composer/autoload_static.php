@@ -36,6 +36,7 @@ class ComposerStaticInit846c0d5b03a8d09ff62b6bc630aa979f
         '58571171fd5812e6e447dce228f52f4d' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Support/helpers.php',
         '2cffec82183ee1cea088009cef9a6fc3' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier.composer.php',
         '9cdd7b9056abc3081735233ba9dd9c7f' => __DIR__ . '/..' . '/facade/flare-client-php/src/helpers.php',
+        'f18cc91337d49233e5754e93f3ed9ec3' => __DIR__ . '/..' . '/laravelcollective/html/src/helpers.php',
         '6124b4c8570aa390c21fafd04a26c69f' => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy/deep_copy.php',
         '3109cb1a231dcd04bee1f9f620d46975' => __DIR__ . '/..' . '/paragonie/sodium_compat/autoload.php',
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
@@ -43,6 +44,7 @@ class ComposerStaticInit846c0d5b03a8d09ff62b6bc630aa979f
         '4a1f389d6ce373bda9e57857d3b61c84' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/helpers.php',
         'ed962a97bd972bc82007176b647d4e36' => __DIR__ . '/..' . '/facade/ignition/src/helpers.php',
         'a1af1fc0cffb5f61cbaf64dbe030fdb9' => __DIR__ . '/..' . '/laravel/legacy-factories/helpers.php',
+        '18b0fd6f8f5d157160ba19def6cf822e' => __DIR__ . '/../..' . '/app/helpers.php',
     );
 
     public static $prefixLengthsPsr4 = array (
@@ -147,6 +149,7 @@ class ComposerStaticInit846c0d5b03a8d09ff62b6bc630aa979f
         ),
         'L' => 
         array (
+            'Luthfi\\FormField\\' => 17,
             'League\\MimeTypeDetection\\' => 25,
             'League\\Flysystem\\' => 17,
             'League\\Config\\' => 14,
@@ -216,6 +219,7 @@ class ComposerStaticInit846c0d5b03a8d09ff62b6bc630aa979f
             'Composer\\Pcre\\' => 14,
             'Composer\\ClassMapGenerator\\' => 27,
             'Complex\\' => 8,
+            'Collective\\Html\\' => 16,
             'Codedungeon\\PHPUnitPrettyResultPrinter\\' => 39,
             'Codedungeon\\PHPCliColors\\' => 25,
             'Carbon\\Doctrine\\' => 16,
@@ -505,6 +509,10 @@ class ComposerStaticInit846c0d5b03a8d09ff62b6bc630aa979f
         array (
             0 => __DIR__ . '/..' . '/maatwebsite/excel/src',
         ),
+        'Luthfi\\FormField\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/luthfi/formfield/src',
+        ),
         'League\\MimeTypeDetection\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/mime-type-detection/src',
@@ -698,6 +706,10 @@ class ComposerStaticInit846c0d5b03a8d09ff62b6bc630aa979f
         array (
             0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
         ),
+        'Collective\\Html\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/laravelcollective/html/src',
+        ),
         'Codedungeon\\PHPUnitPrettyResultPrinter\\' => 
         array (
             0 => __DIR__ . '/..' . '/codedungeon/phpunit-result-printer/src',
@@ -761,6 +773,13 @@ class ComposerStaticInit846c0d5b03a8d09ff62b6bc630aa979f
             'Parsedown' => 
             array (
                 0 => __DIR__ . '/..' . '/erusev/parsedown',
+            ),
+        ),
+        'L' => 
+        array (
+            'Laracasts\\Presenter' => 
+            array (
+                0 => __DIR__ . '/..' . '/laracasts/presenter/src',
             ),
         ),
         'H' => 
@@ -1161,9 +1180,6 @@ class ComposerStaticInit846c0d5b03a8d09ff62b6bc630aa979f
         'App\\Http\\Requests\\ProjectManagement\\Jobs\\UpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProjectManagement/Jobs/UpdateRequest.php',
         'App\\Http\\Requests\\ProjectManagement\\Partners\\CustomerCreateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProjectManagement/Partners/CustomerCreateRequest.php',
         'App\\Http\\Requests\\ProjectManagement\\Partners\\CustomerUpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProjectManagement/Partners/CustomerUpdateRequest.php',
-        'App\\Http\\Requests\\ProjectManagement\\Payments\\CreateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProjectManagement/Payments/CreateRequest.php',
-        'App\\Http\\Requests\\ProjectManagement\\Payments\\DeleteRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProjectManagement/Payments/DeleteRequest.php',
-        'App\\Http\\Requests\\ProjectManagement\\Payments\\UpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProjectManagement/Payments/UpdateRequest.php',
         'App\\Http\\Requests\\ProjectManagement\\Projects\\CreateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProjectManagement/Projects/CreateRequest.php',
         'App\\Http\\Requests\\ProjectManagement\\Projects\\UpdateRequest' => __DIR__ . '/../..' . '/app/Http/Requests/ProjectManagement/Projects/UpdateRequest.php',
         'App\\Http\\Requests\\ProjectManagement\\Request' => __DIR__ . '/../..' . '/app/Http/Requests/ProjectManagement/Request.php',
@@ -1358,10 +1374,6 @@ class ComposerStaticInit846c0d5b03a8d09ff62b6bc630aa979f
         'App\\Models\\ProjectManagement\\Options\\Option' => __DIR__ . '/../..' . '/app/Models/ProjectManagement/Options/Option.php',
         'App\\Models\\ProjectManagement\\Partners\\Customer' => __DIR__ . '/../..' . '/app/Models/ProjectManagement/Partners/Customer.php',
         'App\\Models\\ProjectManagement\\Partners\\Vendor' => __DIR__ . '/../..' . '/app/Models/ProjectManagement/Partners/Vendor.php',
-        'App\\Models\\ProjectManagement\\Payments\\Payment' => __DIR__ . '/../..' . '/app/Models/ProjectManagement/Payments/Payment.php',
-        'App\\Models\\ProjectManagement\\Payments\\PaymentPresenter' => __DIR__ . '/../..' . '/app/Models/ProjectManagement/Payments/PaymentPresenter.php',
-        'App\\Models\\ProjectManagement\\Payments\\PaymentsRepository' => __DIR__ . '/../..' . '/app/Models/ProjectManagement/Payments/PaymentsRepository.php',
-        'App\\Models\\ProjectManagement\\Payments\\Type' => __DIR__ . '/../..' . '/app/Models/ProjectManagement/Payments/Type.php',
         'App\\Models\\ProjectManagement\\Projects\\Comment' => __DIR__ . '/../..' . '/app/Models/ProjectManagement/Projects/Comment.php',
         'App\\Models\\ProjectManagement\\Projects\\File' => __DIR__ . '/../..' . '/app/Models/ProjectManagement/Projects/File.php',
         'App\\Models\\ProjectManagement\\Projects\\Issue' => __DIR__ . '/../..' . '/app/Models/ProjectManagement/Projects/Issue.php',
@@ -2748,6 +2760,13 @@ class ComposerStaticInit846c0d5b03a8d09ff62b6bc630aa979f
         'Codedungeon\\PHPUnitPrettyResultPrinter\\ResultPrinter71' => __DIR__ . '/..' . '/codedungeon/phpunit-result-printer/src/ResultPrinter71.php',
         'Codedungeon\\PHPUnitPrettyResultPrinter\\ResultPrinter80' => __DIR__ . '/..' . '/codedungeon/phpunit-result-printer/src/ResultPrinter80.php',
         'Codedungeon\\PHPUnitPrettyResultPrinter\\ResultPrinter90' => __DIR__ . '/..' . '/codedungeon/phpunit-result-printer/src/ResultPrinter90.php',
+        'Collective\\Html\\Componentable' => __DIR__ . '/..' . '/laravelcollective/html/src/Componentable.php',
+        'Collective\\Html\\Eloquent\\FormAccessible' => __DIR__ . '/..' . '/laravelcollective/html/src/Eloquent/FormAccessible.php',
+        'Collective\\Html\\FormBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/FormBuilder.php',
+        'Collective\\Html\\FormFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/FormFacade.php',
+        'Collective\\Html\\HtmlBuilder' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlBuilder.php',
+        'Collective\\Html\\HtmlFacade' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlFacade.php',
+        'Collective\\Html\\HtmlServiceProvider' => __DIR__ . '/..' . '/laravelcollective/html/src/HtmlServiceProvider.php',
         'Complex\\Complex' => __DIR__ . '/..' . '/markbaker/complex/classes/src/Complex.php',
         'Complex\\Exception' => __DIR__ . '/..' . '/markbaker/complex/classes/src/Exception.php',
         'Complex\\Functions' => __DIR__ . '/..' . '/markbaker/complex/classes/src/Functions.php',
@@ -5812,6 +5831,10 @@ class ComposerStaticInit846c0d5b03a8d09ff62b6bc630aa979f
         'JmesPath\\TreeInterpreter' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/TreeInterpreter.php',
         'JmesPath\\Utils' => __DIR__ . '/..' . '/mtdowling/jmespath.php/src/Utils.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
+        'Laracasts\\Presenter\\Contracts\\PresentableInterface' => __DIR__ . '/..' . '/laracasts/presenter/src/Laracasts/Presenter/Contracts/PresentableInterface.php',
+        'Laracasts\\Presenter\\Exceptions\\PresenterException' => __DIR__ . '/..' . '/laracasts/presenter/src/Laracasts/Presenter/Exceptions/PresenterException.php',
+        'Laracasts\\Presenter\\PresentableTrait' => __DIR__ . '/..' . '/laracasts/presenter/src/Laracasts/Presenter/PresentableTrait.php',
+        'Laracasts\\Presenter\\Presenter' => __DIR__ . '/..' . '/laracasts/presenter/src/Laracasts/Presenter/Presenter.php',
         'Laravel\\SerializableClosure\\Contracts\\Serializable' => __DIR__ . '/..' . '/laravel/serializable-closure/src/Contracts/Serializable.php',
         'Laravel\\SerializableClosure\\Contracts\\Signer' => __DIR__ . '/..' . '/laravel/serializable-closure/src/Contracts/Signer.php',
         'Laravel\\SerializableClosure\\Exceptions\\InvalidSignatureException' => __DIR__ . '/..' . '/laravel/serializable-closure/src/Exceptions/InvalidSignatureException.php',
@@ -6271,6 +6294,9 @@ class ComposerStaticInit846c0d5b03a8d09ff62b6bc630aa979f
         'League\\MimeTypeDetection\\GeneratedExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/GeneratedExtensionToMimeTypeMap.php',
         'League\\MimeTypeDetection\\MimeTypeDetector' => __DIR__ . '/..' . '/league/mime-type-detection/src/MimeTypeDetector.php',
         'League\\MimeTypeDetection\\OverridingExtensionToMimeTypeMap' => __DIR__ . '/..' . '/league/mime-type-detection/src/OverridingExtensionToMimeTypeMap.php',
+        'Luthfi\\FormField\\FormField' => __DIR__ . '/..' . '/luthfi/formfield/src/FormField.php',
+        'Luthfi\\FormField\\FormFieldFacade' => __DIR__ . '/..' . '/luthfi/formfield/src/FormFieldFacade.php',
+        'Luthfi\\FormField\\FormFieldServiceProvider' => __DIR__ . '/..' . '/luthfi/formfield/src/FormFieldServiceProvider.php',
         'Maatwebsite\\Excel\\Cache\\BatchCache' => __DIR__ . '/..' . '/maatwebsite/excel/src/Cache/BatchCache.php',
         'Maatwebsite\\Excel\\Cache\\BatchCacheDeprecated' => __DIR__ . '/..' . '/maatwebsite/excel/src/Cache/BatchCacheDeprecated.php',
         'Maatwebsite\\Excel\\Cache\\CacheManager' => __DIR__ . '/..' . '/maatwebsite/excel/src/Cache/CacheManager.php',

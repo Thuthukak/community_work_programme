@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ProjectManagement\Invoices;
 
-use App\Models\Projects\Project;
+use App\Models\ProjectManagement\Projects\Project;
 use App\Http\Controllers\Controller;
 use App\Services\InvoiceDrafts\InvoiceDraft;
 use App\Services\InvoiceDrafts\InvoiceDraftCollection;

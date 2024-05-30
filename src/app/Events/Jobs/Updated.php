@@ -2,7 +2,7 @@
 
 namespace App\Events\Jobs;
 
-use App\Entities\Projects\Job;
+use App\Models\ProjectManagement\Projects\Job;
 
 class Updated
 {

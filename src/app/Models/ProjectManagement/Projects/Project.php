@@ -2,10 +2,10 @@
 
 namespace App\Models\ProjectManagement\Projects;
 
-use App\Entities\Invoices\Invoice;
-use App\Entities\Partners\Customer;
-use App\Entities\Payments\Payment;
-use App\Entities\Subscriptions\Subscription;
+use App\Models\ProjectManagement\Invoices\Invoice;
+use App\Models\ProjectManagement\Partners\Customer;
+use App\Models\ProjectManagement\Payments\Payment;
+use App\Models\ProjectManagement\Subscriptions\Subscription;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
@@ -28,8 +28,15 @@ class Project extends Model
         'updated' => 'App\Events\Projects\Updated',
     ];
 
+
     /**
-     * @var \App\Entities\Projects\ProjectPresenter
+     *  project management database connection
+     */
+
+     protected $connection = 'mysql_second';
+
+    /**
+     * @var \App\Models\ProjectManagement\Projects\ProjectPresenter
      */
     protected $presenter = ProjectPresenter::class;
 

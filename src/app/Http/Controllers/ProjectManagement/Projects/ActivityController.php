@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\ProjectManagement\Projects;
 
-use App\Models\Projects\Project;
-use App\Models\Users\Activity;
+use App\Models\ProjectManagement\Projects\Project;
+use App\Models\ProjectManagement\Users\Activity;
 use App\Http\Controllers\Controller;
 
 class ActivityController extends Controller
@@ -29,6 +29,6 @@ class ActivityController extends Controller
 
         $activities = $activityQuery->latest()->paginate(50);
 
-        return view('projects.activities.index', compact('project', 'activities'));
+        return view('crm.projects.activities.index', compact('project', 'activities'));
     }
 }

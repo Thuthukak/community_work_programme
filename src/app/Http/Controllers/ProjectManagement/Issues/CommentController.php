@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\ProjectManagement\Issues;
 
-use App\Models\Projects\Comment;
-use App\Models\Projects\Issue;
+use App\Models\ProjectManagement\Projects\Comment;
+use App\Models\ProjectManagement\Projects\Issue;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -13,7 +13,7 @@ class CommentController extends Controller
      * Store a new comment in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Entities\Projects\Issue  $issue
+     * @param  \App\Models\ProjectManagement\Projects\Issue  $issue
      * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request, Issue $issue)
@@ -39,8 +39,8 @@ class CommentController extends Controller
      * Update the specified comment.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Entities\Projects\Issue  $issue
-     * @param  \App\Entities\Projects\Comment  $comment
+     * @param  \App\Models\ProjectManagement\Projects\Issue  $issue
+     * @param  \App\Models\ProjectManagement\Projects\Comment  $comment
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Issue $issue, Comment $comment)
@@ -59,8 +59,8 @@ class CommentController extends Controller
     /**
      * Remove the specified comment.
      *
-     * @param  \App\Entities\Projects\Issue  $issue
-     * @param  \\App\Entities\Projects\Comment  $comment
+     * @param  \App\Models\ProjectManagement\Projects\Issue  $issue
+     * @param  \\App\Models\ProjectManagement\Projects\Comment  $comment
      * @return \Illuminate\Routing\Redirector
      */
     public function destroy(Issue $issue, Comment $comment)

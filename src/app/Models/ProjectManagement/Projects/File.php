@@ -9,6 +9,14 @@ class File extends Model
 {
     protected $fillable = ['fileable_id', 'fileable_type', 'type_id', 'filename', 'title', 'description'];
 
+
+
+    /**
+     *  project management database connection
+     */
+
+     protected $connection = 'mysql_second';
+
     public function fileable()
     {
         return $this->morphTo();

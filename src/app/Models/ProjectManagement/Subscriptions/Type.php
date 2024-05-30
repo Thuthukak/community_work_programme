@@ -2,7 +2,7 @@
 
 namespace App\Models\ProjectManagement\Subscriptions;
 
-use App\Entities\ReferenceAbstract;
+use App\Models\ProjectManagement\ReferenceAbstract;
 
 class Type extends ReferenceAbstract
 {

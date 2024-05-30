@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ProjectManagement\Users;
 
-use App\Models\Projects\Project;
+use App\Models\ProjectManagement\Projects\Project;
 use App\Http\Controllers\Controller;
 
 class CalendarController extends Controller

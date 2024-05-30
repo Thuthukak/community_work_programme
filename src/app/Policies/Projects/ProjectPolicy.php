@@ -2,7 +2,7 @@
 
 namespace App\Policies\Projects;
 
-use App\Entities\Projects\Project;
+use App\Models\ProjectManagement\Projects\Project;
 use App\Entities\Users\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -19,7 +19,7 @@ class ProjectPolicy
      * Determine whether the user can view the project.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
      * @return mixed
      */
     public function view(User $user, Project $project)
@@ -32,7 +32,7 @@ class ProjectPolicy
      * Determine whether the user can create projects.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
      * @return mixed
      */
     public function create(User $user, Project $project)
@@ -44,7 +44,7 @@ class ProjectPolicy
      * Determine whether the user can update the project.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
      * @return mixed
      */
     public function update(User $user, Project $project)
@@ -56,7 +56,7 @@ class ProjectPolicy
      * Determine whether the user can delete the project.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
      * @return mixed
      */
     public function delete(User $user, Project $project)
@@ -68,7 +68,7 @@ class ProjectPolicy
      * Determine whether the user can view project jobs.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
      * @return mixed
      */
     public function viewJobs(User $user, Project $project)
@@ -81,7 +81,7 @@ class ProjectPolicy
      * Determine whether the user can view project payments.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
      * @return mixed
      */
     public function viewPayments(User $user, Project $project)
@@ -93,7 +93,7 @@ class ProjectPolicy
      * Determine whether the user can view project subscriptions.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
      * @return mixed
      */
     public function viewSubscriptions(User $user, Project $project)
@@ -105,7 +105,7 @@ class ProjectPolicy
      * Determine whether the user can view project invoices.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
      * @return mixed
      */
     public function viewInvoices(User $user, Project $project)
@@ -117,7 +117,7 @@ class ProjectPolicy
      * Determine whether the user can view project files.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
      * @return mixed
      */
     public function viewFiles(User $user, Project $project)
@@ -130,7 +130,7 @@ class ProjectPolicy
      * Determine whether the user can see project pricings.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
      * @return mixed
      */
     public function seePricings(User $user, Project $project)
@@ -142,7 +142,7 @@ class ProjectPolicy
      * Determine whether the user can view project comments.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
      * @return bool
      */
     public function viewComments(User $user, Project $project)
@@ -156,7 +156,7 @@ class ProjectPolicy
      * Determine whether the user can add comment to a project.
      *
      * @param  \App\Entities\Users\User  $user
-     * @param  \App\Entities\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
      * @return bool
      */
     public function commentOn(User $user, Project $project)

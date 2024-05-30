@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ProjectManagement\Projects;
 
-use App\Models\Projects\Project;
+use App\Models\ProjectManagement\Projects\Project;
 use App\Http\Controllers\Controller;
 
 /**
@@ -15,7 +15,7 @@ class InvoicesController extends Controller
     /**
      * Invoice list of a project.
      *
-     * @param  \App\Entities\Projects\Project  $project
+     * @param  \App\Models\ProjectManagement\Projects\Project  $project
      * @return \Illuminate\View\View
      */
     public function index(Project $project)

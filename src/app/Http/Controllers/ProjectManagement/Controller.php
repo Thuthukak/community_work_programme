@@ -4,7 +4,7 @@ namespace App\Http\Controllers\ProjectManagement;
 
 use App\Models\Partners\Customer;
 use App\Models\Partners\Vendor;
-use App\Models\Projects\Project;
+use App\Models\ProjectManagement\Projects\Project;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\ProjectManagement\Projects;
 
-use App\Models\Projects\JobsRepository;
-use App\Models\Projects\Project;
+use App\Models\ProjectManagement\Projects\JobsRepository;
+use App\Models\ProjectManagement\Projects\Project;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Jobs\CreateRequest;
 use Illuminate\Http\Request;
@@ -26,14 +26,14 @@ class JobsController extends Controller
     {
         $jobs = $project->jobs()->with(['tasks', 'worker'])->get();
 
-        return view('projects.jobs.index', compact('project', 'jobs'));
+        return view('crm.projects.jobs.index', compact('project', 'jobs'));
     }
 
     public function create(Project $project)
     {
         $workers = $this->repo->getWorkersList();
 
-        return view('projects.jobs.create', compact('project', 'workers'));
+        return view('crm.projects.jobs.create', compact('project', 'workers'));
     }
 
     public function addFromOtherProject(Request $request, Project $project)
@@ -46,7 +46,7 @@ class JobsController extends Controller
             $selectedProject = Project::find($request->get('project_id'));
         }
 
-        return view('projects.jobs.add-from-other-project', compact('project', 'workers', 'projects', 'selectedProject'));
+        return view('crm.projects.jobs.add-from-other-project', compact('project', 'workers', 'projects', 'selectedProject'));
     }
 
     public function store(CreateRequest $req, $projectId)
@@ -72,13 +72,13 @@ class JobsController extends Controller
     {
         $jobs = $project->getJobList(request('job_type', 1));
 
-        return view('projects.jobs.export-html', compact('project', 'jobs'));
+        return view('crm.projects.jobs.export-html', compact('project', 'jobs'));
     }
 
     public function jobProgressExport(Project $project, $exportType = 'html')
     {
         $jobs = $project->getJobList(request('job_type', 1));
 
-        return view('projects.jobs.progress-export-html', compact('project', 'jobs'));
+        return view('crm.projects.jobs.progress-export-html', compact('project', 'jobs'));
     }
 }

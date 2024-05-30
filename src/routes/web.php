@@ -7,7 +7,10 @@ use App\Http\Controllers\InstallDemoDataController;
 use App\Http\Controllers\Setup\AppUpdateController;
 use App\Models\Core\Auth\User;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProjectManagement\Projects\ProjectsController;
+use App\Http\Controllers\Customers\CustomerController;
 
+ 
 /*
  * This is used to bypass the authentication
  * Remove this during production
@@ -66,6 +69,7 @@ Route::group(['middleware' => 'guest', 'prefix' => 'users'], function () {
 Route::group(['middleware' => 'guest', 'prefix' => 'admin/users'], function () {
     include_route_files(__DIR__ . '/login/');
 });
+
 
 /*
  * This route is only for brand redirection
@@ -152,3 +156,64 @@ Route::get('proposal', function () {
     $proposal = \App\Models\CRM\Proposal\Proposal::query()->orderByDesc('id')->with('files')->first();
     return public_path($proposal->files[0]['path']);
 });
+
+Route::get('customers/{customer}/projects', ['as' => 'customers.projects', 'uses' => 'Customers\ProjectsController@index']);
+Route::get('customers/{customer}/subscriptions', ['as' => 'customers.subscriptions', 'uses' => 'Customers\SubscriptionsController@index']);
+
+
+
+Route::get('projects/create', [ProjectsController::class, 'create'])->name('projects.create');
+Route::get('projects/{project}', [ProjectsController::class, 'show'])->name('projects.show');
+Route::get('projects/{project}/edit', [ProjectsController::class, 'edit'])->name('projects.edit');
+
+// Other routes...
+
+Route::get('customers/{customer}', [App\Http\Controllers\ProjectManagement\Customers\ProjectsController::class, 'show'])->name('customers.show');
+Route::get('projects/{project}/status-update', [ProjectsController::class, 'statusUpdate'])->name('projects.status-update');
+
+
+Route::get('projects/{project}/activities', [App\Http\Controllers\ProjectManagement\Projects\ActivityController::class ,'index'])->name('projects.activities.index');
+Route::get('projects/{project}/jobs', [App\Http\Controllers\ProjectManagement\Projects\JobsController::class, 'index'])->name('projects.jobs.index');
+
+
+Route::get('projects/{project}/issues', [App\Http\Controllers\ProjectManagement\Projects\IssueController::class, 'index'])->name('projects.issues.index');
+
+
+Route::get('projects/{project}/comments', [App\Http\Controllers\ProjectManagement\Projects\CommentsController::class, 'index'])->name('projects.comments.index');
+
+Route::get('projects/{project}/subscriptions', [ProjectsController::class, 'subscriptions'])->name('projects.subscriptions');
+Route::get('projects/{project}/files', [App\Http\Controllers\ProjectManagement\Projects\FilesController::class, 'index'])->name('projects.files');
+Route::get('projects/{project}/update', [ProjectsController::class, 'index'])->name('projects.update');
+Route::get('projects/{project}/delete', [ProjectsController::class, 'index'])->name('projects.delete');
+Route::get('projects/{project}/edit', [ProjectsController::class, 'edit'])->name('projects.edit');
+Route::get('projects/{project}/jobs/create', [App\Http\Controllers\ProjectManagement\Projects\JobsController::class, 'create'])->name('projects.jobs.create');
+Route::get('projects/{project}/jobs/addFromOtherProject', [App\Http\Controllers\ProjectManagement\Projects\JobsController::class, 'addFromOtherProject'])->name('projects.jobs.add-from-other-project');
+Route::get('projects/{project}/jobs/', [App\Http\Controllers\ProjectManagement\Projects\JobsController::class, 'index'])->name('projects.jobs.index');
+Route::get('projects/{project}/jobs/store', [App\Http\Controllers\ProjectManagement\Projects\JobsController::class, 'store'])->name('projects.jobs.store');
+
+
+// Route::get('projects/{project}/issues/', [App\Http\Controllers\ProjectManagement\Projects\IssueController::class, 'create'])->name('projects.jobs.store');
+// Route::get('projects/{project}/issues/show', [App\Http\Controllers\ProjectManagement\Projects\IssueController::class, 'create'])->name('projects.jobs.store');
+// Route::get('projects/{project}/issues/edit', [App\Http\Controllers\ProjectManagement\Projects\IssueController::class, 'create'])->name('projects.jobs.store');
+// Route::get('projects/{project}/issues/update', [App\Http\Controllers\ProjectManagement\Projects\IssueController::class, 'create'])->name('projects.jobs.store');
+
+// Route::get('projects/{project}/issues/store', [App\Http\Controllers\ProjectManagement\Projects\IssueController::class, 'create'])->name('projects.jobs.store');
+Route::get('projects/{project}/issues/create', [App\Http\Controllers\ProjectManagement\Projects\IssueController::class, 'create'])->name('projects.issues.create');
+
+
+Route::post('projects/{project}/comments/store', [App\Http\Controllers\ProjectManagement\Projects\CommentsController::class, 'store'])->name('projects.comments.store');
+Route::get('projects/{project}/comments/edit', [App\Http\Controllers\ProjectManagement\Projects\CommentsController::class, 'create'])->name('projects.jobs.store');
+Route::get('projects/{project}/comments/update', [App\Http\Controllers\ProjectManagement\Projects\CommentsController::class, 'create'])->name('projects.jobs.store');
+
+
+
+Route::get('projects/{project}/files/upload', [App\Http\Controllers\ProjectManagement\Projects\FilesController::class, 'upload'])->name('files.upload');
+Route::get('projects/{project}/files/update', [App\Http\Controllers\ProjectManagement\Projects\FilesController::class, 'create'])->name('projects.jobs.store');
+Route::get('projects/{project}/files/update', [App\Http\Controllers\ProjectManagement\Projects\FilesController::class, 'create'])->name('projects.jobs.store');
+
+
+Route::get('/subscriptions/create', [App\Http\Controllers\ProjectManagement\SubscriptionsController::class, 'create'])->name('subscriptions.create');
+Route::get('/subscriptions', [App\Http\Controllers\ProjectManagement\SubscriptionsController::class, 'index'])->name('subscriptions.index');
+
+
+Route::get('/jobs', [App\Http\Controllers\ProjectManagement\JobsController::class, 'index'])->name('jobs.index');

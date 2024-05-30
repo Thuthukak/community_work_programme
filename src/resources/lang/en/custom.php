@@ -727,6 +727,13 @@ return array_merge([
     'sheet' => 'Sheet',
     'rows' => 'Rows',
 
+    //Project Management 
+
+    'project_list' => 'Project List',
+    'job_list' => 'Job List',
+    'issues' => 'Issues',
+    'subscriptions' => 'Subscriptions',
+
     //Expenses
     'expenses' =>'Expenses',
     'area_of_expense' =>'Area of Expense',

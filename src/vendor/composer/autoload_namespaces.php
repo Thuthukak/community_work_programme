@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'Venturecraft\\Revisionable' => array($vendorDir . '/venturecraft/revisionable/src'),
     'Parsedown' => array($vendorDir . '/erusev/parsedown'),
+    'Laracasts\\Presenter' => array($vendorDir . '/laracasts/presenter/src'),
     'HTMLPurifier' => array($vendorDir . '/ezyang/htmlpurifier/library'),
     'Detection' => array($vendorDir . '/mobiledetect/mobiledetectlib/namespaced'),
     'Barryvdh' => array($vendorDir . '/barryvdh/reflection-docblock/src'),

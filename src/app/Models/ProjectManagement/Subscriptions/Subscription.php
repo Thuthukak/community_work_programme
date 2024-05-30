@@ -19,6 +19,14 @@ class Subscription extends Model
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+
+
+    /**
+     *  project management database connection
+     */
+
+     protected $connection = 'mysql_second';
+
     /**
      * Show subscription name with link to subscription detail attribute.
      *
@@ -74,7 +82,7 @@ class Subscription extends Model
      */
     public function project()
     {
-        return $this->belongsTo('App\Entities\Projects\Project');
+        return $this->belongsTo('App\Models\ProjectManagement\Projects\Project');
     }
 
     /**
@@ -84,7 +92,7 @@ class Subscription extends Model
      */
     public function customer()
     {
-        return $this->belongsTo('App\Entities\Partners\Customer');
+        return $this->belongsTo('App\Models\ProjectManagement\Partners\Customer');
     }
 
     /**
@@ -94,7 +102,7 @@ class Subscription extends Model
      */
     public function vendor()
     {
-        return $this->belongsTo('App\Entities\Partners\Vendor');
+        return $this->belongsTo('App\Models\ProjectManagement\Partners\Vendor');
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Http\Controllers\CRM\Deal\DealController;
     use App\Http\Controllers\CRM\Stage\StageController;
     use Illuminate\Support\Facades\Route;
     use App\Http\Controllers\CRM\Lang\LanguageController;
+    use App\Http\Controllers\ProjectManagement\Projects\ProjectsController;
 
 // Deal pipeline view
 
@@ -52,3 +53,15 @@ Route::get('/expenses/list', [FrontendController::class, 'expensesList'])
 
 Route::get('/expenses-area/list', [FrontendController::class, 'expenseAreaList'])
     ->name('list.expenses_area');
+
+
+    Route::get('projects', [ProjectsController::class, 'index'])
+    ->name('projects.index');
+    
+    //  Route::resource('projects', [ProjectsController::class, 'index']);
+    
+    //  Route::get('projects/{project}/jobs', ['as' => 'projects.jobs', 'uses' => 'ProjectsController@jobs']);
+    
+    
+    // Route::get('projects/create', ['as' => 'projects.create', 'uses' => 'ProjectsController@create']);
+    

@@ -1,7 +1,7 @@
 <?php
 
 use App\Entities\Invoices\Invoice;
-use App\Entities\Projects\Project;
+use App\Models\ProjectManagement\Projects\Project;
 use App\Entities\Users\User;
 use Faker\Generator as Faker;
 

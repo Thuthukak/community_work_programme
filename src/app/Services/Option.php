@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Entities\Options\Option as SiteOption;
+use  App\Models\ProjectManagement\Options\Option as SiteOption;
 
 /**
  * Option Class (Site Option Service).

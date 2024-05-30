@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\ProjectManagement\Tasks;
 
-use App\Entities\Projects\Task;
+use App\Models\ProjectManagement\Projects\Task;
 use App\Http\Requests\Request;
 
 class CreateRequest extends Request

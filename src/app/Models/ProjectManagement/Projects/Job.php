@@ -2,7 +2,7 @@
 
 namespace App\Models\ProjectManagement\Projects;
 
-use App\Entities\Users\User;
+use App\Models\ProjectManagement\Users\User;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
@@ -27,8 +27,15 @@ class Job extends Model
         'deleted' => 'App\Events\Jobs\Deleted',
     ];
 
+
     /**
-     * @var \App\Entities\Projects\JobPresenter
+     *  project management database connection
+     */
+
+     protected $connection = 'mysql_second';
+
+    /**
+     * @var \App\Models\ProjectManagement\Projects\JobPresenter
      */
     protected $presenter = JobPresenter::class;
 

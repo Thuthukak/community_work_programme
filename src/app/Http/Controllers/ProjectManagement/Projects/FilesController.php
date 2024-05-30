@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ProjectManagement\Projects;
 
-use App\Models\Projects\File;
+use App\Models\ProjectManagement\Projects\File;
 use App\Http\Controllers\Controller;
 use File as FileSystem;
 use Illuminate\Http\Request;
@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 class FilesController extends Controller
 {
     private $fileableTypes = [
-        'projects' => 'App\Entities\Projects\Project',
+        'projects' => 'App\Models\ProjectManagement\Projects\Project',
     ];
 
     public function index(Request $request, $fileableId)
@@ -31,7 +31,7 @@ class FilesController extends Controller
             $editableFile = File::find($request->get('id'));
         }
 
-        return view($fileableType.'.files', [$modelShortName => $model, 'files' => $files, 'editableFile' => $editableFile]);
+        return view('crm.'.$fileableType.'.files', [$modelShortName => $model, 'files' => $files, 'editableFile' => $editableFile]);
     }
 
     public function create(Request $request, $fileableId)

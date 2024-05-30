@@ -3,7 +3,7 @@
 use App\Entities\Partners\Customer;
 use App\Entities\Partners\Vendor;
 use App\Entities\Payments\Payment;
-use App\Entities\Projects\Project;
+use App\Models\ProjectManagement\Projects\Project;
 use App\Entities\Users\User;
 use Faker\Generator as Faker;
 
