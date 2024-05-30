@@ -27,6 +27,27 @@ class JobsRepository extends BaseRepository
             ->onProgressJobs($user, ['project', 'worker'], $projectId);
     }
 
+
+
+    private function convertToProjectManagementUser($user)
+    {
+        // Assuming the User models are interchangeable and you can simply return it
+        // If not, you might need to create a new instance and map properties accordingly
+        return new User([
+            'id' => $user->id,
+            'name' => $user->first_name,
+            'email' => $user->email,
+            "password" => $user->password,
+            "remember_token" => $user->remember_token,
+            "lang" => $user->lang,
+            "lang" => $user->lang,
+            "created_at" => $user->created_at,
+            "updated_at" => $user->updated_at
+            // map other properties as needed
+        ]);
+    }
+
+    
     public function requireProjectById($projectId)
     {
         return Project::findOrFail($projectId);

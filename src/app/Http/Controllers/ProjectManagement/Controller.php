@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\ProjectManagement;
 
-use App\Models\Partners\Customer;
-use App\Models\Partners\Vendor;
+use App\Models\ProjectManagement\Partners\Customer;
+use App\Models\ProjectManagement\Partners\Vendor;
 use App\Models\ProjectManagement\Projects\Project;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;

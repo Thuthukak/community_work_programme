@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ProjectManagement\Partners;
 
-use App\Models\Partners\Customer;
+use App\Models\ProjectManagement\Partners\Customer;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Partners\CustomerCreateRequest;
 use App\Http\Requests\Partners\CustomerUpdateRequest;

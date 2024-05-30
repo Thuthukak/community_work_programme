@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ProjectManagement;
 
-use App\Models\Partners\Customer;
+use App\Models\ProjectManagement\Partners\Customer;
 use App\Models\Payments\Payment;
 use App\Models\Payments\PaymentsRepository;
 use App\Models\ProjectManagement\Projects\Project;

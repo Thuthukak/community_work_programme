@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\CRM\Api;
 
-use App\Models\Partners\Customer;
+use App\Models\ProjectManagement\Partners\Customer;
 use App\Http\Controllers\Controller;
 
 class CustomerController extends Controller

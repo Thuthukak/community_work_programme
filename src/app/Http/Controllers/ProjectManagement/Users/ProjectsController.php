@@ -14,6 +14,11 @@ class ProjectsController extends Controller
 {
     public function index(User $user)
     {
+
+        
+        $user = $this->convertToProjectManagementUser(auth()->user());
+
+        
         $projects = $user->projects()
             ->where(function ($query) {
                 $query->where('projects.name', 'like', '%'.request('q').'%');
@@ -25,4 +30,26 @@ class ProjectsController extends Controller
 
         return view('users.projects', compact('user', 'projects'));
     }
+
+   
+
+    private function convertToProjectManagementUser($user)
+    {
+        // Assuming the User models are interchangeable and you can simply return it
+        // If not, you might need to create a new instance and map properties accordingly
+        return new User([
+            'id' => $user->id,
+            'name' => $user->first_name,
+            'email' => $user->email,
+            "password" => $user->password,
+            "remember_token" => $user->remember_token,
+            "lang" => $user->lang,
+            "lang" => $user->lang,
+            "created_at" => $user->created_at,
+            "updated_at" => $user->updated_at
+            // map other properties as needed
+        ]);
+    } 
 }
+
+

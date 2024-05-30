@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\ProjectManagement;
 
-use App\Models\Subscriptions\Subscription;
-use App\Models\Subscriptions\Type;
+use App\Models\ProjectManagement\Subscriptions\Subscription;
+use App\Models\ProjectManagement\Subscriptions\Type;
 use App\Http\Requests\SubscriptionRequest as FormRequest;
 use Illuminate\Http\Request;
 
@@ -27,7 +27,7 @@ class SubscriptionsController extends Controller
             $request->get('vendor_id')
         );
 
-        return view('subscriptions.index', compact('subscriptions'));
+        return view('crm.subscriptions.index', compact('subscriptions'));
     }
 
     /**
@@ -40,7 +40,7 @@ class SubscriptionsController extends Controller
         $projects = $this->getProjectsList();
         $vendors = $this->getVendorsList();
 
-        return view('subscriptions.create', compact('projects', 'vendors'));
+        return view('crm.subscriptions.create', compact('projects', 'vendors'));
     }
 
     /**
@@ -67,7 +67,7 @@ class SubscriptionsController extends Controller
     {
         $pageTitle = $this->getPageTitle('detail', $subscription);
 
-        return view('subscriptions.show', compact('subscription', 'pageTitle'));
+        return view('crm.subscriptions.show', compact('subscription', 'pageTitle'));
     }
 
     /**
@@ -83,7 +83,7 @@ class SubscriptionsController extends Controller
 
         $pageTitle = $this->getPageTitle('edit', $subscription);
 
-        return view('subscriptions.edit', compact('subscription', 'projects', 'vendors', 'pageTitle'));
+        return view('crm.subscriptions.edit', compact('subscription', 'projects', 'vendors', 'pageTitle'));
     }
 
     /**
@@ -135,7 +135,7 @@ class SubscriptionsController extends Controller
      */
     private function getPageTitle($pageType, $subscription)
     {
-        return __('subscription.'.$pageType).' - '.$subscription->name.' - '.$subscription->customer->name;
+        return __('crm.subscription.'.$pageType).' - '.$subscription->name.' - '.$subscription->customer->name;
     }
 
     /**

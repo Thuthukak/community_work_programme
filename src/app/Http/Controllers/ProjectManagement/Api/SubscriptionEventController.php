@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ProjectManagement\Api;
 
-use App\Models\Subscriptions\Subscription;
+use App\Models\ProjectManagement\Subscriptions\Subscription;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

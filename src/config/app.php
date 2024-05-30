@@ -258,8 +258,7 @@ return [
         'PDF' => Barryvdh\DomPDF\Facade\Pdf::class,
 
          // Reference Facades
-        'PaymentType'      => App\Entities\Payments\Type::class,
-        'SubscriptionType' => App\Entities\Subscriptions\Type::class, 
+        'SubscriptionType' => App\Models\ProjectManagement\Subscriptions\Type::class, 
         'ProjectStatus'    => App\Models\ProjectManagement\Projects\Status::class,
         // 'AdminDashboard'   => Facades\App\Queries\AdminDashboardQuery::class,
         'Option'           => Facades\App\Services\Option::class,

@@ -212,8 +212,11 @@ Route::get('projects/{project}/files/update', [App\Http\Controllers\ProjectManag
 Route::get('projects/{project}/files/update', [App\Http\Controllers\ProjectManagement\Projects\FilesController::class, 'create'])->name('projects.jobs.store');
 
 
-Route::get('/subscriptions/create', [App\Http\Controllers\ProjectManagement\SubscriptionsController::class, 'create'])->name('subscriptions.create');
-Route::get('/subscriptions', [App\Http\Controllers\ProjectManagement\SubscriptionsController::class, 'index'])->name('subscriptions.index');
+Route::get('subscriptions/create', [App\Http\Controllers\ProjectManagement\SubscriptionsController::class, 'create'])->name('subscriptions.create');
+Route::get('subscriptions', [App\Http\Controllers\ProjectManagement\SubscriptionsController::class, 'index'])->name('subscriptions.index');
+
+Route::get('subscriptions/store', [App\Http\Controllers\ProjectManagement\SubscriptionsController::class, 'store'])->name('subscriptions.store');
 
 
-Route::get('/jobs', [App\Http\Controllers\ProjectManagement\JobsController::class, 'index'])->name('jobs.index');
+
+Route::get('jobs', [App\Http\Controllers\ProjectManagement\JobsController::class, 'index'])->name('jobs.index');

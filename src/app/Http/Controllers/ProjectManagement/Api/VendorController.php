@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ProjectManagement\Api;
 
-use App\Models\Partners\Vendor;
+use App\Models\ProjectManagement\Partners\Vendor;
 use App\Http\Controllers\Controller;
 
 class VendorController extends Controller

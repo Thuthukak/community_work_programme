@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ProjectManagement\Customers;
 
-use App\Models\Partners\Customer;
+use App\Models\ProjectManagement\Partners\Customer;
 use App\Http\Controllers\Controller;
 
 /**
