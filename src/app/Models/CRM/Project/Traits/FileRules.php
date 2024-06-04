@@ -1,30 +1,23 @@
 <?php
 
-namespace App\Http\Requests\ProjectManagement\Projects;
+namespace App\Models\CRM\Project\Traits;
 
-use App\Models\ProjectManagement\Projects\Project;
-use App\Http\Requests\Request;
-
-class UpdateRequest extends Request
+trait ProjectRules
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
-    public function authorize()
+    public function createdRules(): array
     {
-        $project = Project::findOrFail($this->segment(2));
-
-        return auth()->user()->can('update', $project);
+        return [
+            'name'           => 'required|max:50',
+            'proposal_date'  => 'nullable|date|date_format:Y-m-d',
+            'proposal_value' => 'nullable|numeric',
+            'customer_id'    => 'nullable|numeric',
+            'customer_name'  => 'nullable|required_without:customer_id|max:60',
+            'customer_email' => 'nullable|required_without:customer_id|email|unique:users,email',
+            'description'    => 'nullable|max:255',
+        ];
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
-    public function rules()
+    public function updatedRules(): array
     {
         return [
             'name'           => 'required|max:50',

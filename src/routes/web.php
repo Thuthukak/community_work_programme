@@ -162,6 +162,8 @@ Route::get('customers/{customer}/subscriptions', ['as' => 'customers.subscriptio
 
 
 
+Route::post('/projects', [ProjectController::class, 'store'])->name('projects.store');
+
 Route::get('projects/create', [ProjectsController::class, 'create'])->name('projects.create');
 Route::get('projects/{project}', [ProjectsController::class, 'show'])->name('projects.show');
 Route::get('projects/{project}/edit', [ProjectsController::class, 'edit'])->name('projects.edit');

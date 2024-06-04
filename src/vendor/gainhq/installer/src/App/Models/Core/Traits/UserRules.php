@@ -50,7 +50,9 @@ trait UserRules
 
     public function changePasswordRules()
     {
-        return [
+        return [ 
+
+            
             'old_password' => 'required|min:6',
             'password' => 'required|min:8|confirmed|regex:/^(?=[^\d]*\d)(?=[A-Z\d ]*[^A-Z\d ]).{8,}$/i',
         ];

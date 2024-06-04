@@ -37,7 +37,8 @@ abstract class BaseUser extends Authenticatable
         'last_login_at',
         'created_by',
         'status_id',
-        'invitation_token'
+        'invitation_token',
+        'api_token'
     ];
 
     /**
@@ -56,6 +57,7 @@ abstract class BaseUser extends Authenticatable
     protected $hidden = [
         'password',
         'remember_token',
+        'api_token'
     ];
 
     /**
@@ -69,6 +71,16 @@ abstract class BaseUser extends Authenticatable
         return $this->isAdmin();
     }
 
+
+    /**
+     * Show user name with link to user detail.
+     *
+     * @return Illuminate\Support\HtmlString
+     */
+    public function nameLink()
+    {
+        return link_to_route('users.show', $this->full_name, [$this]);
+    }
     /**
      * Return true or false if the user can be impersonate.
      *

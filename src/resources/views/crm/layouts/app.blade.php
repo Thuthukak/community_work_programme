@@ -15,9 +15,7 @@
 <body>
     <div id="wrapper">
 
-    <!-- @section('side-bar')
-            @include('layouts.includes.sidebar')
-        @show -->
+    @include('../../../../layouts.includes.sidebar')
         <div id="page-wrapper">
             <div class="container-fluid">
                 @yield('content')

@@ -47,6 +47,11 @@ trait PersonsRelationship
         return $this->morphMany(Deal::class, 'contextable');
     }
 
+    public function project()
+    {
+        return $this->morphMany(Project::class, 'contextable');
+    }
+
     public function openDeals()
     {
         return $this->morphMany(Deal::class, 'contextable')->where('status_id', 13);
