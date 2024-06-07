@@ -1,8 +1,8 @@
-@extends('crm.layouts.app')
+@extends('layouts.crm')
 
 @section('title', __('subscription.subscriptions'))
 
-@section('content')
+@section('contents')
 <h1 class="page-header">
     {!! link_to_route('subscriptions.create', __('subscription.create'), [], ['class' => 'btn btn-success pull-right']) !!}
     {{ __('subscription.subscriptions') }} <small>{{ $subscriptions->total() }} {{ __('subscription.found') }}</small>

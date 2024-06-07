@@ -1,8 +1,8 @@
-@extends('crm.layouts.app')
+@extends('layouts.crm')
 
 @section('title', trans('project.index_title', ['status' => $status]))
 
-@section('content')
+@section('contents')
 <h1 class="page-header">
     @can('create', new App\Models\ProjectManagement\Projects\Project)
     {!! link_to_route('projects.create', trans('project.create'), [], ['class' => 'btn btn-success pull-right']) !!}

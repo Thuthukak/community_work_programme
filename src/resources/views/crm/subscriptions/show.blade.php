@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.crm')
 
 @section('title', $pageTitle)
 
-@section('content')
+@section('contents')
 @include('subscriptions.partials.breadcrumb')
 
 <div class="row">

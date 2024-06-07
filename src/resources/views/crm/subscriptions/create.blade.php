@@ -1,8 +1,8 @@
-@extends('crm.layouts.app')
+@extends('layouts.crm')
 
 @section('title', __('subscription.create'))
 
-@section('content')
+@section('contents')
 
 <ul class="breadcrumb hidden-print">
     <li>{{ link_to_route('subscriptions.index', __('subscription.subscriptions')) }}</li>
