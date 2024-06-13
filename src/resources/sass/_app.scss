@@ -430,3 +430,120 @@
         background-color: #f2ebe3f2 !important;
     }
 }
+
+
+//project management
+
+.project-header {
+    // Add your custom styles here
+    margin: 30px 60px 30px 30px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.project-title {
+    // Add your custom styles here
+    font-size: 1.8 rem;
+    font-weight: 600;
+}
+
+.create-project-btn {
+    // Add your custom styles here
+    margin-left: auto;
+    
+}
+
+.project-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+
+    .index-nav-tabs {
+        display: flex;
+        gap: 1rem; /* Space between nav tabs */
+
+        a {
+            background-color: white;
+            border-radius: 9999px; /* Rounded pill shape */
+            padding: 0.5rem 1rem; /* Padding for the pills */
+            text-decoration: none; /* Remove underline */
+            color: inherit; /* Inherit text color */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+        }
+
+        a.active {
+            background-color: #007bff; /* Change the background color for active tab */
+            color: white;
+        }
+    }
+
+    .search-form {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-right: 50px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+        .relative {
+            position: relative;
+
+            .index-search-field {
+                padding-right: 2.5rem; /* Make space for the button inside */
+                border-radius: 9999px; /* Rounded pill shape */
+                max-width: 350px;
+                border: 1px solid #ccc;
+            }
+
+            .search-button {
+                position: absolute;
+                right: 0.5rem;
+                top: 50%;
+                transform: translateY(-50%);
+                border: none;
+                background: none;
+                cursor: pointer;
+                padding: 0;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 50%;
+
+                i {
+                    font-size: 1rem;
+                    color: #000; /* Icon color */
+                }
+            }
+        }
+
+        .btn {
+            margin-left: 0.5rem;
+        }
+    }
+}
+
+
+
+.project-table {
+    // Add your custom styles here
+    margin: 0px 0px 0px 20px;
+    .table {
+        &-condensed {
+            // Custom styles for table-condensed
+        }
+        &-hover {
+            // Custom styles for table-hover
+        }
+    }
+}
+.index-nav-tabs {
+    margin: 0px 0px 0px 20px;
+
+    .nav-link {
+        padding: 0.5rem 1rem;
+    }
+}
+

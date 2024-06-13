@@ -3,22 +3,35 @@
 @section('title', trans('project.index_title', ['status' => $status]))
 
 @section('contents')
-<h1 class="page-header">
+
+<!-- <projects></projects> -->
+<div class="project-header flex justify-between items-center mb-4">
+    <h1 class="project-title text-xl font-semibold">
+        {{ trans('project.index_title', ['status' => $status]) }} 
+        <small>{{ $projects->total() }} {{ trans('project.found') }}     
+        </small>
+    </h1>
     @can('create', new App\Models\ProjectManagement\Projects\Project)
-    {!! link_to_route('projects.create', trans('project.create'), [], ['class' => 'btn btn-success pull-right']) !!}
+    <div class="create-project-btn ml-auto">
+        {!! link_to_route('projects.create', trans('project.create'), [], ['class' => 'btn btn-warning btn-sm p-2']) !!}
+    </div>
     @endcan
-    {{ trans('project.index_title', ['status' => $status]) }} <small>{{ $projects->total() }} {{ trans('project.found') }}</small>
-</h1>
-<div class="well well-sm text-right">
-    <div class="pull-left hidden-xs">@include('crm.projects.partials.index-nav-tabs')</div>
-    {!! Form::open(['method' => 'get', 'class' => 'form-inline']) !!}
+</div>
+
+<div class="project-controls flex justify-between items-center mb-4">
+    <div class="index-nav-tabs pull-left hidden-xs">@include('crm.projects.partials.index-nav-tabs')</div>
+    {!! Form::open(['method' => 'get', 'class' => 'form-inline search-form']) !!}
     {{ Form::hidden('status_id') }}
-    {!! Form::text('q', Request::get('q'), ['class' => 'form-control index-search-field', 'placeholder' => trans('project.search'), 'style' => 'width:100%;max-width:350px']) !!}
-    {!! Form::submit(trans('project.search'), ['class' => 'btn btn-info btn-sm']) !!}
-    {!! link_to_route('projects.index', __('app.reset'), Request::only(['status_id']), ['class' => 'btn btn-default btn-sm']) !!}
+    <div class="relative">
+        <button type="submit" class="search-button">
+            <i class="fas fa-search"></i>
+        </button>
+        {!! Form::text('q', Request::get('q'), ['class' => 'form-control index-search-field', 'placeholder' => trans('project.search')]) !!}
+    </div>
     {!! Form::close() !!}
 </div>
-<div class="panel panel-default table-responsive">
+
+<div class="project-table panel panel-default table-responsive">
     <table class="table table-condensed table-hover">
         <thead>
             <th>{{ trans('app.table_no') }}</th>

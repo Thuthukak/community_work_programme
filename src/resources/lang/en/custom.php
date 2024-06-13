@@ -658,6 +658,20 @@ return array_merge([
     //Project management
     'projects_management' => 'Project Management',
     'projects' => 'Projects',
+    'create_new_project' => 'Create new project',
+    'project_list' => 'Project list',
+    'projects_found' => 'Projects found',
+    'project_name' => 'Project name',
+    'start_date' => 'Start date',
+    'work_duration' => 'Work duration',
+    'project_value' => 'Project value',
+    'status' => 'Status',
+    'customer' => 'Customer',
+    'action' => 'Action',
+    'project_not_found' => 'Project not found',
+    'search_projects' => 'Search projects',
+    'project.search' => '     search project',
+
 
 
     // CSV Import //

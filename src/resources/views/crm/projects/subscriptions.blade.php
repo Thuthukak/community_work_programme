@@ -15,7 +15,7 @@
 
 @include('crm.projects.partials.nav-tabs')
 
-<div class="panel panel-success">
+<div class="panel panel-success main-content" >
     <div class="panel-heading"><h3 class="panel-title">{{ __('app.active') }}</h3></div>
     <div class="panel-body table-responsive">
         <table class="table table-condensed">

@@ -85,6 +85,12 @@ const routes = [
         name: "tag-manager",
         component: () => import("../views/Components/TagManager")
     },
+    {
+        path: '/projects/create',
+        name: 'projects.create',
+        component: (ProjectsCreate),
+        
+    },
 ];
 
 const router = new VueRouter({

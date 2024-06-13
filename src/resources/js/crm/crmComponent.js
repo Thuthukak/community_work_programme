@@ -10,6 +10,12 @@ Vue.component(
     "complete-user-invitation",
     require("./Component/Views/Auth/CompleteInvitation").default
 );
+
+Vue.component(
+    "projects",
+    require("./Component/Views/project/Projects").default
+);
+
 // Password Reset
 Vue.component(
     "app-password-reset",

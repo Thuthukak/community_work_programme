@@ -1,11 +1,11 @@
 <?php return array(
     'root' => array(
-        'pretty_version' => 'dev-main',
-        'version' => 'dev-main',
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '3a0d06f941d237f35ef9cff06cb7fcfe9edfe8b4',
+        'reference' => '6b526e944132f08769e1028a08f6ba09b9b07ee2',
         'name' => 'gainhq/core.laravel',
         'dev' => true,
     ),
@@ -358,12 +358,12 @@
             'dev_requirement' => true,
         ),
         'gainhq/core.laravel' => array(
-            'pretty_version' => 'dev-main',
-            'version' => 'dev-main',
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '3a0d06f941d237f35ef9cff06cb7fcfe9edfe8b4',
+            'reference' => '6b526e944132f08769e1028a08f6ba09b9b07ee2',
             'dev_requirement' => false,
         ),
         'gainhq/installer' => array(
@@ -1436,6 +1436,15 @@
             'install_path' => __DIR__ . '/../spatie/laravel-activitylog',
             'aliases' => array(),
             'reference' => 'bdc44862aaca39ecbd824133b80dbd7c8017ed7f',
+            'dev_requirement' => false,
+        ),
+        'spatie/laravel-html' => array(
+            'pretty_version' => '3.5.0',
+            'version' => '3.5.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../spatie/laravel-html',
+            'aliases' => array(),
+            'reference' => 'ead179a8b6802647027486049f5209bd23b610a9',
             'dev_requirement' => false,
         ),
         'swiftmailer/swiftmailer' => array(

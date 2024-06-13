@@ -28,6 +28,7 @@
         "phpoffice/phpspreadsheet": "^1.15",
         "pusher/pusher-php-server": "^5.0",
         "spatie/laravel-activitylog": "^3.9",
+        "spatie/laravel-html": "^3.5",
         "symfony/filesystem": "^5.2",
         "tightenco/ziggy": "^1.1",
         "venturecraft/revisionable": "^1.38"
