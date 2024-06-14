@@ -16,7 +16,6 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-
 class User extends BaseUser implements HasLocalePreference
 {
     protected static $logAttributes = [
@@ -52,4 +51,9 @@ class User extends BaseUser implements HasLocalePreference
         ]);
     }
 
+    public function getNameAttribute()
+    {
+        // Combine 'first_name' and 'last_name' and return as 'name'
+        return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
+    }
 }

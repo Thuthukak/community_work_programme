@@ -2,7 +2,7 @@
 
 use App\Models\ProjectManagement\Projects\Comment;
 use App\Models\ProjectManagement\Projects\Project;
-use App\Entities\Users\User;
+use App\Models\Core\Auth\User;
 use Faker\Generator as Faker;
 
 $factory->define(Comment::class, function (Faker $faker) {

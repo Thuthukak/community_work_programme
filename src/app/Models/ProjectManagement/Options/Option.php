@@ -15,12 +15,7 @@ class Option extends Model
 
 
 
-    /**
-     *  project management database connection
-     */
-
-     protected $connection = 'mysql_second';
-
+ 
     /**
      * The table associated with the model.
      *

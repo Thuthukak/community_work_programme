@@ -1,8 +1,8 @@
-@extends('crm.layouts.app')
+@extends('layouts.crm')
 
 @section('title', trans('project.create'))
 
-@section('content')
+@section('contents')
 <ul class="breadcrumb hidden-print">
     <li>{{ link_to_route('projects.index',trans('project.projects')) }}</li>
     <li class="active">{{ trans('project.create') }}</li>
@@ -15,7 +15,7 @@
             <div class="panel-heading"><h3 class="panel-title">{{ trans('project.create') }}</h3></div>
             <div class="panel-body">
                 {!! FormField::text('name', ['label' => trans('project.name')]) !!}
-                {!! FormField::select('customer_id', $customers, ['placeholder' => __('customer.create')]) !!}
+                {!! FormField::select('organization_id', $Organization, ['placeholder' => __('Organization')]) !!}
                 <div class="row">
                     <div class="col-md-6">
                         {!! FormField::text('customer_name') !!}

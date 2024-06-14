@@ -3,7 +3,8 @@
 namespace App\Models\ProjectManagement\Projects;
 
 use App\Models\ProjectManagement\BaseRepository;
-use App\Models\ProjectManagement\Users\User;
+use App\Models\Core\Auth\User;
+use App\Http\Controllers\Core\UserConverter;
 use App\Queries\AdminDashboardQuery;
 use DB;
 
@@ -16,13 +17,14 @@ class JobsRepository extends BaseRepository
 {
     protected $model;
 
-    public function __construct(Job $model)
+    public function __construct(ProjectJob $model)
     {
         parent::__construct($model);
     }
 
     public function getUnfinishedJobs(User $user, $projectId = null)
     {
+        
         return (new AdminDashboardQuery())
             ->onProgressJobs($user, ['project', 'worker'], $projectId);
     }
@@ -62,7 +64,7 @@ class JobsRepository extends BaseRepository
 
     public function createJobs($jobsData, $projectId)
     {
-        $selectedJobs = $this->model->whereIn('id', $jobsData['job_ids'])->get();
+        $selectedJobs = $this->model->whereIn('id', $jobsData['project_job_ids'])->get();
 
         DB::beginTransaction();
         foreach ($selectedJobs as $job) {
@@ -76,7 +78,7 @@ class JobsRepository extends BaseRepository
                 foreach ($selectedTasks as $task) {
                     $newTask = $task->replicate();
                     $newTask->progress = 0;
-                    $newTask->job_id = $newJob->id;
+                    $newTask->project_job_id = $newJob->id;
                     $newTask->save();
                 }
             }

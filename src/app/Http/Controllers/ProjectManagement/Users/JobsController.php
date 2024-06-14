@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\ProjectManagement\Users;
 
-use App\Models\Users\User;
+use App\Models\Core\Auth\Users\User;
 use App\Http\Controllers\Controller;
 use App\Queries\AdminDashboardQuery;
 

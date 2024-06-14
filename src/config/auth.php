@@ -84,7 +84,7 @@ return [
 
         'pm_users' => [ // New provider for Project Management
             'driver' => 'eloquent',
-            'model' => App\Entities\Users\User::class,
+            'model' => App\Models\ProjectManagement\Users\User::class,
         ],
     ],
 

@@ -3,7 +3,7 @@
 @section('subtitle', __('project.jobs'))
 
 @section('action-buttons')
-@can('create', new App\Models\ProjectManagement\Projects\Job)
+@can('create', new App\Models\ProjectManagement\Projects\ProjectJob)
     {!! html_link_to_route('projects.jobs.create', __('job.create'), [$project], ['class' => 'btn btn-success', 'icon' => 'plus']) !!}
     {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project], ['class' => 'btn btn-default', 'icon' => 'plus']) !!}
 @endcan
@@ -57,7 +57,7 @@
                 <th>{{ __('job.name') }}</th>
                 <th class="text-center">{{ __('job.tasks_count') }}</th>
                 <th class="text-center">{{ __('job.progress') }}</th>
-                @can('see-pricings', new App\Models\ProjectManagement\Projects\Job)
+                @can('see-pricings', new App\Models\ProjectManagement\Projects\ProjectJob)
                 <th class="text-right">{{ __('job.price') }}</th>
                 @endcan
                 {{-- <th>{{ __('job.worker') }}</th> --}}
@@ -112,7 +112,7 @@
                         <span title="Total Progress">{{ format_decimal($groupedJobs->sum('progress') / $groupedJobs->count()) }} %</span>
                         <span title="Overal Progress" style="font-weight:300">({{ format_decimal($project->getJobOveralProgress()) }} %)</span>
                     </th>
-                    @can('see-pricings', new App\Models\ProjectManagement\Projects\Job)
+                    @can('see-pricings', new App\Models\ProjectManagement\Projects\ProjectJob)
                     <th class="text-right">{{ format_money($groupedJobs->sum('price')) }}</th>
                     @endcan
                     <th colspan="2">

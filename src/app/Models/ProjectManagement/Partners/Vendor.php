@@ -13,22 +13,8 @@ class Vendor extends Model
      */
     protected $fillable = ['name', 'notes', 'website', 'is_active'];
 
-     /**
-     *  project management database connection
-     */
-
-     protected $connection = 'mysql_second';
-
-    /**
-     * Vendor has many payments relation.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function payments()
-    {
-        return $this->morphMany('App\Models\ProjectManagement\Payments\Payment', 'partner')->orderBy('date');
-    }
-
+ 
+ 
     /**
      * Get status attribute.
      *

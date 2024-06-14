@@ -27,12 +27,6 @@ class Event extends Model
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
 
-     /**
-     *  project management database connection
-     */
-
-     protected $connection = 'mysql_second';
-
     /**
      * The attributes that should be cast to native types.
      *

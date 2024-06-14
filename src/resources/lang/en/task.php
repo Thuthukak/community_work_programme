@@ -2,29 +2,29 @@
 
 return [
     // Labels
-    'task'              => 'Task',
-    'list'              => 'Task List',
-    'empty'             => 'Task List is empty.',
-    'search'            => 'Search Task',
-    'found'             => 'Task found.',
-    'not_found'         => 'Task not found.',
-    'back_to_index'     => 'Back to Task List',
-    'move_to_other_job' => 'Move to other Job',
+    'task'              => 'Sub Task',
+    'list'              => 'Sub Task List',
+    'empty'             => 'Sub Task List is empty.',
+    'search'            => 'Search Sub Task',
+    'found'             => 'Sub Task found.',
+    'back_to_index'     => 'Back to Sub Task List',
+    'not_found'         => 'Sub Task not found.',
+    'move_to_other_job' => 'Move to other Task',
 
     // Actions
-    'create'    => 'Create new Task',
-    'created'   => 'Task has been created.',
-    'show'      => 'Task Detail',
-    'edit'      => 'Edit Task',
+    'create'    => 'Create new Sub Task',
+    'created'   => 'Sub Task has been created.',
+    'show'      => 'Sub Task Detail',
+    'edit'      => 'Edit Sub Task',
     'update'    => 'Update Task',
-    'updated'   => 'Task has been updated.',
-    'delete'    => 'Delete Task',
-    'deleted'   => 'Task has been deleted.',
-    'undeleted' => 'Task not deleted.',
+    'updated'   => 'Sub Task has been updated.',
+    'delete'    => 'Delete Sub Task',
+    'deleted'   => 'Sub Task has been deleted.',
+    'undeleted' => 'Sub Task not deleted.',
     'set_done'  => 'Set done',
-
     // Attributes
-    'name'        => 'Task Name',
+
+    'name'        => 'Sub Task Name',
     'progress'    => 'Progress',
-    'description' => 'Task Description',
+    'description' => 'Sub Task Description',
 ];

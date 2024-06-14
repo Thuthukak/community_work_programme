@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\CRM\Person;
+namespace App\Http\Requests\CRM\Projects;
 
 use App\Http\Requests\BaseRequest;
 use App\Models\ProjectManagement\Projects\Project;
 
-class ProjectRequest extends BaseRequest
+class CommentRequest extends BaseRequest
 {
 
     public function rules()

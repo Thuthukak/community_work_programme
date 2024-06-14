@@ -11,12 +11,6 @@ class File extends Model
 
 
 
-    /**
-     *  project management database connection
-     */
-
-     protected $connection = 'mysql_second';
-
     public function fileable()
     {
         return $this->morphTo();

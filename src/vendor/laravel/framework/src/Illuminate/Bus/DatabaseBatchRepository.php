@@ -102,7 +102,7 @@ class DatabaseBatchRepository implements PrunableBatchRepository
             'total_jobs' => 0,
             'pending_jobs' => 0,
             'failed_jobs' => 0,
-            'failed_job_ids' => '[]',
+            'failed_project_job_ids' => '[]',
             'options' => $this->serialize($batch->options),
             'created_at' => time(),
             'cancelled_at' => null,
@@ -141,7 +141,7 @@ class DatabaseBatchRepository implements PrunableBatchRepository
             return [
                 'pending_jobs' => $batch->pending_jobs - 1,
                 'failed_jobs' => $batch->failed_jobs,
-                'failed_job_ids' => json_encode(array_values(array_diff(json_decode($batch->failed_job_ids, true), [$jobId]))),
+                'failed_project_job_ids' => json_encode(array_values(array_diff(json_decode($batch->failed_project_job_ids, true), [$jobId]))),
             ];
         });
 
@@ -164,7 +164,7 @@ class DatabaseBatchRepository implements PrunableBatchRepository
             return [
                 'pending_jobs' => $batch->pending_jobs,
                 'failed_jobs' => $batch->failed_jobs + 1,
-                'failed_job_ids' => json_encode(array_values(array_unique(array_merge(json_decode($batch->failed_job_ids, true), [$jobId])))),
+                'failed_project_job_ids' => json_encode(array_values(array_unique(array_merge(json_decode($batch->failed_project_job_ids, true), [$jobId])))),
             ];
         });
 
@@ -337,7 +337,7 @@ class DatabaseBatchRepository implements PrunableBatchRepository
             (int) $batch->total_jobs,
             (int) $batch->pending_jobs,
             (int) $batch->failed_jobs,
-            json_decode($batch->failed_job_ids, true),
+            json_decode($batch->failed_project_job_ids, true),
             $this->unserialize($batch->options),
             CarbonImmutable::createFromTimestamp($batch->created_at),
             $batch->cancelled_at ? CarbonImmutable::createFromTimestamp($batch->cancelled_at) : $batch->cancelled_at,

@@ -13,7 +13,7 @@ class CreateUserRolesTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_second')->create('user_roles', function (Blueprint $table) {
+        Schema::create('user_roles', function (Blueprint $table) {
             $table->unsignedInteger('user_id');
             $table->unsignedTinyInteger('role_id');
 

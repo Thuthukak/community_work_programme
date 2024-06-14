@@ -13,7 +13,7 @@ class CreateIssuesTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_second')->create('issues', function (Blueprint $table) {
+        Schema::create('issues', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('project_id');
             $table->string('title', 60);

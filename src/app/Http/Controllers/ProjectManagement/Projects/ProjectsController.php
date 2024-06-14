@@ -7,7 +7,7 @@ use App\Models\ProjectManagement\Projects\ProjectsRepository;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProjectManagement\Projects\CreateRequest;
 use App\Http\Requests\ProjectManagement\Projects\UpdateRequest;
-use App\Models\ProjectManagement\Users\User;
+use App\Models\Core\Auth\User;
 use Illuminate\Http\Request;
 
 /**
@@ -79,9 +79,9 @@ class ProjectsController extends Controller
     {
         $this->authorize('create', new Project());
 
-        $customers = $this->repo->getCustomersList();
+        $Organization = $this->repo->getOrganizationsList();
 
-        return view('crm.projects.create', compact('customers'));
+        return view('crm.projects.create', compact('Organization'));
     }
 
     /**
@@ -123,9 +123,9 @@ class ProjectsController extends Controller
     {
         $this->authorize('update', $project);
 
-        $customers = $this->repo->getCustomersList();
+        $Organization = $this->repo->getOrganizationsList();
 
-        return view('crm.projects.edit', compact('project', 'customers'));
+        return view('crm.projects.edit', compact('project', 'Organization'));
     }
 
     /**
@@ -223,7 +223,7 @@ class ProjectsController extends Controller
         $project = $this->repo->updateStatus($request->get('status_id'), $project->id);
         flash(__('project.updated'), 'success');
 
-        return redirect()->route('crm.projects.show', $project);
+        return redirect()->route('projects.show', $project);
     }
 
     /**

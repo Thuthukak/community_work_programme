@@ -21,15 +21,28 @@ class UserRoleTableSeeder extends Seeder
         $this->disableForeignKeys();
 
         $user = User::query()->find(1);
-        $user->assignRole(config('access.users.app_admin_role'));
+        if ($user) {
+            $user->assignRole(config('access.users.app_admin_role'));
+        }
+
         // manager
         $user = User::query()->find(2);
-        $user->assignRole('Manager');
-        //agent
+        if ($user) {
+            $user->assignRole('Manager');
+        }
+
+        // agent
         $user = User::query()->find(3);
-        $user->assignRole('Agent');
-        // $user = User::query()->find(4);
-        // $user->assignRole('Client');
+        if ($user) {
+            $user->assignRole('Agent');
+        }
+
+        // client
+        $user = User::query()->find(4);
+        if ($user) {
+            $user->assignRole('Client');
+        }
+
         $this->enableForeignKeys();
     }
 }

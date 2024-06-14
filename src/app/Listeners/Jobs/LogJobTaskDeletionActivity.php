@@ -2,7 +2,7 @@
 
 namespace App\Listeners\Jobs;
 
-use App\Entities\Users\Activity;
+use App\Models\ProjectManagement\Users\Activity;
 use App\Events\Tasks\Deleted;
 
 class LogJobTaskDeletionActivity
@@ -10,7 +10,7 @@ class LogJobTaskDeletionActivity
     public function handle(Deleted $event)
     {
         $task = $event->task;
-        $jobId = $task->job_id;
+        $jobId = $task->project_job_id;
 
         $activityEntry = [
             'type'        => 'task_deleted',

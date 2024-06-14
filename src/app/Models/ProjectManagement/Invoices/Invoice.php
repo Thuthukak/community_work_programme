@@ -3,7 +3,7 @@
 namespace App\Models\ProjectManagement\Invoices;
 
 use App\Models\ProjectManagement\Projects\Project;
-use App\Models\ProjectManagement\Users\User;
+use App\Models\Core\Auth\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**

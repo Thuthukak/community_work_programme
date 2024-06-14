@@ -3,7 +3,7 @@
 namespace App\Policies\Projects;
 
 use App\Models\ProjectManagement\Projects\Task;
-use App\Entities\Users\User;
+use App\Models\Core\Auth\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class TaskPolicy
@@ -13,7 +13,7 @@ class TaskPolicy
     /**
      * Determine whether the user can create tasks.
      *
-     * @param  \App\Entities\Users\User  $user
+     * @param  \App\Models\ProjectManagement\Users\User  $user
      * @param  \App\Models\ProjectManagement\Projects\Task  $task
      * @return mixed
      */
@@ -25,7 +25,7 @@ class TaskPolicy
     /**
      * Determine whether the user can update the task.
      *
-     * @param  \App\Entities\Users\User  $user
+     * @param  \App\Models\ProjectManagement\Users\User  $user
      * @param  \App\Models\ProjectManagement\Projects\Task  $task
      * @return mixed
      */
@@ -38,7 +38,7 @@ class TaskPolicy
     /**
      * Determine whether the user can delete the task.
      *
-     * @param  \App\Entities\Users\User  $user
+     * @param  \App\Models\ProjectManagement\Users\User  $user
      * @param  \App\Models\ProjectManagement\Projects\Task  $task
      * @return mixed
      */

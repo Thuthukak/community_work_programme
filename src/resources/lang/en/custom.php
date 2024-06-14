@@ -658,6 +658,10 @@ return array_merge([
     //Project management
     'projects_management' => 'Project Management',
     'projects' => 'Projects',
+    'issues' => 'Issues',
+    'tasks' => 'Sub Tasks',
+    'jobs'   => 'Tasks',
+    'task' => 'Task',
     'create_new_project' => 'Create new project',
     'project_list' => 'Project list',
     'projects_found' => 'Projects found',
@@ -666,11 +670,9 @@ return array_merge([
     'work_duration' => 'Work duration',
     'project_value' => 'Project value',
     'status' => 'Status',
-    'customer' => 'Customer',
     'action' => 'Action',
+    'customer' => 'Customer',
     'project_not_found' => 'Project not found',
-    'search_projects' => 'Search projects',
-    'project.search' => '     search project',
 
 
 
@@ -744,7 +746,7 @@ return array_merge([
     //Project Management 
 
     'project_list' => 'Project List',
-    'job_list' => 'Job List',
+    'job_list' => 'Task list',
     'issues' => 'Issues',
     'subscriptions' => 'Subscriptions',
 

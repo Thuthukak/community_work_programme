@@ -2,7 +2,7 @@
 
 @section('title', __('project.edit'))
 
-@section('content')
+@section('contents')
 
 @include('crm.projects.partials.breadcrumb', ['title' => __('project.edit')])
 
@@ -41,7 +41,7 @@
                         {!! FormField::select('status_id', ProjectStatus::toArray(), ['label' => __('app.status')]) !!}
                     </div>
                     <div class="col-md-6">
-                        {!! FormField::select('customer_id', $customers, ['label' => __('project.customer')]) !!}
+                        {!! FormField::select('Organization', $Organization, ['label' => __('Organization')]) !!}
                     </div>
                 </div>
             </div>

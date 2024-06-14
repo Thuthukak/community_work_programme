@@ -661,6 +661,9 @@ Vue.component(
     require("./Component/Views/Settings/BroadcastSetup").default
 );
 
+// Vue.component('app-table', require('../core//components/datatable/Index').default);
+
+
 Vue.component(
     "app-notification-settings",
     require("./Component/Views/Settings/Notification/NotificationSettings").default
@@ -752,6 +755,17 @@ Vue.component(
 Vue.component(
     'app-attachments-column',
     require('./Component/Views/Expense/AttachmentsColumn').default
+);
+
+// Projects  area 
+Vue.component(
+    "Projects",
+    require("./Component/Views/Projects/Projects").default
+);
+
+Vue.component(
+    "Project-create-edit-modal",
+    require("./Component/Views/Projects/ProjectsCreateEditModal").default
 );
 
 //Dashboard

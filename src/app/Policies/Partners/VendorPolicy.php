@@ -3,7 +3,7 @@
 namespace App\Policies\Partners;
 
 use App\Entities\Partners\Vendor;
-use App\Entities\Users\User;
+use App\Models\Core\Auth\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 /**
@@ -18,7 +18,7 @@ class VendorPolicy
     /**
      * Determine whether the user can view the vendor.
      *
-     * @param  \App\Entities\Users\User  $user
+     * @param  \App\Models\ProjectManagement\Users\User  $user
      * @param  \App\Entities\Partners\Vendor  $vendor
      * @return mixed
      */
@@ -30,7 +30,7 @@ class VendorPolicy
     /**
      * Determine whether the user can create vendors.
      *
-     * @param  \App\Entities\Users\User  $user
+     * @param  \App\Models\ProjectManagement\Users\User  $user
      * @param  \App\Entities\Partners\Vendor  $vendor
      * @return mixed
      */
@@ -42,7 +42,7 @@ class VendorPolicy
     /**
      * Determine whether the user can update the vendor.
      *
-     * @param  \App\Entities\Users\User  $user
+     * @param  \App\Models\ProjectManagement\Users\User  $user
      * @param  \App\Entities\Partners\Vendor  $vendor
      * @return mixed
      */
@@ -54,12 +54,12 @@ class VendorPolicy
     /**
      * Determine whether the user can delete the vendor.
      *
-     * @param  \App\Entities\Users\User  $user
+     * @param  \App\Models\ProjectManagement\Users\User  $user
      * @param  \App\Entities\Partners\Vendor  $vendor
      * @return mixed
      */
     public function delete(User $user, Vendor $vendor)
     {
-        return $user->hasRole('admin') && $vendor->payments->isEmpty();
+        return $user->hasRole('admin');
     }
 }

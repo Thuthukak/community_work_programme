@@ -12,7 +12,7 @@ class CreateSubscriptionsTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_second')->create('subscriptions', function (Blueprint $table) {
+        Schema::create('subscriptions', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('project_id');
             $table->unsignedInteger('customer_id');

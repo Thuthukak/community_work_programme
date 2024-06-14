@@ -4,7 +4,7 @@ namespace App\Models\ProjectManagement\Projects;
 
 use App\Models\ProjectManagement\BaseRepository;
 use App\Models\ProjectManagement\Partners\Customer;
-use App\Models\ProjectManagement\Users\User;
+use App\Models\Core\Auth\User;
 use DB;
 use ProjectStatus;
 
@@ -92,12 +92,10 @@ class ProjectsRepository extends BaseRepository
 
         DB::beginTransaction();
 
-        // Delete project payments
-        $project->payments()->delete();
 
         // Delete jobs tasks
         $jobIds = $project->jobs->pluck('id')->all();
-        DB::table('tasks')->whereIn('job_id', $jobIds)->delete();
+        DB::table('tasks')->whereIn('project_job_id', $jobIds)->delete();
 
         // Delete jobs
         $project->jobs()->delete();

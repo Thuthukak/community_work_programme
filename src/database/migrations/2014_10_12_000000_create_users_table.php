@@ -20,6 +20,8 @@ class CreateUsersTable extends Migration
             $table->string('last_name')->nullable();
             $table->string('email', 160)->unique();
             $table->string('password')->nullable();
+            $table->string('api_token')->nullable();
+            $table->char('lang', 2)->default('en');
             $table->timestamp('last_login_at')->nullable();
             $table->unsignedBigInteger("created_by")->nullable();
             $table->foreignId('status_id')->constrained()->onDelete('cascade');

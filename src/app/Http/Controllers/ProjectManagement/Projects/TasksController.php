@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\ProjectManagement\Projects;
 
-use App\Models\ProjectManagement\Projects\Job;
+use App\Models\ProjectManagement\Projects\ProjectJob;
 use App\Models\ProjectManagement\Projects\Task;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Tasks\CreateRequest;
-use App\Http\Requests\Tasks\DeleteRequest;
-use App\Http\Requests\Tasks\UpdateRequest;
+use App\Http\Requests\ProjectManagement\Tasks\CreateRequest;
+use App\Http\Requests\ProjectManagement\Tasks\DeleteRequest;
+use App\Http\Requests\ProjectManagement\Tasks\UpdateRequest;
 use DB;
 
 /**
@@ -18,16 +18,16 @@ use DB;
 class TasksController extends Controller
 {
     /**
-     * Store a created job task to the database.
+     * Store a created ProjectJob task to the database.
      *
-     * @param  \App\Http\Requests\Tasks\CreateRequest  $request
-     * @param  \App\Models\ProjectManagement\Projects\Job  $job
+     * @param  \App\Http\Requests\ProjectManagement\Tasks\CreateRequest  $request
+     * @param  \App\Models\ProjectManagement\Projects\ProjectJob  $job
      * @return \Illuminate\Routing\Redirector
      */
-    public function store(CreateRequest $request, Job $job)
+    public function store(CreateRequest $request, ProjectJob $job)
     {
         $newTask = $request->validated();
-        $newTask['job_id'] = $job->id;
+        $newTask['project_job_id'] = $job->id;
         $task = Task::create($newTask);
 
         flash(__('task.created'), 'success');
@@ -38,7 +38,7 @@ class TasksController extends Controller
     /**
      * Update a task on the database.
      *
-     * @param  \App\Http\Requests\Tasks\UpdateRequest  $request
+     * @param  \App\Http\Requests\ProjectManagement\Tasks\UpdateRequest  $request
      * @param  \App\Models\ProjectManagement\Projects\Task  $task
      * @return \Illuminate\Routing\Redirector
      */
@@ -48,13 +48,13 @@ class TasksController extends Controller
 
         flash(__('task.updated'), 'success');
 
-        return redirect()->route('jobs.show', $task->job_id);
+        return redirect()->route('jobs.show', $task->project_job_id);
     }
 
     /**
      * Delete task from the database.
      *
-     * @param  \App\Http\Requests\Tasks\DeleteRequest  $request
+     * @param  \App\Http\Requests\ProjectManagement\Tasks\DeleteRequest  $request
      * @param  \App\Models\ProjectManagement\Projects\Task  $task
      * @return \Illuminate\Routing\Redirector
      */
@@ -67,7 +67,7 @@ class TasksController extends Controller
             flash(__('task.undeleted'), 'danger');
         }
 
-        return redirect()->route('jobs.show', $task->job_id);
+        return redirect()->route('jobs.show', $task->project_job_id);
     }
 
     /**
@@ -80,7 +80,7 @@ class TasksController extends Controller
     {
         $oldJob = $task->job;
 
-        $job = new Job;
+        $job = new ProjectJob;
         $job->name = $task->name;
         $job->description = $task->description;
         $job->project_id = $oldJob->project_id;

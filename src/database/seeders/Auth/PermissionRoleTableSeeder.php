@@ -81,12 +81,16 @@ class PermissionRoleTableSeeder extends Seeder
                 'custom_fields',
                 'discussions',
                 'notifications',
-                'invoices'
+                'invoices',
+                'Projects',
+                'Jobs',
+                'Issues'
+                
             ])
             ->get();
 
         $agentPermission = Permission::whereNotIn('name', [
-            'export_person', 'export_organization', 'export_deal',
+            'export_person', 'create_projects','export_organization', 'export_deal',
             'create_types', 'update_types', 'delete_types',
             'create_templates', 'update_templates', 'delete_templates', 'copy_templates',
             'create_lost_reasons', 'update_lost_reasons', 'delete_lost_reasons',
@@ -120,6 +124,7 @@ class PermissionRoleTableSeeder extends Seeder
                 'client_access',
                 'view_organizations',
                 'view_deals',
+                'view_projects',
                 'view_proposals',
                 'view_pipelines',
                 'user_info_lead',

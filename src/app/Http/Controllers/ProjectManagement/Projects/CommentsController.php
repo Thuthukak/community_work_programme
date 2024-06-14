@@ -17,6 +17,8 @@ class CommentsController extends Controller
      */
     public function index(Project $project)
     {
+
+
         $this->authorize('view-comments', $project);
 
         $editableComment = null;
@@ -26,6 +28,7 @@ class CommentsController extends Controller
             $editableComment = Comment::find(request('comment_id'));
         }
 
+dd(compact('project', 'comments', 'editableComment'));
         return view('crm.projects.comments', compact('project', 'comments', 'editableComment'));
     }
 

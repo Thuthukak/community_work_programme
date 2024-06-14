@@ -7,7 +7,7 @@ use App\Models\ProjectManagement\Projects\Issue;
 use App\Models\ProjectManagement\Projects\IssueStatus;
 use App\Models\ProjectManagement\Projects\Priority;
 use App\Models\ProjectManagement\Projects\Project;
-use App\Models\Users\User;
+use App\Models\Core\Auth\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 

@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Entities\Users\Event;
-use App\Entities\Users\User;
+use App\Models\ProjectManagement\Users\Event;
+use App\Models\Core\Auth\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 /**

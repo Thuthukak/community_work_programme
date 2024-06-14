@@ -2,11 +2,11 @@
 
 namespace App\Queries;
 
-use App\Entities\Payments\Payment;
-use App\Models\ProjectManagement\Projects\Job;
+// use App\Entities\Payments\Payment;
+use App\Models\ProjectManagement\Projects\ProjectJob;
 use App\Models\ProjectManagement\Projects\Project;
 use App\Entities\Subscriptions\Subscription;
-use App\Entities\Users\User;
+use App\Models\Core\Auth\User;
 use Carbon\Carbon;
 
 /**
@@ -22,20 +22,20 @@ class AdminDashboardQuery
      * @param  string|int  $year
      * @return int Amount of earnings
      */
-    public function totalEarnings($year)
-    {
-        $totalEarnings = 0;
-        $payments = Payment::whereYear('date', $year)->get();
-        foreach ($payments as $payment) {
-            if ($payment->in_out == 1) {
-                $totalEarnings += $payment->amount;
-            } else {
-                $totalEarnings -= $payment->amount;
-            }
-        }
+    // public function totalEarnings($year)
+    // {
+    //     $totalEarnings = 0;
+    //     $payments = Payment::whereYear('date', $year)->get();
+    //     foreach ($payments as $payment) {
+    //         if ($payment->in_out == 1) {
+    //             $totalEarnings += $payment->amount;
+    //         } else {
+    //             $totalEarnings -= $payment->amount;
+    //         }
+    //     }
 
-        return $totalEarnings;
-    }
+    //     return $totalEarnings;
+    // }
 
     /**
      * Get number of projects that has been finished on a year.
@@ -54,26 +54,26 @@ class AdminDashboardQuery
      * @param  string|int  $year  Year of queried payment records
      * @return int Amount of outstanding customer payment
      */
-    public function currentOutstandingCustomerPayment($year)
-    {
-        // On Progress, Done, On Hold
-        $projects = Project::whereIn('status_id', [2, 3, 6])
-            ->whereYear('start_date', $year)
-            ->with('payments')
-            ->get();
+    // public function currentOutstandingCustomerPayment($year)
+    // {
+    //     // On Progress, Done, On Hold
+    //     $projects = Project::whereIn('status_id', [2, 3, 6])
+    //         ->whereYear('start_date', $year)
+    //         ->with('payments')
+    //         ->get();
 
-        $filteredProjects = $projects->filter(function ($project) {
-            return $project->cashInTotal() < $project->project_value;
-        })->values();
+    //     $filteredProjects = $projects->filter(function ($project) {
+    //         return $project->cashInTotal() < $project->project_value;
+    //     })->values();
 
-        $oustandingPaymentTotal = 0;
+    //     $oustandingPaymentTotal = 0;
 
-        foreach ($filteredProjects as $project) {
-            $oustandingPaymentTotal += $project->project_value - $project->cashInTotal();
-        }
+    //     foreach ($filteredProjects as $project) {
+    //         $oustandingPaymentTotal += $project->project_value - $project->cashInTotal();
+    //     }
 
-        return $oustandingPaymentTotal;
-    }
+    //     return $oustandingPaymentTotal;
+    // }
 
     /**
      * Get list of customer subscriptions that expires on next 60 days.
@@ -100,9 +100,12 @@ class AdminDashboardQuery
     public function onProgressJobs(User $user, array $eagerLoads = [], $projectId = null)
     {
         $eagerLoads = array_merge(['tasks'], $eagerLoads);
-        $jobQuery = Job::whereHas('project', function ($query) {
+        $jobQuery = ProjectJob::whereHas('project', function ($query) {
             return $query->whereIn('status_id', [2, 3]);
         })->with($eagerLoads);
+        dd($jobQuery);
+
+
 
         if ($user->hasRole('admin') == false) {
             $jobQuery->where('worker_id', $user->id);
@@ -115,7 +118,6 @@ class AdminDashboardQuery
         $jobs = $jobQuery->get()
             ->where('progress', '<', 100)
             ->values();
-
         return $jobs;
     }
 

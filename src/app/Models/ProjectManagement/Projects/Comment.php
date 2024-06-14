@@ -2,7 +2,7 @@
 
 namespace App\Models\ProjectManagement\Projects;
 
-use App\Models\ProjectManagement\Users\User;
+use App\Models\Core\Auth\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
@@ -10,11 +10,6 @@ class Comment extends Model
     protected $fillable = ['body', 'creator_id'];
 
 
-    /**
-     *  project management database connection
-     */
-
-     protected $connection = 'mysql_second';
 
     public function creator()
     {

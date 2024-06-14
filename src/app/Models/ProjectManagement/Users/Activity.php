@@ -9,12 +9,7 @@ class Activity extends Model
     protected $table = 'user_activities';
 
 
-     /**
-     *  project management database connection
-     */
-
-     protected $connection = 'mysql_second';
-
+ 
     protected $fillable = ['type', 'parent_id', 'user_id', 'object_id', 'object_type', 'data'];
 
     protected $casts = ['data' => 'array'];

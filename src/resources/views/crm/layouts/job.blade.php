@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.crm')
 
 @section('title')
 @yield('subtitle', __('job.detail')) - {{ $job->name }}
 @endsection
 
-@section('content')
-@include('jobs.partials.breadcrumb')
+@section('contents')
+@include('crm.jobs.partials.breadcrumb')
 
 <h1 class="page-header">
     <div class="pull-right">
@@ -15,7 +15,7 @@
     {{ $job->name }} <small>@yield('subtitle', __('job.detail'))</small>
 </h1>
 
-@include('jobs.partials.nav-tabs')
+@include('crm.jobs.partials.nav-tabs')
 
 @yield('content-job')
 

@@ -2,7 +2,7 @@
 
 namespace App\Models\ProjectManagement\Projects;
 
-use App\Models\ProjectManagement\Users\User;
+use App\Models\Core\Auth\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Issue extends Model
@@ -12,12 +12,7 @@ class Issue extends Model
     ];
 
 
-    /**
-     *  project management database connection
-     */
-
-     protected $connection = 'mysql_second';
-
+ 
     public function project()
     {
         return $this->belongsTo(Project::class);

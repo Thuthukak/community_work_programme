@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '6b526e944132f08769e1028a08f6ba09b9b07ee2',
+        'reference' => '6289b7f8ab3432c18d8e512358ec7af3526fc3c4',
         'name' => 'gainhq/core.laravel',
         'dev' => true,
     ),
@@ -363,7 +363,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '6b526e944132f08769e1028a08f6ba09b9b07ee2',
+            'reference' => '3a0d06f941d237f35ef9cff06cb7fcfe9edfe8b4',
             'dev_requirement' => false,
         ),
         'gainhq/installer' => array(

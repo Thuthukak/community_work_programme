@@ -15,11 +15,6 @@ class Customer extends Model
 
 
 
-    /**
-     *  project management database connection
-     */
-
-     protected $connection = 'mysql_second';
 
     /**
      * Customer has many projects.
@@ -31,15 +26,7 @@ class Customer extends Model
         return $this->hasMany('App\Models\ProjectManagement\Projects\Project');
     }
 
-    /**
-     * Customer morph many payments.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function payments()
-    {
-        return $this->morphMany('App\Models\ProjectManagement\Payments\Payment', 'partner');
-    }
+   
 
     /**
      * Customer has many subscriptions.

@@ -12,7 +12,7 @@
     @yield('style')
 </head>
 <body>
-    @yield('content')
+    @yield('contents')
     {!! Html::script(url('assets/js/jquery.js')) !!}
 </body>
 </html>

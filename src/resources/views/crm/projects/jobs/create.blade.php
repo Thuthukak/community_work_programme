@@ -1,15 +1,17 @@
-@extends('layouts.project')
+@extends('layouts.crm')
+
+
 
 @section('subtitle', __('job.create'))
 
 @section('action-buttons')
-@can('create', new App\Models\ProjectManagement\Projects\Job)
+@can('create', new App\Models\ProjectManagement\Projects\ProjectJob)
     {!! html_link_to_route('projects.jobs.create', __('job.create'), [$project], ['class' => 'btn btn-success', 'icon' => 'plus']) !!}
     {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project], ['class' => 'btn btn-default', 'icon' => 'plus']) !!}
 @endcan
 @endsection
 
-@section('content-project')
+@section('contents')
 
 <div class="row">
     <div class="col-sm-6 col-sm-offset-2">

@@ -13,7 +13,7 @@ class CreateCustomersTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_second')->create('customers', function (Blueprint $table) {
+        Schema::create('customers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 60);
             $table->string('email')->nullable()->unique();
