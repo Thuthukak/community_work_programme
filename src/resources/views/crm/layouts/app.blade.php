@@ -10,7 +10,7 @@
     <title>@yield('title', Option::get('app_name', 'Aplikasi Laravel'))</title>
 
     @yield('ext_css')
-    {!! Html::style('assets/css/app.css') !!}
+    <link rel="stylesheet" href="{{ url('assets/css/app.css') }}">
 </head>
 <body>
     <div id="wrapper">
@@ -27,12 +27,12 @@
     </div>
     <!-- /#wrapper -->
 
-    {!! Html::script(url('assets/js/jquery.js')) !!}
-    {!! Html::script(url('assets/js/bootstrap.min.js')) !!}
+    <script src="{{ url('assets/js/jquery.js') }}"></script>
+    <script src="{{ url('assets/js/bootstrap.min.js') }}"></script>
     @include('crm.layouts.partials.noty')
-    {!! Html::script(url('assets/js/plugins/metisMenu/metisMenu.min.js')) !!}
+    <script src="{{ url('assets/js/plugins/metisMenu/metisMenu.min.js') }}"></script>
     @yield('ext_js')
-    {!! Html::script(url('assets/js/sb-admin-2.js')) !!}
+    <script src="{{ url('assets/js/sb-admin-2.js') }}"></script>
 
     <script type="text/javascript">
     (function() {
