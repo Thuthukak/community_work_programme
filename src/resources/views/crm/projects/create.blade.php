@@ -35,9 +35,9 @@
                 {!! FormField::textarea('description', ['label' => trans('project.description')]) !!}
             </div>
 
-            <div class="panel-footer">
-                {!! Form::submit(trans('project.create'), ['class' => 'btn btn-primary']) !!}
-                {!! link_to_route('projects.index', trans('app.cancel'), [], ['class' => 'btn btn-default']) !!}
+            <div class="footer_btns panel-footer">
+                {!! Form::submit(trans('project.create'), ['class' => ' create-btn btn btn-primary']) !!}
+                {!! link_to_route('projects.index', trans('app.cancel'), [], [' cancel-btn class' => 'btn btn-default']) !!}
             </div>
         </div>
     </div>
