@@ -3,12 +3,16 @@
 namespace App\Http\Controllers\ProjectManagement;
 
 use App\Models\ProjectManagement\Projects\Comment;
-use App\Models\ProjectManagement\Projects\Job;
+use App\Models\ProjectManagement\Projects\ProjectJob;
 use App\Models\ProjectManagement\Projects\JobsRepository;
 use App\Models\ProjectManagement\Projects\Project;
 use App\Http\Requests\Jobs\DeleteRequest;
+use App\Models\Core\Auth\User;
+use App\Http\Controllers\Core\UserConverter;
 use App\Http\Requests\Jobs\UpdateRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 /**
  * Jobs Controller.
@@ -40,6 +44,9 @@ class JobsController extends Controller
     public function index()
     {
         $user = auth()->user();
+        $User = new User();
+
+        
 
         if ($user->hasRole('admin')) {
             $projects = Project::whereIn('status_id', [2, 3])->pluck('name', 'id');
@@ -48,10 +55,15 @@ class JobsController extends Controller
                 ->whereIn('status_id', [2, 3])
                 ->pluck('projects.name', 'projects.id');
         }
+      
 
-        $jobs = $this->repo->getUnfinishedJobs($user, request('project_id'));
+        // Log::info($user);
 
-        return view('jobs.unfinished', compact('jobs', 'projects'));
+        $jobs = $this->repo->getUnfinishedJobs($User, request('project_id'));
+
+        // dd($jobs);
+
+        return view('crm.jobs.unfinished', compact('jobs', 'projects'));
     }
 
     /**
@@ -61,7 +73,7 @@ class JobsController extends Controller
      * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return \Illuminate\View\View
      */
-    public function show(Request $request, Job $job)
+    public function show(Request $request, ProjectJob $job)
     {
         $this->authorize('view', $job);
 
@@ -81,7 +93,7 @@ class JobsController extends Controller
             $editableComment = Comment::find(request('comment_id'));
         }
 
-        return view('jobs.show', compact('job', 'editableTask', 'comments', 'editableComment'));
+        return view('crm.jobs.show', compact('job', 'editableTask', 'comments', 'editableComment'));
     }
 
     /**
@@ -90,13 +102,13 @@ class JobsController extends Controller
      * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return \Illuminate\View\View
      */
-    public function edit(Job $job)
+    public function edit(ProjectJob $job)
     {
         $this->authorize('view', $job);
 
         $workers = $this->repo->getWorkersList();
 
-        return view('jobs.edit', compact('job', 'workers'));
+        return view('crm.jobs.edit', compact('job', 'workers'));
     }
 
     /**
@@ -106,7 +118,7 @@ class JobsController extends Controller
      * @param  \App\Models\ProjectManagement\Projects\Job  $job
      * @return \Illuminate\Routing\Redirector
      */
-    public function update(UpdateRequest $request, Job $job)
+    public function update(UpdateRequest $request, ProjectJob $job)
     {
         $job = $this->repo->update($request->except(['_method', '_token']), $job->id);
         flash(__('job.updated'), 'success');
@@ -117,10 +129,10 @@ class JobsController extends Controller
     /**
      * Show job delete confirmation page.
      *
-     * @param  \App\Models\ProjectManagement\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\ProjectJob  $job
      * @return \Illuminate\View\View
      */
-    public function delete(Job $job)
+    public function delete(ProjectJob $job)
     {
         return view('jobs.delete', compact('job'));
     }
@@ -129,14 +141,14 @@ class JobsController extends Controller
      * Show job delete confirmation page.
      *
      * @param  \App\Http\Requests\Jobs\DeleteRequest  $request
-     * @param  \App\Models\ProjectManagement\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\ProjectJob  $job
      * @return \Illuminate\View\View
      */
-    public function destroy(DeleteRequest $request, Job $job)
+    public function destroy(DeleteRequest $request, ProjectJob $job)
     {
         $projectId = $job->project_id;
 
-        if ($job->id == $request->get('job_id')) {
+        if ($job->id == $request->get('project_job_id')) {
             $job->tasks()->delete();
             $job->delete();
             flash(__('job.deleted'), 'success');
@@ -151,10 +163,10 @@ class JobsController extends Controller
      * Reorder job task position.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProjectManagement\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\ProjectJob  $job
      * @return string|null
      */
-    public function tasksReorder(Request $request, Job $job)
+    public function tasksReorder(Request $request, ProjectJob $job)
     {
         if ($request->expectsJson()) {
             $data = $this->repo->tasksReorder($request->get('postData'));

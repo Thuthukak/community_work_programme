@@ -2,7 +2,7 @@
 
 use App\Models\ProjectManagement\Projects\Issue;
 use App\Models\ProjectManagement\Projects\Project;
-use App\Entities\Users\User;
+use App\Models\Core\Auth\User;
 use Faker\Generator as Faker;
 
 $factory->define(Issue::class, function (Faker $faker) {

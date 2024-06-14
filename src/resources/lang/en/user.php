@@ -7,28 +7,28 @@ return [
     'user_id'       => 'User ID',
     'profile'       => 'Profile',
     'current_jobs'  => 'Current Jobs',
-    'search'        => 'Search User: ketik nama',
     'search'        => 'Type user name then hit Enter..',
-    'found'         => 'User found.',
+    'search'        => 'Search User: ketik nama',
     'not_found'     => 'User not found.',
+    'found'         => 'User found.',
     'empty'         => 'User list is empty.',
     'back_to_show'  => 'Back to User Profile',
     'back_to_index' => 'Back to User List',
 
     // Actions
     'create'    => 'Create new User',
-    'created'   => 'User has been created.',
     'show'      => 'User Detail',
+    'created'   => 'User has been created.',
     'edit'      => 'Edit User Data',
     'update'    => 'Update User Data',
-    'updated'   => 'User has been updated.',
     'delete'    => 'Delete User Data',
+    'updated'   => 'User has been updated.',
     'deleted'   => 'User has been deleted.',
     'undeleted' => 'User not deleted.',
 
     // Attributes
-    'name'          => 'User Name',
     'email'         => 'Email',
+    'name'          => 'User Name',
     'lang'          => 'Language',
     'api_token'     => 'API Token',
     'registered_at' => 'Registered at',
@@ -40,11 +40,11 @@ return [
         'worker' => 'Worker',
     ],
 
+    'jobs'       => 'Task List',
     // Relations
-    'jobs'       => 'Job List',
-    'jobs_count' => 'Job Count',
+    'jobs_count' => 'Task Count',
     'projects'   => 'Project List',
 
-    'create_password_info' => 'Leave it empty if you want to use the <b>default password</b>.',
     'update_password_info' => 'Fill this in if you want to change the password.',
+    'create_password_info' => 'Leave it empty if you want to use the <b>default password</b>.',
 ];

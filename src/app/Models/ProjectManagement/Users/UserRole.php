@@ -26,12 +26,6 @@ class UserRole extends Model
     public $timestamps = false;
 
 
-     /**
-     *  project management database connection
-     */
-
-     protected $connection = 'mysql_second';
-
     /**
      * The accessors to append to the model's array form.
      *

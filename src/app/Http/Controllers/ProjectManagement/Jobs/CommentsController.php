@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ProjectManagement\Jobs;
 
 use App\Models\ProjectManagement\Projects\Comment;
-use App\Models\ProjectManagement\Projects\Job;
+use App\Models\ProjectManagement\Projects\ProjectJob;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -12,10 +12,10 @@ class CommentsController extends Controller
     /**
      * Display a listing of the job comments.
      *
-     * @param  \App\Models\ProjectManagement\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\ProjectJob  $job
      * @return \Illuminate\View\View
      */
-    public function index(Job $job)
+    public function index(ProjectJob $job)
     {
         $this->authorize('view-comments', $job);
 
@@ -26,17 +26,17 @@ class CommentsController extends Controller
             $editableComment = Comment::find(request('comment_id'));
         }
 
-        return view('jobs.comments', compact('job', 'comments', 'editableComment'));
+        return view('crm.jobs.comments', compact('job', 'comments', 'editableComment'));
     }
 
     /**
      * Store a new comment in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProjectManagement\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\ProjectJob  $job
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request, Job $job)
+    public function store(Request $request, ProjectJob $job)
     {
         $this->authorize('comment-on', $job);
 
@@ -58,11 +58,11 @@ class CommentsController extends Controller
      * Update the specified comment.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\ProjectManagement\Projects\Job  $job
+     * @param  \App\Models\ProjectManagement\Projects\ProjectJob  $job
      * @param  \App\Entities\Jobs\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Job $job, Comment $comment)
+    public function update(Request $request, ProjectJob $job, Comment $comment)
     {
         $this->authorize('update', $comment);
 
@@ -81,7 +81,7 @@ class CommentsController extends Controller
      * @param  \App\Entities\Jobs\Comment  $comment
      * @return \Illuminate\Routing\Redirector
      */
-    public function destroy(Job $job, Comment $comment)
+    public function destroy(ProjectJob $job, Comment $comment)
     {
         $this->authorize('delete', $comment);
 

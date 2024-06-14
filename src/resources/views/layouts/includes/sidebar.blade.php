@@ -132,18 +132,19 @@
                 [
                     'name' => __('default.project_list',[],$locale),
                     'url' => request()->root().'/projects',
-                    'permission' => authorize_any(['view_projects']),
+                    'permission' => authorize_any(['view_activities']),
                 ],
                 [
                     'name' => __('default.job_list',[],$locale),
                     'url' => request()->root().'/jobs',
-                    'permission' => authorize_any(['view_activities']),
+                    'permission' => authorize_any(['view_projects']),
                 ],
                [
-                    'name' => __('default.subscriptions',[],$locale),
+                    'name' => __('default.issues',[],$locale),
                     'url' => request()->root().'/subscriptions',
-                    'permission' => authorize_any(['view_activities']),
+                    'permission' => authorize_any(['view_projects']),
                 ],  
+             
               
             ],
         ],

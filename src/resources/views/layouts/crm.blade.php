@@ -9,7 +9,6 @@
     <link rel="apple-touch-icon-precomposed" href="{{ env('APP_URL').config('settings.application.company_icon') }}"/>
     <title>@yield('title') - {{ config('app.name') }}</title>
     @include('layouts.includes.header')
-    
 </head>
 <body>
 <div id="app">

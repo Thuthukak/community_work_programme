@@ -12,7 +12,7 @@ class CreateSiteOptionsTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_second')->create('site_options', function (Blueprint $table) {
+        Schema::create('site_options', function (Blueprint $table) {
             $table->increments('id');
             $table->string('key', 60)->index();
             $table->string('value');

@@ -242,7 +242,8 @@
                                     @action="getAction"/>
 
                                 <default-action
-                                    v-else
+                                    v-else 
+
                                     :key="options.actionType+columnIndex"
                                     :actions="options.actions"
                                     :unique-key="row[column.key]"

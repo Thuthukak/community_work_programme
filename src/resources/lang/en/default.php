@@ -495,10 +495,10 @@ return array_merge(
         'office' => 'Office',
 
         // roles
-        'app admin' => 'App Admin',
+        'app admin' => 'Sys Admin',
         'manager' => 'Manager',
-        'agent' => 'Agent',
-        'client' => 'Client',
+        'agent' => 'Partner',
+        'client' => 'Candidate',
 
         // class list
         'primary' => 'Primary',
@@ -603,7 +603,13 @@ return array_merge(
         'attachments' => 'Attachments',
         'expense_area' => 'Expense area',
         'choose_an_expense_area' => 'Choose an expense area',
-        'expense_area_in_use'=>'Area of expense already in  used'
+        'expense_area_in_use'=>'Area of expense already in  used',
+
+
+        //Project 
+        'project' => 'Project',
+        'area_of_projects' => 'Area_Of_Projects',
+        ''
 
     ],
     require 'custom.php'

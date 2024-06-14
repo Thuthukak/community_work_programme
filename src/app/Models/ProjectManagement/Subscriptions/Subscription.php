@@ -21,12 +21,7 @@ class Subscription extends Model
 
 
 
-    /**
-     *  project management database connection
-     */
-
-     protected $connection = 'mysql_second';
-
+    
     /**
      * Show subscription name with link to subscription detail attribute.
      *

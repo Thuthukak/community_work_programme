@@ -12,9 +12,9 @@ class CreateTasksTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_second')->create('tasks', function (Blueprint $table) {
+        Schema::create('tasks', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('job_id')->unsigned();
+            $table->integer('project_job_id')->unsigned();
             $table->string('name', 60);
             $table->string('description')->nullable();
             $table->unsignedTinyInteger('progress')->default(0);

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\ProjectManagement\Projects;
 use App\Models\ProjectManagement\Projects\JobsRepository;
 use App\Models\ProjectManagement\Projects\Project;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Jobs\CreateRequest;
+use App\Http\Requests\ProjectManagement\Jobs\CreateRequest;
 use Illuminate\Http\Request;
 
 /**
@@ -59,7 +59,7 @@ class JobsController extends Controller
 
     public function storeFromOtherProject(Request $request, $projectId)
     {
-        $request->validate(['job_ids' => 'required|array']);
+        $request->validate(['project_job_ids' => 'required|array']);
 
         $this->repo->createJobs($request->except('_token'), $projectId);
 

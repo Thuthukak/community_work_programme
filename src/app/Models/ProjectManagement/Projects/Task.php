@@ -18,12 +18,13 @@ class Task extends Model
     ];
 
 
-    /**
-     *  project management database connection
-     */
-
-     protected $connection = 'mysql_second';
-
+    protected $fillable = [
+        'name',
+        'description',
+        'project_job_id', 
+        'progress',
+        'position'
+       ];
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
@@ -31,6 +32,6 @@ class Task extends Model
 
     public function job()
     {
-        return $this->belongsTo(Job::class, 'job_id');
+        return $this->belongsTo(ProjectJob::class, 'project_job_id');
     }
 }

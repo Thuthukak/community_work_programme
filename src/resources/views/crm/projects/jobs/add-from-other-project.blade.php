@@ -3,7 +3,7 @@
 @section('subtitle', __('job.create'))
 
 @section('action-buttons')
-@can('create', new App\Models\ProjectManagement\Projects\Job)
+@can('create', new App\Models\ProjectManagement\Projects\ProjectJob)
     {!! html_link_to_route('projects.jobs.create', __('job.create'), [$project->id], ['class' => 'btn btn-success', 'icon' => 'plus']) !!}
     {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project->id], ['class' => 'btn btn-default', 'icon' => 'plus']) !!}
 @endcan
@@ -29,14 +29,14 @@
                 <ul class="list-unstyled">
                     @forelse($selectedProject->jobs as $key => $job)
                     <li>
-                        <label for="job_id_{{ $job->id }}">
-                        {{ Form::checkbox('job_ids['.$job->id.']', $job->id, null, ['id' => 'job_id_'.$job->id]) }}
+                        <label for="project_project_job_id_{{ $job->id }}">
+                        {{ Form::checkbox('project_project_job_ids['.$job->id.']', $job->id, null, ['id' => 'project_project_job_id_'.$job->id]) }}
                         {{ $job->name }}</label>
                         <ul style="list-style-type:none">
                             @foreach($job->tasks as $task)
                             <li>
                                 <label for="{{ $job->id }}_task_id_{{ $task->id }}" style="font-weight:normal">
-                                {{ Form::checkbox($job->id.'_task_ids['.$task->id.']', $task->id, null, ['id' => $job->id.'_task_id_'.$task->id, 'class' => 'job_id_'.$job->id.'_tasks']) }}
+                                {{ Form::checkbox($job->id.'_task_ids['.$task->id.']', $task->id, null, ['id' => $job->id.'_task_id_'.$task->id, 'class' => 'project_project_job_id_'.$job->id.'_tasks']) }}
                                 {{ $task->name }}</label>
                             </li>
                             @endforeach
@@ -49,7 +49,7 @@
                 @else
                     <div class="alert alert-info">{{ __('job.select_project') }}</div>
                 @endif
-                @if ($errors->has('job_ids'))
+                @if ($errors->has('project_project_job_ids'))
                     <div class="alert alert-danger">{{ __('validation.select_one') }}</div>
                 @endif
                 {{ Form::submit(__('job.add'), ['class' => 'btn btn-primary']) }}
@@ -83,8 +83,8 @@
     @if ($selectedProject)
         @foreach ($selectedProject->jobs as $job)
 
-            $('#job_id_{{ $job->id }}').change(function () {
-                $('.job_id_{{ $job->id }}_tasks').prop('checked', this.checked);
+            $('#project_job_id_{{ $job->id }}').change(function () {
+                $('.project_job_id_{{ $job->id }}_tasks').prop('checked', this.checked);
             });
 
             @foreach($job->tasks as $task)
@@ -93,7 +93,7 @@
 
                     var condition = false;
 
-                    $.each($(".job_id_{{ $job->id }}_tasks"), function( key, value ) {
+                    $.each($(".project_job_id_{{ $job->id }}_tasks"), function( key, value ) {
                         if(value.checked == true){
                             condition = true
                         }
@@ -101,7 +101,7 @@
 
 
                     if(condition == true){
-                        $('#job_id_{{ $job->id }}').prop('checked', true);
+                        $('#project_job_id_{{ $job->id }}').prop('checked', true);
                     }
                 });
 

@@ -68,14 +68,14 @@ class AddRowInsertToRolePermissionRoleTable extends Migration
                     ])->get();
 
                 $agentPermission = Permission::whereIn('name', [
-                    'view_persons', 'create_persons', 'update_persons', 'delete_persons', 'invite_lead_person',
+                    'view_persons', 'create_persons','create_project','create_job','create_task','create_issues', 'update_persons', 'delete_persons', 'invite_lead_person',
                     'import_persons', 'upload_profile_picture_of_persons', 'sync_tags_persons', 'sync_followers_persons',
                     'sync_contact_persons', 'sync_organizations_persons', 'view_activities_persons', 'sync_activities_person',
                     'sync_file_person', 'sync_note_person', 'view_organizations', 'create_organizations', 'update_organizations',
                     'delete_organizations', 'import_organization', 'upload_profile_picture_of_organizations', 'sync_tags_organizations',
                     'sync_followers_organizations', 'sync_contact_organizations', 'sync_person_organizations', 'person_org_deal',
                     'sync_follower_organizations', 'view_activities_organizations', 'sync_activities_organization', 'sync_file_organization',
-                    'sync_note_organization', 'view_lead_groups', 'view_deals', 'page_deals_pipeline', 'create_deals', 'update_deals', 'delete_deals', 'import_deal',
+                    'sync_note_organization', 'view_lead_groups', 'view_deals','view_projects', 'page_deals_pipeline', 'create_deals', 'update_deals', 'delete_deals', 'import_deal',
                     'move_multiple_deals', 'proposal_send_deal_person', 'proposal_send_deal_person', 'sync_followers_deal', 'sync_tags_deal', 'sync_note_deal',
                     'sync_file_deal', 'view_activities_deal', 'sync_activities_deal', 'delete_person_deal', 'delete_organization_deal', 'sync_participants_deal',
                     'revision_history_deal', 'view_discussions', 'create_discussions', 'update_discussions', 'delete_discussions',

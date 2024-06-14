@@ -3,9 +3,9 @@
 namespace App\Models\ProjectManagement;
 
 use App\Models\ProjectManagement\Partners\Customer;
-use App\Models\ProjectManagement\Projects\Job;
-use App\Models\ProjectManagement\Users\User;
-
+use App\Models\ProjectManagement\Projects\ProjectJob;
+use App\Models\Core\Auth\User;
+use App\Models\CRM\Organization\Organization;
 /**
  * Base Repository Class.
  *
@@ -20,29 +20,52 @@ abstract class BaseRepository extends EloquentRepository
      */
     public function getCustomersList()
     {
-        return Customer::where('is_active', 1)
+        return Organization::where('is_active', 1)
             ->orderBy('name')
             ->pluck('name', 'id');
     }
 
-    /**
-     * Get collection of workers.
+
+     /**
+     * Get collection of customers.
      *
      * @return \Illuminate\Database\Eloquent\Collection
      */
-    public function getWorkersList()
+    public function getOrganizationsList()
     {
-        return User::orderBy('name')->pluck('name', 'id');
+        return Organization::orderBy('name')
+        ->pluck('name', 'id');
+    ;
     }
+   
+        /**
+         * Get collection of workers with first name and last name concatenated.
+         *
+         * @return \Illuminate\Support\Collection
+         */
+        public function getWorkersList()
+        {
+            return User::orderBy('first_name')
+                        ->orderBy('last_name')
+                        ->get()
+                        ->map(function ($user) {
+                            return [
+                                'id' => $user->id,
+                                'name' => $user->first_name . ' ' . $user->last_name,
+                            ];
+                        })
+                        ->pluck('name', 'id');
+        }
+
 
     /**
      * Get Job by it's id.
      *
      * @param  int  $jobId
-     * @return \App\Models\ProjectManagement\Projects\Job
+     * @return \App\Models\ProjectManagement\Projects\ProjectJob
      */
     public function requireJobById($jobId)
     {
-        return Job::findOrFail($jobId);
+        return ProjectJob::findOrFail($jobId);
     }
 }

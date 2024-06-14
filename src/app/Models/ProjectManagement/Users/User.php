@@ -25,11 +25,6 @@ class User extends Authenticatable
 
 
 
-    /**
-     *  project management database connection
-     */
-
-     protected $connection = 'mysql_second';
 
     /**
      * Show user name with link to user detail.
@@ -159,7 +154,7 @@ class User extends Authenticatable
      */
     public function jobs()
     {
-        return $this->hasMany('App\Models\ProjectManagement\Projects\Job', 'worker_id');
+        return $this->hasMany('App\Models\ProjectManagement\Projects\ProjectJob', 'worker_id');
     }
 
     /**
@@ -174,13 +169,5 @@ class User extends Authenticatable
             ->groupBy('project_id');
     }
 
-    /**
-     * User has many Payment as fee.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
-     */
-    public function payments()
-    {
-        return $this->morphMany('App\Models\ProjectManagement\Payments\Payment', 'partner');
-    }
+
 }

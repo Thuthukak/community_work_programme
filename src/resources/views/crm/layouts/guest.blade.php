@@ -15,7 +15,7 @@
 <body>
     <div class="container">
         <div class="row">
-            @yield('content')
+            @yield('contents')
         </div>
         @include('layouts.partials.footer')
     </div>

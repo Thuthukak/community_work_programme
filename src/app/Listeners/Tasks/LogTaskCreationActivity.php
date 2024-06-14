@@ -2,7 +2,7 @@
 
 namespace App\Listeners\Tasks;
 
-use App\Entities\Users\Activity;
+use App\Models\ProjectManagement\Users\Activity;
 use App\Events\Tasks\Created;
 
 class LogTaskCreationActivity

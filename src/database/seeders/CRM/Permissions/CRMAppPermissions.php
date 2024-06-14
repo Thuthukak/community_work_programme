@@ -202,6 +202,13 @@ return [
         'group_name' => 'lead_groups'
     ],
 
+    // Project Related Permmisions 
+    [
+        'name' => 'view_projects',
+        'type_id' => $crmId,
+        'group_name' => 'deals'
+    ],
+
 
     // Deal Related Permissions
     [

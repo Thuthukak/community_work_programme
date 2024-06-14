@@ -12,7 +12,7 @@ class CreateUserEventsTable extends Migration
      */
     public function up()
     {
-        Schema::connection('mysql_second')->create('user_events', function (Blueprint $table) {
+        Schema::create('user_events', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('project_id')->unsigned()->nullable();

@@ -1,10 +1,10 @@
 <?php
 
-use App\Models\ProjectManagement\Projects\Job;
+use App\Models\ProjectManagement\Projects\ProjectJob;
 use App\Models\ProjectManagement\Projects\Project;
 use App\Models\ProjectManagement\Projects\Task;
-use App\Entities\Users\Event;
-use App\Entities\Users\User;
+use App\Models\ProjectManagement\Users\Event;
+use App\Models\Core\Auth\User;
 use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker\Generator $faker) {
@@ -18,7 +18,7 @@ $factory->define(User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(Job::class, function (Faker\Generator $faker) {
+$factory->define(ProjectJob::class, function (Faker\Generator $faker) {
     return [
         'project_id'  => function () {
             return factory(Project::class)->create()->id;
@@ -29,15 +29,15 @@ $factory->define(Job::class, function (Faker\Generator $faker) {
         'worker_id'   => function () {
             return factory(User::class)->create()->id;
         },
-        'type_id'     => 1, // Main job
+        'type_id'     => 1, // Main ProjectJob
         'position'    => 1,
     ];
 });
 
 $factory->define(Task::class, function (Faker\Generator $faker) {
     return [
-        'job_id'      => function () {
-            return factory(Job::class)->create()->id;
+        'project_job_id'      => function () {
+            return factory(ProjectJob::class)->create()->id;
         },
         'name'        => $faker->sentence(3),
         'description' => $faker->paragraph,

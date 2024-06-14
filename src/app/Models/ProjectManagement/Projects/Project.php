@@ -4,7 +4,6 @@ namespace App\Models\ProjectManagement\Projects;
 
 use App\Models\ProjectManagement\Invoices\Invoice;
 use App\Models\ProjectManagement\Partners\Customer;
-use App\Models\ProjectManagement\Payments\Payment;
 use App\Models\ProjectManagement\Subscriptions\Subscription;
 use DB;
 use Illuminate\Database\Eloquent\Model;
@@ -29,11 +28,6 @@ class Project extends Model
     ];
 
 
-    /**
-     *  project management database connection
-     */
-
-     protected $connection = 'mysql_second';
 
     /**
      * @var \App\Models\ProjectManagement\Projects\ProjectPresenter
@@ -67,7 +61,7 @@ class Project extends Model
      */
     public function jobs()
     {
-        return $this->hasMany(Job::class)->orderBy('position');
+        return $this->hasMany(ProjectJob::class)->orderBy('position');
     }
 
     /**
@@ -77,7 +71,7 @@ class Project extends Model
      */
     public function tasks()
     {
-        return $this->hasManyThrough(Task::class, Job::class);
+        return $this->hasManyThrough(Task::class, ProjectJob::class);
     }
 
     /**
@@ -87,7 +81,7 @@ class Project extends Model
      */
     public function mainJobs()
     {
-        return $this->hasMany(Job::class)->orderBy('position')->whereTypeId(1);
+        return $this->hasMany(ProjectJob::class)->orderBy('position')->whereTypeId(1);
     }
 
     /**
@@ -97,7 +91,7 @@ class Project extends Model
      */
     public function additionalJobs()
     {
-        return $this->hasMany(Job::class)->orderBy('position')->whereTypeId(2);
+        return $this->hasMany(ProjectJob::class)->orderBy('position')->whereTypeId(2);
     }
 
     /**
@@ -120,15 +114,7 @@ class Project extends Model
         return $this->hasMany(Invoice::class);
     }
 
-    /**
-     * Project has many Payments relation.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function payments()
-    {
-        return $this->hasMany(Payment::class)->orderBy('date', 'desc');
-    }
+    
 
     /**
      * Project has many Comments relation.
@@ -150,32 +136,10 @@ class Project extends Model
         return $this->belongsTo(Customer::class);
     }
 
-    /**
-     * Project cash in (income) total.
-     *
-     * @return int
-     */
-    public function cashInTotal()
-    {
-        return $this->payments->sum(function ($payment) {
-            return $payment->in_out == 1 ? $payment->amount : 0;
-        });
-    }
+
 
     /**
-     * Project cash out (spending) total.
-     *
-     * @return int
-     */
-    public function cashOutTotal()
-    {
-        return $this->payments->sum(function ($payment) {
-            return $payment->in_out == 0 ? $payment->amount : 0;
-        });
-    }
-
-    /**
-     * Get project overal job progress in percent.
+     * Get project overal ProjectJob progress in percent.
      *
      * @return float
      */
@@ -272,8 +236,6 @@ class Project extends Model
         DB::beginTransaction();
         $this->jobs->each->delete();
         $this->files->each->delete();
-        $this->invoices()->delete();
-        $this->payments()->delete();
         $this->subscriptions()->delete();
         $this->comments()->delete();
         DB::commit();

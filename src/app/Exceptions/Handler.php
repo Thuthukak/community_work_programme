@@ -127,6 +127,29 @@ class Handler extends ExceptionHandler
             return response()->json(['status' => false, 'message' => $message], 419);
         }
 
+
+        // throw $exception;
+
+        if ($exception instanceof AuthorizationException) {
+            if ($request->expectsJson()) {
+                return response()->json(['error' => 'Forbidden Action.'], 403);
+            }
+
+            flash(__('auth.unauthorized_access', ['url' => $request->path()]), 'error');
+
+            return redirect()->home();
+        }
+
+        if ($exception instanceof EntityNotFoundException) {
+            if ($request->expectsJson()) {
+                return response()->json(['error' => 'Data not found.'], 404);
+            }
+
+            flash('Data not found.', 'error');
+
+            return redirect()->home();
+        }
+
         return parent::render($request, $exception);
     }
 

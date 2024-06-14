@@ -40,6 +40,10 @@ return [
     'update_lost_reasons' => 'Can update lost reasons',
     'delete_lost_reasons' => 'Can delete lost reasons',
 
+    // Project related Permissions
+
+    'view_projects' => 'Can view projects',
+
 
     // Deal Related Permissions
     'view_deals' => 'Can view deal',

@@ -1,6 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.crm')
 
-@section('content')
+@section('contents')
 
 <div class="well well-sm" style="margin-top: 15px;">
     {!! Form::open(['route' => 'projects.index', 'method' => 'get', 'class' => 'form-inline']) !!}

@@ -201,7 +201,7 @@ class UserService extends BaseService
 
 
             // Log in the PM user
-            $this->loginPMUser(request()->get('email'), request()->get('password'));
+            // $this->loginPMUser(request()->get('email'), request()->get('password'));
 
           
 

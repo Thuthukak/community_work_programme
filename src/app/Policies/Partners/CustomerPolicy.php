@@ -3,7 +3,7 @@
 namespace App\Policies\Partners;
 
 use App\Entities\Partners\Customer;
-use App\Entities\Users\User;
+use App\Models\Core\Auth\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 /**
@@ -18,7 +18,7 @@ class CustomerPolicy
     /**
      * Determine whether the user can view the customer.
      *
-     * @param  \App\Entities\Users\User  $user
+     * @param  \App\Models\ProjectManagement\Users\User  $user
      * @param  \App\Entities\Partners\Customer  $customer
      * @return mixed
      */
@@ -30,7 +30,7 @@ class CustomerPolicy
     /**
      * Determine whether the user can create customers.
      *
-     * @param  \App\Entities\Users\User  $user
+     * @param  \App\Models\ProjectManagement\Users\User  $user
      * @param  \App\Entities\Partners\Customer  $customer
      * @return mixed
      */
@@ -42,7 +42,7 @@ class CustomerPolicy
     /**
      * Determine whether the user can update the customer.
      *
-     * @param  \App\Entities\Users\User  $user
+     * @param  \App\Models\ProjectManagement\Users\User  $user
      * @param  \App\Entities\Partners\Customer  $customer
      * @return mixed
      */
@@ -54,7 +54,7 @@ class CustomerPolicy
     /**
      * Determine whether the user can delete the customer.
      *
-     * @param  \App\Entities\Users\User  $user
+     * @param  \App\Models\ProjectManagement\Users\User  $user
      * @param  \App\Entities\Partners\Customer  $customer
      * @param  int  $dependentRecordsCount
      * @return mixed

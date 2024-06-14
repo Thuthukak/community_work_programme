@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.crm')
 
 @section('title', trans('project.delete'))
 
-@section('content')
+@section('contents')
 <h1 class="page-header">
     <div class="pull-right">
         {!! FormField::delete(['route'=>['projects.destroy',$project->id]], trans('app.delete_confirm_button'), ['class'=>'btn btn-danger'], ['project_id'=>$project->id]) !!}

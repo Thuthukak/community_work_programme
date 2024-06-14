@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.crm')
 
 @section('title', trans('customer.detail'))
 
-@section('content')
+@section('contents')
 <h1 class="page-header">
     <div class="pull-right">
         {!! link_to_route('customers.edit', trans('customer.edit'), [$customer->id], ['id' => 'edit-customer-' . $customer->id, 'class' => 'btn btn-warning']) !!}
