@@ -548,3 +548,45 @@
     }
 }
 
+.breadcrumb-item {
+    padding: 0.5rem 1rem;
+    border-radius: 9999px; // fully rounded corners
+    background-color: #ffffff; // Tailwind's gray-200
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 0.875rem; // Tailwind's text-sm
+    font-weight: 600; // Tailwind's font-semibold
+    color: #374151; // Tailwind's gray-700
+    margin: 0px 20px 0px 0px;
+    
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem; // Tailwind's space-x-2 equivalent
+}
+
+.btn-sm {
+    font-size: 0.875rem; // Tailwind's text-sm
+    padding: 0.5rem 0.75rem; // Tailwind's py-1 px-2
+}
+
+.create_table {
+    margin: 30px 60px 30px 30px;
+}
+
+.page-header {
+    // Add your custom styles here
+    margin: 30px 60px 30px 30px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+.create-project-title {
+    // Add your custom styles here
+    line-height: 0.5 rem !important;
+}
+
