@@ -4,7 +4,7 @@
         <div class="panel panel-info">
             <div class="panel-heading">
                 <div class="row stat-box">
-                    <div class="col-xs-3"><i class="fa fa-tasks fa-4x"></i></div>
+                    <div class="col-xs-3"><i class="fas fa-spinner  fa-3x "></i></div>
                     <div class="col-xs-9 text-right">
                     <div class="lead">{{ __('project.overall_progress') }}</div>
                         <div class="huge" style="font-size: 38px;">{{ format_decimal($project->getJobOveralProgress()) }} %</div> 
@@ -19,7 +19,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <div class="row stat-box">
-                    <div class="col-xs-3"><i class="fa fa-paperclip fa-4x"></i></div>
+                    <div class="col-xs-3"><i class="fas fa-briefcase fa-3x"></i></div>
                     <div class="col-xs-9 text-right">
                         <div class="huge">{{ $project->jobs->count() }} Job</div>
                         <div class="lead">{{ $project->tasks->count() }} Task</div>
@@ -35,8 +35,8 @@
         <div class="panel panel-success">
             <div class="panel-heading">
                 <div class="row stat-box">
+                <div class="col-xs-3"><i class="fas fa-envelope fa-3x"></i></div>
                     <div class="col-xs-12 text-right">
-                        <i class="fa fa-money fa-2x pull-left"></i>
                         <div class="lead">Collectibe Earnings</div>
                         <div class="lead" style="font-size: 30px;">{{ format_money($project->getCollectibeEarnings()) }}</div>
                     </div>

@@ -577,11 +577,8 @@
 
 .page-header {
     // Add your custom styles here
-    margin: 30px 60px 30px 30px;
-    margin-bottom: 1rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    margin: 20px;
+    
     
 }
 
@@ -755,6 +752,15 @@
     display: flex;
     justify-content: space-between;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    border-radius: 6px;
     padding:4px;
+}
+// tasks
+.no-task{
+    margin: 20px;
+}
+.action-buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
 }

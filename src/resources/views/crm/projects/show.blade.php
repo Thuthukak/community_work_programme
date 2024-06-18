@@ -3,9 +3,9 @@
 @section('action-buttons')
 <div class="d-flex justify-content-end">
     @can('update', $project)
-        {!! link_to_route('projects.edit', __('project.edit'), $project, ['class' => 'btn btn-warning btn-sm mr-2']) !!}
+        {!! link_to_route('projects.edit', __('project.edit'), $project, ['class' => 'btn btn-warning btn-sm mr-3 p-2']) !!}
     @endcan
-    {!! link_to_route('projects.index', __('project.back_to_index'), ['status_id' => $project->status_id], ['class' => 'btn btn-info btn-sm']) !!}
+    {!! link_to_route('projects.index', __('project.back_to_index'), ['status_id' => $project->status_id], ['class' => 'btn btn-info btn-sm mr-4']) !!}
 </div>
 @endsection
 @section('content-project')
