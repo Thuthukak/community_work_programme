@@ -19,8 +19,8 @@
 
 @foreach($jobs->groupBy('type_id') as $key => $groupedJobs)
 
-<div id="project-jobs" class="panel panel-default">
-    <div class="panel-heading">
+<div id="project-jobs" class="task-header flex justify-between items-center mb-4">
+    <div class="task-panel-heading">
         <div class="pull-right">
             @can('update', $project)
                 @if (request('action') == 'sort_jobs')
@@ -50,7 +50,7 @@
             @endforeach
         </ul>
     @else
-    <div class="panel-body table-responsive">
+    <div class=" panel-body table-responsive">
         <table class="table table-condensed table-striped table-hover">
             <thead>
                 <th>{{ __('app.table_no') }}</th>

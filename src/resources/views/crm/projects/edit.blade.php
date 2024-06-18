@@ -9,7 +9,7 @@
 <div class="row">
     <div class="col-md-7 col-md-offset-2">
         {!! Form::model($project, ['route' => ['projects.update', $project], 'method' => 'patch']) !!}
-        <div class="panel panel-default">
+        <div class="panel panel-default custom-panel">
             <div class="panel-heading"><h3 class="panel-title">{{ $project->name }}</h3></div>
             <div class="panel-body">
                 {!! FormField::text('name', ['label' => __('project.name')]) !!}
@@ -41,16 +41,16 @@
                         {!! FormField::select('status_id', ProjectStatus::toArray(), ['label' => __('app.status')]) !!}
                     </div>
                     <div class="col-md-6">
-                        {!! FormField::select('Organization', $Organization, ['label' => __('Organization')]) !!}
+                        {!! FormField::select('organization_id', $Organization, ['label' => __('Organization')]) !!}
                     </div>
                 </div>
             </div>
 
-            <div class="panel-footer">
-                {!! Form::submit(__('project.update'), ['class' =>'btn btn-primary']) !!}
-                {!! link_to_route('projects.show', __('project.back_to_show'), [$project], ['class' => 'btn btn-default']) !!}
+            <div class="panel-footer custom-panel-footer">
+                {!! Form::submit(__('project.update'), ['class' => 'btn btn-success custom-btn']) !!}
+                {!! link_to_route('projects.show', __('project.back_to_show'), [$project], ['class' => 'btn btn-warning custom-btn']) !!}
                 @can('delete', $project)
-                {!! link_to_route('projects.delete', __('app.delete'), [$project], ['class' =>'btn btn-danger pull-right']) !!}
+                {!! link_to_route('projects.delete', __('app.delete'), [$project], ['class' => 'btn btn-danger pull-right custom-btn']) !!}
                 @endcan
             </div>
         </div>
@@ -60,19 +60,19 @@
 @endsection
 
 @section('ext_css')
-    {!! Html::style(url('assets/css/plugins/jquery.datetimepicker.css')) !!}
+@vite(['resources/css/plugins/jquery.datetimepicker.css'])
 @endsection
 
 @section('ext_js')
-    {!! Html::script(url('assets/js/plugins/jquery.datetimepicker.js')) !!}
+@vite(['resources/js/plugins/jquery.datetimepicker.js'])
 @endsection
 
 @section('script')
 <script>
 (function() {
     $('#proposal_date,#start_date,#due_date,#end_date').datetimepicker({
-        timepicker:false,
-        format:'Y-m-d',
+        timepicker: false,
+        format: 'Y-m-d',
         closeOnDateSelect: true,
         scrollInput: false
     });

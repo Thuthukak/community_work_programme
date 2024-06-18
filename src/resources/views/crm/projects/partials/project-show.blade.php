@@ -1,7 +1,7 @@
 <div class="panel panel-default">
-    <div class="panel-heading"><h3 class="panel-title">{{ trans('project.detail') }}</h3></div>
+    <div class="custom-panel-heading"><h3 class="panel-title">{{ trans('project.detail') }}</h3></div>
     <div class="panel-body">
-        <table class="table table-condensed">
+        <table class="table table-condensed showprojtable">
             <tbody>
                 <tr><td class="col-xs-3">{{ trans('project.name') }}</td><td class="col-xs-9">{{ $project->name }}</td></tr>
                 <tr><td>{{ trans('project.description') }}</td><td>{!! nl2br($project->description) !!}</td></tr>
