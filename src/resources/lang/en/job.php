@@ -1,4 +1,3 @@
-    // Labels
 
 <?php
 return [
