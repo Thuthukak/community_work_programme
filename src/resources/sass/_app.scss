@@ -764,3 +764,23 @@
     justify-content: flex-end;
     margin-right: 20px;
 }
+//issues
+.droplist{
+    margin:20px;
+    font:10px;
+}
+.action-buttons-cont{
+    display: flex;
+    align-items: center;
+}
+.action-buttons-cont .form-control-sm {
+    min-width: 100px; /* Adjust the minimum width of the select inputs */
+    margin-right: 5px; /* Adjust spacing between elements */
+}
+
+.action-buttons-cont .btn {
+    margin-right: 5px; /* Adjust spacing between elements */
+}
+.issue-table{
+    margin:20px;
+}
