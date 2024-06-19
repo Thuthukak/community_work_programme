@@ -7,12 +7,14 @@
 @section('contents')
 @include('crm.jobs.partials.breadcrumb')
 
-<h1 class="page-header">
-    <div class="pull-right">
-        @yield('action-buttons')
-        {{ link_to_route('projects.jobs.index', __('job.back_to_index'), [$job->project_id, '#' . $job->id], ['class' => 'btn btn-default']) }}
+<h1 class="page-header d-flex justify-content-between align-items-center">
+    <div>
+        {{ $job->name }} <small>@yield('subtitle', __('job.detail'))</small>
     </div>
-    {{ $job->name }} <small>@yield('subtitle', __('job.detail'))</small>
+    <div class="action-buttons">
+        @yield('action-buttons')
+        {{ link_to_route('projects.jobs.index', __('job.back_to_index'), [$job->project_id, '#' . $job->id], ['class' => 'btn btn-info btn-sm']) }}
+    </div>
 </h1>
 
 @include('crm.jobs.partials.nav-tabs')
