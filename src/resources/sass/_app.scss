@@ -447,6 +447,10 @@
     // Add your custom styles here
     font-size: 1.8 rem;
     font-weight: 600;
+    background: white;
+    padding:4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
 }
 
 .create-project-btn {
@@ -577,7 +581,7 @@
 
 .page-header {
     // Add your custom styles here
-    margin: 20px;
+    margin:20px;
     
     
 }
@@ -585,6 +589,7 @@
 .create-project-title {
     // Add your custom styles here
     line-height: 0.5 rem !important;
+    
 }
 
 .task-header{
@@ -763,4 +768,31 @@
     display: flex;
     justify-content: flex-end;
     margin-right: 20px;
+}
+//issues
+.droplist{
+    margin:20px;
+    font:10px;
+}
+.action-buttons-cont{
+    display: flex;
+    align-items: center;
+}
+.action-buttons-cont .form-control-sm {
+    min-width: 100px; /* Adjust the minimum width of the select inputs */
+    margin-right: 5px; /* Adjust spacing between elements */
+}
+
+.action-buttons-cont .btn {
+    margin-right: 5px; /* Adjust spacing between elements */
+}
+.issue-table{
+    margin:20px;
+}
+.hidden-print{
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    align-items: center;
+    margin: 20px;
 }

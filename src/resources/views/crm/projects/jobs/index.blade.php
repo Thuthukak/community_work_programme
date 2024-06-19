@@ -7,7 +7,7 @@
 
 @can('create', new App\Models\ProjectManagement\Projects\ProjectJob)
 <div class="action-buttons-container">
-    {!! html_link_to_route('projects.jobs.create', __('job.create'), [$project], ['class' => 'btn btn-success btn-sm p-2 mr-4', 'icon' => 'plus']) !!}
+    {!! html_link_to_route('projects.jobs.create', __('job.create'), [$project], ['class' => 'btn btn-success btn-sm p-2 mr-2', 'icon' => 'plus']) !!}
     {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project], ['class' => 'btn btn-info btn-sm p-2 mr-4', 'icon' => 'plus']) !!}
 </div>
     @endcan
