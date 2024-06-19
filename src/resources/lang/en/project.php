@@ -20,7 +20,8 @@ return [
     'receiveable_earnings' => 'Receiveable Earning',
     'payment_remaining'    => 'Payment Remaining',
     'earnings_calculation' => 'Earnings Calculation',
-    'additional_jobs'      => 'Additional Job List',
+    'additional_jobs'      => 'Additional Task List',
+
     'overall_progress'     => 'Overall Progress',
 
     // Payments
@@ -33,7 +34,8 @@ return [
     ],
 
     // Actions
-    'create'        => 'Create new Project',
+    'create'        => 'Add Project',
+
     'created'       => 'New Project has been created.',
     'show'          => 'Show Project Detail',
     'edit'          => 'Edit Project',
@@ -42,8 +44,9 @@ return [
     'delete'        => 'Delete Project',
     'deleted'       => 'Project has been deleted.',
     'undeleted'     => 'Project not deleted.',
-    'show_jobs'     => 'Show Job',
+    'show_jobs'     => 'Show Task',
     'update_status' => 'Update Project Status',
+    'action' => 'Action',
 
     'jobs_list_export_html'     => 'Export HTML',
     'jobs_export_excel'         => 'Export Excel',
@@ -63,8 +66,9 @@ return [
 
     // Relations
     'files'         => 'Document List',
-    'jobs'          => 'Job List',
-    'no_jobs'       => 'Job list is empty.',
+    'jobs'          => 'Task List',
+    'no_jobs'       => 'Task list is empty.',
+
     'cost_proposal' => 'Cost Proposal',
     'invoices'      => 'Invoice List',
     'customer'      => 'Customer',

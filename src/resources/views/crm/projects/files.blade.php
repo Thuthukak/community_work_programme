@@ -1,4 +1,4 @@
-@extends('crm.layouts.app')
+@extends('layouts.crm')
 
 @section('title', __('project.files').' | '.$project->name)
 

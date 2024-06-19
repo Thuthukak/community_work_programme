@@ -149,7 +149,8 @@ Route::get('projects/{project}/comments', [CommentsController::class, 'index'])-
 Route::post('projects/{project}/comments/store', [CommentsController::class, 'store'])->name('projects.comments.store');
 
 // File routes
-Route::get('projects/{project}/files', [FilesController::class, 'index'])->name('projects.files');
+Route::get('projects/{project}/files', [FilesController::class, 'index'])->name('project.files');
+Route::get('/projects/{id}/files', [ProjectController::class, 'files'])->name('projects.files');
 Route::get('projects/{project}/files/upload', [FilesController::class, 'upload'])->name('files.upload');
 Route::post('projects/{projectId}/files/update', [FilesController::class, 'update']);
 

@@ -1,4 +1,4 @@
-@extends('crm.layouts.job')
+@extends('layouts.crm')
 
 @section('title', __('job.edit'))
 

@@ -746,7 +746,7 @@ return array_merge([
     //Project Management 
 
     'project_list' => 'Project List',
-    'job_list' => 'Task list',
+    'job_list' => 'Task on Progress list',
     'issues' => 'Issues',
     'subscriptions' => 'Subscriptions',
 
