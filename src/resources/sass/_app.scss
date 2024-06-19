@@ -836,11 +836,61 @@
     white-space: nowrap; /* Prevent line break between number and percentage sign */
 }
 .btn-blue{
-    background-color: #007bff;
+    background-color: #38a4f8;
     color: white;
 
     &:hover{
-        background-color: #0069d9;
+        background-color: #098df4;
         color: white;
     }
+}
+.sort-job-btn{
+    background-color: #38a4f8;
+    color: white;
+    margin-left:600px;
+
+    &:hover{    
+        background-color: #098df4;
+        color: white;
+    }
+}
+.sort-task-btn{
+    background-color: #38a4f8;
+    color: white;
+    margin-left:600px;
+    margin-top: 5px;
+    
+
+    &:hover{    
+        background-color: #098df4;
+        color: white;
+    }
+}
+.custom-nav-link {
+    background-color: white;
+    border-radius: 50px; /* Makes the pill shape */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px; /* Adjust as needed for better spacing */
+    margin: 5px; /* Add margin to separate the pills */
+    color: #007bff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-nav-link:hover {
+    background-color: #f8f9fa; /* Light grey background on hover */
+    color: #0056b3; /* Darker blue on hover */
+}
+
+.nav-tabs .active .custom-nav-link {
+    background-color: #007bff; /* Active tab background color */
+    color: white; /* Active tab text color */
+}
+.action-buttons .btn {
+    padding: 0.25rem 0.5rem; 
+    font-size: 0.875rem;  
+    margin-right:3px;  
+    justify-content:center;
+}
+.progress-slider2{
+    margin-top:35px;
 }

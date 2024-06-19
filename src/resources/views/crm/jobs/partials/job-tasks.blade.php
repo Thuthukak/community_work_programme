@@ -104,7 +104,7 @@
         <div class="row">
             <div class="col-sm-6">{!! FormField::text('name', ['label' => __('task.name')]) !!}</div>
             <div class="col-md-4" style="margin-top: 32px;">
-                {{ Form::label('progress', __('task.progress'), ['class' => 'control-label ']) }}
+                {{ Form::label('progress', __('task.progress'), ['class' => 'control-label']) }}
                 {{ Form::input('range', 'progress', 0, [
                     'min' => '0', 'max' => '100', 'step' => '10',
                 ]) }}
