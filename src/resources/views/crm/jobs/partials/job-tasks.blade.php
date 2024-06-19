@@ -32,21 +32,23 @@
                     <div class="small text-info">{!! nl2br($task->description) !!}</div>
                 </td>
                 <td class="text-center">
-                    {{ $task->progress }} %
-
-                    @can('update', $task)
-                        @if ($task->progress < 100)
-                            {!! FormField::formButton(['route' => ['tasks.set_done', $task], 'method' => 'patch'],
-                                __('task.set_done'),
-                                ['class' => 'btn btn-success btn-xs', 'id' => $task->id.'-set_task_done'],
-                                [
-                                    'task_id' => $task->id,
-                                    'project_job_id' => $task->project_job_id,
-                                ]
-                            ) !!}
-                        @endif
-                    @endcan
+                    <div class="progress-container">
+                         <span class="progress-text ">{{ $task->progress }}%</span>
+                            @can('update', $task)
+                            @if ($task->progress < 100)
+                                {!! FormField::formButton(['route' => ['tasks.set_done', $task], 'method' => 'patch'],
+                                    __('task.set_done'),
+                                    ['class' => 'btns btn-success btn-xs', 'id' => $task->id.'-set_task_done'],
+                                    [
+                                        'task_id' => $task->id,
+                                        'project_job_id' => $task->project_job_id,
+                                    ]
+                                ) !!}
+                            @endif
+                            @endcan
+                     </div>
                 </td>
+
                 <td class="text-center">
                 @can('update', $task)
                     {!! html_link_to_route('jobs.show', '', [
@@ -61,16 +63,14 @@
                     ]) !!}
                 @endcan
                 @can('delete', $task)
-                    {!! html_link_to_route('jobs.show', '', [
-                        $job,
-                        'action' => 'task_delete',
-                        'task_id' => $task->id
-                    ],[
-                        'class' => 'btn btn-danger btn-xs',
-                        'title' => __('task.delete'),
-                        'id' => $task->id . '-tasks-delete',
-                        'icon' => 'close'
-                    ]) !!}
+                <a href="{{ route('jobs.show', [$job, 'action' => 'task_delete', 'task_id' => $task->id]) }}" 
+           class="btn btn-danger btn-xs" 
+           title="{{ __('task.delete') }}" 
+           id="{{ $task->id . '-tasks-delete' }}">
+            <svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg" fill="#ffffff">
+                <path d="M1490 1327q0 53-37 90t-90 37-90-37L896 1060l-377 357q-37 37-90 37t-90-37-37-90 37-90l357-377-357-377q-37-37-37-90t37-90 90-37 90 37l377 357 377-357q37-37 90-37t90 37 37 90-37 90L1060 896l357 377q37 37 37 90z"/>
+            </svg>
+        </a>
                 @endcan
                 </td>
             </tr>
@@ -86,7 +86,7 @@
                     @if (request('action') == 'sort_tasks')
                         {{ link_to_route('jobs.show', __('app.done'), [$job], ['class' => 'btn btn-default btn-xs pull-right']) }}
                     @else
-                        {{ link_to_route('jobs.show', __('job.sort_tasks'), [$job, 'action' => 'sort_tasks', '#job-tasks'], ['class' => 'btn btn-default btn-xs pull-right']) }}
+                        {{ link_to_route('jobs.show', __('job.sort_tasks'), [$job, 'action' => 'sort_tasks', '#job-tasks'], ['class' => 'btns btn-blue btn-xs pull-right']) }}
                     @endif
                 </th>
             </tr>
@@ -103,13 +103,13 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-sm-6">{!! FormField::text('name', ['label' => __('task.name')]) !!}</div>
-            <div class="col-md-4">
-                {{ Form::label('progress', __('task.progress'), ['class' => 'control-label']) }}
+            <div class="col-md-4" style="margin-top: 32px;">
+                {{ Form::label('progress', __('task.progress'), ['class' => 'control-label ']) }}
                 {{ Form::input('range', 'progress', 0, [
                     'min' => '0', 'max' => '100', 'step' => '10',
                 ]) }}
             </div>
-            <div class="col-md-2" style="font-size: 28px; margin-top: 15px;">
+            <div class="col-md-2" style="font-size: 28px; margin-top: 23px;">
                 <strong id="ap_weight">0</strong>%
             </div>
         </div>
@@ -123,7 +123,7 @@
 @if (request('action') == 'sort_tasks')
 
 @section('ext_js')
-    {!! Html::script(url('assets/js/plugins/jquery-ui.min.js')) !!}
+<script src="{{ asset('assets/js/plugins/jquery-ui.min.js') }}"></script>
 @endsection
 
 @section('script')

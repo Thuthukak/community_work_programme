@@ -6,7 +6,7 @@
 
 @include('crm.projects.partials.breadcrumb', ['title' => __('project.edit')])
 
-<div class="row">
+<div class="main-area row">
     <div class="col-md-7 col-md-offset-2">
         {!! Form::model($project, ['route' => ['projects.update', $project], 'method' => 'patch']) !!}
         <div class="panel panel-default custom-panel">
@@ -48,7 +48,7 @@
 
             <div class="panel-footer custom-panel-footer">
                 {!! Form::submit(__('project.update'), ['class' => 'btn btn-success custom-btn']) !!}
-                {!! link_to_route('projects.show', __('project.back_to_show'), [$project], ['class' => 'btn btn-warning custom-btn']) !!}
+                {!! link_to_route('projects.show', __('project.back_to_show'), [$project], ['class' => 'btn btn-info custom-btn']) !!}
                 @can('delete', $project)
                 {!! link_to_route('projects.delete', __('app.delete'), [$project], ['class' => 'btn btn-danger pull-right custom-btn']) !!}
                 @endcan
