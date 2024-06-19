@@ -5,7 +5,7 @@ return [
     'list'          => 'Task List',
     'on_progress'   => 'Task on Progress',
     'detail'        => 'Task Detail',
-    'search'        => 'Ssearch Job',
+    'search'        => 'Search Job',
     'found'         => 'Task found.',
     'tasks'         => 'Sub Task List',
     'not_found'     => 'Task not found.',

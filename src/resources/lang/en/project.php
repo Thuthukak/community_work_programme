@@ -21,6 +21,7 @@ return [
     'payment_remaining'    => 'Payment Remaining',
     'earnings_calculation' => 'Earnings Calculation',
     'additional_jobs'      => 'Additional Task List',
+
     'overall_progress'     => 'Overall Progress',
 
     // Payments
@@ -34,6 +35,7 @@ return [
 
     // Actions
     'create'        => 'Add Project',
+
     'created'       => 'New Project has been created.',
     'show'          => 'Show Project Detail',
     'edit'          => 'Edit Project',
@@ -66,6 +68,7 @@ return [
     'files'         => 'Document List',
     'jobs'          => 'Task List',
     'no_jobs'       => 'Task list is empty.',
+
     'cost_proposal' => 'Cost Proposal',
     'invoices'      => 'Invoice List',
     'customer'      => 'Customer',
