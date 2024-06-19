@@ -19,11 +19,11 @@
         {!! link_to_route('projects.comments.index', __('comment.list').' ('.$project->comments->count().')', $project, ['class' => 'nav-link']) !!}
     </li>
     @endcan
-    @can('view-subscriptions', $project)
+    <!-- @can('view-subscriptions', $project)
     <li class="{{ Request::segment(3) == 'subscriptions' ? 'active' : '' }} nav-item">
         {!! link_to_route('projects.subscriptions', __('project.subscriptions').' ('.$project->subscriptions->count().')', $project, ['class' => 'nav-link']) !!}
     </li>
-    @endcan
+    @endcan -->
     @can('view-files', $project)
     <li class="{{ Request::segment(3) == 'files' ? 'active' : '' }} nav-item">
         {!! link_to_route('projects.files', __('project.files').' ('.$project->files->count().')', $project, ['class' => 'nav-link']) !!}
