@@ -436,21 +436,27 @@
 
 .project-header {
     // Add your custom styles here
-    margin: 30px 60px 30px 30px;
-    margin-bottom: 1rem;
+    margin: 30px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
+    
+}
+.create-action-btns {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+.dropdown-container{
+    display:flex;
+    justify-content: flex-end;
 }
 
 .project-title {
     // Add your custom styles here
     font-size: 1.8 rem;
     font-weight: 600;
-    background: white;
-    padding:4px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    border-radius: 16px;
+ 
 }
 
 .create-project-btn {
@@ -795,5 +801,19 @@
     justify-content: flex-start;
     gap: 20px;
     align-items: center;
+    margin: 20px;
+}
+.form-inline{
+    margin: 20px;
+}
+.filter-heading{
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px;
+}
+.filter-task-progress{
+    margin-top: -10px;
+}
+.task-progress-table{
     margin: 20px;
 }

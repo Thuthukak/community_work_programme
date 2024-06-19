@@ -4,16 +4,16 @@
 
 @section('contents')
 <div id="app">
-    <div class="project-header flex justify-between items-center mb-4">
+    <div class="project-header  mb-4">
         <h1 class="project-title text-xl font-semibold">
             {{ trans('project.index_title', ['status' => $status]) }}
             <small>{{ $projects->total() }} {{ trans('project.found') }}</small>
         </h1>
         @can('create', new App\Models\ProjectManagement\Projects\Project)
-        <div class="container mt-5">
-            <div class="create-action-btn ml-auto">
+        
+            <div class="create-action-btns ml-auto">
                 <div class="dropdown">
-                    <button class="btn btn-warning btn-sm dropdown-toggle p-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-info mr-2 btn-sm dropdown-toggle p-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ trans('project.action') }}
                         <i class="fas fa-caret-down arrow-icon" id="dropdownArrow"></i>
                     </button>
@@ -43,9 +43,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="create-project-btn ml-auto">
-        {!! link_to_route('projects.create', trans('project.create'), [], ['class' => 'btn btn-warning btn-sm p-2']) !!}
+            {!! link_to_route('projects.create', trans('project.create'), [], ['class' => 'btn btn-warning btn-sm p-2 mr-4']) !!}     
         </div>
         @endcan
     </div>

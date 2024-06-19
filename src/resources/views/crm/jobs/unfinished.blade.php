@@ -7,14 +7,14 @@
 <ul class="breadcrumb hidden-print"><li>{{ __('job.on_progress') }}</li></ul>
 
 <div class="panel panel-default table-responsive">
-    <div class="panel-heading">
+    <div class="filter-heading panel-heading">
         {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-        {!! FormField::select('project_id', $projects, ['label' => __('project.select'), 'placeholder' => __('project.all')]) !!}
-        {{ Form::submit(__('app.filter'), ['class' => 'btn btn-info btn-sm']) }}
-        {{ link_to_route('jobs.index', __('app.reset'), [], ['class' => 'btn btn-default btn-sm']) }}
+        {!! FormField::select('project_id', $projects, ['label' => __('project.select'), 'placeholder' => __('project.all'),'class' => 'mr-2']) !!}
+        {{ Form::submit(__('app.filter'), ['class' => 'btn btn-info btn-m mr-1 filter-task-progress']) }}
+        {{ link_to_route('jobs.index', __('app.reset'), [], ['class' => 'btn btn-danger p-2 mr-1 btn-sm filter-task-progress']) }}
         {{ Form::close() }}
     </div>
-    <table class="table table-condensed">
+    <table class="task-progress-table table table-condensed">
         <thead>
             <th>{{ __('app.table_no') }}</th>
             <th>{{ __('project.name') }}</th>
