@@ -9,7 +9,9 @@ use App\Http\Controllers\ProjectManagement\Projects\IssueController;
 use App\Http\Controllers\ProjectManagement\Projects\CommentsController;
 use App\Http\Controllers\ProjectManagement\Projects\FilesController;
 use App\Http\Controllers\ProjectManagement\SubscriptionsController;
-
+use App\Http\Controllers\API\ProjectJobsController;
+use App\Http\Controllers\ProjectManagement\Issues\OptionController;
+use App\Http\Controllers\ProjectManagement\IssueController as IssuesController;
 use App\Http\Controllers\ProjectManagement\Projects\TasksController;
 use App\Http\Controllers\Customers\CustomerController;
 use App\Models\Core\Auth\User;
@@ -112,12 +114,17 @@ Route::get('customers/{customer}/subscriptions', [CustomerController::class, 'su
 
 // Route::resource('projects', [ProjectsController::class]);
 
-Route::post('/projects', [ProjectsController::class, 'index'])->name('projects.index');
+Route::get('/projects', [ProjectsController::class, 'index'])->name('projects.index');
 Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.store');
 Route::get('projects/create', [ProjectsController::class, 'create'])->name('projects.create');
 Route::get('projects/{project}/delete', [ProjectsController::class, 'delete'])->name('projects.delete');
 Route::get('projects/destroy', [ProjectsController::class, 'destroy'])->name('projects.destroy');
 Route::delete('projects/{project}', [ProjectsController::class, 'destroy'])->name('projects.destroy');
+
+
+//api calls 
+
+Route::get('projects/{project}/jobs', [ProjectJobsController::class, 'index']);
 
 
 Route::post('projects/{project}/update', [ProjectsController::class, 'update'])->name('projects.update');
@@ -136,23 +143,34 @@ Route::get('projects/{project}/job-progress-export/{type?}', [JobsController::cl
 Route::get('projects/{project}/jobs', [JobsController::class, 'index'])->name('projects.jobs.index');
 Route::get('projects/{project}/jobs/create', [JobsController::class, 'create'])->name('projects.jobs.create');
 Route::post('projects/{project}/jobs', [JobsController::class, 'store'])->name('projects.jobs.store');
-Route::get('projects/{project}/jobs/addFromOtherProject', [JobsController::class, 'addFromOtherProject'])->name('projects.jobs.add-from-other-project');
+Route::get('projects/{project}/jobs/add-from-other-project', [JobsController::class, 'addFromOtherProject'])->name('projects.jobs.add-from-other-project');
 Route::post('projects/{project}/jobs/store-from-other-project', [JobsController::class, 'storeFromOtherProject'])->name('projects.jobs.store-from-other-project');
 Route::post('projects/{project}/jobs-reorder', [JobsController::class, 'jobsReorder'])->name('projects.jobs-reorder');
 
 // Issue routes
 Route::get('projects/{project}/issues', [IssueController::class, 'index'])->name('projects.issues.index');
 Route::get('projects/{project}/issues/create', [IssueController::class, 'create'])->name('projects.issues.create');
+Route::post('projects/{project}/issues', [IssueController::class ,'store'])->name('projects.issues.store');
+Route::get('projects/{project}/issues/{issue}', [IssueController::class ,'show'])->name('projects.issues.show');
+Route::get('projects/{project}/issues/{issue}/edit',[IssueController::class ,'edit'])->name('projects.issues.edit');
+Route::patch('projects/{project}/issues/{issue}', [IssueController::class ,'update'])->name('projects.issues.update');
+Route::delete('projects/{project}/issues/{issue}', [IssueController::class ,'destroy'])->name('projects.issues.destroy');
 
 // Comment routes
 Route::get('projects/{project}/comments', [CommentsController::class, 'index'])->name('projects.comments.index');
 Route::post('projects/{project}/comments/store', [CommentsController::class, 'store'])->name('projects.comments.store');
+Route::patch('projects/{project}/comments/{comment}',  [CommentsController::class, 'update'])->name('projects.comments.update');
+Route::delete('projects/{project}/comments/{comment}',  [CommentsController::class, 'destroy'])->name('projects.comments.destroy');
 
 // File routes
 Route::get('projects/{project}/files', [FilesController::class, 'index'])->name('project.files');
-Route::get('/projects/{id}/files', [ProjectController::class, 'files'])->name('projects.files');
-Route::get('projects/{project}/files/upload', [FilesController::class, 'upload'])->name('files.upload');
+Route::get('projects/{id}/files', [ProjectController::class, 'files'])->name('projects.files');
+Route::post('projects/{project}/files', [FilesController::class, 'create'])->name('files.upload');
 Route::post('projects/{projectId}/files/update', [FilesController::class, 'update']);
+Route::post('projects/files/{fileable}', [FilesController::class, 'create'])->name('files.upload');
+Route::post('projects/files/{file}', [FilesController::class, 'show'])->name('files.download');
+Route::post('projects/files/{file}', [FilesController::class, 'update'])->name('files.update');
+Route::post('projects/files/{file}', [FilesController::class, 'destroy'])->name('files.destroy');
 
 // Subscription routes
 Route::get('projects/{project}/subscriptions', [ProjectsController::class, 'subscriptions'])->name('projects.subscriptions');
@@ -194,4 +212,15 @@ Route::post('subscriptions/store', [SubscriptionsController::class, 'store'])->n
     Route::get('jobs/{job}/comments', [CommentsController::class ,'index'])->name('jobs.comments.index');
     Route::post('jobs/{job}/comments', [CommentsController::class , 'store'])->name('jobs.comments.store');
     Route::patch('jobs/{job}/comments/{comment}',[CommentsController::class , 'update'])->name('jobs.comments.update');
-    Route::delete('jobs/{job}/comments/{comment}', [CommentsController::class ,'destroy'])->name('jobs.comments.destroy');
+    Route::delete('jobs/{job}/comments/{comment}', [CommentsController::class ,'destroy'])->name('jobs.comments.destroy');Route::post('issues/{issue}/comments', 'Issues\CommentController@store')->name('issues.comments.store');
+    Route::post('issues/{issue}/comments', [IssueController::class ,'store'])->name('issues.comments.store');
+
+
+    /*
+ * Issue Options Routes
+ */
+Route::patch('issues/{issue}/options', [OptionController::class ,'update'])->name('issues.options.update');
+
+// Route::get('issues/', [IssuesController::class ,'index'])->name('issues.index');
+
+Route::resource('issues', IssueController::class);

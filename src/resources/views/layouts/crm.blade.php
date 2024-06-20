@@ -60,6 +60,32 @@
     </script>
 @endauth
 
+
+<!-- Include necessary JS libraries -->
+{!! Html::script(url('../assets/js/jquery.js')) !!}
+    {!! Html::script(url('../assets/js/bootstrap.min.js')) !!}
+    @include('crm.layouts.partials.noty')
+    {!! Html::script(url('../assets/js/plugins/metisMenu/metisMenu.min.js')) !!}
+    @yield('ext_js')
+    {!! Html::script(url('../assets/js/sb-admin-2.js')) !!}
+
+
+<script type="text/javascript">
+(function() {
+    $("div.alert.notifier, div.alert.add-cart-notifier").delay(5000).slideUp('slow');
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-Token': $('meta[name="x-csrf-token"]').attr('content')
+        },
+        beforeSend: function(xhr){
+            xhr.setRequestHeader('Authorization', 'Bearer ' + "{{ auth()->user()->api_token }}");
+        }
+    });
+})();
+</script>
+
+
+
 <script>
 
     window.localStorage.setItem('base_url', '<?php echo request()->root(); ?>');
@@ -105,5 +131,7 @@
         );
 </script>
 @include('layouts.includes.footer')
+
+@yield('script')
 </body>
 </html>

@@ -139,12 +139,7 @@
                     'url' => request()->root().'/jobs',
                     'permission' => authorize_any(['view_projects']),
                 ],
-               [
-                    'name' => __('default.issues',[],$locale),
-                    'url' => request()->root().'/subscriptions',
-                    'permission' => authorize_any(['view_projects']),
-                ],  
-             
+          
               
             ],
         ],

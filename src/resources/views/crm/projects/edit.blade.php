@@ -18,8 +18,8 @@
                         {!! FormField::textarea('description', ['label' => __('project.description'),'rows' => 5]) !!}
                     </div>
                     <div class="col-md-4">
-                        {!! FormField::price('proposal_value', ['label' => __('project.proposal_value'), 'currency' => Option::get('money_sign', 'Rp')]) !!}
-                        {!! FormField::price('project_value', ['label' => __('project.project_value'), 'currency' => Option::get('money_sign', 'Rp')]) !!}
+                        {!! FormField::price('proposal_value', ['label' => __('project.proposal_value'), 'currency' => Option::get('money_sign', 'R')]) !!}
+                        {!! FormField::price('project_value', ['label' => __('project.project_value'), 'currency' => Option::get('money_sign', 'R')]) !!}
                     </div>
                 </div>
                 <div class="row">

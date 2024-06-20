@@ -39,36 +39,71 @@ class ProjectsController extends Controller
     {
         $status = null;
         $statusId = $request->get('status_id');
+        // dd($statusId);
         if ($statusId) {
             $status = $this->repo->getStatusName($statusId);
         }
 
        // Convert authenticated user to ProjectManagement\Users\User instance
-       $user = $this->convertToProjectManagementUser(auth()->user());
+       $user = auth()->user();
 
        $projects = $this->repo->getProjects($request->get('q'), $statusId, $user);
 
-       return view('crm.projects.index', compact('projects', 'status', 'statusId'));
+
+       $this->authorize('create', new Project());
+
+       $Organization = $this->repo->getOrganizationsList();
+
+
+       return view('crm.projects.index', compact('projects', 'status', 'statusId','Organization'));
     }
 
 
-    private function convertToProjectManagementUser($user)
-    {
-        // Assuming the User models are interchangeable and you can simply return it
-        // If not, you might need to create a new instance and map properties accordingly
-        return new User([
-            'id' => $user->id,
-            'name' => $user->first_name,
-            'email' => $user->email,
-            "password" => $user->password,
-            "remember_token" => $user->remember_token,
-            "lang" => $user->lang,
-            "lang" => $user->lang,
-            "created_at" => $user->created_at,
-            "updated_at" => $user->updated_at
-            // map other properties as needed
-        ]);
-    }
+        /**
+     * List of projects.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    // public function index(Request $request)
+    // {
+    //     $status = null;
+    //     $statusId = $request->get('status_id');
+    //     if ($statusId) {
+    //         $status = $this->repo->getStatusName($statusId);
+    //     }
+
+    //     // Convert authenticated user to ProjectManagement\Users\User instance
+    //     $user = auth()->user();
+
+    //     $projects = $this->repo->getProjects($request->get('q'), $statusId, $user);
+
+    //     return response()->json([
+    //         'projects' => $projects,
+    //         'status' => $status,
+    //         'statusId' => $statusId,
+    //     ]);
+    // }
+
+
+
+    // private function convertToProjectManagementUser($user)
+    // {
+    //     // Assuming the User models are interchangeable and you can simply return it
+    //     // If not, you might need to create a new instance and map properties accordingly
+    //     return new User([
+    //         'id' => $user->id,
+    //         'name' => $user->first_name,
+    //         'email' => $user->email,
+    //         "password" => $user->password,
+    //         "remember_token" => $user->remember_token,
+    //         "lang" => $user->lang,
+    //         "lang" => $user->lang,
+    //         "created_at" => $user->created_at,
+    //         "updated_at" => $user->updated_at
+    //         // map other properties as needed
+    //     ]);
+    // }
 
     /**
      * Show create project form.
@@ -95,6 +130,7 @@ class ProjectsController extends Controller
         $this->authorize('create', new Project());
 
         $project = $this->repo->create($request->except('_token'));
+        // dd($project);
         flash(__('project.created'), 'success');
 
         return redirect()->route('projects.show', $project);

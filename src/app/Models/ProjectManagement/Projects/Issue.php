@@ -20,7 +20,7 @@ class Issue extends Model
 
     public function pic()
     {
-        return $this->belongsTo(User::class)->withDefault(['name' => __('issue.no_pic')]);
+        return $this->belongsTo(User::class)->withDefault(['first_name' => __('issue.no_pic')]);
     }
 
     public function creator()

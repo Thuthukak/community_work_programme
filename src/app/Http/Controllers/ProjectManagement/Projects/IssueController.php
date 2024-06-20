@@ -35,10 +35,10 @@ class IssueController extends Controller
 
     public function create(Project $project)
     {
-        $users = User::pluck('name', 'id');
+        $users = User::pluck('First_name', 'id');
         $priorities = Priority::toArray();
 
-        return view('projects.issues.create', compact('project', 'users', 'priorities'));
+        return view('crm.projects.issues.create', compact('project', 'users', 'priorities'));
     }
 
     public function store(Request $request, Project $project)
@@ -67,14 +67,14 @@ class IssueController extends Controller
         $editableComment = null;
         $priorities = Priority::toArray();
         $statuses = IssueStatus::toArray();
-        $users = User::pluck('name', 'id');
+        $users = User::pluck('first_name', 'id');
         $comments = $issue->comments()->with('creator')->get();
 
         if (request('action') == 'comment-edit' && request('comment_id') != null) {
             $editableComment = Comment::find(request('comment_id'));
         }
 
-        return view('projects.issues.show', compact(
+        return view('crm.projects.issues.show', compact(
             'project', 'issue', 'users', 'statuses', 'priorities', 'comments',
             'editableComment'
         ));
@@ -82,7 +82,7 @@ class IssueController extends Controller
 
     public function edit(Project $project, Issue $issue)
     {
-        return view('projects.issues.edit', compact('project', 'issue'));
+        return view('crm.projects.issues.edit', compact('project', 'issue'));
     }
 
     public function update(Request $request, Project $project, Issue $issue)
