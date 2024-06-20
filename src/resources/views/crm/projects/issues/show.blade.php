@@ -1,4 +1,4 @@
-@extends('layouts.project')
+@extends('crm.layouts.project')
 
 @section('subtitle', __('issue.detail'))
 
@@ -33,7 +33,7 @@
             </div>
         </div>
         <hr>
-        @include('projects.issues.partials.comment-section')
+        @include('crm.projects.issues.partials.comment-section')
     </div>
     <div class="col-md-6">
         {{ Form::model($issue, ['route' => ['issues.options.update', $issue], 'method' => 'patch']) }}

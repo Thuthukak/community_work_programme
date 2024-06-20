@@ -1,4 +1,4 @@
-@extends('layouts.project')
+@extends('crm.layouts.project')
 
 @section('subtitle', __('issue.update'))
 

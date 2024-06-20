@@ -20,10 +20,10 @@
                 {!! FormField::select('organization_id', $Organization, ['placeholder' => __('Organization')]) !!}
                 <div class="row">
                     <div class="col-md-6">
-                        {!! FormField::text('customer_name') !!}
+                        {!! FormField::text('Organization Name') !!}
                     </div>
                     <div class="col-md-6">
-                        {!! FormField::text('customer_email') !!}
+                        {!! FormField::text('Organization Email') !!}
                     </div>
                 </div>
                 <div class="row">

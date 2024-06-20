@@ -180,4 +180,11 @@
         {
             return view('crm.expense.expense-area');
         }
+
+
+		public function projectList()
+		{
+			return view('crm.projects.index');
+
+		}
 	}

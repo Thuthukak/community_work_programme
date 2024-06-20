@@ -80,6 +80,11 @@ Route::get('deal-value', [DealController::class, 'getDealValue'])
 Route::get('activities/calendar/view', [FrontendController::class, 'activityCalendarView'])
     ->name('activities.calendar')->middleware('can:view_activities');
 
+
+// projects 
+
+  
+
 // Tags
 
 Route::resource('tags', TagController::class)

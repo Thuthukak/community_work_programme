@@ -3,6 +3,17 @@
 @section('subtitle', __('comment.list'))
 
 @section('content-job')
+
+@if (config('app.debug'))
+    {{ dd($variable) }}
+@endif
+
+{{ dd($project) }}
+{{ dd($projects) }}
+{{ dd($selectedProject) }}
+
+<?php dd('variable'); ?>
+
 <div class="row">
     <div class="col-md-8 col-md-offset-1">
         {{ $comments->links() }}
@@ -10,6 +21,8 @@
         {{ $comments->links() }}
     </div>
 </div>
+{{dd('Comment');}}
+
 
 @if (Request::get('action') == 'comment-edit' && $editableComment)
     <div id="commentModal" class="modal" role="dialog">

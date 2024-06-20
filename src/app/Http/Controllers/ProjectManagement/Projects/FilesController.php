@@ -6,6 +6,7 @@ use App\Models\ProjectManagement\Projects\File;
 use App\Http\Controllers\Controller;
 use File as FileSystem;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Project Files Controller.
@@ -27,12 +28,17 @@ class FilesController extends Controller
         $model = $modelName::findOrFail($fileableId);
         $files = $model->files;
 
+
+        // dd($fileableType);
         if (in_array($request->get('action'), ['edit', 'delete']) && $request->has('id')) {
             $editableFile = File::find($request->get('id'));
         }
 
         return view('crm.'.$fileableType.'.files', [$modelShortName => $model, 'files' => $files, 'editableFile' => $editableFile]);
     }
+
+
+
 
     public function create(Request $request, $fileableId)
     {
@@ -59,6 +65,9 @@ class FilesController extends Controller
 
         return back();
     }
+
+
+
 
     public function show($fileId)
     {
@@ -98,23 +107,42 @@ class FilesController extends Controller
         return redirect()->route($file->fileable_type.'.files', $file->fileable_id);
     }
 
-    private function proccessPhotoUpload($data, $fileableType, $fileableId)
-    {
-        $file = $data['file'];
-        $fileName = $file->hashName();
-
-        $fileData['fileable_id'] = $fileableId;
-        $fileData['fileable_type'] = $fileableType;
-        $fileData['filename'] = $fileName;
-        $fileData['title'] = $data['title'];
-        $fileData['description'] = $data['description'];
-        \DB::beginTransaction();
-        $file->store('public/files');
-        $file = File::create($fileData);
-        \DB::commit();
-
-        return $file;
-    }
+  
+        private function proccessPhotoUpload($data, $fileableType, $fileableId)
+        {
+            $file = $data['file'];
+            $fileName = $file->hashName();
+    
+            // Store the file in the 'public/files' disk
+            $path = Storage::disk('public')->putFile('files', $file);
+    
+            $fileData = [
+                'fileable_id' => $fileableId,
+                'fileable_type' => $fileableType,
+                'filename' => $fileName,
+                'path' => $path, // Set the path based on the upload location
+                'title' => $data['title'],
+                'description' => $data['description'],
+            ];
+    
+            \DB::beginTransaction();
+    
+            try {
+                // Create the File model instance
+                $file = File::create($fileData);
+    
+                \DB::commit();
+    
+                return $file;
+            } catch (\Exception $e) {
+                \DB::rollback();
+    
+                // Handle any exceptions or errors
+                throw $e;
+            }
+        }
+    
+    
 
     public function getModelName($fileableType)
     {

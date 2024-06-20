@@ -4,7 +4,12 @@
 
 @section('contents')
 <div id="app">
-    <div class="project-header  mb-4">
+
+
+
+
+    <div class="project-header flex justify-between items-center mb-4">
+
         <h1 class="project-title text-xl font-semibold">
             {{ trans('project.index_title', ['status' => $status]) }}
             <small>{{ $projects->total() }} {{ trans('project.found') }}</small>
@@ -43,10 +48,57 @@
                     </div>
                 </div>
             </div>
-            {!! link_to_route('projects.create', trans('project.create'), [], ['class' => 'btn btn-warning btn-sm p-2 mr-4']) !!}     
+
         </div>
+       <div class="create-project-btn ml-auto">
+    <button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#createProjectModal">{{ trans('project.create') }}</button>
+
         @endcan
     </div>
+
+
+   <!-- Modal -->
+<div id="createProjectModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ __('project.create') }}</h4>
+            </div>
+            {!! Form::open(['route' => 'projects.store', 'method' => 'POST']) !!}
+            <div class="modal-body">
+                {!! FormField::text('name', ['label' => trans('project.name')]) !!}
+                {!! FormField::select('organization_id', $Organization, ['placeholder' => __('Organization')]) !!}
+                <div class="row">
+                    <div class="col-md-6">
+                        {!! FormField::text('Organization Name') !!}
+                    </div>
+                    <div class="col-md-6">
+                        {!! FormField::text('Organization Email') !!}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {!! FormField::text('proposal_date', ['label' => trans('project.proposal_date')]) !!}
+                    </div>
+                    <div class="col-md-6">
+                        {!! FormField::price('proposal_value', ['label' => trans('project.proposal_value'), 'currency' => Option::get('money_sign', 'Rp')]) !!}
+                    </div>
+                </div>
+                {!! FormField::textarea('description', ['label' => trans('project.description')]) !!}
+            </div>
+            <div class="modal-footer">
+                {!! Form::submit(trans('project.create'), ['class' => 'btn btn-success']) !!}
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('app.cancel') }}</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+ 
+
+
 
     <div class="project-controls flex justify-between items-center mb-4">
         <div class="index-nav-tabs pull-left hidden-xs">@include('crm.projects.partials.index-nav-tabs')</div>
@@ -111,3 +163,11 @@
     {{ $projects->appends(Request::except('page'))->render() }}
 </div>
 @endsection
+
+<script>
+    $(document).ready(function() {
+        $('form').on('submit', function(e) {
+            console.log('Form submitted'); // Check if this message appears in the browser console
+        });
+    });
+</script>
