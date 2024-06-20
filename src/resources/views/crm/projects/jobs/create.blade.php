@@ -13,7 +13,7 @@
 
 @section('contents')
 
-<div class="row">
+<div class=" main-area row">
     <div class="col-sm-6 col-sm-offset-2">
         {{ Form::open(['route' => ['projects.jobs.store', $project]]) }}
         <div class="panel panel-default">
@@ -53,11 +53,11 @@
 @endsection
 
 @section('ext_css')
-    {!! Html::style(url('assets/css/plugins/jquery.datetimepicker.css')) !!}
+<link rel="stylesheet" href="{{ asset('assets/css/plugins/jquery.datetimepicker.css') }}">
 @endsection
 
 @section('script')
-{!! Html::script(url('assets/js/plugins/jquery.datetimepicker.js')) !!}
+<script src="{{ asset('assets/js/plugins/jquery.datetimepicker.js') }}"></script>
 <script>
 (function() {
     $('.date-select').datetimepicker({

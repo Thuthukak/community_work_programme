@@ -12,24 +12,24 @@
 @endsection
 @section('content-job')
 
-<div class="row">
-    <div class="col-md-5">
+<div class="main-area-main row">
+    <div class="main-areabg col-md-5">
         @include('crm.jobs.partials.job-show')
         @include('crm.jobs.partials.job-dates')
     </div>
-    <div class="col-sm-7">
+    <div class="main-areabg col-sm-6">
         @include('crm.jobs.partials.job-tasks-operation')
         @include('crm.jobs.partials.job-tasks')
     </div>
 </div>
 <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class=" main-areabg col-md-8 col-md-offset-2">
     </div>
 </div>
 @endsection
 
 @section('ext_css')
-    {!! Html::style(url('assets/css/plugins/rangeslider.css')) !!}
+    <link rel="stylesheet" href="{{ asset('assets/css/plugins/rangeslider.css') }}">
     <style>
         .rangeslider--horizontal {
             margin-top: 10px;
@@ -50,7 +50,7 @@
 @endsection
 
 @section('ext_js')
-    {!! Html::script(url('assets/js/plugins/rangeslider.min.js')) !!}
+<script src="{{ asset('assets/js/plugins/rangeslider.min.js') }}"></script>
 @endsection
 
 @section('script')

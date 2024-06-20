@@ -9,7 +9,7 @@
                     'onsubmit' => __('task.set_as_job_confirm'),
                 ],
                 __('task.set_as_job'),
-                ['class' => 'btn btn-success btn-xs', 'id' => 'set-as-job-'.$editableTask->id]
+                ['class' => 'btn sort-task-btn btn-info btn-xs', 'id' => 'set-as-job-'.$editableTask->id]
             ) !!}
         </div>
         <h3 class="panel-title">{{ __('task.edit') }}</h3>
@@ -18,7 +18,7 @@
     <div class="panel-body">
         <div class="row">
             <div class="col-sm-6">{!! FormField::text('name') !!}</div>
-            <div class="col-md-4">
+            <div class="progress-slider2 col-md-4">
                 {{ Form::label('progress', __('task.progress'), ['class' => 'control-label']) }}
 
                 {{ Form::input('range', 'progress', null, [
