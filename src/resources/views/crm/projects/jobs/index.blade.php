@@ -144,7 +144,7 @@
 @if (request('action') == 'sort_jobs')
 
 @section('ext_js')
-    {!! Html::script(url('assets/js/plugins/jquery-ui.min.js')) !!}
+<script src="{{ url('assets/js/plugins/jquery-ui.min.js') }}"></script>
 @endsection
 
 @section('script')

@@ -773,23 +773,32 @@
     justify-content: flex-end;
     margin-right: 20px;
 }
+
+
 //issues
-.droplist{
-    margin:20px;
-    font:10px;
-}
-.action-buttons-cont{
+.action-buttons-wrapper {
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
-.action-buttons-cont .form-control-sm {
-    min-width: 100px; /* Adjust the minimum width of the select inputs */
-    margin-right: 5px; /* Adjust spacing between elements */
+
+.filter-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.action-buttons-cont .btn {
-    margin-right: 5px; /* Adjust spacing between elements */
+.droplist {
+    margin-right: 10px;
+    width: 200px !important; 
+    font-size: 0.875rem !important;    
+    padding: 0.5rem 0.5rem !important;
 }
+
+.create-button-wrapper {
+    margin-left: auto;
+}
+
 .issue-table{
     margin:20px;
 

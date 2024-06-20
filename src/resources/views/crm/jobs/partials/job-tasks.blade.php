@@ -3,7 +3,7 @@
         @if (request('action') == 'sort_tasks')
             {{ link_to_route('jobs.show', __('app.done'), [$job], ['class' => 'btn btn-default btn-xs pull-right', 'style' => 'margin: -2px -8px']) }}
         @else
-            {{ link_to_route('jobs.show', __('job.sort_tasks'), [$job, 'action' => 'sort_tasks', '#job-tasks'], ['class' => 'btn btn-default btn-xs pull-right', 'style' => 'margin: -2px -8px']) }}
+            <!-- {{ link_to_route('jobs.show', __('job.sort_tasks'), [$job, 'action' => 'sort_tasks', '#job-tasks'], ['class' => 'btn btn-default btn-xs pull-right', 'style' => 'margin: -2px -8px']) }} -->
         @endif
         <h3 class="panel-title">{{ request('action') == 'sort_tasks' ? __('job.sort_tasks') : __('job.tasks') }}</h3>
     </div>
@@ -84,7 +84,7 @@
                 <th class="text-center">{{ format_decimal($job->tasks->avg('progress')) }} %</th>
                 <th>
                     @if (request('action') == 'sort_tasks')
-                        {{ link_to_route('jobs.show', __('app.done'), [$job], ['class' => 'btn btn-default btn-xs pull-right']) }}
+                        {{ link_to_route('jobs.show', __('app.done'), [$job], ['class' => 'btn sort-task-btn btn-default btn-xs pull-right']) }}
                     @else
                         {{ link_to_route('jobs.show', __('job.sort_tasks'), [$job, 'action' => 'sort_tasks', '#job-tasks'], ['class' => 'btns btn-blue btn-xs pull-right']) }}
                     @endif
