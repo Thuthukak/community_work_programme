@@ -4,14 +4,12 @@
 
 @section('contents')
 <div id="app">
-<<<<<<< HEAD
+
 
 
 
     <div class="project-header flex justify-between items-center mb-4">
-=======
-    <div class="project-header  mb-4">
->>>>>>> 84e1d5bcc16008be4402d2a5a040d4d2cfa55d1b
+
         <h1 class="project-title text-xl font-semibold">
             {{ trans('project.index_title', ['status' => $status]) }}
             <small>{{ $projects->total() }} {{ trans('project.found') }}</small>
@@ -50,16 +48,11 @@
                     </div>
                 </div>
             </div>
-<<<<<<< HEAD
+
         </div>
        <div class="create-project-btn ml-auto">
     <button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#createProjectModal">{{ trans('project.create') }}</button>
-</div>
 
-=======
-            {!! link_to_route('projects.create', trans('project.create'), [], ['class' => 'btn btn-warning btn-sm p-2 mr-4']) !!}     
-        </div>
->>>>>>> 84e1d5bcc16008be4402d2a5a040d4d2cfa55d1b
         @endcan
     </div>
 
