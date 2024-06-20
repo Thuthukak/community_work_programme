@@ -49,12 +49,14 @@
 @endsection
 
 @section('ext_css')
-    {!! Html::style(url('assets/css/plugins/jquery.datetimepicker.css')) !!}
+    <link rel="stylesheet" href="{{ url('assets/css/plugins/jquery.datetimepicker.css') }}">
 @endsection
 
+
 @section('ext_js')
-    {!! Html::script(url('assets/js/plugins/jquery.datetimepicker.js')) !!}
+    <script src="{{ url('assets/js/plugins/jquery.datetimepicker.js') }}"></script>
 @endsection
+
 
 @section('script')
 <script>

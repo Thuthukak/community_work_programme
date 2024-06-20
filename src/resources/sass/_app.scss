@@ -436,17 +436,27 @@
 
 .project-header {
     // Add your custom styles here
-    margin: 30px 60px 30px 30px;
-    margin-bottom: 1rem;
+    margin: 30px;
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
+    
+}
+.create-action-btns {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+.dropdown-container{
+    display:flex;
+    justify-content: flex-end;
 }
 
 .project-title {
     // Add your custom styles here
     font-size: 1.8 rem;
     font-weight: 600;
+ 
 }
 
 .create-project-btn {
@@ -577,7 +587,7 @@
 
 .page-header {
     // Add your custom styles here
-    margin: 20px;
+    margin:20px;
     
     
 }
@@ -585,6 +595,7 @@
 .create-project-title {
     // Add your custom styles here
     line-height: 0.5 rem !important;
+    
 }
 
 .task-header{
@@ -682,37 +693,25 @@
     padding: 0.5rem 0.75rem;
 }
 
+// edit project
+.main-area{
+    margin: 20px;
+}
+
+.main-areabg {
+    margin: 3px;
+    background-color: #fff;
+    border-radius: 5px; /* Makes it pill-shaped */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow */
+    color: #333;
+    padding-top:10px;
+}
+.main-area-main{
+    margin: 10px;
+}
+
 //custom navtabs
 
-.project-controls {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
-    
-
-    .nav-tabs {
-        display: flex;
-        gap: 1rem; /* Space between nav tabs */
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 1rem;
-
-        a {
-            background-color: white;
-            border-radius: 9999px; /* Rounded pill shape */
-            padding: 0.5rem 1rem; /* Padding for the pills */
-            text-decoration: none; /* Remove underline */
-            color: inherit; /* Inherit text color */
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
-        }
-
-        a.active {
-            background-color: #007bff; /* Change the background color for active tab */
-            color: white;
-        }
-    }
-}
 .nav-tabs {
     display: flex;
     list-style-type: none;
@@ -755,6 +754,16 @@
     border-radius: 6px;
     padding:4px;
 }
+.job-link{
+    color: rgb(47, 47, 47); /* Default color is black */
+    text-decoration: none; /* Optional: remove underline */
+}
+
+/* Hover state link color */
+.job-link:hover {
+    color: #FC6510; /* Change color to orange on hover */
+}
+
 // tasks
 .no-task{
     margin: 20px;
@@ -764,23 +773,133 @@
     justify-content: flex-end;
     margin-right: 20px;
 }
+
+
 //issues
-.droplist{
-    margin:20px;
-    font:10px;
-}
-.action-buttons-cont{
+.action-buttons-wrapper {
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
-.action-buttons-cont .form-control-sm {
-    min-width: 100px; /* Adjust the minimum width of the select inputs */
-    margin-right: 5px; /* Adjust spacing between elements */
+
+.filter-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.action-buttons-cont .btn {
-    margin-right: 5px; /* Adjust spacing between elements */
+.droplist {
+    margin-right: 10px;
+    width: 200px !important; 
+    font-size: 0.875rem !important;    
+    padding: 0.5rem 0.5rem !important;
 }
+
+.create-button-wrapper {
+    margin-left: auto;
+}
+
 .issue-table{
     margin:20px;
+
+}
+.hidden-print{
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    align-items: center;
+    margin: 20px;
+}
+.form-inline{
+    margin: 20px;
+}
+.filter-heading{
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px;
+}
+.filter-task-progress{
+    margin-top: -10px;
+}
+.task-progress-table{
+    margin: 20px;
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between the progress text and button */
+}
+
+.progress-text {
+    white-space: nowrap; 
+    align-items: center;
+    margin-top: -8px;
+}
+
+.btns {
+    padding: 0.25rem 0.5rem; /* Adjust button padding as needed */
+    font-size: 0.9rem; /* Adjust font size to ensure the button doesn't get squished */
+    border-radius: 6px;
+    white-space: nowrap; /* Prevent line break between number and percentage sign */
+}
+.btn-blue{
+    background-color: #38a4f8;
+    color: white;
+
+    &:hover{
+        background-color: #098df4;
+        color: white;
+    }
+}
+.sort-job-btn{
+    background-color: #38a4f8;
+    color: white;
+    margin-left:600px;
+
+    &:hover{    
+        background-color: #098df4;
+        color: white;
+    }
+}
+.sort-task-btn{
+    background-color: #38a4f8;
+    color: white;
+    margin-left:600px;
+    margin-top: 5px;
+    
+
+    &:hover{    
+        background-color: #098df4;
+        color: white;
+    }
+}
+.custom-nav-link {
+    background-color: white;
+    border-radius: 50px; /* Makes the pill shape */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px; /* Adjust as needed for better spacing */
+    margin: 5px; /* Add margin to separate the pills */
+    color: #007bff;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-nav-link:hover {
+    background-color: #f8f9fa; /* Light grey background on hover */
+    color: #0056b3; /* Darker blue on hover */
+}
+
+.nav-tabs .active .custom-nav-link {
+    background-color: #007bff; /* Active tab background color */
+    color: white; /* Active tab text color */
+}
+.action-buttons .btn {
+    padding: 0.25rem 0.5rem; 
+    font-size: 0.875rem;  
+    margin-right:3px;  
+    justify-content:center;
+}
+.progress-slider2{
+    margin-top:35px;
 }
