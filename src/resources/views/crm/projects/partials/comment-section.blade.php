@@ -2,6 +2,7 @@
 {{ Form::open(['route' => ['projects.comments.store', $project]]) }}
 <div class="row" style="margin:10px;">
     <div class="col-md-9">{!! FormField::textarea('body', ['required' => true, 'label' => false, 'placeholder' => __('comment.create_text'), 'class' => 'custom-formfield']) !!}</div>
+    <p>
     <div class="col-md-3" style="width: 10px;">
         {{ Form::submit(__('comment.create'), ['class' => 'btn btn-primary ']) }}<br>
     </div>
@@ -26,7 +27,7 @@
                         'action' => 'comment-edit',
                         'comment_id' => $comment->id
                     ],[
-                        'class' => 'btn btn-warning btn-xs p-1',
+                        'class' => 'btn btn-info btn-xs p-1',
                         'title' => __('comment.edit'),
                         'id' => $comment->id . '-edit-comment',
                         'icon' => 'edit'
@@ -55,7 +56,7 @@
 
         </div>
     </div><hr>
-    <div style="margin-top: 10px;">
+    <div style="margin-top:10px; margin-right: 10px;">
     {!! nl2br($comment->body) !!}
     </div>
 </div>
