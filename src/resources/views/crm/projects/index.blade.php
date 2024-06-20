@@ -4,10 +4,6 @@
 
 @section('contents')
 <div id="app">
-
-
-
-
     <div class="project-header flex justify-between items-center mb-4">
 
         <h1 class="project-title text-xl font-semibold">
@@ -47,12 +43,13 @@
                 @endif
                     </div>
                 </div>
+                <div class="create-project-btn ml-auto">
+                <button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#createProjectModal">{{ trans('project.create') }}</button>
+
             </div>
 
         </div>
-       <div class="create-project-btn ml-auto">
-    <button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#createProjectModal">{{ trans('project.create') }}</button>
-
+       
         @endcan
     </div>
 
