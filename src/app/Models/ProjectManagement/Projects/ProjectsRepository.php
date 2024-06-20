@@ -22,9 +22,9 @@ class ProjectsRepository extends BaseRepository
 
     public function getProjects($q, $statusId, User $user)
     {
-        // $statusIds = array_keys(ProjectStatus::toArray());
 
-        $statusIds = 1;
+        $statusIds = array_keys(ProjectStatus::toArray());
+
 
 
         if ($user->hasRole('admin') == true) {

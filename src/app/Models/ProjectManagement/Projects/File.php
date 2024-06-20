@@ -7,7 +7,7 @@ use Storage;
 
 class File extends Model
 {
-    protected $fillable = ['fileable_id', 'fileable_type', 'type_id', 'filename', 'title', 'description'];
+    protected $fillable = ['path','fileable_id', 'fileable_type', 'type_id', 'filename', 'title', 'description'];
 
 
 

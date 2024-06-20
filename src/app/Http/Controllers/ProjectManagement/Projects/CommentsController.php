@@ -27,8 +27,6 @@ class CommentsController extends Controller
         if (request('action') == 'comment-edit' && request('comment_id') != null) {
             $editableComment = Comment::find(request('comment_id'));
         }
-
-dd(compact('project', 'comments', 'editableComment'));
         return view('crm.projects.comments', compact('project', 'comments', 'editableComment'));
     }
 

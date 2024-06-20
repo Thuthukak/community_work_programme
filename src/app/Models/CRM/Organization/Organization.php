@@ -49,6 +49,21 @@ class Organization extends BaseModel
         // 'total_followers'           // See OrganizationRelationshipsTrait
     ];
 
+    /**
+     * Show project name with link to project detail.
+     *
+     * @return Illuminate\Support\HtmlString
+     */
+    public function nameLink()
+    {
+        return link_to_route('Organizations.show', $this->name, [$this], [
+            'title' => __(
+                'app.show_detail_title',
+                ['name' => $this->name, 'type' => __('project.project')]
+            ),
+        ]);
+    }
+
     public function notes()
     {
         return $this->morphMany(Note::class, 'noteable');

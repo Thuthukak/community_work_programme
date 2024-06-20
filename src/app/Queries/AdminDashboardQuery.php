@@ -103,7 +103,7 @@ class AdminDashboardQuery
         $jobQuery = ProjectJob::whereHas('project', function ($query) {
             return $query->whereIn('status_id', [2, 3]);
         })->with($eagerLoads);
-        dd($jobQuery);
+        // dd($jobQuery);
 
 
 

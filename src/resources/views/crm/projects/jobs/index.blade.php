@@ -3,24 +3,29 @@
 @section('subtitle', __('project.jobs'))
 
 @section('action-buttons')
+
+
 @can('create', new App\Models\ProjectManagement\Projects\ProjectJob)
-    {!! html_link_to_route('projects.jobs.create', __('job.create'), [$project], ['class' => 'btn btn-success', 'icon' => 'plus']) !!}
-    {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project], ['class' => 'btn btn-default', 'icon' => 'plus']) !!}
-@endcan
+<div class="action-buttons-container">
+    {!! html_link_to_route('projects.jobs.create', __('job.create'), [$project], ['class' => 'btn btn-success btn-sm p-2 mr-2', 'icon' => 'plus']) !!}
+    {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project], ['class' => 'btn btn-info btn-sm p-2 mr-4', 'icon' => 'plus']) !!}
+</div>
+    @endcan
+
 @endsection
 
 @section('content-project')
 
 @if ($jobs->isEmpty())
-<p>{{ __('project.no_jobs') }},
+<p class="no-task">{{ __('project.no_jobs') }},
     {{ link_to_route('projects.jobs.create', __('job.create'), [$project]) }}.
 </p>
 @else
 
 @foreach($jobs->groupBy('type_id') as $key => $groupedJobs)
 
-<div id="project-jobs" class="panel panel-default">
-    <div class="panel-heading">
+<div id="project-jobs" class="task-header flex justify-between items-center mb-4">
+    <div class="task-panel-heading">
         <div class="pull-right">
             @can('update', $project)
                 @if (request('action') == 'sort_jobs')
@@ -50,7 +55,7 @@
             @endforeach
         </ul>
     @else
-    <div class="panel-body table-responsive">
+    <div class=" panel-body table-responsive">
         <table class="table table-condensed table-striped table-hover">
             <thead>
                 <th>{{ __('app.table_no') }}</th>
@@ -120,7 +125,7 @@
                             @if (request('action') == 'sort_jobs')
                                 {{ link_to_route('projects.jobs.index', __('app.done'), [$project->id], ['class' => 'btn btn-default btn-xs pull-right']) }}
                             @else
-                                {{ link_to_route('projects.jobs.index', __('project.sort_jobs'), [$project->id, 'action' => 'sort_jobs', '#project-jobs'], ['class' => 'btn btn-default btn-xs pull-right']) }}
+                                {{ link_to_route('projects.jobs.index', __('project.sort_jobs'), [$project->id, 'action' => 'sort_jobs', '#project-jobs'], ['class' => 'btn sort-job-btn  btn-default btn-xs pull-right']) }}
                             @endif
                         @endcan
                     </th>
@@ -139,7 +144,7 @@
 @if (request('action') == 'sort_jobs')
 
 @section('ext_js')
-    {!! Html::script(url('assets/js/plugins/jquery-ui.min.js')) !!}
+<script src="{{ url('assets/js/plugins/jquery-ui.min.js') }}"></script>
 @endsection
 
 @section('script')

@@ -1,8 +1,8 @@
-@extends('crm.layouts.app')
+@extends('layouts.crm')
 
 @section('title', __('project.files').' | '.$project->name)
 
-@section('content')
+@section('contents')
 @include('crm.projects.partials.breadcrumb',['title' => __('project.files')])
 
 <h1 class="page-header">

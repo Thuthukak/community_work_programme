@@ -5,21 +5,28 @@
 @section('subtitle', __('project.issues'))
 
 @section('action-buttons')
-{{ Form::open(['method' => 'get', 'class' => 'form-inline', 'style' => 'display:inline']) }}
-{!! FormField::select('priority_id', $priorities::toArray(), ['label' => false, 'placeholder' => __('issue.all_priority'), 'value' => request('priority_id')]) !!}
-{!! FormField::select('status_id', $issueStatuses::toArray(), ['label' => false, 'placeholder' => __('issue.all_status'), 'value' => request('status_id')]) !!}
-{{ Form::submit(__('app.filter'), ['class' => 'btn btn-info']) }}
-@if (request(['priority_id', 'status_id']))
-    {{ link_to_route('projects.issues.index', __('app.reset'), $project, ['class' => 'btn btn-default']) }}
-@endif
-{{ Form::close() }}
-@can('create', new App\Models\ProjectManagement\Projects\Issue)
-    {!! html_link_to_route('projects.issues.create', __('issue.create'), $project, ['class' => 'btn btn-success', 'icon' => 'plus']) !!}
-@endcan
+<div class="action-buttons-wrapper">
+    {{ Form::open(['method' => 'get', 'class' => 'form-inline filter-form']) }}
+    {!! FormField::select('priority_id', $priorities::toArray(), ['label' => false, 'placeholder' => __('issue.all_priority'), 'value' => request('priority_id'),'class' => 'form-control form-control-xs droplist']) !!}
+    {!! FormField::select('status_id', $issueStatuses::toArray(), ['label' => false, 'placeholder' => __('issue.all_status'), 'value' => request('status_id'),'class' => 'form-control form-control-xs droplist']) !!}
+    {{ Form::submit(__('app.filter'), ['class' => 'btn btn-info btn-sm mb-3 p-2']) }}
+    @if (request(['priority_id', 'status_id']))
+        {{ link_to_route('projects.issues.index', __('app.reset'), $project, ['class' => 'btn btn-default btn-sm p-2']) }}
+    @endif
+    {{ Form::close() }}
+
+    <div class="create-button-wrapper">
+        @can('create', new App\Models\ProjectManagement\Projects\Issue)
+            {!! html_link_to_route('projects.issues.create', __('issue.create'), $project, ['class' => 'btn btn-warning btn-sm p-2', 'icon' => 'plus']) !!}
+        @endcan
+    </div>
+</div>
 @endsection
 
+
+
 @section('content-project')
-<div id="project-issues" class="panel panel-default table-responsive">
+<div id="project-issues" class="issue-table panel panel-default table-responsive">
     <div class="panel-heading">
         <h3 class="panel-title">{{ __('project.issues') }}</h3>
     </div>

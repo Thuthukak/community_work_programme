@@ -16,6 +16,19 @@ Vue.component(
     require("./Component/Views/project/Projects").default
 );
 
+Vue.component(
+    "ProjectJobs",
+    require("./Component/Views/project/ProjectJobs").default
+);
+
+Vue.component(
+    "indexNavTabs",
+    require("./Component/Views/project/indexNavTabs").default
+);
+
+
+
+
 // Password Reset
 Vue.component(
     "app-password-reset",

@@ -48,7 +48,7 @@ class JobsController extends Controller
 
         
 
-        if ($user->hasRole('admin')) {
+        if (!$user->hasRole('admin')) {
             $projects = Project::whereIn('status_id', [2, 3])->pluck('name', 'id');
         } else {
             $projects = $user->projects()

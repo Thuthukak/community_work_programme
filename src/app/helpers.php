@@ -19,7 +19,7 @@ function format_no($number)
  */
 function format_money($number)
 {
-    $moneySign = Option::get('money_sign', 'Rp.');
+    $moneySign = Option::get('money_sign', 'R');
 
     if ($number == 0) {
         return $moneySign.' 0';

@@ -3,25 +3,27 @@
 @section('title', trans('project.create'))
 
 @section('contents')
+<div class="page-header">
 <ul class="breadcrumb hidden-print">
-    <li>{{ link_to_route('projects.index',trans('project.projects')) }}</li>
-    <li class="active">{{ trans('project.create') }}</li>
+    <li><a href="{{ route('projects.index') }}" class="breadcrumb-item ">{{ trans('project.projects') }}</a></li>
+    <li class="active create-project-title">{{ trans('project.create') }}</li>
 </ul>
+</div>
 
-<div class="row">
-    <div class="col-md-4 col-md-offset-3">
+<div class="create_table row justify-center">
+    <div class="col-md-6">
         {!! Form::open(['route' => 'projects.store']) !!}
         <div class="panel panel-default">
-            <div class="panel-heading"><h3 class="panel-title">{{ trans('project.create') }}</h3></div>
+            
             <div class="panel-body">
                 {!! FormField::text('name', ['label' => trans('project.name')]) !!}
                 {!! FormField::select('organization_id', $Organization, ['placeholder' => __('Organization')]) !!}
                 <div class="row">
                     <div class="col-md-6">
-                        {!! FormField::text('customer_name') !!}
+                        {!! FormField::text('Organization Name') !!}
                     </div>
                     <div class="col-md-6">
-                        {!! FormField::text('customer_email') !!}
+                        {!! FormField::text('Organization Email') !!}
                     </div>
                 </div>
                 <div class="row">
@@ -35,15 +37,14 @@
                 {!! FormField::textarea('description', ['label' => trans('project.description')]) !!}
             </div>
 
-            <div class="footer_btns panel-footer">
-                {!! Form::submit(trans('project.create'), ['class' => ' create-btn btn btn-primary']) !!}
-                {!! link_to_route('projects.index', trans('app.cancel'), [], [' cancel-btn class' => 'btn btn-default']) !!}
+            <div class="footer_btns panel-footer form-buttons">
+                {!! Form::submit(trans('project.create'), ['class' => 'create-btn btn btn-primary btn-sm']) !!}
+                {!! link_to_route('projects.index', trans('app.cancel'), [], ['class' => 'cancel-btn btn btn-default btn-sm']) !!}
             </div>
         </div>
+        {!! Form::close() !!}
     </div>
 </div>
-
-{!! Form::close() !!}
 @endsection
 
 @section('ext_css')
@@ -58,8 +59,8 @@
 <script>
 (function() {
     $('#proposal_date').datetimepicker({
-        timepicker:false,
-        format:'Y-m-d',
+        timepicker: false,
+        format: 'Y-m-d',
         closeOnDateSelect: true,
         scrollInput: false
     });

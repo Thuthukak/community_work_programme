@@ -55,8 +55,14 @@ Route::get('/expenses-area/list', [FrontendController::class, 'expenseAreaList']
     ->name('list.expenses_area');
 
 
-    Route::get('projects', [ProjectsController::class, 'index'])
-    ->name('projects.index');
+//projects area 
+// Route::get('/expenses/list', [FrontendController::class, 'expensesList'])
+// ->name('list.expenses');
+
+
+
+    Route::get('/projects/list', [FrontendController::class, 'projectList'])
+    ->name('list.projects');
     
     //  Route::resource('projects', [ProjectsController::class, 'index']);
     
