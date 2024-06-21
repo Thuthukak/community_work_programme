@@ -3,13 +3,14 @@
 @section('subtitle', __('issue.detail'))
 
 @section('action-buttons')
+<div class="action-btns-container">
 @can('create', new App\Models\ProjectManagement\Projects\Issue)
-    {!! html_link_to_route('projects.issues.create', __('issue.create'), $project, ['class' => 'btn btn-success', 'icon' => 'plus']) !!}
+    {!! html_link_to_route('projects.issues.create', __('issue.create'), $project, ['class' => 'btn btn-sm  mr-5 p-2 btn-primary', 'icon' => 'plus']) !!}
 @endcan
 @endsection
 
 @section('content-project')
-<div class="row">
+<div class="row showprojtable" >
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -29,13 +30,13 @@
             </table>
             <div class="panel-footer">
                 {{ link_to_route('projects.issues.edit', __('issue.edit'), [$project, $issue], ['id' => 'edit-issue-'.$issue->id, 'class' => 'btn btn-warning']) }}
-                {{ link_to_route('projects.issues.index', __('issue.back_to_index'), [$project], ['class' => 'btn btn-default pull-right']) }}
+                {{ link_to_route('projects.issues.index', __('issue.back_to_index'), [$project], ['class' => 'btn btn-info pull-right']) }}
             </div>
         </div>
         <hr>
         @include('crm.projects.issues.partials.comment-section')
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6" style="margin-top: 30px">
         {{ Form::model($issue, ['route' => ['issues.options.update', $issue], 'method' => 'patch']) }}
         <div class="panel panel-default">
             <div class="panel-heading"><h3 class="panel-title">{{ __('app.action') }}</h3></div>

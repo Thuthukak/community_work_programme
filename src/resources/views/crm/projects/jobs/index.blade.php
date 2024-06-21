@@ -7,8 +7,8 @@
 
 @can('create', new App\Models\ProjectManagement\Projects\ProjectJob)
 <div class="action-buttons-container">
-    {!! html_link_to_route('projects.jobs.create', __('job.create'), [$project], ['class' => 'btn btn-success btn-sm p-2 mr-2', 'icon' => 'plus']) !!}
-    {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project], ['class' => 'btn btn-info btn-sm p-2 mr-4', 'icon' => 'plus']) !!}
+    {!! html_link_to_route('projects.jobs.create', __('job.create'), [$project], ['class' => 'btn btn-primary btn-sm p-2 mr-2', 'icon' => 'plus']) !!}
+    {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project], ['class' => 'btn btn-success btn-sm p-2 mr-4', 'icon' => 'plus']) !!}
 </div>
     @endcan
 
@@ -26,12 +26,13 @@
 
 <div id="project-jobs" class="task-header flex justify-between items-center mb-4">
     <div class="task-panel-heading">
-        <div class="pull-right">
+    <div class="wrap-action-btns">
+        <div class="action-btns-container2 pill-container">
             @can('update', $project)
                 @if (request('action') == 'sort_jobs')
-                    {{ link_to_route('projects.jobs.index', __('app.done'), [$project], ['class' => 'btn btn-default btn-xs pull-right', 'style' => 'margin-top: -2px; margin-left: 6px; margin-right: -8px']) }}
+                    {{ link_to_route('projects.jobs.index', __('app.done'), [$project], ['class' => 'btn btn-default btn-xs pull-right', 'style' => 'margin-top: 0px; margin-left: 6px; margin-right: -8px']) }}
                 @else
-                    {{ link_to_route('projects.jobs.index', __('project.sort_jobs'), [$project, 'action' => 'sort_jobs', '#project-jobs'], ['class' => 'btn btn-default btn-xs pull-right', 'style' => 'margin-top: -2px; margin-left: 6px; margin-right: -8px']) }}
+                    {{ link_to_route('projects.jobs.index', __('project.sort_jobs'), [$project, 'action' => 'sort_jobs', '#project-jobs'], ['class' => 'btn btn-info mr-1 p-1 btn-xs', 'style' => 'margin-top: -3px; margin-left: 6px; margin-right: -8px']) }}
                     @can('see-pricings', $project)
                     {!! link_to_route('projects.jobs-export', __('project.jobs_list_export_html'), [$project, 'html', 'job_type' => $key], ['class' => '', 'target' => '_blank']) !!} |
                     {!! link_to_route('projects.job-progress-export', __('project.jobs_progress_export_html'), [$project, 'html', 'job_type' => $key], ['class' => '', 'target' => '_blank']) !!}
@@ -39,7 +40,8 @@
                 @endif
             @endcan
         </div>
-        <h3 class="panel-title">
+    </div>
+        <h3 class="panel-title" style="margin-left: -20px">
             {{ $key == 1 ? __('project.jobs') : __('project.additional_jobs') }}
             @if (request('action') == 'sort_jobs')
             <em>: {{ __('project.sort_jobs') }}</em>
@@ -125,7 +127,7 @@
                             @if (request('action') == 'sort_jobs')
                                 {{ link_to_route('projects.jobs.index', __('app.done'), [$project->id], ['class' => 'btn btn-default btn-xs pull-right']) }}
                             @else
-                                {{ link_to_route('projects.jobs.index', __('project.sort_jobs'), [$project->id, 'action' => 'sort_jobs', '#project-jobs'], ['class' => 'btn sort-job-btn  btn-default btn-xs pull-right']) }}
+                                {{ link_to_route('projects.jobs.index', __('project.sort_jobs'), [$project->id, 'action' => 'sort_jobs', '#project-jobs'], ['class' => 'btn sort-job-btn p-1 btn-default btn-xs']) }}
                             @endif
                         @endcan
                     </th>

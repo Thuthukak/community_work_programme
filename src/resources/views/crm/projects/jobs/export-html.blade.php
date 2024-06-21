@@ -4,9 +4,10 @@
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>{{ __('project.jobs') }} {{ $project->name }}</title>
-    {!! Html::style('assets/css/app.css') !!}
+    <link href="{{ url('assets/css/app.css') }}" rel="stylesheet">
+
 </head>
-<body style="font-family:'Liberation Serif'">
+<body style="font-family:'Arial'">
     <div class="container">
         <h1 class="page-header text-center">{{ __('project.jobs') }} {{ $project->name }}</h1>
 
