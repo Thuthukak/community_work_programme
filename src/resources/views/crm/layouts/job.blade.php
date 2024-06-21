@@ -9,7 +9,7 @@
 
 <h1 class="page-header d-flex justify-content-between align-items-center">
     <div>
-        {{ $job->name }} <small>@yield('subtitle', __('job.detail'))</small>
+        <h4 class="page-header-pill-layouts">{{ $job->name }}</h4>
     </div>
     <div class="action-buttons">
         @yield('action-buttons')
