@@ -4,13 +4,14 @@
 
 @section('action-buttons')
 @can('create', new App\Models\ProjectManagement\Projects\Issue)
-    {!! html_link_to_route('projects.issues.create', __('issue.create'), $project, ['class' => 'btn btn-success', 'icon' => 'plus']) !!}
+<div class="action-btns-container">
+    {!! html_link_to_route('projects.issues.create', __('issue.create'), $project, ['class' => 'btn btn-sm  mr-5 p-2 btn-primary', 'icon' => 'plus']) !!}
 @endcan
 @endsection
 
 @section('content-project')
 
-<div class="row">
+<div class="row showprojtable" style="padding-top:10px">
     <div class="col-sm-6 col-sm-offset-2">
         {{ Form::open(['route' => ['projects.issues.store', $project]]) }}
         <div class="panel panel-default">

@@ -14,7 +14,7 @@
         
             <div class="create-action-btns ml-auto">
                 <div class="dropdown">
-                    <button class="btn btn-info mr-2 btn-sm dropdown-toggle p-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button class="btn btn-success mr-2 btn-sm dropdown-toggle p-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ trans('project.action') }}
                         <i class="fas fa-caret-down arrow-icon" id="dropdownArrow"></i>
                     </button>

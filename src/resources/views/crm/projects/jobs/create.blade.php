@@ -13,12 +13,12 @@
 
 @section('contents')
 
-<div class=" main-area row">
+<div class=" main-area row showprojtable" style="padding-top:10px" >
     <div class="col-sm-6 col-sm-offset-2">
         {{ Form::open(['route' => ['projects.jobs.store', $project]]) }}
         <div class="panel panel-default">
-            <div class="panel-heading"><h3 class="panel-title">{{ __('job.create') }}</h3></div>
-            <div class="panel-body">
+            <div class="panel-heading "><h3 class="panel-title" >{{ __('job.create') }}</h3></div>
+            <div class="panel-body "  style="margin-top:10px">
                 {!! FormField::text('name', ['label' => __('job.name')]) !!}
                 {!! FormField::textarea('description', ['label' => __('job.description')]) !!}
                 <div class="row">

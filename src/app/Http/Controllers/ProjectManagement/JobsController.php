@@ -134,7 +134,7 @@ class JobsController extends Controller
      */
     public function delete(ProjectJob $job)
     {
-        return view('jobs.delete', compact('job'));
+        return view('crm.jobs.delete', compact('job'));
     }
 
     /**

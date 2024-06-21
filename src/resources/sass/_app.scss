@@ -684,7 +684,9 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
-
+.text-black{
+    color: black;
+}
 .update-status{
     
     align-items: center;
@@ -856,7 +858,8 @@
 .sort-job-btn{
     background-color: #38a4f8;
     color: white;
-    margin-left:600px;
+    margin-left:610px;
+    font-size:14px;
 
     &:hover{    
         background-color: #098df4;
@@ -906,3 +909,33 @@
 .custom-formfield{
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
+.action-btns-container{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; 
+}
+
+.wrap-action-btns{
+     display: flex;
+     justify-content: flex-end;
+     width: 100%; 
+     margin-left: 40px;
+}
+.action-btns-container2 {
+    display: flex;
+    gap: 10px; 
+}
+.pill-container {
+    width: fit-content;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    justify-content: flex-end;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+ }
+
+
+    
