@@ -11,7 +11,9 @@
     <div class="pull-right">
         @yield('action-buttons')
     </div>
-    {{ $project->name }} <small>@yield('subtitle', __('project.detail'))</small>
+    <div  class="page-header-pill-layouts">
+   <h4> {{ $project->name }} </h4>
+    </div>
 </h1>
 
 @include('crm.projects.partials.nav-tabs')

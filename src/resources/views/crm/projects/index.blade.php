@@ -6,10 +6,9 @@
 <div id="app">
     <div class="project-header flex justify-between items-center mb-4">
 
-        <h1 class="project-title text-xl font-semibold">
+        <h4 class="project-title page-header-pill text-xl custom-page-header font-semibold">
             {{ trans('project.index_title', ['status' => $status]) }}
-            <small>{{ $projects->total() }} {{ trans('project.found') }}</small>
-        </h1>
+        </h4>
         @can('create', new App\Models\ProjectManagement\Projects\Project)
         
             <div class="create-action-btns ml-auto">
@@ -111,8 +110,10 @@
     </div>
 
     <div class="project-table panel panel-default table-responsive">
-        <table class="table table-condensed table-hover">
-            <thead>
+        <br>
+    <small>{{ $projects->total() }} {{ trans('project.found') }}</small>
+        <table class="table table-condensed custom-tables table-hover">
+            <thead class="custom-th">
                 <th>{{ trans('app.table_no') }}</th>
                 <th>{{ trans('project.name') }}</th>
                 <th class="text-center">{{ trans('project.start_date') }}</th>

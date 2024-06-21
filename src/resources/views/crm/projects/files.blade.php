@@ -5,9 +5,9 @@
 @section('contents')
 @include('crm.projects.partials.breadcrumb',['title' => __('project.files')])
 
-<h1 class="page-header">
-    {{ $project->name }} <small>{{ __('project.files') }}</small>
-</h1>
+<h4 class="page-header-pill-layouts">
+    {{ $project->name }} 
+</h4>
 
 @include('crm.projects.partials.nav-tabs')
 <div class="row">
