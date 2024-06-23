@@ -14,7 +14,7 @@
                 dataSets: [
                     {
                         label: 'My First dataset',
-                        backgroundColor: '#4466F2',
+                        backgroundColor: '#ff740b',
                         pointBackgroundColor: 'rgba(179,181,198,1)',
                         pointBorderColor: '#fff',
                         pointHoverBackgroundColor: '#fff',

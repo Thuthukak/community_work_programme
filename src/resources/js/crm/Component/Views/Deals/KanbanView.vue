@@ -2402,7 +2402,7 @@ export default {
     inset 0px 2px 0px var(--default-card-bg),
     inset 0px -2px 0px var(--default-card-bg) !important;
 
-  border: 2px solid #4466f2 !important;
+  border: 2px solid #ff740b !important;
 }
 </style>
 <style scoped lang="scss">
@@ -2485,7 +2485,7 @@ a {
   }
 
   a {
-    color: #{lighten(#4466f2, 20%)};
+    color: #{lighten(#ff740b, 20%)};
   }
 
   .deal-value {
@@ -2570,7 +2570,7 @@ div.selected.select-icon > svg {
   transition: 300ms;
   padding: 0.15rem;
   top: -50px;
-  color: #4466f2;
+  color: #ff740b;
   z-index: 455555;
   background: var(--default-card-bg);
 }

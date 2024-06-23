@@ -27,7 +27,7 @@ class TestingController extends Controller
             ],
             [
                 'label' => 'Purchase',
-                'backgroundColor' => '#4466F2',
+                'backgroundColor' => '#ff740b',
                 'data' => [20, 40, 32, 49, 20, 50, 19, 30, 70, 20, 42, 21]
             ]
         ];

@@ -178,7 +178,7 @@ class DashboardController extends Controller
                 if ($value['name'] == 'Average') {
                     array_push($pipelineBackgroundColor, '#00C754');
                 } else {
-                    array_push($pipelineBackgroundColor, '#4466F2');
+                    array_push($pipelineBackgroundColor, '#ff740b');
                 }
 
                 array_push($pipelineName, $value['name']);

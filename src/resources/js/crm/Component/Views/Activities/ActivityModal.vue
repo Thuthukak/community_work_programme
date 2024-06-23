@@ -865,7 +865,7 @@ export default {
 <style scoped lang="scss">
 .schedule-default-time-slot {
     .active {
-        color: #4466f2 !important;
+        color: #ff740b !important;
         background-color: var(--base-color) !important;
         border-color: var(--default-border-color) !important;
     }

@@ -113,7 +113,7 @@ And we had imports all other components in `resources/js/core/components/chart/I
         },
         {
             label: 'Purchase',
-            backgroundColor: '#4466F2',
+            backgroundColor: '#ff740b',
             data: [20, 40, 32, 49, 20, 50, 19, 30, 70, 20, 42, 21]
         }
     ]
@@ -149,7 +149,7 @@ And we had imports all other components in `resources/js/core/components/chart/I
     dataSets: [
         {
             label: 'Data One',
-            backgroundColor: '#4466F2',
+            backgroundColor: '#ff740b',
             data: [40, 20, 52, 39, 30, 60, 39, 80, 45, 30, 22, 15]
         }
     ]
@@ -182,7 +182,7 @@ And we had imports all other components in `resources/js/core/components/chart/I
         {
             backgroundColor: [
                 '#f96868',
-                '#4466F2',
+                '#ff740b',
                 '#2e383e',
                 '#6a008a'
             ],
@@ -200,7 +200,7 @@ And we had imports all other components in `resources/js/core/components/chart/I
         {
             backgroundColor: [
                 '#f96868',
-                '#4466F2',
+                '#ff740b',
                 '#2e383e',
                 '#6a008a'
             ],
@@ -219,7 +219,7 @@ And we had imports all other components in `resources/js/core/components/chart/I
     dataSets: [
         {
             label: 'My First dataset',
-            backgroundColor: '#4466F2',
+            backgroundColor: '#ff740b',
             pointBackgroundColor: 'rgba(179,181,198,1)',
             pointBorderColor: '#fff',
             pointHoverBackgroundColor: '#fff',
@@ -300,8 +300,8 @@ And we had imports all other components in `resources/js/core/components/chart/I
         {
             label: 'Scatter Dataset 2',
             fill: false,
-            borderColor: '#4466F2',
-            backgroundColor: '#4466F2',
+            borderColor: '#ff740b',
+            backgroundColor: '#ff740b',
             data: [
                     {
                     x: -2,

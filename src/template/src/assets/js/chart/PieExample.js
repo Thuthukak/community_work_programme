@@ -9,7 +9,7 @@ export default {
                 {
                     backgroundColor: [
                         '#f96868',
-                        '#4466F2',
+                        '#ff740b',
                         '#2e383e',
                         '#6a008a'
                     ],

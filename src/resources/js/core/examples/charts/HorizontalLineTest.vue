@@ -15,7 +15,7 @@
                 dataSets: [
                     {
                         label: 'Data One',
-                        backgroundColor: '#4466F2',
+                        backgroundColor: '#ff740b',
                         data: [40, 20, 52, 39, 30, 60, 39, 80, 45, 30, 22, 15]
                     }
                 ]

@@ -136,7 +136,7 @@ class NotificationUpdateSeeder extends Seeder
                     <p>Password : {password}</p>
                     <br>
                     <p>Please use these credentials to login into your account.</p><br>
-                    <p><a href="{resource_url}" style="background: #4466F2;color: white;padding: 9px;border-radius: 4px;cursor: pointer; text-decoration: none; text-underline: none" target="_blank">Go to your account</a></p><br>
+                    <p><a href="{resource_url}" style="background: #ff740b;color: white;padding: 9px;border-radius: 4px;cursor: pointer; text-decoration: none; text-underline: none" target="_blank">Go to your account</a></p><br>
                     <p>You can change your password from your account password settings.</p>
                     Hope you will find useful!
                     <p></p><p>Thanks &amp; Regards,
