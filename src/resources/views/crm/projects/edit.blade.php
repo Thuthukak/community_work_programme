@@ -6,12 +6,19 @@
 
 @include('crm.projects.partials.breadcrumb', ['title' => __('project.edit')])
 
-<div class="main-area row">
+<div class="main-area row" style=" margin: 20px;">
     <div class="col-md-7 col-md-offset-2">
         {!! Form::model($project, ['route' => ['projects.update', $project], 'method' => 'patch']) !!}
         <div class="panel panel-default custom-panel">
-            <div class="panel-heading"><h3 class="panel-title">{{ $project->name }}</h3></div>
-            <div class="panel-body">
+            <div class="panel-heading"><h3 class="panel-title" style="justify-content:flex-start;
+    align-items: center;
+    padding: 0.5rem 0.5rem;
+    border-radius: 9999px; 
+    background-color:white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding:10px;
+    display:inline-block;">{{ $project->name }}</h3></div>
+            <div class="panel-body" style="margin-top:20;">
                 {!! FormField::text('name', ['label' => __('project.name')]) !!}
                 <div class="row">
                     <div class="col-md-8">

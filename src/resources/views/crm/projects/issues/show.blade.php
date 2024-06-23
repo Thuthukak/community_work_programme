@@ -3,14 +3,20 @@
 @section('subtitle', __('issue.detail'))
 
 @section('action-buttons')
-<div class="action-btns-container">
+<div class="action-btns-container" style="display: flex;
+    justify-content: flex-end;
+    gap: 10px;">
 @can('create', new App\Models\ProjectManagement\Projects\Issue)
     {!! html_link_to_route('projects.issues.create', __('issue.create'), $project, ['class' => 'btn btn-sm  mr-5 p-2 btn-primary', 'icon' => 'plus']) !!}
 @endcan
 @endsection
 
 @section('content-project')
-<div class="row showprojtable" >
+<div class="row showprojtable" style="margin:10px;
+    background: white;
+    padding:2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;" >
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">

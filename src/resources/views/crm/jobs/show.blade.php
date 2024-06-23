@@ -12,12 +12,22 @@
 @endsection
 @section('content-job')
 
-<div class="main-area-main row">
-    <div class="main-areabg col-md-5">
+<div class="main-area-main row" style="margin: 10px;">
+    <div class="main-areabg col-md-5" style="margin: 3px;
+    background-color: #fff;
+    border-radius: 5px; /* Makes it pill-shaped */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow */
+    color: #333;
+    padding-top:10px;">
         @include('crm.jobs.partials.job-show')
         @include('crm.jobs.partials.job-dates')
     </div>
-    <div class="main-areabg col-sm-6">
+    <div class="main-areabg col-sm-6" style="margin: 3px;
+    background-color: #fff;
+    border-radius: 5px; /* Makes it pill-shaped */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow */
+    color: #333;
+    padding-top:10px;">
         @include('crm.jobs.partials.job-tasks-operation')
         @include('crm.jobs.partials.job-tasks')
     </div>

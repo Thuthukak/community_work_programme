@@ -15,7 +15,7 @@
         <h2 class="job-title">{{ $job->name }}</h2>
         <table width="100%" class="table table-condensed table-bordered">
             <tbody>
-                <tr style="background-color: #ffd298"><th colspan="2">{{ __('app.description') }}</th></tr>
+                <tr style="background-color: #f4f3f3"><th colspan="2">{{ __('app.description') }}</th></tr>
                 <tr><td colspan="2">{!! nl2br($job->description) !!}</td></tr>
                 <tr>
                     <td colspan="2" class="text-right">
@@ -26,7 +26,7 @@
                 </tr>
 
                 @if ($job->tasks->count())
-                <tr style="background-color: #ffd298">
+                <tr style="background-color: #f4f3f3">
                     <th class="col-md-3">{{ __('task.list') }}</th>
                     <th class="col-md-6">{{ __('app.description') }}</th>
                 </tr>

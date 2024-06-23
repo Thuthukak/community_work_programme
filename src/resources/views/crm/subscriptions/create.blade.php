@@ -4,7 +4,11 @@
 
 @section('contents')
 
-<ul class="breadcrumb hidden-print">
+<ul class="breadcrumb hidden-print" style="display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    align-items: center;
+    margin: 20px;">
     <li>{{ link_to_route('subscriptions.index', __('subscription.subscriptions')) }}</li>
     <li class="active">{{ __('subscription.create') }}</li>
 </ul>

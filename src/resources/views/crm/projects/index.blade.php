@@ -4,14 +4,24 @@
 
 @section('contents')
 <div id="app">
-    <div class="project-header flex justify-between items-center mb-4">
+    <div class="project-header flex justify-between items-center mb-4" style="margin:30px; display:flex; justify-content:flex-end; align-items:center;">
 
-        <h4 class="project-title page-header-pill text-xl custom-page-header font-semibold">
+        <h4 class="project-title page-header-pill text-xl custom-page-header font-semibold" style="display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.5rem;
+    border-radius: 9999px;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding:10px; ">
             {{ trans('project.index_title', ['status' => $status]) }}
         </h4>
         @can('create', new App\Models\ProjectManagement\Projects\Project)
         
-            <div class="create-action-btns ml-auto">
+            <div class="create-action-btns ml-auto"
+            style="display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;">
                 <div class="dropdown">
                     <button class="btn btn-success mr-2 btn-sm dropdown-toggle p-2" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {{ trans('project.action') }}
@@ -96,8 +106,11 @@
 
 
 
-    <div class="project-controls flex justify-between items-center mb-4">
-        <div class="index-nav-tabs pull-left hidden-xs">@include('crm.projects.partials.index-nav-tabs')</div>
+    <div class="project-controls flex justify-between items-center mb-4" style="display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem; ">
+        <div class="index-nav-tabs pull-left hidden-xs" >@include('crm.projects.partials.index-nav-tabs')</div>
         {!! Form::open(['method' => 'get', 'class' => 'form-inline search-form']) !!}
         {{ Form::hidden('status_id') }}
         <div class="relative">
@@ -109,10 +122,14 @@
         {!! Form::close() !!}
     </div>
 
-    <div class="project-table panel panel-default table-responsive">
+    <div class="project-table panel panel-default table-responsive" style="margin: 0px 0px 0px 20px;">
         <br>
     <small>{{ $projects->total() }} {{ trans('project.found') }}</small>
-        <table class="table table-condensed custom-tables table-hover">
+        <table class="table table-condensed custom-tables table-hover" style="background: white;
+    padding:2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding-bottom: 50px;">
             <thead class="custom-th">
                 <th>{{ trans('app.table_no') }}</th>
                 <th>{{ trans('project.name') }}</th>

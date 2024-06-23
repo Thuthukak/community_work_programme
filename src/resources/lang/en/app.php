@@ -34,8 +34,8 @@ return [
     'filter'                => 'Filter',
     'pick'                  => 'Pick',
     'close'                 => 'Close',
-    'delete_confirm_button' => 'Yes, please delete!',
-    'delete_confirm'        => 'Are you sure to delete this?',
+    'delete_confirm_button' => 'Yes, delete!',
+    'delete_confirm'        => 'Are you sure you want to delete this?',
     'change_photo'          => 'Change Photo',
     'done'                  => 'Done',
 

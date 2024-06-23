@@ -5,7 +5,15 @@
 @section('contents')
 @include('crm.projects.partials.breadcrumb',['title' => __('project.files')])
 
-<h4 class="page-header-pill-layouts">
+<h4 class="page-header-pill-layouts" style="justify-content:flex-start;
+    align-items: center;
+    padding: 0.5rem 0.5rem;
+    border-radius: 9999px; 
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding:10px;
+    display:inline-block;
+    margin:20px;width:content;">
     {{ $project->name }} 
 </h4>
 
@@ -17,7 +25,11 @@
                 <h3 class="panel-title" style="margin-left:20px">{{ __('project.files') }}</h3>
             </div>
             <div class="panel-body table-responsive" style="margin-left:20px">
-                <table class="table table-condensed table-striped">
+                <table class="table table-condensed" style="background: white;
+    padding:2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding-bottom: 50px;">
                     <thead>
                         <th>{{ __('app.table_no') }}</th>
                         <th>{{ __('file.file') }}</th>
