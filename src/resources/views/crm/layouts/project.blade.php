@@ -11,7 +11,15 @@
     <div class="pull-right">
         @yield('action-buttons')
     </div>
-    <div  class="page-header-pill-layouts">
+    <div  class="page-header-pill-layouts" style="justify-content:flex-start;
+    align-items: center;
+    padding: 0.5rem 0.5rem;
+    border-radius: 9999px; 
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding:10px;
+    display:inline-block;
+    margin:20">
    <h4> {{ $project->name }} </h4>
     </div>
 </h1>

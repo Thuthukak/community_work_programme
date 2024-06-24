@@ -670,7 +670,7 @@ export default {
   }
 
   a {
-    color: #{lighten(#4466f2, 20%)};
+    color: #{lighten(#ff740b, 20%)};
   }
 
   .deal-value {

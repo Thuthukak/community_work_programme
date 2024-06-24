@@ -4,7 +4,9 @@
 
 @section('action-buttons')
 @can('create', new App\Models\ProjectManagement\Projects\ProjectJob)
-<div class="action-btns-container">
+<div class="action-btns-container" style=" margin-right:20px;display: flex;
+    justify-content: flex-end;
+    gap: 10px;">
     {!! html_link_to_route('projects.jobs.create', __('job.create'), [$project->id], ['class' => 'btn btn-sm btn-primary p-2', 'icon' => 'plus']) !!}
     {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project->id], ['class' => 'btn btn-sm btn-success p-2', 'icon' => 'plus']) !!}
 @endcan
@@ -12,7 +14,11 @@
 
 @section('content-project')
 
-<div class="row showprojtable">
+<div class="row showprojtable" style=" margin:10px;
+    background: white;
+    padding:2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;">
     <div class="col-sm-6 col-sm-offset-2">
         <div class="panel panel-default">
             <div class="panel-heading"><h3 class="panel-title" style="margin:20px">{{ __('job.add_from_other_project') }}</h3></div>

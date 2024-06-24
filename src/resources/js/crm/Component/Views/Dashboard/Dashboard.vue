@@ -52,8 +52,8 @@
                 />
 
                 <div class="chart-data-list d-flex flex-wrap justify-content-center">
-                  <div class="data-group-item" style="color: #4466f2">
-                    <span class="square" style="background-color: #4466f2" />
+                  <div class="data-group-item" style="color: #ff740b">
+                    <span class="square" style="background-color: #ff740b" />
                     {{ $t("open") }}
 
                     <span class="value">{{ openDeal }}</span>
@@ -313,8 +313,8 @@ export default {
           title: this.$t("Open"),
           fill: false,
           borderWidth: 1.5,
-          borderColor: "#4466F2",
-          backgroundColor: "#4466F2",
+          borderColor: "#ff740b",
+          backgroundColor: "#ff740b",
           data: [20, 30, 40, 50, 60, 20, 50],
         },
         {
@@ -346,7 +346,7 @@ export default {
       totalDealsLabels: [this.$t("open"), this.$t("won"), this.$t("lost")],
       totalDealsDataSet: [
         {
-          backgroundColor: ["#4466F2", "#27AE60", "#FC5710"],
+          backgroundColor: ["#ff740b", "#27AE60", "#FC5710"],
           data: [],
           borderWidth: 0,
         },
@@ -355,8 +355,8 @@ export default {
         {
           key: this.$t("open"),
           value: 20,
-          background_color: "background-color: #4466F2;",
-          color: "color: #4466F2;",
+          background_color: "background-color: #ff740b;",
+          color: "color: #ff740b;",
         },
         {
           key: this.$t("won"),
@@ -429,7 +429,7 @@ export default {
       barChartData: [
         {
           label: "Data",
-          backgroundColor: "#4466F2",
+          backgroundColor: "#ff740b",
           barThickness: 15,
           data: [],
           borderWidth: 0,

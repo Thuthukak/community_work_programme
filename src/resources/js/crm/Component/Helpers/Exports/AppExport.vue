@@ -68,7 +68,7 @@ export default {
         svg {
             width: 22px;
             height: 22px;
-            color: #4466F2;
+            color: #ff740b;
         }
     }
     &:hover {

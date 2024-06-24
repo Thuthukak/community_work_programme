@@ -234,7 +234,7 @@ export default {
     .check-circle-wrapper {
         svg {
             stroke-width: 1.5 !important;
-            color: #4466F2 !important;
+            color: #ff740b !important;
         }
 
         animation-name: updateSuccessAnimation;

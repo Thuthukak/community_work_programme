@@ -75,7 +75,7 @@ class NotificationTemplateSeeder extends Seeder
                     <p>Password : {password}</p>
                     <br>
                     <p>Please use these credentials to login into your account.</p><br>
-                    <p><a href="{resource_url}" style="background: #4466F2;color: white;padding: 9px;border-radius: 4px;cursor: pointer; text-decoration: none; text-underline: none" target="_blank">Go to your account</a></p><br>
+                    <p><a href="{resource_url}" style="background: #ff740b;color: white;padding: 9px;border-radius: 4px;cursor: pointer; text-decoration: none; text-underline: none" target="_blank">Go to your account</a></p><br>
                     <p>You can change your password from your account password settings.</p>
                     Hope you will find useful!
                     <p></p><p>Thanks &amp; Regards,
@@ -95,7 +95,7 @@ class NotificationTemplateSeeder extends Seeder
                     'default_content' => '<p><img src="{app_logo}" style="height: 75px"></p>
 <p>
 </p><p><span style="background-color: var(--form-control-bg) ; color: var(--default-font-color) ;">Hi {receiver_name}, </span><br></p><p>Hope this mail finds you well and healthy. We are informing you that you\'ve been invited to our application by {action_by}. It\'ll be a great opportunity to work with you.</p><br>
-<p><a href="{invitation_url}" target="_blank" style="background: #4466F2;color: white;padding: 9px;border-radius: 4px;cursor: pointer; text-decoration: none; text-underline: none">Accept Invitation</a></p><br>
+<p><a href="{invitation_url}" target="_blank" style="background: #ff740b;color: white;padding: 9px;border-radius: 4px;cursor: pointer; text-decoration: none; text-underline: none">Accept Invitation</a></p><br>
 
 <p></p><p>Thanks &amp; Regards,
 </p><p>{app_name}</p>',
@@ -112,7 +112,7 @@ class NotificationTemplateSeeder extends Seeder
                     'default_content' => '<p><img src="{app_logo}" style="height: 75px"></p>
 <p>
 </p><p><span style="background-color: var(--form-control-bg) ; color: var(--default-font-color) ;">Hi {receiver_name}, </span><br></p><p>Your request for reset password has been approved from {app_name}. Press the button below to reset the password.</p><br>
-<p><a href="{reset_password_url}" style="background: #4466F2;color: white;padding: 9px;border-radius: 4px;cursor: pointer; text-decoration: none; text-underline: none" target="_blank">Reset password</a></p><br>
+<p><a href="{reset_password_url}" style="background: #ff740b;color: white;padding: 9px;border-radius: 4px;cursor: pointer; text-decoration: none; text-underline: none" target="_blank">Reset password</a></p><br>
 
 We are highly expecting you as soon as possible. Hope you\'ll join us.
 <p></p><p>Thanks for being with us.
@@ -185,7 +185,7 @@ We are going to inform you that a deal named  {deal_name} has been assigned by {
                 'content' => '<p><img src="{app_logo}" style="height: 75px"></p>
 <p>
 </p><p><span style="background-color: var(--form-control-bg) ; color: var(--default-font-color) ;">Hi {receiver_name},</span><br></p><p>It\'s a piece of good news that a new user {name} has been invited in our application, invited by {action_by}.</p><br>
-<p><a href="{resource_url}" style="background: #4466F2;color: white;padding: 9px;border-radius: 4px;cursor: pointer; text-decoration: none; text-underline: none" target="_blank">View Resource</a></p><br>
+<p><a href="{resource_url}" style="background: #ff740b;color: white;padding: 9px;border-radius: 4px;cursor: pointer; text-decoration: none; text-underline: none" target="_blank">View Resource</a></p><br>
 <p></p><p>Thanks for being with us.
 </p><p>Regards,</p><p>{app_name}</p><p></p><p></p>'
             ],
@@ -195,7 +195,7 @@ We are going to inform you that a deal named  {deal_name} has been assigned by {
                 'content' => '<p><img src="{app_logo}" style="height: 75px"></p>
 <p>
 </p><p><span style="background-color: var(--form-control-bg) ; color: var(--default-font-color) ;">Hi {receiver_name},</span><br></p><p>It\'s a piece of good news that a new {resource} named {name} has been created in our application by {action_by}. Please have a look at that.</p><br>
-<p><a href="{resource_url}" style="background: #4466F2;color: white;padding: 9px;border-radius: 4px;cursor: pointer; ; text-decoration: none; text-underline: none" target="_blank">{button_label}</a></p><br>
+<p><a href="{resource_url}" style="background: #ff740b;color: white;padding: 9px;border-radius: 4px;cursor: pointer; ; text-decoration: none; text-underline: none" target="_blank">{button_label}</a></p><br>
 <p></p><p>Thanks for being with us.
 </p><p>Regards,</p><p>{app_name}</p><p></p><p></p>'
             ],
@@ -205,7 +205,7 @@ We are going to inform you that a deal named  {deal_name} has been assigned by {
                 'content' => '<p><img src="{app_logo}" style="height: 75px"></p>
 <p>
 </p><p><span style="background-color: var(--form-control-bg) ; color: var(--default-font-color) ;">Hi {receiver_name},</span><br></p><p>It\'s a piece of good news that a {resource} named {name} has been updated in our application by {action_by}. Please have a look at that.</p><br>
-<p><a href="{resource_url}" style="background: #4466F2;color: white;padding: 9px;border-radius: 4px;cursor: pointer; text-decoration: none; text-underline: none" target="_blank">{button_label}</a></p><br>
+<p><a href="{resource_url}" style="background: #ff740b;color: white;padding: 9px;border-radius: 4px;cursor: pointer; text-decoration: none; text-underline: none" target="_blank">{button_label}</a></p><br>
 
 <p></p><p>Thanks for being with us.
 </p><p>Regards,</p><p>{app_name}</p><p></p><p></p>'
@@ -228,7 +228,7 @@ We are going to inform you that a deal named  {deal_name} has been assigned by {
                 'content' => '<p><img src="{app_logo}" style="height: 75px"></p>
 <p>
 </p><p><span style="background-color: var(--form-control-bg) ; color: var(--default-font-color) ;">Hi {receiver_name},</span><br></p><p>We are going to inform you that a pipeline named {pipeline_name} has been created in our application by {action_by}. Please have a look at that.</p><br>
-<p><a href="{resource_url}" style="background: #4466F2;color: white;padding: 9px;border-radius: 4px;cursor: pointer; ; text-decoration: none; text-underline: none" target="_blank">View pipeline</a></p><br>
+<p><a href="{resource_url}" style="background: #ff740b;color: white;padding: 9px;border-radius: 4px;cursor: pointer; ; text-decoration: none; text-underline: none" target="_blank">View pipeline</a></p><br>
 <p></p><p>Thanks for being with us.
 </p><p>Regards,</p><p>{app_name}</p><p></p><p></p>'
             ],

@@ -13,7 +13,10 @@
 
 @section('contents')
 
-<div class=" main-area row showprojtable" style="padding-top:10px" >
+<div class=" main-area row showprojtable" style="margin: 20px;padding-top:20px;background: white;
+    padding:2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;" >
     <div class="col-sm-6 col-sm-offset-2">
         {{ Form::open(['route' => ['projects.jobs.store', $project]]) }}
         <div class="panel panel-default">
@@ -25,7 +28,7 @@
                     <div class="col-sm-4">
                         {!! FormField::price('price', [
                             'label'    => __('job.price'),
-                            'currency' => Option::get('money_sign', 'Rp'),
+                            'currency' => Option::get('money_sign', 'R'),
                             'value'    => 0,
                         ]) !!}
                     </div>

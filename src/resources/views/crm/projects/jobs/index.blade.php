@@ -6,7 +6,9 @@
 
 
 @can('create', new App\Models\ProjectManagement\Projects\ProjectJob)
-<div class="action-buttons-container">
+<div class="action-buttons-container" style="display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;">
     {!! html_link_to_route('projects.jobs.create', __('job.create'), [$project], ['class' => 'btn btn-primary btn-sm p-2 mr-2', 'icon' => 'plus']) !!}
     {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project], ['class' => 'btn btn-success btn-sm p-2 mr-4', 'icon' => 'plus']) !!}
 </div>
@@ -17,17 +19,29 @@
 @section('content-project')
 
 @if ($jobs->isEmpty())
-<p class="no-task">{{ __('project.no_jobs') }},
+<p class="no-task" style="margin: 20px;">{{ __('project.no_jobs') }},
     {{ link_to_route('projects.jobs.create', __('job.create'), [$project]) }}.
 </p>
 @else
 
 @foreach($jobs->groupBy('type_id') as $key => $groupedJobs)
 
-<div id="project-jobs" class="task-header flex justify-between items-center mb-4">
-    <div class="task-panel-heading">
-    <div class="wrap-action-btns">
-        <div class="action-btns-container2 pill-container">
+<div id="project-jobs" class="task-header flex justify-between items-center mb-4" stye="margin: 30px 60px 30px 30px;">
+    <div class="task-panel-heading" style="margin: 30px 60px 30px 30px;">
+    <div class="wrap-action-btns" style="display: flex;
+     justify-content: flex-end;
+     width: 100%; 
+     margin-left: 40px;" >
+        <div class="action-btns-container2 pill-container" style="display: flex;
+    gap: 10px; width: fit-content;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    justify-content: flex-end;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 50px; ">
             @can('update', $project)
                 @if (request('action') == 'sort_jobs')
                     {{ link_to_route('projects.jobs.index', __('app.done'), [$project], ['class' => 'btn btn-default btn-xs pull-right', 'style' => 'margin-top: 0px; margin-left: 6px; margin-right: -8px']) }}
@@ -58,7 +72,12 @@
         </ul>
     @else
     <div class=" panel-body table-responsive">
-        <table class="table table-condensed table-striped table-hover">
+        <table class="table table-condensed  table-hover" style="background: white;
+    padding:2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding-bottom: 50px;
+    margin:10px;">
             <thead>
                 <th>{{ __('app.table_no') }}</th>
                 <th>{{ __('job.name') }}</th>
@@ -77,7 +96,7 @@
                 $no = 1 + $key;
                 $job->progress = $job->tasks->avg('progress');
                 @endphp
-                <tr id="{{ $job->id }}" {!! $job->progress <= 50 ? 'style="background-color: #faebcc"' : '' !!}>
+                <tr id="{{ $job->id }}" {!! $job->progress <= 50 ? 'style="background-color:#f4f3f3"' : '' !!}>
                     <td>{{ $no }}</td>
                     <td>
                         {{ $job->name }}

@@ -5,7 +5,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Tag::class, function (Faker $faker) {
     $socialArr = [
-        'facebook' => '#4466f2',
+        'facebook' => '#ff740b',
         'twitter' => '#38a4f8',
         'youtube' => '#f83838',
         'amazon' => '#dad910',
