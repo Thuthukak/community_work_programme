@@ -7,6 +7,7 @@ use App\Models\ProjectManagement\Projects\Issue;
 use App\Models\ProjectManagement\Projects\IssueStatus;
 use App\Models\ProjectManagement\Projects\Priority;
 use App\Models\ProjectManagement\Projects\Project;
+use App\Models\CRM\Person\Person;
 use App\Models\Core\Auth\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -28,9 +29,11 @@ class IssueController extends Controller
             $issueQuery->where('status_id', $priorityId);
         }
 
+        $users = User::pluck('First_name', 'id');
+
         $issues = $issueQuery->get();
 
-        return view('crm.projects.issues.index', compact('project', 'issues'));
+        return view('crm.projects.issues.index', compact('project', 'issues','users'));
     }
 
     public function create(Project $project)

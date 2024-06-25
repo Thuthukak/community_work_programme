@@ -17,7 +17,6 @@
                 <tr>
                     <td>{{ trans('Organization') }}</td>
                     <td>
-                        {{ $project->customer->nameLink() }}
                     </td>
                 </tr>
             </tbody>

@@ -1,8 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.crm')
 
 @section('title', __('job.delete'))
 
-@section('content')
+@section('contents')
 <h1 class="page-header">
     <div class="pull-right">
         {!! FormField::delete([
@@ -19,7 +19,7 @@
 </h1>
 <div class="row">
     <div class="col-md-4">
-        @include('jobs.partials.job-show')
+        @include('crm.jobs.partials.job-show')
     </div>
 </div>
 @endsection

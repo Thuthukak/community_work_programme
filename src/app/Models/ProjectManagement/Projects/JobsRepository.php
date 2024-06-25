@@ -4,6 +4,7 @@ namespace App\Models\ProjectManagement\Projects;
 
 use App\Models\ProjectManagement\BaseRepository;
 use App\Models\Core\Auth\User;
+use App\Models\CRM\Person\Person;
 use App\Http\Controllers\Core\UserConverter;
 use App\Queries\AdminDashboardQuery;
 use DB;
@@ -26,7 +27,7 @@ class JobsRepository extends BaseRepository
     {
         
         return (new AdminDashboardQuery())
-            ->onProgressJobs($user, ['project', 'worker'], $projectId);
+            ->onProgressJobs($user, ['project', 'organization'], $projectId);
     }
 
 
@@ -57,6 +58,8 @@ class JobsRepository extends BaseRepository
 
     public function createJob($jobData, $projectId)
     {
+
+        // dd($jobData);
         $jobData['project_id'] = $projectId;
 
         return $this->storeArray($jobData);

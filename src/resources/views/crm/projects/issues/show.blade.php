@@ -9,6 +9,7 @@
 @endsection
 
 @section('content-project')
+
 <div class="row">
     <div class="col-md-6">
         <div class="panel panel-default">
@@ -28,7 +29,7 @@
                 </tbody>
             </table>
             <div class="panel-footer">
-                {{ link_to_route('projects.issues.edit', __('issue.edit'), [$project, $issue], ['id' => 'edit-issue-'.$issue->id, 'class' => 'btn btn-warning']) }}
+                <button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#EditIssueModal">{{ trans('Edit Issue') }}</button>
                 {{ link_to_route('projects.issues.index', __('issue.back_to_index'), [$project], ['class' => 'btn btn-default pull-right']) }}
             </div>
         </div>
@@ -51,6 +52,33 @@
         {{ Form::close() }}
     </div>
 </div>
+
+<!-- Edit Modal -->
+<div id="EditIssueModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ __('Edit Issue') }}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            {!! Form::model($issue, ['route' => ['projects.issues.update', $project->id, $issue->id], 'method' => 'patch']) !!}
+            <div class="modal-body">
+                <div class="panel-heading"><h3 class="panel-title">{{ __('issue.update') }}</h3></div>
+                <div class="panel-body">
+                    {!! FormField::text('title', ['label' => __('issue.title')]) !!}
+                    {!! FormField::textarea('body', ['label' => __('issue.body')]) !!}
+                </div>
+            </div>
+            <div class="modal-footer">
+                {!! Form::submit(trans('Save'), ['class' => 'btn btn-success']) !!}
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('app.cancel') }}</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('script')

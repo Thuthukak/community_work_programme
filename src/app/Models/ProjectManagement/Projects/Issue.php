@@ -3,6 +3,7 @@
 namespace App\Models\ProjectManagement\Projects;
 
 use App\Models\Core\Auth\User;
+use App\Models\CRM\Person\Person;
 use Illuminate\Database\Eloquent\Model;
 
 class Issue extends Model
@@ -27,6 +28,7 @@ class Issue extends Model
     {
         return $this->belongsTo(User::class);
     }
+
 
     public function getPriorityAttribute()
     {

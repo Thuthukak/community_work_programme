@@ -4,6 +4,7 @@ namespace App\Models\ProjectManagement;
 
 use App\Models\ProjectManagement\Partners\Customer;
 use App\Models\ProjectManagement\Projects\ProjectJob;
+use App\Models\CRM\Person\Person;
 use App\Models\Core\Auth\User;
 use App\Models\CRM\Organization\Organization;
 /**
@@ -20,11 +21,22 @@ abstract class BaseRepository extends EloquentRepository
      */
     public function getCustomersList()
     {
-        return Organization::where('is_active', 1)
+        return Customers::where('is_active', 1)
             ->orderBy('name')
             ->pluck('name', 'id');
     }
 
+
+    /**
+     * Get collection of customers.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getPersonsList()
+    {
+        return Person::orderBy('name')
+        ->pluck('name', 'id');
+    }
 
      /**
      * Get collection of customers.
@@ -35,15 +47,46 @@ abstract class BaseRepository extends EloquentRepository
     {
         return Organization::orderBy('name')
         ->pluck('name', 'id');
-    ;
+    
+    }
+
+        /**
+     * Get collection of customers.
+     *
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function getOrganizationsById($organizationId)
+    {
+        return Organization::findOrFail($organizationId);
+
     }
    
         /**
-         * Get collection of workers with first name and last name concatenated.
+         * Get collection of persons with first name and last name concatenated.
          *
          * @return \Illuminate\Support\Collection
          */
         public function getWorkersList()
+        {
+            return User::orderBy('first_name')
+                        ->orderBy('last_name')
+                        ->get()
+                        ->map(function ($user) {
+                            return [
+                                'id' => $user->id,
+                                'name' => $user->first_name . ' ' . $user->last_name,
+                            ];
+                        })
+                        ->pluck('name', 'id');
+        }
+
+
+        /**
+         * Get collection of persons with first name and last name concatenated.
+         *
+         * @return \Illuminate\Support\Collection
+         */
+        public function getPersonsLists()
         {
             return User::orderBy('first_name')
                         ->orderBy('last_name')

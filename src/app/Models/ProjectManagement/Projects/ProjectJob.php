@@ -3,6 +3,7 @@
 namespace App\Models\ProjectManagement\Projects;
 
 use App\Models\Core\Auth\User;
+use App\Models\CRM\Person\Person;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
@@ -51,7 +52,7 @@ class ProjectJob extends Model
         return link_to_route('jobs.show', $this->name, [$this->id], [
             'title' => __(
                 'app.show_detail_title',
-                ['name' => $this->name, 'type' => __('job.job')]
+                ['name' => $this->name, 'type' => __('ProjectJobs.ProjectJobs')]
             ),
         ]);
     }
@@ -67,13 +68,13 @@ class ProjectJob extends Model
     }
 
     /**
-     * Job belongs to a Worker relation.
+     * Job belongs to a Person relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function worker()
+    public function Person()
     {
-        return $this->belongsTo(User::class, 'worker_id');
+        return $this->belongsTo(Person::class, 'person_id');
     }
 
     /**

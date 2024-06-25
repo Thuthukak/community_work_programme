@@ -27,7 +27,9 @@
                         <th class="text-center">{{ __('app.action') }}</th>
                     </thead>
                     <tbody class="sort-files">
+
                         @forelse($files as $key => $file)
+
                         <tr id="{{ $file->id }}">
                             <td>{{ 1 + $key }}</td>
                             <td>

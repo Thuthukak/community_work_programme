@@ -26,7 +26,7 @@ $factory->define(ProjectJob::class, function (Faker\Generator $faker) {
         'name'        => $faker->sentence(3),
         'price'       => rand(1, 10) * 100000,
         'description' => $faker->paragraph,
-        'worker_id'   => function () {
+        'person_id'   => function () {
             return factory(User::class)->create()->id;
         },
         'type_id'     => 1, // Main ProjectJob

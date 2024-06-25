@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ProjectManagement\Projects;
 use App\Models\ProjectManagement\Projects\ProjectJob;
 use App\Models\ProjectManagement\Projects\Task;
 use App\Http\Controllers\Controller;
+use App\Models\CRM\Person\Person;
 use App\Http\Requests\ProjectManagement\Tasks\CreateRequest;
 use App\Http\Requests\ProjectManagement\Tasks\DeleteRequest;
 use App\Http\Requests\ProjectManagement\Tasks\UpdateRequest;
@@ -84,7 +85,7 @@ class TasksController extends Controller
         $job->name = $task->name;
         $job->description = $task->description;
         $job->project_id = $oldJob->project_id;
-        $job->worker_id = $oldJob->worker_id;
+        $job->person_id = $oldJob->person_id;
 
         DB::beginTransaction();
         $job->save();

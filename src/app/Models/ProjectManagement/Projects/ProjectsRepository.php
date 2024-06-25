@@ -4,6 +4,8 @@ namespace App\Models\ProjectManagement\Projects;
 
 use App\Models\ProjectManagement\BaseRepository;
 use App\Models\ProjectManagement\Partners\Customer;
+use App\Models\CRM\Organization\Organization;
+use App\Models\CRM\Person\Person;
 use App\Models\Core\Auth\User;
 use DB;
 use ProjectStatus;
@@ -37,7 +39,7 @@ class ProjectsRepository extends BaseRepository
                     }
                 })
                 ->latest()
-                ->with(['customer', 'jobs'])
+                ->with(['Organization', 'jobs'])
                 ->paginate($this->_paginate);
         }
 
@@ -49,7 +51,7 @@ class ProjectsRepository extends BaseRepository
                     $query->where('status_id', $statusId);
                 }
             })
-            ->with('customer')
+            ->with('organization')
             ->paginate($this->_paginate);
     }
 
@@ -58,12 +60,12 @@ class ProjectsRepository extends BaseRepository
         $projectData['project_value'] = $projectData['proposal_value'] ?: 0;
         DB::beginTransaction();
 
-        if (isset($projectData['customer_id']) == false || $projectData['customer_id'] == '') {
-            $customer = $this->createNewCustomer($projectData['customer_name'], $projectData['customer_email']);
-            $projectData['customer_id'] = $customer->id;
+        if (isset($projectData['organization_id']) == false || $projectData['organization_id'] == '') {
+            $Organization = $this->createNewOrganization($projectData['organization_name'], $projectData['organization_email']);
+            $projectData['organization_id'] = $customer->id;
         }
-        unset($projectData['customer_name']);
-        unset($projectData['customer_email']);
+        unset($projectData['organization_name']);
+        unset($projectData['organization_email']);
 
         $project = $this->storeArray($projectData);
         DB::commit();
@@ -84,6 +86,16 @@ class ProjectsRepository extends BaseRepository
         $newCustomer->save();
 
         return $newCustomer;
+    }
+
+    public function createNewOrganization($OrganizationName, $OrganizationEmail)
+    {
+        $newOrganization = new Organization();
+        $newOrganization->name = $organizationName;
+        $newOrganization->email = $organizationEmail;
+        $newOrganization->save();
+
+        return $newOrganization;
     }
 
     public function delete($projectId)

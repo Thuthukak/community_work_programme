@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\ProjectManagement\Projects;
 
 use App\Models\ProjectManagement\Projects\File;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ProjectManagement\Controller;
+use App\Models\CRM\Person\Person;
 use File as FileSystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -21,18 +22,24 @@ class FilesController extends Controller
 
     public function index(Request $request, $fileableId)
     {
+
+
+
         $editableFile = null;
         $fileableType = $request->segment(1); // projects, jobs
         $modelName = $this->getModelName($fileableType);
         $modelShortName = $this->getModelShortName($modelName);
         $model = $modelName::findOrFail($fileableId);
+
         $files = $model->files;
 
 
-        // dd($fileableType);
         if (in_array($request->get('action'), ['edit', 'delete']) && $request->has('id')) {
             $editableFile = File::find($request->get('id'));
         }
+
+       
+
 
         return view('crm.'.$fileableType.'.files', [$modelShortName => $model, 'files' => $files, 'editableFile' => $editableFile]);
     }
@@ -42,6 +49,7 @@ class FilesController extends Controller
 
     public function create(Request $request, $fileableId)
     {
+
         $this->validate($request, [
             'fileable_type' => 'required',
             'file'          => 'required|file|max:10000',
@@ -49,10 +57,15 @@ class FilesController extends Controller
             'description'   => 'nullable|max:255',
         ]);
 
+
+
+
         $fileableType = array_search($request->get('fileable_type'), $this->fileableTypes);
 
         if ($fileableType) {
             $file = $this->proccessPhotoUpload($request->except('_token'), $fileableType, $fileableId);
+
+            // dd($file);
 
             if ($file->exists) {
                 flash('Upload file berhasil.', 'success');
@@ -115,7 +128,7 @@ class FilesController extends Controller
     
             // Store the file in the 'public/files' disk
             $path = Storage::disk('public')->putFile('files', $file);
-    
+
             $fileData = [
                 'fileable_id' => $fileableId,
                 'fileable_type' => $fileableType,
@@ -124,12 +137,17 @@ class FilesController extends Controller
                 'title' => $data['title'],
                 'description' => $data['description'],
             ];
+
+            // dd($fileData);
+
     
             \DB::beginTransaction();
     
             try {
                 // Create the File model instance
                 $file = File::create($fileData);
+
+
     
                 \DB::commit();
     

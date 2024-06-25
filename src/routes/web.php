@@ -13,7 +13,6 @@ use App\Http\Controllers\API\ProjectJobsController;
 use App\Http\Controllers\ProjectManagement\Issues\OptionController;
 use App\Http\Controllers\ProjectManagement\IssueController as IssuesController;
 use App\Http\Controllers\ProjectManagement\Projects\TasksController;
-use App\Http\Controllers\Customers\CustomerController;
 use App\Models\Core\Auth\User;
 use Illuminate\Support\Facades\Route;
 
@@ -106,9 +105,9 @@ Route::get('proposal', function () {
     return public_path($proposal->files[0]['path']);
 });
 // Customer routes
-Route::get('customers/{customer}', [CustomerController::class, 'show'])->name('customers.show');
-Route::get('customers/{customer}/projects', [CustomerController::class, 'projects'])->name('customers.projects');
-Route::get('customers/{customer}/subscriptions', [CustomerController::class, 'subscriptions'])->name('customers.subscriptions');
+// Route::get('customers/{customer}', [CustomerController::class, 'show'])->name('customers.show');
+// Route::get('customers/{customer}/projects', [CustomerController::class, 'projects'])->name('customers.projects');
+// Route::get('customers/{customer}/subscriptions', [CustomerController::class, 'subscriptions'])->name('customers.subscriptions');
 
 // Project routes
 
@@ -131,7 +130,7 @@ Route::post('projects/{project}/update', [ProjectsController::class, 'update'])-
 Route::get('projects/{project}', [ProjectsController::class, 'show'])->name('projects.show');
 Route::get('projects/{project}/edit', [ProjectsController::class, 'edit'])->name('projects.edit');
 Route::patch('projects/{project}/status-update', [ProjectsController::class, 'statusUpdate'])->name('projects.status-update');
-// Route::patch('/projects/{id}/status-update', [ProjectController::class, 'updateStatus']);
+Route::patch('/projects/{project}/update', [ProjectsController::class, 'update']);
 
 // Activity routes
 Route::get('projects/{project}/activities', [ActivityController::class, 'index'])->name('projects.activities.index');
@@ -158,13 +157,14 @@ Route::delete('projects/{project}/issues/{issue}', [IssueController::class ,'des
 
 // Comment routes
 Route::get('projects/{project}/comments', [CommentsController::class, 'index'])->name('projects.comments.index');
-Route::post('projects/{project}/comments/store', [CommentsController::class, 'store'])->name('projects.comments.store');
+// Route::get('projects/{project}/comments', [App\Http\Controllers\ProjectManagement\Jobs\CommentsController::class, 'store'])->name('projects.comments.store');
 Route::patch('projects/{project}/comments/{comment}',  [CommentsController::class, 'update'])->name('projects.comments.update');
 Route::delete('projects/{project}/comments/{comment}',  [CommentsController::class, 'destroy'])->name('projects.comments.destroy');
+Route::post('projects/{project}/comments', [CommentsController::class ,'store'])->name('projects.comments.store');
 
 // File routes
 Route::get('projects/{project}/files', [FilesController::class, 'index'])->name('project.files');
-Route::get('projects/{id}/files', [ProjectController::class, 'files'])->name('projects.files');
+Route::get('projects/{id}/files', [ProjectsController::class, 'files'])->name('projects.files');
 Route::post('projects/{project}/files', [FilesController::class, 'create'])->name('files.upload');
 Route::post('projects/{projectId}/files/update', [FilesController::class, 'update']);
 Route::post('projects/files/{fileable}', [FilesController::class, 'create'])->name('files.upload');

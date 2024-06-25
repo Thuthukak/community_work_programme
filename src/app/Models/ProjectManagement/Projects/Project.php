@@ -3,7 +3,7 @@
 namespace App\Models\ProjectManagement\Projects;
 
 use App\Models\ProjectManagement\Invoices\Invoice;
-use App\Models\ProjectManagement\Partners\Customer;
+use App\Models\CRM\Organization\Organization;
 use App\Models\ProjectManagement\Subscriptions\Subscription;
 use DB;
 use Illuminate\Database\Eloquent\Model;
@@ -127,13 +127,13 @@ class Project extends Model
     }
 
     /**
-     * Project belongs to a Customer relation.
+     * Project belongs to a Organization relation.
      *
      * @return \Illuminate\Database\Eloquent\Concerns\belongsTo
      */
-    public function customer()
+    public function Organization()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Organization::class);
     }
 
 
@@ -202,7 +202,7 @@ class Project extends Model
 
         return $this->jobs()->where('type_id', $jobType)
             ->orderBy('position')
-            ->with('worker', 'tasks')
+            ->with('person', 'tasks')
             ->get();
     }
 

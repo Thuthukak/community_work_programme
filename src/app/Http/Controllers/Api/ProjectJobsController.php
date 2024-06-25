@@ -9,7 +9,7 @@ class ProjectJobsController extends Controller
 {
     public function index(Project $project)
     {
-        $jobs = $project->jobs()->with(['tasks', 'worker'])->get();
+        $jobs = $project->jobs()->with(['tasks', 'person'])->get();
         
         return response()->json(['jobs' => $jobs]);
     }

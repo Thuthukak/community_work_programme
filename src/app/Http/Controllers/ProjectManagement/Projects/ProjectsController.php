@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ProjectManagement\Projects;
 use App\Models\ProjectManagement\Projects\Project;
 use App\Models\ProjectManagement\Projects\ProjectsRepository;
 use App\Http\Controllers\Controller;
+use App\Models\CRM\Person\Person;
 use App\Http\Requests\ProjectManagement\Projects\CreateRequest;
 use App\Http\Requests\ProjectManagement\Projects\UpdateRequest;
 use App\Models\Core\Auth\User;
@@ -127,10 +128,10 @@ class ProjectsController extends Controller
      */
     public function store(CreateRequest $request)
     {
+
         $this->authorize('create', new Project());
 
         $project = $this->repo->create($request->except('_token'));
-        // dd($project);
         flash(__('project.created'), 'success');
 
         return redirect()->route('projects.show', $project);
@@ -144,25 +145,56 @@ class ProjectsController extends Controller
      */
     public function show(Project $project)
     {
+
         $this->authorize('view', $project);
 
-        return view('crm.projects.show', compact('project'));
+
+
+        $Organization = $this->repo->getOrganizationsById($project->organization_id);
+        // dd($Organization);
+
+
+        return view('crm.projects.show', compact('project', 'Organization'));
     }
 
-    /**
-     * Show project edit page.
-     *
-     * @param  \App\Models\ProjectManagement\Projects\Project  $project
-     * @return \Illuminate\Contracts\View\View
-     */
-    public function edit(Project $project)
-    {
-        $this->authorize('update', $project);
+    // /**
+    //  * Show project edit page.
+    //  *
+    //  * @param  \App\Models\ProjectManagement\Projects\Project  $project
+    //  * @return \Illuminate\Contracts\View\View
+    //  */
+    // public function edit(Project $project)
+    // {
+    //     $this->authorize('update', $project);
 
-        $Organization = $this->repo->getOrganizationsList();
+    //     $Organization = $this->repo->getOrganizationsList();
 
-        return view('crm.projects.edit', compact('project', 'Organization'));
+    //     return view('crm.projects.edit', compact('project', 'Organization'));
+    // }
+
+
+/**
+ * Show project edit page or return project data as JSON for AJAX requests.
+ *
+ * @param  \App\Models\ProjectManagement\Projects\Project  $project
+ * @return \Illuminate\Http\JsonResponse|\Illuminate\Contracts\View\View
+ */
+public function edit(Project $project)
+{
+    $this->authorize('update', $project);
+
+
+
+    if (request()->ajax()) {
+
+        return response()->json($project);
     }
+
+
+    $Organization = $this->repo->getOrganizationsList();
+
+    return view('crm.projects.edit', compact('project', 'Organization'));
+}
 
     /**
      * Update project data.
@@ -178,7 +210,7 @@ class ProjectsController extends Controller
         $project = $this->repo->update($request->validated(), $project->id);
         flash(__('project.updated'), 'success');
 
-        return redirect()->route('projects.edit', $project);
+        return redirect()->route('projects.show', $project);
     }
 
     /**

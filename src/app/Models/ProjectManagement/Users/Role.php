@@ -16,7 +16,7 @@ class Role extends ReferenceAbstract
      */
     protected static $lists = [
         1 => 'admin',
-        2 => 'worker',
+        2 => 'person',
     ];
 
     /**

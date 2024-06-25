@@ -69,6 +69,18 @@ class Organization extends BaseModel
         return $this->morphMany(Note::class, 'noteable');
     }
 
+    /**
+     * Organization has many projects.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function projects()
+    {
+        return $this->hasMany('App\Models\ProjectManagement\Projects\Project');
+    }
+
+
+    
     public function files()
     {
         return $this->morphMany(File::class, 'fileable');

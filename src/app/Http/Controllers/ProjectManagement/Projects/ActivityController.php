@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ProjectManagement\Projects;
 
 use App\Models\ProjectManagement\Projects\Project;
 use App\Models\ProjectManagement\Users\Activity;
+use App\Models\CRM\Person\Person;
 use App\Http\Controllers\Controller;
 
 class ActivityController extends Controller

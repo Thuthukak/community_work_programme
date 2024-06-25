@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\ProjectManagement;
+use App\Models\CRM\Person\Person;
 
 class PagesController extends Controller
 {

@@ -1,4 +1,5 @@
 @can('comment-on', $project)
+
 {{ Form::open(['route' => ['projects.comments.store', $project]]) }}
 <div class="row">
     <div class="col-md-9">{!! FormField::textarea('body', ['required' => true, 'label' => false, 'placeholder' => __('comment.create_text')]) !!}</div>

@@ -31,12 +31,6 @@ class Project extends Model
 
 
     /**
-     *  project management database connection
-     */
-
-     protected $connection = 'mysql_second';
-
-    /**
      * @var \App\Models\ProjectManagement\Projects\ProjectPresenter
      */
     protected $presenter = ProjectPresenter::class;
@@ -239,7 +233,7 @@ class Project extends Model
 
         return $this->jobs()->where('type_id', $jobType)
             ->orderBy('position')
-            ->with('worker', 'tasks')
+            ->with('person', 'tasks')
             ->get();
     }
 

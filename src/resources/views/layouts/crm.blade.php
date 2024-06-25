@@ -60,14 +60,9 @@
     </script>
 @endauth
 
-
-<!-- Include necessary JS libraries -->
-{!! Html::script(url('../assets/js/jquery.js')) !!}
-    {!! Html::script(url('../assets/js/bootstrap.min.js')) !!}
     @include('crm.layouts.partials.noty')
-    {!! Html::script(url('../assets/js/plugins/metisMenu/metisMenu.min.js')) !!}
     @yield('ext_js')
-    {!! Html::script(url('../assets/js/sb-admin-2.js')) !!}
+
 
 
 <script type="text/javascript">
@@ -92,7 +87,7 @@
 </script>
 
 <script>
-    window.settings = <?php echo json_encode($settings) ?>
+    window.settings = <?php echo json_encode($settings ?? '') ?>
 </script>
 <script>
     if (!window.localStorage.getItem('app-language')) {

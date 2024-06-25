@@ -186,7 +186,7 @@ abstract class BaseUser extends Authenticatable
      */
     public function jobs()
     {
-        return $this->hasMany('App\Models\ProjectManagement\Projects\ProjectJobs', 'worker_id');
+        return $this->hasMany('App\Models\ProjectManagement\Projects\ProjectJobs', 'person_id');
     }
 
     /**
@@ -196,8 +196,8 @@ abstract class BaseUser extends Authenticatable
      */
     public function projects()
     {
-        return $this->belongsToMany('App\Models\ProjectManagement\Projects\Project', 'ProjectJobs', 'worker_id')
-            ->groupBy('worker_id')
+        return $this->belongsToMany('App\Models\ProjectManagement\Projects\Project', 'ProjectJobs', 'person_id')
+            ->groupBy('person_id')
             ->groupBy('project_id');
     }
 

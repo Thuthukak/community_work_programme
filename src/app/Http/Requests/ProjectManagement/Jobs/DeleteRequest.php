@@ -3,6 +3,7 @@
 namespace App\Http\Requests\ProjectManagement\Jobs;
 
 use App\Models\ProjectManagement\Projects\Project;
+use App\Models\CRM\Person\Person;
 use App\Http\Requests\Request;
 
 class DeleteRequest extends Request

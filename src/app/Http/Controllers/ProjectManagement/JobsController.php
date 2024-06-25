@@ -6,10 +6,12 @@ use App\Models\ProjectManagement\Projects\Comment;
 use App\Models\ProjectManagement\Projects\ProjectJob;
 use App\Models\ProjectManagement\Projects\JobsRepository;
 use App\Models\ProjectManagement\Projects\Project;
-use App\Http\Requests\Jobs\DeleteRequest;
+use App\Models\CRM\Person\Person;
 use App\Models\Core\Auth\User;
 use App\Http\Controllers\Core\UserConverter;
-use App\Http\Requests\Jobs\UpdateRequest;
+use App\Http\Requests\ProjectManagement\Jobs\UpdateRequest;
+use App\Http\Requests\ProjectManagement\Jobs\DeleteRequest;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -75,6 +77,8 @@ class JobsController extends Controller
      */
     public function show(Request $request, ProjectJob $job)
     {
+
+
         $this->authorize('view', $job);
 
         $editableTask = null;
@@ -92,9 +96,12 @@ class JobsController extends Controller
         if (request('action') == 'comment-edit' && request('comment_id') != null) {
             $editableComment = Comment::find(request('comment_id'));
         }
+        
 
-        return view('crm.jobs.show', compact('job', 'editableTask', 'comments', 'editableComment'));
-    }
+    $persons = Person::pluck('name', 'id');
+
+    return view('crm.jobs.show', compact('job', 'editableTask', 'comments', 'editableComment', 'persons'));
+}
 
     /**
      * Show a job edit form.
@@ -106,9 +113,9 @@ class JobsController extends Controller
     {
         $this->authorize('view', $job);
 
-        $workers = $this->repo->getWorkersList();
+        $persons = $this->repo->getPersonsList();
 
-        return view('crm.jobs.edit', compact('job', 'workers'));
+        return view('crm.jobs.edit', compact('job', 'persons'));
     }
 
     /**
@@ -134,7 +141,7 @@ class JobsController extends Controller
      */
     public function delete(ProjectJob $job)
     {
-        return view('jobs.delete', compact('job'));
+        return view('crm.jobs.delete', compact('job'));
     }
 
     /**
