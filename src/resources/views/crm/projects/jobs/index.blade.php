@@ -6,11 +6,11 @@
 
 
 @can('create', new App\Models\ProjectManagement\Projects\ProjectJob)
-<div class="action-buttons-container">
+<div class="action-buttons-container" style="margin-left:1250px">
 
 <div class="create-project-btn ml-auto">
 <button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#createTaskModal" data-project-id="{{ $project->id }}">{{ trans('Add Task') }}</button>
-    {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project], ['class' => 'btn btn-info btn-sm p-2 mr-4', 'icon' => 'plus']) !!}
+    {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project], ['class' => 'btn btn-success btn-sm p-2 mr-4', 'icon' => 'plus']) !!}
 </div>
     @endcan
 
@@ -97,7 +97,7 @@
                         @endif
                     </td>
                     <td class="text-center">{{ $job->tasks_count = $job->tasks->count() }}</td>
-                    <td class="text-center">{{ format_decimal($job->progress) }} %</td>
+                    <td class="text-center">{{ ($job->progress) }} %</td>
                     @can('see-pricings', $job)
                     <td class="text-right">{{ format_money($job->price) }}</td>
                     @endcan
@@ -133,7 +133,7 @@
                             @if (request('action') == 'sort_jobs')
                                 {{ link_to_route('projects.jobs.index', __('app.done'), [$project->id], ['class' => 'btn btn-default btn-xs pull-right']) }}
                             @else
-                                {{ link_to_route('projects.jobs.index', __('project.sort_jobs'), [$project->id, 'action' => 'sort_jobs', '#project-jobs'], ['class' => 'btn sort-job-btn p-1 btn-default btn-xs']) }}
+                                {{ link_to_route('projects.jobs.index', __('project.sort_jobs'), [$project->id, 'action' => 'sort_jobs', '#project-jobs'], ['class' => 'btn sort-job-btn p-1 m1-10 btn-default btn-xs']) }}
                             @endif
                         @endcan
                     </th>
@@ -167,7 +167,7 @@
                     <div class="col-sm-4">
                         {!! FormField::price('price', [
                             'label'    => __('job.price'),
-                            'currency' => Option::get('money_sign', 'Rp'),
+                            'currency' => Option::get('money_sign', R),
                             'value'    => 0,
                         ]) !!}
                     </div>

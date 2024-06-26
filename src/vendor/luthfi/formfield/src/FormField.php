@@ -508,7 +508,7 @@ class FormField
      */
     public function price($name, $options = [])
     {
-        $options['addon'] = ['before' => isset($options['currency']) ? $options['currency'] : 'Rp'];
+        $options['addon'] = ['before' => isset($options['currency']) ? $options['currency'] : R];
         $options['class'] = isset($options['class']) ? $options['class'].' text-right' : 'text-right';
 
         return $this->text($name, $options);
