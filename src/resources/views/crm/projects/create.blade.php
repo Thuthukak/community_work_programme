@@ -31,7 +31,7 @@
                         {!! FormField::text('proposal_date', ['label' => trans('project.proposal_date')]) !!}
                     </div>
                     <div class="col-md-6">
-                        {!! FormField::price('proposal_value', ['label' => trans('project.proposal_value'), 'currency' => Option::get('money_sign', R)]) !!}
+                        {!! FormField::price('proposal_value', ['label' => trans('project.proposal_value'), 'currency' => Option::get('money_sign', 'Rp')]) !!}
                     </div>
                 </div>
                 {!! FormField::textarea('description', ['label' => trans('project.description')]) !!}

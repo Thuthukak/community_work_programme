@@ -20,7 +20,7 @@
                         {!! FormField::text('name', ['label' => __('subscription.name')]) !!}
                     </div>
                     <div class="col-sm-6">
-                        {!! FormField::price('price', ['label' => __('subscription.price'), 'currency' => Option::get('money_sign', R)]) !!}
+                        {!! FormField::price('price', ['label' => __('subscription.price'), 'currency' => Option::get('money_sign', 'Rp')]) !!}
                     </div>
                 </div>
                 <div class="row">
