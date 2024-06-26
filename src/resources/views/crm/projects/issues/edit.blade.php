@@ -3,13 +3,14 @@
 @section('subtitle', __('issue.update'))
 
 @section('action-buttons')
+<div class="action-btns-container">
 @can('create', new App\Models\ProjectManagement\Projects\Issue)
-    {!! html_link_to_route('projects.issues.create', __('issue.create'), $project, ['class' => 'btn btn-success', 'icon' => 'plus']) !!}
+    {!! html_link_to_route('projects.issues.create', __('issue.create'), $project, ['class' => 'btn btn-primary btn-sm mr-5 p-2', 'icon' => 'plus']) !!}
 @endcan
 @endsection
 
 @section('content-project')
-<div class="row">
+<div class="row showprojtable" style="padding-top:10px">
     <div class="col-sm-6 col-sm-offset-2">
         @if (request('action') == 'delete' && $issue)
             <div class="panel panel-default">
@@ -30,7 +31,7 @@
                         ['id' => 'delete-issue-'.$issue->id, 'class' => 'btn btn-danger'],
                         ['issue_id' => $issue->id]
                     ) !!}
-                    {{ link_to_route('projects.issues.edit', __('app.cancel'), [$project, $issue], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('projects.issues.edit', __('app.cancel'), [$project, $issue], ['class' => 'btn btn-info']) }}
                 </div>
             </div>
         @else
@@ -43,7 +44,7 @@
                 </div>
                 <div class="panel-footer">
                     {{ Form::submit(__('issue.update'), ['class' => 'btn btn-success']) }}
-                    {{ link_to_route('projects.issues.show', __('app.cancel'), [$project, $issue], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('projects.issues.show', __('app.cancel'), [$project, $issue], ['class' => 'btn btn-info']) }}
                     {{ link_to_route('projects.issues.edit', __('app.delete'), [$project, $issue, 'action' => 'delete'], ['id' => 'delete-issue-'.$issue->id, 'class' => 'btn btn-danger pull-right']) }}
                 </div>
             </div>

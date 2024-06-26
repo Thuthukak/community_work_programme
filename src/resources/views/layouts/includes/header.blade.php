@@ -5,4 +5,5 @@
 {{ style('vendor/summernote/summernote-bs4.css') }}
 <script src="{{ url('assets/js/plugins/select2.min.js') }}"></script>
 
+
 @stack('after-styles')

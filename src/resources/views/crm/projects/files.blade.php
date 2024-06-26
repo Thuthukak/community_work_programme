@@ -5,18 +5,18 @@
 @section('contents')
 @include('crm.projects.partials.breadcrumb',['title' => __('project.files')])
 
-<h1 class="page-header">
-    {{ $project->name }} <small>{{ __('project.files') }}</small>
-</h1>
+<h4 class="page-header-pill-layouts">
+    {{ $project->name }} 
+</h4>
 
 @include('crm.projects.partials.nav-tabs')
 <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-7" style="margin-top:10px">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">{{ __('project.files') }}</h3>
+                <h3 class="panel-title" style="margin-left:20px">{{ __('project.files') }}</h3>
             </div>
-            <div class="panel-body table-responsive">
+            <div class="panel-body table-responsive" style="margin-left:20px">
                 <table class="table table-condensed table-striped">
                     <thead>
                         <th>{{ __('app.table_no') }}</th>
@@ -59,15 +59,15 @@
     </div>
     <div class="col-md-4">
         @if (Request::has('action') == false)
-        <div class="panel panel-default">
+        <div class="panel panel-default" style="margin-top:10px">
             <div class="panel-heading"><h3 class="panel-title">{{ __('file.create') }}</h3></div>
             <div class="panel-body">
                 {!! Form::open(['route' => ['files.upload', $project->id], 'id' => 'upload-file', 'files' => true]) !!}
                 {{ Form::hidden('fileable_type', get_class($project)) }}
-                {!! FormField::file('file', ['label' => __('file.select')]) !!}
-                {!! FormField::text('title') !!}
-                {!! FormField::textarea('description') !!}
-                {!! Form::submit(__('file.upload'), ['class' => 'btn btn-info']) !!}
+                {!! FormField::file('file', ['label' => __('file.select')], ['class'=> 'custom-formfield']) !!}
+                {!! FormField::text('title', ['class'=> 'custom-formfield']) !!}
+                {!! FormField::textarea('description', ['class'=> 'custom-formfield']) !!}
+                {!! Form::submit(__('file.upload'), ['class' => 'btn btn-primary']) !!}
                 {!! Form::close() !!}
             </div>
         </div>

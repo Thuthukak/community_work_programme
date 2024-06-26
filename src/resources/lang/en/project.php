@@ -48,7 +48,7 @@ return [
     'update_status' => 'Update Project Status',
     'action' => 'Action',
 
-    'jobs_list_export_html'     => 'Export HTML',
+    'jobs_list_export_html'     => 'Export Details',
     'jobs_export_excel'         => 'Export Excel',
     'jobs_progress_export_html' => 'Export Progress',
     'sort_jobs'                 => 'Sort Job Priority',

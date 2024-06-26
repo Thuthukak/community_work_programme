@@ -60,8 +60,15 @@
     </script>
 @endauth
 
-    @include('crm.layouts.partials.noty')
-    @yield('ext_js')
+
+
+<!-- Include necessary JS libraries -->
+<script src="{{ url('../assets/js/jquery.js') }}"></script>
+<script src="{{ url('../assets/js/bootstrap.min.js') }}"></script>
+@include('crm.layouts.partials.noty')
+<script src="{{ url('../assets/js/plugins/metisMenu/metisMenu.min.js') }}"></script>
+@yield('ext_js')
+<script src="{{ url('../assets/js/sb-admin-2.js') }}"></script>
 
 
 

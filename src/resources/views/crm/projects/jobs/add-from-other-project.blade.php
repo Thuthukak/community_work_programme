@@ -4,17 +4,18 @@
 
 @section('action-buttons')
 @can('create', new App\Models\ProjectManagement\Projects\ProjectJob)
-    {!! html_link_to_route('projects.jobs.create', __('job.create'), [$project->id], ['class' => 'btn btn-success', 'icon' => 'plus']) !!}
-    {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project->id], ['class' => 'btn btn-default', 'icon' => 'plus']) !!}
+<div class="action-btns-container">
+    {!! html_link_to_route('projects.jobs.create', __('job.create'), [$project->id], ['class' => 'btn btn-sm btn-primary p-2', 'icon' => 'plus']) !!}
+    {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project->id], ['class' => 'btn btn-sm btn-success p-2', 'icon' => 'plus']) !!}
 @endcan
 @endsection
 
 @section('content-project')
 
-<div class="row">
+<div class="row showprojtable">
     <div class="col-sm-6 col-sm-offset-2">
         <div class="panel panel-default">
-            <div class="panel-heading"><h3 class="panel-title">{{ __('job.add_from_other_project') }}</h3></div>
+            <div class="panel-heading"><h3 class="panel-title" style="margin:20px">{{ __('job.add_from_other_project') }}</h3></div>
             <div class="panel-body">
                 {{ Form::open(['method' => 'get', 'class' => 'form-inline', 'style' => 'margin-bottom:20px']) }}
                 {!! FormField::select('project_id', $projects, [
@@ -22,14 +23,14 @@
                     'value' => request('project_id'),
                     'placeholder' => __('project.select'),
                 ]) !!}
-                {{ Form::submit(__('project.show_jobs'), ['class' => 'btn btn-default btn-sm']) }}
+                {{ Form::submit(__('project.show_jobs'), ['class' => 'btn btn-info btn-sm mb-4']) }}
                 {{ Form::close() }}
                 @if ($selectedProject)
                 {{ Form::open(['route' => ['projects.jobs.store-from-other-project', $project->id]]) }}
                 <ul class="list-unstyled">
                     @forelse($selectedProject->jobs as $key => $job)
                     <li>
-                        <label for="project_project_job_id_{{ $job->id }}">
+                        <label for="project_project_job_id_{{ $job->id }}"  style="margin:20px">
                         {{ Form::checkbox('project_project_job_ids['.$job->id.']', $job->id, null, ['id' => 'project_project_job_id_'.$job->id]) }}
                         {{ $job->name }}</label>
                         <ul style="list-style-type:none">
@@ -52,12 +53,13 @@
                 @if ($errors->has('project_project_job_ids'))
                     <div class="alert alert-danger">{{ __('validation.select_one') }}</div>
                 @endif
-                {{ Form::submit(__('job.add'), ['class' => 'btn btn-primary']) }}
+                
+                {{ Form::submit(__('job.add'), ['class' => 'btn btn-success btn-sm ml-4'],) }}
                 {{ Form::close() }}
             </div>
 
-            <div class="panel-footer">
-                {{ link_to_route('projects.jobs.index', __('app.cancel'), [$project], ['class' => 'btn btn-default']) }}
+            <div class="panel-footer"  style="margin:20px">
+                {{ link_to_route('projects.jobs.index', __('app.cancel'), [$project], ['class' => 'btn btn-sm btn-danger']) }}
             </div>
         </div>
     </div>
@@ -65,7 +67,8 @@
 @endsection
 
 @section('ext_css')
-    {{ Html::style(url('assets/css/plugins/select2.min.css')) }}
+<script src="{{ asset('assets/js/plugins/select2.min.js') }}"></script>
+
     <style>
     .select2-selection.select2-selection--single {
         border-radius: 0;
@@ -75,7 +78,8 @@
 @endsection
 
 @section('script')
-{{ Html::script(url('assets/js/plugins/select2.min.js')) }}
+<script src="{{ asset('assets/js/plugins/select2.min.js') }}"></script>
+
 <script>
 (function() {
     $('select[name=project_id]').select2();

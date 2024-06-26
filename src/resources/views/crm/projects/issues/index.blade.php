@@ -52,7 +52,7 @@
                 <td>{{ $no }}</td>
                 <td>{{ $issue->title }}</td>
                 <td>{!! $issue->priority_label !!}</td>
-                <td>{!! $issue->status_label !!}</td>
+                <td class="text-black">{!! $issue->status_label !!}</td>
                 <td class="text-center">{{ $issue->comments_count }}</td>
                 <td>{{ $issue->pic->name }}</td>
                 <td>{{ $issue->creator->name }}</td>
