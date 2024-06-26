@@ -154,7 +154,7 @@ class User extends Authenticatable
      */
     public function jobs()
     {
-        return $this->hasMany('App\Models\ProjectManagement\Projects\ProjectJob', 'worker_id');
+        return $this->hasMany('App\Models\ProjectManagement\Projects\ProjectJob', 'organization_id');
     }
 
     /**
@@ -164,8 +164,8 @@ class User extends Authenticatable
      */
     public function projects()
     {
-        return $this->belongsToMany('App\Models\ProjectManagement\Projects\Project', 'jobs', 'worker_id')
-            ->groupBy('worker_id')
+        return $this->belongsToMany('App\Models\ProjectManagement\Projects\Project', 'jobs', 'organization_id')
+            ->groupBy('organization_id')
             ->groupBy('project_id');
     }
 

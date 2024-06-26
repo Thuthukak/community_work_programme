@@ -13,10 +13,10 @@
                 {!! FormField::textarea('description', ['label' => __('job.description')]) !!}
                 <div class="row">
                     <div class="col-sm-4">
-                        {!! FormField::price('price', ['label' => __('job.price'), 'currency' => Option::get('money_sign', 'Rp')]) !!}
+                        {!! FormField::price('price', ['label' => __('job.price'), 'currency' => Option::get('money_sign', 'R')]) !!}
                     </div>
                     <div class="col-sm-4">
-                        {!! FormField::select('worker_id', $workers, ['label' => __('job.worker')]) !!}
+                        {!! FormField::select('person_id', $persons, ['label' => __('Assign to')]) !!}
                     </div>
                     <div class="col-sm-4">
                         {!! FormField::radios('type_id', [1 => __('job.main'), __('job.additional')], ['value' => 1, 'label' => __('job.type'), 'list_style' => 'unstyled']) !!}

@@ -17,7 +17,8 @@
 
     <div class="create-button-wrapper">
         @can('create', new App\Models\ProjectManagement\Projects\Issue)
-            {!! html_link_to_route('projects.issues.create', __('issue.create'), $project, ['class' => 'btn btn-warning btn-sm p-2', 'icon' => 'plus']) !!}
+            <button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#createIssueModal" data-project-id="{{ $project->id }}">{{ trans('Add Issue') }}</button>
+
         @endcan
     </div>
 </div>
@@ -70,5 +71,34 @@
             @endforelse
         </tbody>
     </table>
+</div>
+
+
+<div id="createIssueModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ __('Add Issue') }}</h4>
+            </div>
+                    {!! Form::open(['route' => ['projects.issues.store', $project->id], 'method' => 'POST']) !!}
+            <div class="modal-body">
+                    {!! FormField::text('title', ['label' => __('issue.title')]) !!}
+                    {!! FormField::textarea('body', ['label' => __('issue.body')]) !!}
+                <div class="row">
+                {!! FormField::radios('priority_id', $priorities::toArray(), ['label' => false, 'placeholder' => __('issue.all_priority'), 'value' => request('priority_id'),'class' => 'form-control form-control-xs droplist']) !!}
+                </div>
+                <div class="row">
+                    {!! FormField::select('pic_id', $users, ['label' => __('issue.pic')]) !!}
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                    {{ Form::submit(__('Save'), ['class' => 'btn btn-primary']) }}
+                    {{ link_to_route('projects.issues.index', __('app.cancel'), [$project], ['class' => 'btn btn-default']) }}
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
 </div>
 @endsection

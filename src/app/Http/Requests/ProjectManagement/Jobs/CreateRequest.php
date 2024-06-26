@@ -3,6 +3,7 @@
 namespace App\Http\Requests\ProjectManagement\Jobs;
 
 use App\Models\ProjectManagement\Projects\Project;
+use App\Models\CRM\Person\Person;
 use App\Http\Requests\Request;
 
 class CreateRequest extends Request
@@ -29,7 +30,7 @@ class CreateRequest extends Request
         return [
             'name'              => 'required|max:60',
             'price'             => 'required|numeric',
-            'worker_id'         => 'required|numeric',
+            'person_id'         => 'required|numeric',
             'type_id'           => 'required|numeric',
             'target_start_date' => 'nullable|date|date_format:Y-m-d',
             'target_end_date'   => 'nullable|date|date_format:Y-m-d',

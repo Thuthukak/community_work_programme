@@ -5,11 +5,12 @@
 @section('action-buttons')
 <div class="action-btns-container">
 @can('create', new App\Models\ProjectManagement\Projects\Issue)
-    {!! html_link_to_route('projects.issues.create', __('issue.create'), $project, ['class' => 'btn btn-sm  mr-5 p-2 btn-primary', 'icon' => 'plus']) !!}
+<button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#createNewIssueModal" data-project-id="{{ $project->id }}">{{ trans('Add Issue') }}</button>
 @endcan
 @endsection
 
 @section('content-project')
+
 <div class="row showprojtable" >
     <div class="col-md-6">
         <div class="panel panel-default">
@@ -29,7 +30,7 @@
                 </tbody>
             </table>
             <div class="panel-footer">
-                {{ link_to_route('projects.issues.edit', __('issue.edit'), [$project, $issue], ['id' => 'edit-issue-'.$issue->id, 'class' => 'btn btn-warning']) }}
+            <button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#EditIssueModal" data-project-id="{{ $issue->id }}">{{ trans('Edit Issue') }}</button>
                 {{ link_to_route('projects.issues.index', __('issue.back_to_index'), [$project], ['class' => 'btn btn-info pull-right']) }}
             </div>
         </div>
@@ -52,6 +53,63 @@
         {{ Form::close() }}
     </div>
 </div>
+
+<!-- Edit Modal -->
+<div id="EditIssueModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ __('Edit Issue') }}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            {!! Form::model($issue, ['route' => ['projects.issues.update', $project->id, $issue->id], 'method' => 'patch']) !!}
+            <div class="modal-body">
+                <div class="panel-heading"><h3 class="panel-title">{{ __('issue.update') }}</h3></div>
+                <div class="panel-body">
+                    {!! FormField::text('title', ['label' => __('issue.title')]) !!}
+                    {!! FormField::textarea('body', ['label' => __('issue.body')]) !!}
+                </div>
+            </div>
+            <div class="modal-footer">
+                {!! Form::submit(trans('Save'), ['class' => 'btn btn-success']) !!}
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('app.cancel') }}</button>
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+
+
+
+<div id="createNewIssueModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ __('Add New Issue') }}</h4>
+            </div>
+                    {!! Form::open(['route' => ['projects.issues.store', $project->id], 'method' => 'POST']) !!}
+            <div class="modal-body">
+                    {!! FormField::text('title', ['label' => __('issue.title')]) !!}
+                    {!! FormField::textarea('body', ['label' => __('issue.body')]) !!}
+                <div class="row">
+                {!! FormField::radios('priority_id', $priorities, ['label' => false, 'placeholder' => __('issue.all_priority'), 'value' => request('priority_id'),'class' => 'form-control form-control-xs droplist']) !!}
+                </div>
+                <div class="row">
+                    {!! FormField::select('pic_id', $users, ['label' => __('issue.pic')]) !!}
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                    {{ Form::submit(__('Save'), ['class' => 'btn btn-primary']) }}
+                    {{ link_to_route('projects.issues.index', __('app.cancel'), [$project], ['class' => 'btn btn-default']) }}
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('script')

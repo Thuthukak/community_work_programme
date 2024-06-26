@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ProjectManagement\Jobs;
 use App\Models\ProjectManagement\Projects\Comment;
 use App\Models\ProjectManagement\Projects\ProjectJob;
 use App\Http\Controllers\Controller;
+use App\Models\CRM\Person\Person;
 use Illuminate\Http\Request;
 
 class CommentsController extends Controller
@@ -26,6 +27,7 @@ class CommentsController extends Controller
             $editableComment = Comment::find(request('comment_id'));
         }
 
+
         return view('crm.jobs.comments', compact('job', 'comments', 'editableComment'));
     }
 
@@ -38,6 +40,9 @@ class CommentsController extends Controller
      */
     public function store(Request $request, ProjectJob $job)
     {
+
+        dd($job);
+
         $this->authorize('comment-on', $job);
 
         $newComment = $request->validate([

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\ProjectManagement\Projects;
 
 use App\Models\ProjectManagement\Projects\Project;
+use App\Models\CRM\Person\Person;
 use App\Http\Requests\Request;
 
 class CreateRequest extends Request
@@ -28,9 +29,9 @@ class CreateRequest extends Request
             'name'           => 'required|max:50',
             'proposal_date'  => 'nullable|date|date_format:Y-m-d',
             'proposal_value' => 'nullable|numeric',
-            'customer_id'    => 'nullable|numeric',
-            'customer_name'  => 'nullable|required_without:customer_id|max:60',
-            'customer_email' => 'nullable|required_without:customer_id|email|unique:users,email',
+            'organization_id'    => 'nullable|numeric',
+            'organization_name'  => 'nullable|required_without:organization_id|max:60',
+            'organization_email' => 'nullable|required_without:organization_id|email|unique:users,email',
             'description'    => 'nullable|max:255',
         ];
     }
@@ -43,8 +44,8 @@ class CreateRequest extends Request
     public function messages()
     {
         return [
-            'customer_name.required_without'  => __('validation.project.customer_name.required_without'),
-            'customer_email.required_without' => __('validation.project.customer_email.required_without'),
+            'organization_name.required_without'  => __('validation.project.customer_name.required_without'),
+            'organization_email.required_without' => __('validation.project.customer_email.required_without'),
         ];
     }
 }

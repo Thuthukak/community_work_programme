@@ -18,6 +18,7 @@ use App\Models\CRM\Traits\OwnerRelationshipTrait;
 use App\Models\CRM\Traits\PhoneRelationshipTrait;
 use App\Models\CRM\Traits\FollowerRelationshipTrait;
 use App\Models\CRM\Traits\ProfilePictureRelationshipTrait;
+use App\Models\ProjectManagement\Projects\ProjectJob;
 
 trait PersonsRelationship
 {
@@ -51,7 +52,10 @@ trait PersonsRelationship
     {
         return $this->morphMany(Project::class, 'contextable');
     }
-
+    public function ProjectJob()
+    {
+        return $this->morphMany(ProjectJob::class, 'contextable');
+    }
     public function openDeals()
     {
         return $this->morphMany(Deal::class, 'contextable')->where('status_id', 13);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ProjectManagement\Projects;
 
 use App\Models\ProjectManagement\Projects\Comment;
 use App\Models\ProjectManagement\Projects\Project;
+use App\Models\CRM\Person\Person;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -27,6 +28,8 @@ class CommentsController extends Controller
         if (request('action') == 'comment-edit' && request('comment_id') != null) {
             $editableComment = Comment::find(request('comment_id'));
         }
+
+
         return view('crm.projects.comments', compact('project', 'comments', 'editableComment'));
     }
 
@@ -49,6 +52,7 @@ class CommentsController extends Controller
             'body'       => $newComment['body'],
             'creator_id' => auth()->id(),
         ]);
+
 
         flash(__('comment.created'), 'success');
 

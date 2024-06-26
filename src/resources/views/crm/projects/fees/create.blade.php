@@ -28,7 +28,7 @@
                             'partner_id',
                             $partners,
                             [
-                                'placeholder' => __('job.select_worker'),
+                                'placeholder' => __('job.select_person'),
                                 'label' => __('payment.customer'),
                                 'value' => request('customer_id'),
                             ]

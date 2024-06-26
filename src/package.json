@@ -7,7 +7,9 @@
         "watch": "mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",
         "hot": "mix watch --hot",
-        "prod": "mix --production"
+        "prod": "mix --production",   
+         "build": "npm run prod"
+
     },
     "devDependencies": {
         "@coreui/coreui": "^2.1.12",

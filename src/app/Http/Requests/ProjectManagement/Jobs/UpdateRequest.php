@@ -3,6 +3,7 @@
 namespace App\Http\Requests\ProjectManagement\Jobs;
 
 use App\Models\ProjectManagement\Projects\Project;
+use App\Models\CRM\Person\Person;
 use App\Http\Requests\Request;
 
 class UpdateRequest extends Request
@@ -26,10 +27,11 @@ class UpdateRequest extends Request
      */
     public function rules()
     {
+
         return [
             'name'        => 'required|max:60',
             'price'       => 'required|numeric',
-            'worker_id'   => 'required|numeric',
+            'person_id'   => 'required|numeric',
             'type_id'     => 'required|numeric',
             'description' => 'max:255',
         ];

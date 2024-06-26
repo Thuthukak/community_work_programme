@@ -30,7 +30,7 @@
                         ]) !!}
                     </div>
                     <div class="col-sm-4">
-                        {!! FormField::select('worker_id', $workers, ['label' => __('job.worker'), 'value' => 1]) !!}
+                        {!! FormField::select('person_id', $persons, ['label' => __('job.person'), 'value' => 1]) !!}
                     </div>
                     <div class="col-sm-4">
                         {!! FormField::radios('type_id', [1 => __('job.main'), __('job.additional')], ['value' => 1, 'label' => __('job.type'), 'list_style' => 'unstyled']) !!}

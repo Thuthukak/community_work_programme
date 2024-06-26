@@ -24,7 +24,7 @@
             @can('see-pricings', new App\Models\ProjectManagement\Projects\ProjectJob)
             <th class="text-right">{{ __('job.price') }}</th>
             @endcan
-            <th>{{ __('job.worker') }}</th>
+            <th>{{ __('job.person') }}</th>
             <th>{{ __('app.action') }}</th>
         </thead>
         <tbody>
@@ -50,7 +50,7 @@
                 @can('see-pricings', $job)
                 <td class="text-right">{{ format_money($job->price) }}</td>
                 @endcan
-                <td>{{ $job->worker->name }}</td>
+                <td>{{ $job->person->name }}</td>
                 <td>
                     {{ link_to_route('jobs.show', __('app.show'), [$job], ['class' => 'btn btn-info btn-xs']) }}
                 </td>

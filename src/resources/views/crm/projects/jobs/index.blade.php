@@ -7,8 +7,10 @@
 
 @can('create', new App\Models\ProjectManagement\Projects\ProjectJob)
 <div class="action-buttons-container">
-    {!! html_link_to_route('projects.jobs.create', __('job.create'), [$project], ['class' => 'btn btn-primary btn-sm p-2 mr-2', 'icon' => 'plus']) !!}
-    {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project], ['class' => 'btn btn-success btn-sm p-2 mr-4', 'icon' => 'plus']) !!}
+
+<div class="create-project-btn ml-auto">
+<button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#createTaskModal" data-project-id="{{ $project->id }}">{{ trans('Add Task') }}</button>
+    {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project], ['class' => 'btn btn-info btn-sm p-2 mr-4', 'icon' => 'plus']) !!}
 </div>
     @endcan
 
@@ -18,12 +20,17 @@
 
 @if ($jobs->isEmpty())
 <p class="no-task">{{ __('project.no_jobs') }},
-    {{ link_to_route('projects.jobs.create', __('job.create'), [$project]) }}.
-</p>
+<div class="create-project-btn ml-auto">
+<a href="#" class="btn btn-warning btn-sm p-2"
+   data-toggle="modal"
+   data-target="#createTaskModal"
+   data-project-id="{{ $project->id }}">
+   {{ trans('Add Task') }}
+</a>
+</div></p>
 @else
 
 @foreach($jobs->groupBy('type_id') as $key => $groupedJobs)
-
 <div id="project-jobs" class="task-header flex justify-between items-center mb-4">
     <div class="task-panel-heading">
     <div class="wrap-action-btns">
@@ -67,7 +74,7 @@
                 @can('see-pricings', new App\Models\ProjectManagement\Projects\ProjectJob)
                 <th class="text-right">{{ __('job.price') }}</th>
                 @endcan
-                {{-- <th>{{ __('job.worker') }}</th> --}}
+                {{-- <th>{{ __('job.person') }}</th> --}}
                 <th class="text-center">{{ __('time.updated_at') }}</th>
                 <th class="text-center">{{ __('app.action') }}</th>
             </thead>
@@ -96,14 +103,13 @@
                     @endcan
                     <td class="text-center">
                         {{ $job->updated_at->diffForHumans() }} <br>
-                        {{ __('job.worker') }} : {{ $job->worker->name }}
+                        {{ __('job.person') }} : {{ $job->person->name }}
                     </td>
                     <td class="text-center">
                         @can('view', $job)
                         {!! html_link_to_route('jobs.show', '',[$job->id],['icon' => 'search', 'title' => __('job.show'), 'class' => 'btn btn-info btn-xs', 'id' => 'show-job-' . $job->id]) !!}
                         @endcan
                         @can('edit', $job)
-                        {!! html_link_to_route('jobs.edit', '',[$job->id],['icon' => 'edit', 'title' => __('job.edit'), 'class' => 'btn btn-warning btn-xs']) !!}
                         @endcan
                     </td>
                 </tr>
@@ -140,6 +146,61 @@
 @endforeach
 
 @endif
+
+
+<!-- Create task modal -->
+<div id="createTaskModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ __('Add Task') }}</h4>
+            </div>
+            {!! Form::open(['route' => ['projects.jobs.store', $project->id], 'method' => 'POST']) !!}
+            <div class="modal-body">
+                {!! FormField::text('name', ['label' => trans('job.name')]) !!}
+
+                {!! FormField::textarea('description', ['label' => __('job.description')]) !!}
+
+            
+                <div class="row">
+                    <div class="col-sm-4">
+                        {!! FormField::price('price', [
+                            'label'    => __('job.price'),
+                            'currency' => Option::get('money_sign', 'Rp'),
+                            'value'    => 0,
+                        ]) !!}
+                    </div>
+                    <div class="col-md-4">
+                        {!! FormField::select('person_id', $person, ['label' => __('Assign to'), 'value' => 1]) !!}
+                    </div>
+                    <div class="col-sm-4">
+                        {!! FormField::radios('type_id', [1 => __('job.main'), __('job.additional')], ['value' => 1, 'label' => __('job.type'), 'list_style' => 'unstyled']) !!}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {!! FormField::text('target_start_date', ['label' => __('job.target_start_date'), 'class' => 'date-select']) !!}
+                    </div>
+                    <div class="col-md-6">
+                        {!! FormField::text('target_end_date', ['label' => __('job.target_end_date'), 'class' => 'date-select']) !!}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                {{ Form::submit(__('Save'), ['class' => 'btn btn-primary']) }}
+                {{ link_to_route('projects.jobs.index', __('app.cancel'), [$project], ['class' => 'btn btn-default']) }}
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Edit task modal -->
+
+
 @endsection
 
 @can('update', $project)
@@ -160,6 +221,13 @@
         }
     });
 })();
+
+$(function() {
+    $(".date-select").datepicker({
+        dateFormat: "yy-mm-dd"
+    });
+});
+
 </script>
 @endsection
 

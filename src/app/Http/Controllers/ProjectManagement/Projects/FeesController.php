@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ProjectManagement\Projects;
 
 use App\Models\Payments\Payment;
 use App\Models\ProjectManagement\Projects\Project;
+use App\Models\CRM\Person\Person;
 use App\Models\Users\User;
 use App\Http\Controllers\Controller;
 

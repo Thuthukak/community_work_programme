@@ -12,6 +12,11 @@ class ProjectPresenter extends Presenter
         return $this->customer_id ? $this->customer->name.' ('.$this->customer->email.')' : '-';
     }
 
+    public function OrganizationNameAndEmail()
+    {
+        return $this->organization_id ? $this->Organization->name.' ('.$this->Organization->email.')' : '-';
+    }
+
     public function projectLink()
     {
         return link_to_route('projects.show', $this->name, [$this->id]);

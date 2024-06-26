@@ -3,6 +3,7 @@
 namespace App\Http\Requests\ProjectManagement\Projects;
 
 use App\Models\ProjectManagement\Projects\Project;
+use App\Models\CRM\Person\Person;
 use App\Http\Requests\Request;
 
 class UpdateRequest extends Request
@@ -35,7 +36,7 @@ class UpdateRequest extends Request
             'end_date'       => 'nullable|date|date_format:Y-m-d',
             'due_date'       => 'nullable|date|date_format:Y-m-d',
             'project_value'  => 'nullable|numeric',
-            'customer_id'    => 'nullable|numeric',
+            'organization_id'    => 'nullable|numeric',
             'status_id'      => 'required|numeric',
         ];
     }

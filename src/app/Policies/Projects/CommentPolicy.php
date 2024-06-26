@@ -26,7 +26,7 @@ class CommentPolicy
     {
         // Only admin and comment creator can update comment.
         return $user->hasRole('admin')
-            || ($user->hasRole('worker') && $comment->creator_id == $user->id);
+            || ($user->hasRole('person') && $comment->creator_id == $user->id);
     }
 
     /**

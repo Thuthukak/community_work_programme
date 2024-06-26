@@ -59,8 +59,7 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">{{ __('project.create') }}</h4>
+                <h4 class="modal-title">{{ __('Add Project') }}</h4>
             </div>
             {!! Form::open(['route' => 'projects.store', 'method' => 'POST']) !!}
             <div class="modal-body">
@@ -85,7 +84,7 @@
                 {!! FormField::textarea('description', ['label' => trans('project.description')]) !!}
             </div>
             <div class="modal-footer">
-                {!! Form::submit(trans('project.create'), ['class' => 'btn btn-success']) !!}
+                {!! Form::submit(trans('Save'), ['class' => 'btn btn-success']) !!}
                 <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('app.cancel') }}</button>
             </div>
             {!! Form::close() !!}
@@ -95,8 +94,11 @@
  
 
 
+ 
 
     <div class="project-controls flex justify-between items-center mb-4">
+
+
         <div class="index-nav-tabs pull-left hidden-xs">@include('crm.projects.partials.index-nav-tabs')</div>
         {!! Form::open(['method' => 'get', 'class' => 'form-inline search-form']) !!}
         {{ Form::hidden('status_id') }}
@@ -108,6 +110,7 @@
         </div>
         {!! Form::close() !!}
     </div>
+    <small>{{ $projects->total() }} {{ trans('project.found') }}</small>
 
     <div class="project-table panel panel-default table-responsive">
         <br>
@@ -144,11 +147,14 @@
                     <td class="text-right">{{ format_money($project->project_value) }}</td>
                     @endcan
                     <td class="text-center">{{ $project->present()->status }}</td>
-                    <td>{{ $project->customer->name }}</td>
+                    <td>{{ $project->Organization?->name }}</td>
                     <td>
                         {!! html_link_to_route('projects.show', '', [$project->id], ['icon' => 'search', 'class' => 'btn btn-info btn-xs', 'title' => trans('app.show')]) !!}
-                        {!! html_link_to_route('projects.edit', '', [$project->id], ['icon' => 'edit', 'class' => 'btn btn-warning btn-xs', 'title' => trans('app.edit')]) !!}
+                        <button class="btn btn-warning btn-xs edit-project-btn" data-id="{{ $project->id }}" data-toggle="modal" data-target="#editProjectModal" title="{{ trans('app.edit') }}">
+                            <i class="fas fa-edit"></i>
+                        </button>
                     </td>
+
                 </tr>
                 @empty
                 <tr>
@@ -158,14 +164,108 @@
             </tbody>
         </table>
     </div>
+
+
+<!-- Edit Modal -->
+<div id="editProjectModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ __('Edit Project') }}</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                {!! Form::open(['route' => ['projects.update', 0], 'method' => 'patch', 'id' => 'editProjectForm']) !!}
+                    <div class="panel-body">
+                        {!! FormField::text('name', ['label' => __('project.name')]) !!}
+                        <div class="row">
+                            <div class="col-md-8">
+                                {!! FormField::textarea('description', ['label' => __('project.description'), 'rows' => 5]) !!}
+                            </div>
+                            <div class="col-md-4">
+                                {!! FormField::price('proposal_value', ['label' => __('project.proposal_value'), 'currency' => Option::get('money_sign', 'R')]) !!}
+                                {!! FormField::price('project_value', ['label' => __('project.project_value'), 'currency' => Option::get('money_sign', 'R')]) !!}
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                {!! FormField::text('proposal_date', ['label' => __('project.proposal_date')]) !!}
+                            </div>
+                            <div class="col-md-6">
+                                {!! FormField::text('start_date', ['label' => __('project.start_date')]) !!}
+                            </div>
+
+                        </div>
+                        <div class ="row">
+                            <div class="col-md-6">
+                                {!! FormField::text('due_date', ['label' => __('project.due_date')]) !!}
+                            </div>
+                            <div class="col-md-6">
+                                {!! FormField::text('end_date', ['label' => __('project.end_date')]) !!}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>{{ __('Organization') }}</label><br>
+                            </div>
+                        </div>
+                    </div>
+                {!! Form::close() !!}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('app.cancel') }}</button>
+                {!! Form::submit(trans('Save'), ['class' => 'btn btn-success']) !!}
+            </div>
+        </div>
+    </div>
+</div>
+
+
     {{ $projects->appends(Request::except('page'))->render() }}
 </div>
 @endsection
 
+
+@section('script')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
-    $(document).ready(function() {
-        $('form').on('submit', function(e) {
-            console.log('Form submitted'); // Check if this message appears in the browser console
+(function() {
+    $('#proposal_date,#start_date,#due_date,#end_date').datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+        closeOnDateSelect: true,
+        scrollInput: false
+    });
+})();
+$(document).ready(function() {
+    $('.edit-project-btn').on('click', function() {
+        var projectId = $(this).data('id');
+        var url = "{{ route('projects.edit', ':id') }}"; // Adjust route as per your application
+
+        // AJAX request to fetch project details
+        $.ajax({
+            url: url.replace(':id', projectId),
+            method: 'GET',
+            success: function(data) {
+                // Populate form fields with fetched project data
+                $('#editProjectForm').attr('action', "{{ route('projects.update', 0) }}".replace('/0', '/' + data.id));
+                $('#editProjectForm input[name="name"]').val(data.name);
+                $('#editProjectForm textarea[name="description"]').val(data.description);
+                $('#editProjectForm input[name="proposal_date"]').val(data.proposal_date);
+                $('#editProjectForm input[name="start_date"]').val(data.start_date);
+                $('#editProjectForm input[name="due_date"]').val(data.due_date);
+                $('#editProjectForm input[name="end_date"]').val(data.end_date);
+                $('#editProjectForm select[name="status_id"]').val(data.status_id);
+                $('#editProjectModal').modal('show');
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching project data:', error);
+            }
         });
     });
+});
+
+
 </script>

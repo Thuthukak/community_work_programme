@@ -61,6 +61,7 @@
 @endauth
 
 
+
 <!-- Include necessary JS libraries -->
 <script src="{{ url('../assets/js/jquery.js') }}"></script>
 <script src="{{ url('../assets/js/bootstrap.min.js') }}"></script>
@@ -93,7 +94,7 @@
 </script>
 
 <script>
-    window.settings = <?php echo json_encode($settings) ?>
+    window.settings = <?php echo json_encode($settings ?? '') ?>
 </script>
 <script>
     if (!window.localStorage.getItem('app-language')) {

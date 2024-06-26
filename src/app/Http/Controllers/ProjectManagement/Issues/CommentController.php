@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ProjectManagement\Issues;
 use App\Models\ProjectManagement\Projects\Comment;
 use App\Models\ProjectManagement\Projects\Issue;
 use App\Http\Controllers\Controller;
+use App\Models\CRM\Person\Person;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller

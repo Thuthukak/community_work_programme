@@ -11,6 +11,11 @@ class JobPresenter extends Presenter
         return $this->worker_id ? $this->worker->name.' ('.$this->worker->email.')' : '-';
     }
 
+    public function personNameAndEmail()
+    {
+        return $this->person_id ? $this->person->name.' ('.$this->person->name.')' : '-';
+    }
+
     public function projectLink()
     {
         return link_to_route('projects.show', $this->project->name, [$this->project_id]);

@@ -6,6 +6,7 @@ use App\Models\ProjectManagement\Projects\JobsRepository;
 use App\Models\ProjectManagement\Projects\Project;
 use App\Http\Controllers\ProjectManagement\Controller;
 use App\Http\Requests\ProjectManagement\Jobs\CreateRequest;
+use App\Models\CRM\Person\Person;
 use Illuminate\Http\Request;
 
 /**
@@ -24,13 +25,18 @@ class JobsController extends Controller
 
     public function index(Project $project)
     {
-        $jobs = $project->jobs()->with(['tasks', 'worker'])->get();
+        $jobs = $project->jobs()->with(['tasks', 'person'])->get();
 
-        return view('crm.projects.jobs.index', compact('project', 'jobs'));
+        $person = $this->repo->getPersonsList();
+
+
+        return view('crm.projects.jobs.index', compact('project', 'jobs','person'));
     }
 
     public function create(Project $project)
     {
+
+
         $workers = $this->repo->getWorkersList();
 
         return view('crm.projects.jobs.create', compact('project', 'workers'));
@@ -39,7 +45,7 @@ class JobsController extends Controller
     public function addFromOtherProject(Request $request, Project $project)
     {
         $selectedProject = null;
-        $workers = $this->repo->getWorkersList();
+        $persons = $this->repo->getPersonsList();
         $projects = $this->getProjectsList();
 
         if ($request->has('project_id')) {
@@ -49,14 +55,17 @@ class JobsController extends Controller
         return view('crm.projects.jobs.add-from-other-project', compact('project', 'workers', 'projects', 'selectedProject'));
     }
 
-    public function store(CreateRequest $req, $projectId)
+    public function store(CreateRequest $req, Project $project)
     {
-        $job = $this->repo->createJob($req->except('_token'), $projectId);
+        // dd($project->id);
+    
+        $job = $this->repo->createJob($req->except('_token'), $project->id);
+    
         flash(__('job.created'), 'success');
-
+    
         return redirect()->route('jobs.show', $job->id);
     }
-
+    
     public function storeFromOtherProject(Request $request, $projectId)
     {
 

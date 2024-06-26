@@ -53,7 +53,7 @@ class InstallationController extends Controller
 
         $admin = User::create($adminData);
         $admin->assignRole('admin');
-        $admin->assignRole('worker');
+        $admin->assignRole('person');
 
         Auth::login($admin);
         DB::commit();
