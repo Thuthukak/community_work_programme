@@ -23,10 +23,10 @@
         @include('crm.jobs.partials.job-tasks')
     </div>
 </div>
-<div class="row">
+<!-- <div class="row">
     <div class=" main-areabg col-md-8 col-md-offset-2">
     </div>
-</div>
+</div> -->
 
 <!-- Edit task modal -->
 <div id="EditTaskModal" class="modal fade" role="dialog">
@@ -124,6 +124,7 @@
 
     $(document).on('input', 'input[type="range"]', function(e) {
         var ap_weight = e.currentTarget.value;
+        console.log("Range value:", ap_weight);
         $('#ap_weight').text(ap_weight);
     });
 
