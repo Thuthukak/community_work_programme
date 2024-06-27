@@ -67,7 +67,7 @@
 <div class="table-wrapper shadow" style="margin-left:-10px">
     <div class=" panel-body table-responsive">
         <table class="table table-condensed  table-hover">
-            <thead>
+            <thead class="custom-th2">
                 <th>{{ __('app.table_no') }}</th>
                 <th>{{ __('job.name') }}</th>
                 <th class="text-center">{{ __('job.tasks_count') }}</th>

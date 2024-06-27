@@ -945,8 +945,14 @@ font-family: "Poppins", sans-serif !important;
 font-size: 0.935rem !important;
 font-weight:700 !important;
 color: #6c757d !important;
-
 }
+.custom-th2{
+    font-family: "Poppins", sans-serif !important;
+    font-size: 1rem !important;
+    font-weight:700 !important;
+    color: #6c757d !important;
+    
+    }
 .custom-page-header{
     
     font-family: "Poppins", sans-serif !important;
@@ -976,12 +982,24 @@ color: #6c757d !important;
     
     justify-content:flex-start;
     align-items: center;
-    padding: 0.5rem 0.5rem;
+    
     border-radius: 9999px; 
     background-color: #ffffff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     padding:10px;
     display:inline-block;
+}
+.header-pill{
+    
+    width: fit-content;
+    align-items: left;
+    padding: 0.5rem 0.5rem;
+    border-radius: 9999px; 
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding:10px;
+    
+    margin:20px;
 }
 .custom-text-muted{
     color: #afb1b6 !important;
@@ -995,6 +1013,13 @@ color: #6c757d !important;
     justify-content:center;
     padding-bottom: 100px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    
+}
+.upload-wrapper{
+    margin:20px;
+    background: white;
+    justify-content:center;
+    
     
 }
 .table-margin{

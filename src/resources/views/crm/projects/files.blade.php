@@ -5,9 +5,11 @@
 @section('contents')
 @include('crm.projects.partials.breadcrumb',['title' => __('project.files')])
 
-<h4 class="page-header-pill-layouts">
-    {{ $project->name }} 
-</h4>
+
+    <h4 class="header-pill">
+        {{ $project->name }} 
+    </h4>
+
 
 @include('crm.projects.partials.nav-tabs')
 <div class="row">
@@ -51,7 +53,7 @@
                             </td>
                         </tr>
                         @empty
-                        <tr><td colspan="6">{{ __('file.empty') }}</td></tr>
+                        <tr><td colspan="6" class="custom-text-muted">{{ __('file.empty') }}</td></tr>
                         @endforelse
                     </tbody>
                 </table>
@@ -59,7 +61,7 @@
             </div> 
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 upload-wrapper shadow" style="margin-top:50px">
         @if (Request::has('action') == false)
         <div class="panel panel-default" style="margin-top:10px">
             <div class="panel-heading"><h3 class="panel-title">{{ __('file.create') }}</h3></div>
