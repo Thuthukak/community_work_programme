@@ -14,17 +14,18 @@
     <div class="col-md-7" style="margin-top:10px">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title" style="margin-left:20px">{{ __('project.files') }}</h3>
+                <h3 class="custom-text-muted" style="margin-left:20px">{{ __('project.files') }}</h3>
             </div>
-            <div class="panel-body table-responsive" style="margin-left:20px">
-                <table class="table table-condensed table-striped">
-                    <thead>
+            <div class="table-wrapper shadow">
+            <div class="panel-body table-responsive" >
+                <table class="table table-condensed ">
+                    <thead class="custom-th" >
                         <th>{{ __('app.table_no') }}</th>
                         <th>{{ __('file.file') }}</th>
-                        <th class="text-center">{{ __('file.updated_at') }}</th>
-                        <th class="text-right">{{ __('file.size') }}</th>
-                        <th class="text-center">{{ __('file.download') }}</th>
-                        <th class="text-center">{{ __('app.action') }}</th>
+                        <th class="text-center datatable-th pt-0 pr-0">{{ __('file.updated_at') }}</th>
+                        <th class="text-right datatable-th pt-0 pr-0">{{ __('file.size') }}</th>
+                        <th class="text-center datatable-th pt-0 pr-0">{{ __('file.download') }}</th>
+                        <th class="text-center datatable-th pt-0 pr-0">{{ __('app.action') }}</th>
                     </thead>
                     <tbody class="sort-files">
 
@@ -55,6 +56,7 @@
                     </tbody>
                 </table>
             </div>
+            </div> 
         </div>
     </div>
     <div class="col-md-4">

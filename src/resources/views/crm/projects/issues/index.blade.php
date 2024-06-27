@@ -27,11 +27,12 @@
 
 
 @section('content-project')
-<div id="project-issues" class="issue-table panel panel-default table-responsive">
-    <div class="panel-heading">
-        <h3 class="panel-title">{{ __('project.issues') }}</h3>
+<div class="panel-heading">
+        <h3 class="panel-title custom-text-muted table-margin">{{ __('project.issues') }}</h3>
     </div>
-    <table class="table table-condensed table-striped">
+<div class="table-wrapper shadow">
+<div id="project-issues" class="panel panel-default table-responsive">  
+    <table class="table table-condensed">
         <thead>
             <th>{{ __('app.table_no') }}</th>
             <th>{{ __('issue.title') }}</th>
@@ -71,6 +72,7 @@
             @endforelse
         </tbody>
     </table>
+</div>
 </div>
 
 
