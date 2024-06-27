@@ -972,7 +972,7 @@ color: #6c757d !important;
     justify-content: space-between;
     align-items: center;
     padding: 0.5rem 0.5rem;
-    border-radius: 9999px; // fully rounded corners
+    border-radius: 9999px;
     background-color: #ffffff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     padding:10px;
@@ -1003,7 +1003,7 @@ color: #6c757d !important;
 }
 .custom-text-muted{
     color: #afb1b6 !important;
-    font-family: Poppins, sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 0.935rem;
 }
 .table-wrapper{
@@ -1024,4 +1024,20 @@ color: #6c757d !important;
 }
 .table-margin{
     margin-left:20px;
+}
+.blacktext{
+  color: #212529;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.935rem;
+  padding: 0.55rem 1.2rem;
+}
+.custom-pill {
+    background-color: white;
+    border-radius: 50px; /* Makes the pill shape */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px; /* Adjust as needed for better spacing */
+    margin: 5px; /* Add margin to separate the pills */
+    color: #007bff;
+    transition: background-color 0.3s, color 0.3s;
+    width:fit-content;
 }
