@@ -33,7 +33,7 @@
 <div class="table-wrapper shadow">
 <div id="project-issues" class="panel panel-default table-responsive">  
     <table class="table table-condensed">
-        <thead>
+        <thead class="custom-th2">
             <th>{{ __('app.table_no') }}</th>
             <th>{{ __('issue.title') }}</th>
             <th>{{ __('issue.priority') }}</th>
@@ -53,7 +53,7 @@
                 <td>{{ $no }}</td>
                 <td>{{ $issue->title }}</td>
                 <td>{!! $issue->priority_label !!}</td>
-                <td class="text-black">{!! $issue->status_label !!}</td>
+                <td class="text-black" style="text-color: black">{!! $issue->status_label !!}</td>
                 <td class="text-center">{{ $issue->comments_count }}</td>
                 <td>{{ $issue->pic->name }}</td>
                 <td>{{ $issue->creator->name }}</td>
