@@ -19,10 +19,8 @@ class CreateFilesTable extends Migration
             $table->string('fileable_type', 160);
             $table->unsignedBigInteger('fileable_id');
             $table->string('type');
-            $table->tinyInteger('type_id')->unsigned()->nullable();
-            $table->string('filename', 60);
-            $table->string('title', 60);
-            $table->string('description')->nullable();
+            
+            
             $table->timestamps();
 
             $table->index(['fileable_type', 'fileable_id'], 'fileable_index');

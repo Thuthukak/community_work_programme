@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-    <div class="custom-panel-heading"><h3 class="panel-title">{{ trans('project.detail') }}</h3></div>
+    <div class="custom-panel-heading"><h3 class="panel-title custom-text-muted">{{ trans('project.detail') }}</h3></div>
     <div class="panel-body">
         <table class="table table-condensed showprojtable">
             <tbody>
