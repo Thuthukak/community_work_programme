@@ -18,7 +18,8 @@ return [
     'ends'          => 'Ends',
     'actual'        => 'Actual',
     'duration'      => 'Duration',
-    'select_worker' => 'Select Worker',
+    'person'        => 'Person',
+    
 
     // Actions
     'create'                 => 'Create new Task',

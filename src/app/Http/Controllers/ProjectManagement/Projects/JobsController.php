@@ -52,7 +52,7 @@ class JobsController extends Controller
             $selectedProject = Project::find($request->get('project_id'));
         }
 
-        return view('crm.projects.jobs.add-from-other-project', compact('project', 'workers', 'projects', 'selectedProject'));
+        return view('crm.projects.jobs.add-from-other-project', compact('project', 'persons', 'projects', 'selectedProject'));
     }
 
     public function store(CreateRequest $req, Project $project)

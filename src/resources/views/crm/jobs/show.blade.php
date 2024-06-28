@@ -7,7 +7,7 @@
     {!! html_link_to_route('projects.jobs.create', __('job.create'), [$job->project_id], ['class' => 'btn btn-success', 'icon' => 'plus']) !!}
 @endcan
 @can('update', $job)
-<button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#EditTaskModal">{{ trans('Edit Task') }}</button>
+<button class="btn btn-warning btn-sm p-1" data-toggle="modal" data-target="#EditTaskModal">{{ trans('Edit Task') }}</button>
 @endcan
 @endsection
 
@@ -68,10 +68,10 @@
                         </div>
                         <div class="modal-footer">
                             {!! Form::hidden('project_id', $job->project_id) !!}
-                            {!! Form::submit(__('job.update'), ['class' => 'btn btn-primary']) !!}
-                            {{ link_to_route('jobs.show', __('app.show'), [$job], ['class' => 'btn btn-info']) }}
-                            {{ link_to_route('projects.jobs.index', __('job.back_to_index'), [$job->project_id], ['class' => 'btn btn-default']) }}
-                            {{ link_to_route('jobs.delete', __('job.delete'), [$job], ['class' => 'btn btn-danger pull-right']) }}
+                            {!! Form::submit(__('job.update'), ['class' => 'btn  btn-primary']) !!}
+                            {{ link_to_route('jobs.show', __('app.show'), [$job], ['class' => 'btn btn-xs btn-success']) }}
+                            {{ link_to_route('projects.jobs.index', __('job.back_to_index'), [$job->project_id], ['class' => 'btn btn-xs btn-info']) }}
+                            {{ link_to_route('jobs.delete', __('job.delete'), [$job], ['class' => 'btn btn-xs btn-danger pull-right']) }}
                         </div>
                     </div>
                     <!-- Project Details Column -->
