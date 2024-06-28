@@ -12,6 +12,7 @@
 <button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#createTaskModal" data-project-id="{{ $project->id }}">{{ trans('Add Task') }}</button>
     {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project], ['class' => 'btn btn-success btn-sm p-2 mr-4', 'icon' => 'plus']) !!}
 </div>
+</div>
     @endcan
 
 @endsection
