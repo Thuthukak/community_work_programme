@@ -166,11 +166,13 @@ Route::post('projects/{project}/comments', [CommentsController::class ,'store'])
 Route::get('projects/{project}/files', [FilesController::class, 'index'])->name('project.files');
 Route::get('projects/{id}/files', [ProjectsController::class, 'files'])->name('projects.files');
 Route::post('projects/{project}/files', [FilesController::class, 'create'])->name('files.upload');
-Route::post('projects/{projectId}/files/update', [FilesController::class, 'update']);
+Route::post('projects/{project}/files/update', [FilesController::class, 'update']);
 Route::post('projects/files/{fileable}', [FilesController::class, 'create'])->name('files.upload');
-Route::post('projects/files/{file}', [FilesController::class, 'show'])->name('files.download');
-Route::post('projects/files/{file}', [FilesController::class, 'update'])->name('files.update');
-Route::post('projects/files/{file}', [FilesController::class, 'destroy'])->name('files.destroy');
+Route::get('projects/files/{file}', [FilesController::class, 'show'])->name('files.download');
+Route::patch('projects/files/{file}', [FilesController::class, 'update'])->name('files.update');
+Route::delete('projects/files/{file}', [FilesController::class, 'destroy'])->name('files.destroy');
+// Route::get('projects/{project}/files', [FilesController::class, 'index'])->name('files.edit');
+ 
 
 // Subscription routes
 Route::get('projects/{project}/subscriptions', [ProjectsController::class, 'subscriptions'])->name('projects.subscriptions');

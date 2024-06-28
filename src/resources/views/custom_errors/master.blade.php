@@ -32,7 +32,7 @@
     );
 </script>
 <script>
-    window.settings = <?php echo json_encode($settings) ?>
+    window.settings = <?php echo json_encode($settings ?? '') ?>
 </script>
 @stack('before-scripts')
 {!! script(mix('js/manifest.js')) !!}

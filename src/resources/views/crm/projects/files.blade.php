@@ -45,8 +45,8 @@
                                 {!! html_link_to_route('files.download', '', [$file->id], ['icon' => 'file', 'title' => __('file.download')]) !!}
                             </td>
                             <td class="text-center">
-                                {!! html_link_to_route('projects.files', '', [$project, 'action' => 'edit', 'id' => $file->id], ['icon' => 'edit', 'title' => __('file.edit')]) !!}
-                                {!! html_link_to_route('projects.files', '', [$project, 'action' => 'delete', 'id' => $file->id], ['icon' => 'remove', 'title' => __('file.delete'), 'id' => 'delete-file-'.$file->id]) !!}
+                                {!! html_link_to_routes('projects.files', '', [$project, 'action' => 'edit', 'id' => $file->id], ['icon' => 'edit', 'title' => __('file.edit')]) !!}
+                                {!! html_link_to_routes('projects.files', '', [$project, 'action' => 'delete', 'id' => $file->id], ['icon' => 'remove', 'title' => __('file.delete'), 'id' => 'delete-file-'.$file->id]) !!}
                             </td>
                         </tr>
                         @empty
