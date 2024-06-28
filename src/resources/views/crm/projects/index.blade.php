@@ -224,14 +224,15 @@
     {{ $projects->appends(Request::except('page'))->render() }}
 </div>
 @endsection
-
-
 @section('script')
-
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script>
 $(document).ready(function($) {
+
+    var $j = jQuery.noConflict();
+
   // Initialize datetimepicker
-  $('#proposal_date, #start_date, #due_date, #end_date').datetimepicker({
+  $j('#proposal_date, #start_date, #due_date, #end_date').datetimepicker({
     timepicker: false,
     format: 'Y-m-d',
     closeOnDateSelect: true,
@@ -239,25 +240,25 @@ $(document).ready(function($) {
   });
 
   // Handle click event for .edit-project-btn
-  $('.edit-project-btn').on('click', function() {
+  $j('.edit-project-btn').on('click', function() {
     var projectId = $(this).data('id');
     var url = "{{ route('projects.edit', ':id') }}"; // Adjust route as per your application
 
     // AJAX request to fetch project details
-    $.ajax({
+    $j.ajax({
       url: url.replace(':id', projectId),
       method: 'GET',
       success: function(data) {
         // Populate form fields with fetched project data
-        $('#editProjectForm').attr('action', "{{ route('projects.update', 0) }}".replace('/0', '/' + data.id));
-        $('#editProjectForm input[name="name"]').val(data.name);
-        $('#editProjectForm textarea[name="description"]').val(data.description);
-        $('#editProjectForm input[name="proposal_date"]').val(data.proposal_date);
-        $('#editProjectForm input[name="start_date"]').val(data.start_date);
-        $('#editProjectForm input[name="due_date"]').val(data.due_date);
-        $('#editProjectForm input[name="end_date"]').val(data.end_date);
-        $('#editProjectForm select[name="status_id"]').val(data.status_id);
-        $('#editProjectModal').modal('show');
+        $j('#editProjectForm').attr('action', "{{ route('projects.update', 0) }}".replace('/0', '/' + data.id));
+        $j('#editProjectForm input[name="name"]').val(data.name);
+        $j('#editProjectForm textarea[name="description"]').val(data.description);
+        $j('#editProjectForm input[name="proposal_date"]').val(data.proposal_date);
+        $j('#editProjectForm input[name="start_date"]').val(data.start_date);
+        $j('#editProjectForm input[name="due_date"]').val(data.due_date);
+        $j('#editProjectForm input[name="end_date"]').val(data.end_date);
+        $j('#editProjectForm select[name="status_id"]').val(data.status_id);
+        $j('#editProjectModal').modal('show');
       },
       error: function(xhr, status, error) {
         console.error('Error fetching project data:', error);
