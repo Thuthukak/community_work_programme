@@ -17,7 +17,7 @@
 
     <div class="create-button-wrapper">
         @can('create', new App\Models\ProjectManagement\Projects\Issue)
-            <button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#createIssueModal" data-project-id="{{ $project->id }}">{{ trans('Add Issue') }}</button>
+            <button class="btn btn-warning btn-sm p-2 mb-3" data-toggle="modal" data-target="#createIssueModal" data-project-id="{{ $project->id }}">{{ trans('Add Issue') }}</button>
 
         @endcan
     </div>
