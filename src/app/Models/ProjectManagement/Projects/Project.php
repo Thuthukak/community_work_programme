@@ -171,6 +171,7 @@ class Project extends Model
         return $this->morphMany(File::class, 'fileable');
     }
 
+
     /**
      * Get project collectible earnings, based on job progress.
      *

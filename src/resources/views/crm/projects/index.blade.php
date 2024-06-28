@@ -114,7 +114,6 @@
 
     <div class="project-table panel panel-default table-responsive">
         <br>
-    <small>{{ $projects->total() }} {{ trans('project.found') }}</small>
         <table class="table table-condensed custom-tables table-hover">
             <thead class="custom-th">
                 <th>{{ trans('app.table_no') }}</th>
@@ -228,44 +227,42 @@
 
 
 @section('script')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
-(function() {
-    $('#proposal_date,#start_date,#due_date,#end_date').datetimepicker({
-        timepicker: false,
-        format: 'Y-m-d',
-        closeOnDateSelect: true,
-        scrollInput: false
-    });
-})();
-$(document).ready(function() {
-    $('.edit-project-btn').on('click', function() {
-        var projectId = $(this).data('id');
-        var url = "{{ route('projects.edit', ':id') }}"; // Adjust route as per your application
+$(document).ready(function($) {
+  // Initialize datetimepicker
+  $('#proposal_date, #start_date, #due_date, #end_date').datetimepicker({
+    timepicker: false,
+    format: 'Y-m-d',
+    closeOnDateSelect: true,
+    scrollInput: false
+  });
 
-        // AJAX request to fetch project details
-        $.ajax({
-            url: url.replace(':id', projectId),
-            method: 'GET',
-            success: function(data) {
-                // Populate form fields with fetched project data
-                $('#editProjectForm').attr('action', "{{ route('projects.update', 0) }}".replace('/0', '/' + data.id));
-                $('#editProjectForm input[name="name"]').val(data.name);
-                $('#editProjectForm textarea[name="description"]').val(data.description);
-                $('#editProjectForm input[name="proposal_date"]').val(data.proposal_date);
-                $('#editProjectForm input[name="start_date"]').val(data.start_date);
-                $('#editProjectForm input[name="due_date"]').val(data.due_date);
-                $('#editProjectForm input[name="end_date"]').val(data.end_date);
-                $('#editProjectForm select[name="status_id"]').val(data.status_id);
-                $('#editProjectModal').modal('show');
-            },
-            error: function(xhr, status, error) {
-                console.error('Error fetching project data:', error);
-            }
-        });
+  // Handle click event for .edit-project-btn
+  $('.edit-project-btn').on('click', function() {
+    var projectId = $(this).data('id');
+    var url = "{{ route('projects.edit', ':id') }}"; // Adjust route as per your application
+
+    // AJAX request to fetch project details
+    $.ajax({
+      url: url.replace(':id', projectId),
+      method: 'GET',
+      success: function(data) {
+        // Populate form fields with fetched project data
+        $('#editProjectForm').attr('action', "{{ route('projects.update', 0) }}".replace('/0', '/' + data.id));
+        $('#editProjectForm input[name="name"]').val(data.name);
+        $('#editProjectForm textarea[name="description"]').val(data.description);
+        $('#editProjectForm input[name="proposal_date"]').val(data.proposal_date);
+        $('#editProjectForm input[name="start_date"]').val(data.start_date);
+        $('#editProjectForm input[name="due_date"]').val(data.due_date);
+        $('#editProjectForm input[name="end_date"]').val(data.end_date);
+        $('#editProjectForm select[name="status_id"]').val(data.status_id);
+        $('#editProjectModal').modal('show');
+      },
+      error: function(xhr, status, error) {
+        console.error('Error fetching project data:', error);
+      }
     });
+  });
 });
-
-
 </script>
