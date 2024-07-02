@@ -59,7 +59,7 @@
 </div>
 @endsection
 
-@section('ext_css')
+<!-- @section('ext_css')
 @vite(['resources/css/plugins/jquery.datetimepicker.css'])
 @endsection
 
@@ -78,4 +78,4 @@
     });
 })();
 </script>
-@endsection
+@endsection -->
