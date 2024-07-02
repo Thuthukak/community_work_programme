@@ -16,6 +16,7 @@
           >
             <div class="text-center mb-4">
               <img :src="urlGenerator(logoUrl)" alt="" class="img-fluid logo" />
+              
             </div>
             <div class="form-row">
               <div class="form-group col-12">
