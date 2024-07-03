@@ -687,12 +687,12 @@ return array_merge([
     'csv_download_label' => 'We would like to provide you a sample .CSV file: ',
 
     //Person and Organization
-    'csv_guideline_5' => "Required field's (Name, Lead group, Created by email, Owner email) column cell must not be empty.",
+    'csv_guideline_5' => "Required field's (Name, Participant group, Created by email, Owner email) column cell must not be empty.",
 
     //Deal
     'csv_guideline_6' => "Required field's (Title, Pipeline name, Lead) column cell must not be empty.",
-    'csv_guideline_8' => "Lead column's cell format should be like, P:Valid_Person_Name or, O:Valid_Organization_name:Valid_Contact_Person_Name, Here O and P is for the Lead type which indicates Organization and Person respectively.",
-    'deal_import_guideline' => 'Make sure you are importing/adding data in this sequence Lead Type, Person/Organization, Pipeline, and then Deals.',
+    'csv_guideline_8' => "Participant column's cell format should be like, P:Valid_Person_Name or, O:Valid_Organization_name:Valid_Contact_Person_Name, Here O and P is for the Participant type which indicates Organization and Person respectively.",
+    'deal_import_guideline' => 'Make sure you are importing/adding data in this sequence Participant Type, Person/Organization, Pipeline, and then Onboardings.',
 
     //Deal
     'deals' => 'Onboarding',
@@ -708,7 +708,7 @@ return array_merge([
     'expecting_closing_date' => 'Expecting closing date',
     'deal_lost' => 'onboarding rejected',
     'import_deal' => 'Import onboarding',
-    'back_to_deal' => 'Back to onboarThisding',
+    'back_to_deal' => 'Back to onboarding',
     'ok' => 'Ok',
     'selected_deal_has_no_contact' => 'Selected onboarding has no contact',
     'this_deal_has_no_contact' => ' onboarding has no contact',
@@ -970,6 +970,11 @@ return array_merge([
     'change_lead_group' => 'Change Participnant Group',
     'change_owner' => 'Change Owner',
 
+
+    //settings
+
+    'Agent' => 'Partner',
+    'Client' => 'Candidate',
 
     // Notification Template Modal
 
