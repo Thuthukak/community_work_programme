@@ -55,4 +55,5 @@ return [
     'on_hold'    => 'On Hold',
     'invalid'    => 'Invalid',
     'all_status' => 'All Status',
+    'issues_on_progress' => 'Issues in Progress',
 ];

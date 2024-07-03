@@ -3,7 +3,7 @@
 return [
     'job'           => 'Task',
     'list'          => 'Task List',
-    'on_progress'   => 'Task on Progress',
+    'on_progress'   => 'Task in Progress',
     'detail'        => 'Task Detail',
     'search'        => 'Search Job',
     'found'         => 'Task found.',

@@ -15,7 +15,7 @@
                 <tr><td>{{ trans('project.due_date') }}</td><td>{{ date_id($project->due_date) }}</td></tr>
                 <tr><td>{{ trans('app.status') }}</td><td>{{ $project->present()->status }}</td></tr>
                 <tr>
-                    <td>{{ trans('Organization') }}</td>
+                    <td>{{ trans('Or  ganization') }}</td>
                     <td>
                     </td>
                 </tr>

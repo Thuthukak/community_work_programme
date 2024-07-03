@@ -4,12 +4,15 @@
 
 @extends('layouts.crm')
 
+
 @section('title', __('issue.open_issues'))
+
 
 @section('contents')
 
-<ul class="breadcrumb hidden-print"><li>{{ __('issue.issues_on_progress') }}</li></ul>
+<ul class="breadcrumb hidden-print header-pill"><li>{{ __('issue.issues_on_progress') }}</li></ul>
 
+<div class="table-wrapper shadow" style="margin:20px">
 <div class="panel panel-default table-responsive">
     <div class="filter-heading panel-heading">
 
@@ -53,6 +56,7 @@
             <!-- Adjust your footer as needed -->
         </tfoot>
     </table>
+</div>
 </div>
 
 @endsection

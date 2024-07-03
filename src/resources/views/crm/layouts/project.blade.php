@@ -28,7 +28,7 @@
 @endsection
 
 @section('ext_js')
-@vite(['resources/js/plugins/jquery.datetimepicker.js'])
+
 @endsection
 
 

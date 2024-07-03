@@ -4,7 +4,8 @@
 
 @section('contents')
 
-<ul class="breadcrumb hidden-print"><li>{{ __('job.on_progress') }}</li></ul>
+<ul class="breadcrumb hidden-print header-pill"><li>{{ __('job.on_progress') }}</li></ul>
+
 
 <div class="panel panel-default table-responsive">
     <div class="filter-heading panel-heading">
@@ -14,6 +15,7 @@
         {{ link_to_route('jobs.index', __('app.reset'), [], ['class' => 'btn btn-danger p-2 mr-1 btn-sm filter-task-progress']) }}
         {{ Form::close() }}
     </div>
+    <div class="table-wrapper shadow" style="margin:20px">
     <table class="task-progress-table table table-condensed">
         <thead>
             <th>{{ __('app.table_no') }}</th>
@@ -71,5 +73,6 @@
             </tr>
         </tfoot>
     </table>
+</div> 
 </div>
 @endsection
