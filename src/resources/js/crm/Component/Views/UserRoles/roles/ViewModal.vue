@@ -14,7 +14,7 @@
         <template slot="body">
             <template v-if="role.name === 'App Admin'">
                 <p>
-                    App admin (Application administrator) performs all admin activities and has full management access.
+                    Sys admin (Application administrator) performs all admin activities and has full management access.
                     Also
                     can add & configure application settings, create users through users invitation & assign a role with
                     application permissions

@@ -28,7 +28,8 @@
     @endcan -->
     @can('view-files', $project)
     <li class="{{ Request::segment(3) == 'files' ? 'active' : '' }} nav-item">
-        {!! link_to_route('projects.files', __('project.files').' ('.$project->files->count().')', $project, ['class' => 'nav-link']) !!}
+    {!! link_to_route(
+    'projects.files', __('project.files').' ('. (($project->files->count() > 0) ? $project->files->count() : $files->count()) .')',$project, ['class' => 'nav-link']) !!}
     </li>
     @endcan
 </ul>

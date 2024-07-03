@@ -1,5 +1,7 @@
 @extends('crm.layouts.project')
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.css">
+
 @section('subtitle', __('project.jobs'))
 
 @section('action-buttons')
@@ -159,10 +161,7 @@
             {!! Form::open(['route' => ['projects.jobs.store', $project->id], 'method' => 'POST']) !!}
             <div class="modal-body">
                 {!! FormField::text('name', ['label' => trans('job.name')]) !!}
-
                 {!! FormField::textarea('description', ['label' => __('job.description')]) !!}
-
-            
                 <div class="row">
                     <div class="col-sm-4">
                         {!! FormField::price('price', [
@@ -198,38 +197,75 @@
 
 
 
-<!-- Edit task modal -->
-
-
 @endsection
+
 
 @can('update', $project)
 @if (request('action') == 'sort_jobs')
 
 @section('ext_js')
-<script src="{{ url('assets/js/plugins/jquery-ui.min.js') }}"></script>
+    <script src="assets/js/plugins/jquery-ui.min.js'"></script>
+
 @endsection
 
 @section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
 
 <script>
-(function() {
-    $('.sort-jobs').sortable({
-        update: function (event, ui) {
-            var data = $(this).sortable('toArray').toString();
-            $.post("{{ route('projects.jobs-reorder', $project->id) }}", {postData: data});
+ document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Sortable on the .sort-jobs element
+        const sortJobs = new Sortable(document.querySelector('.sort-jobs'), {
+        onUpdate: function(evt) {
+            // Get sorted item IDs
+            const itemIds = sortJobs.toArray();
+
+            // AJAX post request to reorder jobs
+            fetch('{{ route('projects.jobs-reorder', $project->id) }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Include CSRF token for Laravel
+                },
+                body: JSON.stringify({ postData: itemIds })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                console.log('Jobs reordered successfully');
+            })
+            .catch(error => {
+                console.error('Error reordering jobs:', error);
+            });
         }
     });
-})();
 
-$(function() {
-    $(".date-select").datepicker({
-        dateFormat: "yy-mm-dd"
     });
-});
-
 </script>
 @endsection
 
 @endif
 @endcan
+
+@section('script')
+<!-- Include Flatpickr JS from cdnjs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.js"></script>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Initialize Flatpickr on the date input fields with class date-select
+    flatpickr(".date-select", {
+        dateFormat: "Y-m-d",
+        disableMobile: true // optional: to force the desktop version on mobile devices
+    });
+
+
+
+});
+
+        </script>
+
+@endsection
+

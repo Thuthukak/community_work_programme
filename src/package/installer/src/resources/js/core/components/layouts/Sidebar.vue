@@ -65,6 +65,9 @@ export default {
     }
   },
   mounted() {
+
+    console.log('Vue version:', Vue.version);
+
     this.$nextTick(function () {
       let body = $('body'),
           current = location.pathname,
@@ -156,6 +159,12 @@ export default {
         }
       });
     });
+
+
+    // Log data properties to the console when the component is mounted
+    console.log('logoUrl:', this.logoUrl);
+    console.log('logoSrc:', this.logoSrc);
+    console.log('logoIconSrc:', this.logoIconSrc);
   }
 }
 </script>

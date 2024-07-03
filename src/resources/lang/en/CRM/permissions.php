@@ -122,7 +122,7 @@ return [
     //permission denied message
     'permission_problem' => 'You don\'t have proper permission',
 
-    'client_access' => 'Client access',
+    'client_access' => 'Candidate access',
 
 
     //Invoice Related Permissions

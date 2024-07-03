@@ -214,15 +214,17 @@ Route::post('subscriptions/store', [SubscriptionsController::class, 'store'])->n
     Route::get('jobs/{job}/comments', [CommentsController::class ,'index'])->name('jobs.comments.index');
     Route::post('jobs/{job}/comments', [CommentsController::class , 'store'])->name('jobs.comments.store');
     Route::patch('jobs/{job}/comments/{comment}',[CommentsController::class , 'update'])->name('jobs.comments.update');
-    Route::delete('jobs/{job}/comments/{comment}', [CommentsController::class ,'destroy'])->name('jobs.comments.destroy');Route::post('issues/{issue}/comments', 'Issues\CommentController@store')->name('issues.comments.store');
+    Route::delete('jobs/{job}/comments/{comment}', [CommentsController::class ,'destroy'])->name('jobs.comments.destroy');
+    Route::post('issues/{issue}/comments', 'Issues\CommentController@store')->name('issues.comments.store');
     Route::post('issues/{issue}/comments', [IssueController::class ,'store'])->name('issues.comments.store');
 
 
     /*
  * Issue Options Routes
  */
+Route::get('/issues' , [App\Http\Controllers\ProjectManagement\Issues\IssueController::class , 'index'])->name('issues.issues');
 Route::patch('issues/{issue}/options', [OptionController::class ,'update'])->name('issues.options.update');
 
 // Route::get('issues/', [IssuesController::class ,'index'])->name('issues.index');
 
-Route::resource('issues', IssueController::class);
+// Route::resource('issues', IssueController::class);

@@ -3,7 +3,7 @@
 return [
     // Labels
     'issue'         => 'Issue',
-    'list'          => 'Issue List',
+    'issue_list'    => 'Issue List',
     'search'        => 'Search Issue',
     'search_text'   => 'Title ...',
     'all'           => 'All Issue',

@@ -79,6 +79,7 @@ class JobsController extends Controller
     {
 
 
+
         $this->authorize('view', $job);
 
         $editableTask = null;
@@ -96,11 +97,12 @@ class JobsController extends Controller
         if (request('action') == 'comment-edit' && request('comment_id') != null) {
             $editableComment = Comment::find(request('comment_id'));
         }
-        
+        $project = $job->project; // Assuming a Job belongs to a Project
 
-    $persons = Person::pluck('name', 'id');
 
-    return view('crm.jobs.show', compact('job', 'editableTask', 'comments', 'editableComment', 'persons'));
+         $persons = Person::pluck('name', 'id');
+
+    return view('crm.jobs.show', compact('job', 'editableTask', 'comments', 'editableComment', 'persons','project'));
 }
 
     /**

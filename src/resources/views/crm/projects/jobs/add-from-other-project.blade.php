@@ -126,43 +126,43 @@
     }
     </style>
 @endsection
-
 @section('script')
 <script src="{{ asset('assets/js/plugins/select2.min.js') }}"></script>
-
 <script>
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Select2 for select[name=project_id]
     $('select[name=project_id]').select2();
+
+    // Initialize Flatpickr for date inputs
+    flatpickr(".date-select", {
+        dateFormat: "Y-m-d",
+        disableMobile: true // optional: to force the desktop version on mobile devices
+    });
 
     @if ($selectedProject)
         @foreach ($selectedProject->jobs as $job)
-
             $('#project_job_id_{{ $job->id }}').change(function () {
                 $('.project_job_id_{{ $job->id }}_tasks').prop('checked', this.checked);
             });
 
             @foreach($job->tasks as $task)
-
                 $('#{{ $job->id }}_task_id_{{ $task->id }}').change(function () {
-
                     var condition = false;
 
                     $.each($(".project_job_id_{{ $job->id }}_tasks"), function( key, value ) {
                         if(value.checked == true){
-                            condition = true
+                            condition = true;
                         }
                     });
 
-
-                    if(condition == true){
+                    if(condition) {
                         $('#project_job_id_{{ $job->id }}').prop('checked', true);
                     }
                 });
-
             @endforeach
-
         @endforeach
     @endif
-})();
+});
 </script>
+
 @endsection

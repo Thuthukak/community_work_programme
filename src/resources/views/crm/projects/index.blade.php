@@ -1,5 +1,8 @@
 @extends('layouts.crm')
 
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.css">
+
 @section('title', trans('project.index_title', ['status' => $status]))
 
 @section('contents')
@@ -53,13 +56,16 @@
     </div>
 
 
-   <!-- Modal -->
+  <!-- Modal -->
 <div id="createProjectModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">{{ __('Add Project') }}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             {!! Form::open(['route' => 'projects.store', 'method' => 'POST']) !!}
             <div class="modal-body">
@@ -81,6 +87,17 @@
                         {!! FormField::price('proposal_value', ['label' => trans('project.proposal_value'), 'currency' => Option::get('money_sign', 'R')]) !!}
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {!! FormField::text('start_date', ['label' => __('project.start_date')]) !!}
+                    </div>
+                    <div class="col-md-6">
+                        {!! FormField::text('due_date', ['label' => __('project.due_date')]) !!}
+                    </div>
+                    <div class="col-md-6">
+                        {!! FormField::text('end_date', ['label' => __('project.end_date')]) !!}
+                    </div>
+                </div>
                 {!! FormField::textarea('description', ['label' => trans('project.description')]) !!}
             </div>
             <div class="modal-footer">
@@ -91,6 +108,7 @@
         </div>
     </div>
 </div>
+
  
 
 
@@ -128,7 +146,7 @@
                 <th class="text-right">{{ trans('project.project_value') }}</th>
                 @endcan
                 <th class="text-center">{{ trans('app.status') }}</th>
-                <th>{{ trans('project.customer') }}</th>
+                <th>{{ trans('Organization') }}</th>
                 <th>{{ trans('app.action') }}</th>
             </thead>
             <tbody>
@@ -146,7 +164,11 @@
                     <td class="text-right">{{ format_money($project->project_value) }}</td>
                     @endcan
                     <td class="text-center">{{ $project->present()->status }}</td>
-                    <td>{{ $project->Organization?->name }}</td>
+                    <td>   
+                    <a href="{{ route('organizations.show', ['organization' => $project->organization_id]) }}">
+                        {{ is_object($project->organization) ? __($project->organization->name) : __($project->organization) }}
+                    </a>
+                    </td>
                     <td>
                         {!! html_link_to_route('projects.show', '', [$project->id], ['icon' => 'search', 'class' => 'btn btn-info btn-xs', 'title' => trans('app.show')]) !!}
                         <button class="btn btn-warning btn-xs edit-project-btn" data-id="{{ $project->id }}" data-toggle="modal" data-target="#editProjectModal" title="{{ trans('app.edit') }}">
@@ -174,7 +196,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                {!! Form::open(['route' => ['projects.update', 0], 'method' => 'patch', 'id' => 'editProjectForm']) !!}
+            {!! Form::model($projects, ['route' => ['projects.update', $projects], 'method' => 'patch']) !!}
                     <div class="panel-body">
                         {!! FormField::text('name', ['label' => __('project.name')]) !!}
                         <div class="row">
@@ -183,7 +205,6 @@
                             </div>
                             <div class="col-md-4">
                                 {!! FormField::price('proposal_value', ['label' => __('project.proposal_value'), 'currency' => Option::get('money_sign', 'R')]) !!}
-                                {!! FormField::price('project_value', ['label' => __('project.project_value'), 'currency' => Option::get('money_sign', 'R')]) !!}
                             </div>
                         </div>
 
@@ -206,16 +227,24 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label>{{ __('Organization') }}</label><br>
+                            {!! FormField::select('status_id', ProjectStatus::toArray(), ['label' => __('app.status')]) !!}
                             </div>
+                            <div class="col-md-6">
+                            {!! FormField::select('organization_id', $Organization, ['label' => __('Organization')]) !!}
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            {!! Form::submit(trans('Save'), ['class' => 'btn btn-success']) !!}
+                            <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('app.cancel') }}</button>
+                            @can('delete', $projects)
+                            {!! link_to_route('projects.delete', __('app.delete'), [$projects], ['class' =>'btn btn-danger pull-right']) !!}
+                            @endcan
                         </div>
                     </div>
                 {!! Form::close() !!}
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('app.cancel') }}</button>
-                {!! Form::submit(trans('Save'), ['class' => 'btn btn-success']) !!}
-            </div>
+        
         </div>
     </div>
 </div>
@@ -225,45 +254,56 @@
 </div>
 @endsection
 @section('script')
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<!-- Include Flatpickr JS from cdnjs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.js"></script>
+
+<!-- Your script to initialize Flatpickr -->
 <script>
-$(document).ready(function($) {
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Flatpickr on the date input fields
+        flatpickr("#proposal_date, #start_date, #due_date, #end_date", {
+            dateFormat: "Y-m-d",
+            disableMobile: true // optional: to force the desktop version on mobile devices
+        });
 
-    var $j = jQuery.noConflict();
 
-  // Initialize datetimepicker
-  $j('#proposal_date, #start_date, #due_date, #end_date').datetimepicker({
-    timepicker: false,
-    format: 'Y-m-d',
-    closeOnDateSelect: true,
-    scrollInput: false
-  });
 
-  // Handle click event for .edit-project-btn
-  $j('.edit-project-btn').on('click', function() {
-    var projectId = $(this).data('id');
-    var url = "{{ route('projects.edit', ':id') }}"; // Adjust route as per your application
+        document.querySelector('.edit-project-btn').addEventListener('click', function() {
+        var projectId = this.getAttribute('data-id');
+        var url = `{{ route('projects.edit', ':id') }}`.replace(':id', projectId); // Adjust route as per your application
 
-    // AJAX request to fetch project details
-    $j.ajax({
-      url: url.replace(':id', projectId),
-      method: 'GET',
-      success: function(data) {
-        // Populate form fields with fetched project data
-        $j('#editProjectForm').attr('action', "{{ route('projects.update', 0) }}".replace('/0', '/' + data.id));
-        $j('#editProjectForm input[name="name"]').val(data.name);
-        $j('#editProjectForm textarea[name="description"]').val(data.description);
-        $j('#editProjectForm input[name="proposal_date"]').val(data.proposal_date);
-        $j('#editProjectForm input[name="start_date"]').val(data.start_date);
-        $j('#editProjectForm input[name="due_date"]').val(data.due_date);
-        $j('#editProjectForm input[name="end_date"]').val(data.end_date);
-        $j('#editProjectForm select[name="status_id"]').val(data.status_id);
-        $j('#editProjectModal').modal('show');
-      },
-      error: function(xhr, status, error) {
-        console.error('Error fetching project data:', error);
-      }
+        // AJAX request to fetch project details
+        fetch(url, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Populate form fields with fetched project data
+            document.getElementById('editProjectForm').setAttribute('action', `{{ route('projects.update', 0) }}`.replace('/0', '/' + data.id));
+            document.querySelector('#editProjectForm input[name="name"]').value = data.name;
+            document.querySelector('#editProjectForm textarea[name="description"]').value = data.description;
+            document.querySelector('#editProjectForm input[name="proposal_date"]').value = data.proposal_date;
+            document.querySelector('#editProjectForm input[name="start_date"]').value = data.start_date;
+            document.querySelector('#editProjectForm input[name="due_date"]').value = data.due_date;
+            document.querySelector('#editProjectForm input[name="end_date"]').value = data.end_date;
+            document.querySelector('#editProjectForm select[name="status_id"]').value = data.status_id;
+
+            // Show the modal
+            document.getElementById('editProjectModal').classList.add('show');
+        })
+        .catch(error => {
+            console.error('Error fetching project data:', error);
+        });
     });
-  });
-});
+    });
 </script>
+
+

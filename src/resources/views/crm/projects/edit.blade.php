@@ -59,14 +59,6 @@
 </div>
 @endsection
 
-@section('ext_css')
-@vite(['resources/css/plugins/jquery.datetimepicker.css'])
-@endsection
-
-@section('ext_js')
-@vite(['resources/js/plugins/jquery.datetimepicker.js'])
-@endsection
-
 @section('script')
 <script>
 (function() {

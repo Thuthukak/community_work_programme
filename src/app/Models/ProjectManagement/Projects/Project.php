@@ -253,4 +253,6 @@ class Project extends Model
     {
         return $this->hasMany(Issue::class);
     }
+
+    
 }

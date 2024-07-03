@@ -37,7 +37,7 @@ class FilesController extends Controller
         $files = $model->files;
 
 
-        // dd($modelName);
+        // dd($fileableId);
 
         DB::enableQueryLog(); // Enable query log
 
@@ -54,7 +54,7 @@ class FilesController extends Controller
         }
 
 
-        // dd(DB::getQu?eryLog()); // Show results of log
+        // dd(DB::getQueryLog()); // Show results of log
         if (in_array($request->get('action'), ['edit', 'delete']) && $request->has('id')) {
 
 

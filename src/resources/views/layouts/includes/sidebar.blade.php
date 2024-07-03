@@ -139,6 +139,11 @@
                     'url' => request()->root().'/jobs',
                     'permission' => authorize_any(['view_projects']),
                 ],
+                [
+                    'name' => __('Issue List',[],$locale),
+                    'url' => request()->root().'/issues',
+                    'permission' => authorize_any(['view_projects']),
+                ],
           
               
             ],
@@ -201,14 +206,9 @@
         ],
     ];
 @endphp
-<!-- <sidebar :data="{{ json_encode($data) }}"
+<sidebar :data="{{ json_encode($data) }}"
          :logo-icon-src="{{json_encode(env('APP_URL').config('settings.application.company_icon'))}}"
          :logo-src="{{json_encode(env('APP_URL').config('settings.application.company_logo'))}}"
          logo-url="{{env('APP_URL')}}">
 
-</sidebar> -->
-<sidebar :data="{{ json_encode($data) }}"
-         :logo-icon-src="'/storage/icon/66714a8ed657b.svg'"
-         :logo-src="'/path/to/your/logo.png'"
-         logo-url="http://your-app-url">
 </sidebar>

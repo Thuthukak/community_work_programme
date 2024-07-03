@@ -4,7 +4,7 @@
 
 @section('action-buttons')
 @can('create', new App\Models\ProjectManagement\Projects\ProjectJob)
-    {!! html_link_to_route('projects.jobs.create', __('job.create'), [$job->project_id], ['class' => 'btn btn-success', 'icon' => 'plus']) !!}
+<button class="btn btn-warning btn-sm p-1" data-toggle="modal" data-target="#createTaskModal">{{ trans('Add New Task') }}</button>
 @endcan
 @can('update', $job)
 <button class="btn btn-warning btn-sm p-1" data-toggle="modal" data-target="#EditTaskModal">{{ trans('Edit Task') }}</button>
@@ -25,6 +25,51 @@
 </div>
 <div class="row">
     <div class=" main-areabg col-md-8 col-md-offset-2">
+    </div>
+</div>
+
+<!-- Create task modal -->
+<div id="createTaskModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ __('Add New Task') }}</h4>
+            </div>
+            {!! Form::open(['route' => ['projects.jobs.store', $project->id], 'method' => 'POST']) !!}
+            <div class="modal-body">
+                {!! FormField::text('name', ['label' => trans('job.name')]) !!}
+                {!! FormField::textarea('description', ['label' => __('job.description')]) !!}
+                <div class="row">
+                    <div class="col-sm-4">
+                        {!! FormField::price('price', [
+                            'label'    => __('job.price'),
+                            'currency' => Option::get('money_sign', 'R'),
+                            'value'    => 0,
+                        ]) !!}
+                    </div>
+                    <div class="col-md-4">
+                        {!! FormField::select('person_id', $persons, ['label' => __('Assign to'), 'value' => 1]) !!}
+                    </div>
+                    <div class="col-sm-4">
+                        {!! FormField::radios('type_id', [1 => __('job.main'), __('job.additional')], ['value' => 1, 'label' => __('job.type'), 'list_style' => 'unstyled']) !!}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {!! FormField::text('target_start_date', ['label' => __('job.target_start_date'), 'class' => 'date-select']) !!}
+                    </div>
+                    <div class="col-md-6">
+                        {!! FormField::text('target_end_date', ['label' => __('job.target_end_date'), 'class' => 'date-select']) !!}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                {{ Form::submit(__('Save'), ['class' => 'btn btn-primary']) }}
+                {{ link_to_route('projects.jobs.index', __('app.cancel'), [$project], ['class' => 'btn btn-default']) }}
+
+            </div>
+        </div>
     </div>
 </div>
 
@@ -114,23 +159,35 @@
 @endsection
 
 @section('ext_js')
-<script src="{{ asset('assets/js/plugins/rangeslider.min.js') }}"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.css">
 @endsection
 
 @section('script')
-<script>
-(function() {
-    $('input[type="range"]').rangeslider({ polyfill: false });
+<!-- Include Flatpickr JS from cdnjs -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.js"></script>
 
-    $(document).on('input', 'input[type="range"]', function(e) {
-        var ap_weight = e.currentTarget.value;
-        $('#ap_weight').text(ap_weight);
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Flatpickr on the date input fields with class date-select
+    flatpickr(".date-select", {
+        dateFormat: "Y-m-d",
+        disableMobile: true // optional: to force the desktop version on mobile devices
     });
 
-    $('#commentModal').modal({
-        show: true,
+    // Range slider logic using native JavaScript
+    const rangeInputs = document.querySelectorAll('input[type="range"]');
+    rangeInputs.forEach(rangeInput => {
+        rangeInput.addEventListener('input', function(e) {
+            const apWeight = e.currentTarget.value;
+            document.getElementById('ap_weight').textContent = apWeight;
+        });
+    });
+
+    // Initialize and show the modal
+    const commentModal = new bootstrap.Modal(document.getElementById('commentModal'), {
         backdrop: 'static',
     });
-})();
+    commentModal.show();
+});
 </script>
 @endsection

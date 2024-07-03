@@ -18,8 +18,8 @@ return array_merge([
     'yes' => 'Yes',
     'no' => 'No',
     'confirm' => 'Confirm',
-    'won' => 'Won',
-    'lost' => 'Lost',
+    'won' => 'Accepted',
+    'lost' => 'Rejected',
     'btn_add_more' => '+ add more',
     'mark_as_done' => 'Mark as done',
 
@@ -65,7 +65,7 @@ return array_merge([
     'to_invite_warning' => 'To invite user you must set up email settings. Click',
     'edit_address_details' => 'Edit address details',
     'this_resource_already_referenced_message' => 'This resource already referenced in other feature. Please remove from there to delete from here.',
-    'lead_type' => 'Lead type',
+    'lead_type' => 'Participant type',
     'lead' => 'Lead',
     'lead_info' => 'Lead info',
     'change_lead_info' => 'Change lead info',
@@ -406,7 +406,7 @@ return array_merge([
     'you_can_add_more_users_in_this_app_admin_role_but_you_cant_remove_the_app_admin_users' => "You can add more users in this App Admin Role, But you can't remove any App Admin users.",
     'more_than_one_role_is_not_allow_for_a_user' => 'More than one role is not allow for a user',
     'already_one_role_assign_please_dettach_first' => ' already one role assign please dettach first',
-    'you_can_manage_invite_client_user_from_people_module' => 'You can manage/invite "Client" user from Leads (People) module.',
+    'you_can_manage_invite_client_user_from_people_module' => 'You can manage/invite "Candidate" user from Leads (People) module.',
     'system' => 'System',
     'system_user_can_not_managed' => "System user can't be managed",
     //Status
@@ -886,7 +886,7 @@ return array_merge([
     'details_view_of_deals_closed_by' => 'Details view of onboardings closed by ',
 
     //Dashboard frontend
-    'open' => 'Open',
+    'open' => 'Inprogress',
     'total' => 'Total',
     'deals_overview' => 'Onboarding Overview',
     'total_deals' => 'Total Onboardings',
@@ -897,7 +897,7 @@ return array_merge([
     'total_accepted_proposal' => 'Total accepted proposal',
     'sending_rate' => 'Sending rate',
     'acceptance_rate' => 'Acceptance rate',
-    'deals_on_pipeline' => 'Onboardings On Pipeline',
+    'deals_on_pipeline' => 'Onboardings Progress',
     'top_five_owners' => 'Top 5 Owners',
     'total_organizations' => 'Total organizations',
     'total_participants' => 'Total participants',
