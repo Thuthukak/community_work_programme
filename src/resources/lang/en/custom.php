@@ -651,7 +651,7 @@ return array_merge([
     'recommended_product_size' => 'Recommended size W: 150 x H: 120',
     'invoice_prefix' => 'Invoice prefix',
     'send_to_email' => 'Send to email',
-    'this_deal_person_has_no_email'=>'This deal person has no email',
+    'this_deal_person_has_no_email'=>'This onboarding person has no email',
     'invoice_email_send' => 'Invoice email send',
     'invoice_sending_attachment' => 'Invoice Sending Attachment',
 
