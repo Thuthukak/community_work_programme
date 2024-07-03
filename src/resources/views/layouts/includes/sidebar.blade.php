@@ -126,7 +126,7 @@
         [
             'id' => 'project_management',
             'icon' => 'clipboard',
-            'name' => __('default.project_management',[],$locale),
+            'name' => __('default.projects',[],$locale),
             'permission' => authorize_any(['view_projects']),
             'subMenu' => [
                 [

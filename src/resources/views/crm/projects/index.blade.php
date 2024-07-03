@@ -128,11 +128,10 @@
         </div>
         {!! Form::close() !!}
     </div>
-    <small>{{ $projects->total() }} {{ trans('project.found') }}</small>
-
-    <div class="project-table panel panel-default table-responsive">
-        <br>
-        <table class="table table-condensed custom-tables table-hover">
+    <small class="custom-text-muted" style="margin-left:20px;">{{ $projects->total() }} {{ trans('project.found') }}</small>
+<div class="table-wrapper shadow">
+    <div class="panel panel-default table-responsive">        
+        <table class="table  table-condensed  table-hover">
             <thead class="custom-th">
                 <th>{{ trans('app.table_no') }}</th>
                 <th>{{ trans('project.name') }}</th>
@@ -185,6 +184,7 @@
             </tbody>
         </table>
     </div>
+</div>
 
 
 <!-- Edit Modal -->

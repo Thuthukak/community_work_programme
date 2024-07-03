@@ -70,4 +70,4 @@
     });
 })();
 </script>
-@endsection
+@endsection -->

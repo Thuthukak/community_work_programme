@@ -14,6 +14,7 @@
 <button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#createTaskModal" data-project-id="{{ $project->id }}">{{ trans('Add Task') }}</button>
     {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project], ['class' => 'btn btn-success btn-sm p-2 mr-4', 'icon' => 'plus']) !!}
 </div>
+</div>
     @endcan
 
 @endsection
@@ -39,9 +40,9 @@
         <div class="action-btns-container2 pill-container">
             @can('update', $project)
                 @if (request('action') == 'sort_jobs')
-                    {{ link_to_route('projects.jobs.index', __('app.done'), [$project], ['class' => 'btn btn-default btn-xs pull-right', 'style' => 'margin-top: 0px; margin-left: 6px; margin-right: -8px']) }}
+                    {{ link_to_route('projects.jobs.index', __('app.done'), [$project], ['class' => 'btn btn-default btn-xs pull-right', 'style' => 'margin-top: 0px; margin-left: 6px; margin-right: -8px']) }} 
                 @else
-                    {{ link_to_route('projects.jobs.index', __('project.sort_jobs'), [$project, 'action' => 'sort_jobs', '#project-jobs'], ['class' => 'btn btn-info mr-1 p-1 btn-xs', 'style' => 'margin-top: -3px; margin-left: 6px; margin-right: -8px']) }}
+                    {{ link_to_route('projects.jobs.index', __('project.sort_jobs'), [$project, 'action' => 'sort_jobs', '#project-jobs'], ['class' => 'btn btn-default mr-1 p-1 btn-xs', 'style' => 'margin-top: -2px; margin-left: 6px; margin-right: -8px']) }} |
                     @can('see-pricings', $project)
                     {!! link_to_route('projects.jobs-export', __('project.jobs_list_export_html'), [$project, 'html', 'job_type' => $key], ['class' => '', 'target' => '_blank']) !!} |
                     {!! link_to_route('projects.job-progress-export', __('project.jobs_progress_export_html'), [$project, 'html', 'job_type' => $key], ['class' => '', 'target' => '_blank']) !!}
@@ -50,7 +51,7 @@
             @endcan
         </div>
     </div>
-        <h3 class="panel-title" style="margin-left: -20px">
+        <h3 class="panel-title custom-text-muted" style="margin-left: -40px">
             {{ $key == 1 ? __('project.jobs') : __('project.additional_jobs') }}
             @if (request('action') == 'sort_jobs')
             <em>: {{ __('project.sort_jobs') }}</em>
@@ -66,9 +67,10 @@
             @endforeach
         </ul>
     @else
+<div class="table-wrapper shadow" style="margin-left:-10px">
     <div class=" panel-body table-responsive">
-        <table class="table table-condensed table-striped table-hover">
-            <thead>
+        <table class="table table-condensed  table-hover">
+            <thead class="custom-th2">
                 <th>{{ __('app.table_no') }}</th>
                 <th>{{ __('job.name') }}</th>
                 <th class="text-center">{{ __('job.tasks_count') }}</th>
@@ -86,7 +88,7 @@
                 $no = 1 + $key;
                 $job->progress = $job->tasks->avg('progress');
                 @endphp
-                <tr id="{{ $job->id }}" {!! $job->progress <= 50 ? 'style="background-color: #faebcc"' : '' !!}>
+                <tr id="{{ $job->id }}" {!! $job->progress <= 50 ? 'style="background-color:#f1d9d9"' : '' !!}>
                     <td>{{ $no }}</td>
                     <td>
                         {{ $job->name }}
@@ -143,6 +145,7 @@
             </tfoot>
         </table>
     </div>
+</div>
     @endif
 </div>
 @endforeach

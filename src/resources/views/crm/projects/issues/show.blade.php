@@ -16,7 +16,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <div class="pull-right">{!! $issue->status_label !!}</div>
+                    <div class="pull-right custom-pill" style="margin-top: 10px; margin-left:-3px; radius: 50px !important ;">{!! $issue->status_label !!}</div><br>
                     {{ __('issue.detail') }}
                 </h3>
             </div>

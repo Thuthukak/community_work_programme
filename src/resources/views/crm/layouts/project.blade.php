@@ -11,8 +11,8 @@
     <div class="pull-right">
         @yield('action-buttons')
     </div>
-    <div  class="page-header-pill-layouts">
-   <h4> {{ $project->name }} </h4>
+    <div>
+   <h4 class="page-header-pill-layouts"> {{ $project->name }} </h4>
     </div>
 </h1>
 
@@ -31,12 +31,4 @@
 @vite(['resources/js/plugins/jquery.datetimepicker.js'])
 @endsection
 
-    @stack('before-scripts')
-    <script src="{{ asset('assets/js/plugins/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('assets/js/bootstrap.min.js') }}"></script>
-    <!-- <-- <script src="{{ asset('assets/js/sb-admin-2.js') }}"></script> --> 
-    <script src="{{ asset('assets/js/plugins/jquery.datetimepicker.js') }}"></script> 
-    <!-- <script src="{{ asset('assets/js/plugins/metisMenu/metisMenu.min.js') }}"></script> -->
-    <!-- <script src="{{ asset('assets/js/plugins/select2.min.js') }}"></script> -->
-    @stack('after-scripts')
 

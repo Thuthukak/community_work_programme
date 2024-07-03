@@ -49,7 +49,7 @@ class Issue extends Model
 
     public function getStatusLabelAttribute()
     {
-        return '<span class="badge">'.$this->status.'</span>';
+        return '<span class="blacktext">'.$this->status.'</span>';
     }
 
     /**

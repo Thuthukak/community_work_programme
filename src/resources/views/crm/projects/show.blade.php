@@ -7,7 +7,7 @@
 <div class="d-flex justify-content-end">
     @can('update', $project)
 
-        <div class="edit-project-btn ml-auto">
+        <div class="create-action-btns ml-auto">
             <button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#EditProjectModal">{{ trans('Edit Project') }}</button>
         </div>
     @endcan
@@ -17,10 +17,10 @@
 
 
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-5">
         @include('crm.projects.partials.project-show')
     </div>
-    <div class=" update-status col-md-6">
+    <div class=" update-status col-md-7" style="margin-top: 26px;">
         @can('update', $project)
         {!! Form::model($project, ['route' => ['projects.status-update', $project], 'method' => 'patch', 'class' => 'well well-sm form-inline']) !!}
         {!! FormField::select('status_id', ProjectStatus::toArray(), ['label' => __('project.status'), 'class' => 'mr-2']) !!}
@@ -35,7 +35,7 @@
       <!-- Edit modal -->
 
       <div id="EditProjectModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
