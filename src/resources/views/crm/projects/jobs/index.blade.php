@@ -40,9 +40,9 @@
         <div class="action-btns-container2 pill-container">
             @can('update', $project)
                 @if (request('action') == 'sort_jobs')
-                    {{ link_to_route('projects.jobs.index', __('app.done'), [$project], ['class' => 'btn btn-default btn-xs pull-right', 'style' => 'margin-top: 0px; margin-left: 6px; margin-right: -8px']) }} 
+                    {{ link_to_route('projects.jobs.index', __('app.done'), [$project], ['class' => 'btn btn-default btn-xs pull-right', 'style' => 'margin-top: 0px; margin-left: 6px; margin-right: -8px;']) }} 
                 @else
-                    {{ link_to_route('projects.jobs.index', __('project.sort_jobs'), [$project, 'action' => 'sort_jobs', '#project-jobs'], ['class' => 'btn btn-default mr-1 p-1 btn-xs', 'style' => 'margin-top: -2px; margin-left: 6px; margin-right: -8px']) }} |
+                    {{ link_to_route('projects.jobs.index', __('project.sort_jobs'), [$project, 'action' => 'sort_jobs', '#project-jobs'], ['class' => 'btn btn-default mr-1 p-1 btn-xs', 'style' => 'margin-top: -2px; margin-left: 6px; margin-right: -8px;']) }} |
                     @can('see-pricings', $project)
                     {!! link_to_route('projects.jobs-export', __('project.jobs_list_export_html'), [$project, 'html', 'job_type' => $key], ['class' => '', 'target' => '_blank']) !!} |
                     {!! link_to_route('projects.job-progress-export', __('project.jobs_progress_export_html'), [$project, 'html', 'job_type' => $key], ['class' => '', 'target' => '_blank']) !!}

@@ -26,7 +26,7 @@
 <!-- <div class="row">
     <div class=" main-areabg col-md-8 col-md-offset-2">
     </div>
-</div>
+</div> -->
 
 <!-- Create task modal -->
 <div id="createTaskModal" class="modal fade" role="dialog">

@@ -4,7 +4,7 @@
         <div class="panel panel-info">
             <div class="panel-heading">
                 <div class="row stat-box">
-                    <div class="col-xs-3"><i class="fas fa-spinner mt-2 ml-3 fa-2x "></i></div>
+                    <div class="col-xs-3"><i class="fas fa-spinner mt-2 ml-3 fa-2x"></i></div>
                     <div class="col-xs-9 text-right">
                     <div>{{ __('project.overall_progress') }}</div>
                         <div style="font-weight: bold;">{{ format_decimal($project->getJobOveralProgress()) }} %</div> 
