@@ -16,7 +16,6 @@
         class="nav-item"
         v-for="(item, index) in data"
         :key="index"
-        v-if="item.permission"
       >
         <a
           class="nav-link"

@@ -93,6 +93,21 @@ return [
     'view_chart_proposals' => 'Can view chart report of proposals',
     'view_data_table_proposals' => 'Can view data table report of proposals',
 
+
+     // Project Related Permissions
+     'view_projects' => 'Can view projects',
+     'create_projects' => 'Can create projects',
+     'update_projects' => 'Can update projects',
+     'delete_projects' => 'Can delete projects',
+     'send_projects' => 'Can send projects',
+
+      // Tasks Related Permissions
+      'view_tasks' => 'Can view tasks',
+      'create_tasks' => 'Can create tasks',
+      'update_tasks' => 'Can update projects',
+      'delete_tasks' => 'Can delete projects',
+      'send_tasks' => 'Can send projects',
+
     // Stages Related Permissions
     'view_stages' => 'Can view stages',
     'create_stages' => 'Can create stages',

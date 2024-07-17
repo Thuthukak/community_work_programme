@@ -16,6 +16,8 @@ use App\Models\CRM\Traits\OwnerRelationshipTrait;
 use App\Models\CRM\Traits\PhoneRelationshipTrait;
 use App\Models\CRM\Traits\ProfilePictureRelationshipTrait;
 use App\Models\CRM\Traits\TagRelationshipTrait;
+use App\Models\CRM\Objective\traits\HasObjectiveTrait;
+
 
 trait OrganizationRelationshipsTrait
 {
@@ -27,6 +29,7 @@ trait OrganizationRelationshipsTrait
         PhoneRelationshipTrait,
         EmailRelationshipTrait,
         NoteRelationshipTrait,
+        HasObjectiveTrait,
         CustomFieldRelationshipTrait;
 
     public function contactType()
@@ -81,4 +84,9 @@ trait OrganizationRelationshipsTrait
         return $this->morphMany(Follower::class, 'contextable')
             ->count();
     }
+
+    // protected function objectives()
+    // {
+    //     return $this->hasMany(Objective::class , 'cotextable');
+    // }
 }

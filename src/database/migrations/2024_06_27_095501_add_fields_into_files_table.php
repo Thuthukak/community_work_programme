@@ -15,13 +15,13 @@ class AddFieldsIntoFilesTable extends Migration
     {
         //
         
-    Schema::table('files', function (Blueprint $table) { 
-        $table->string('filename', 60);
-        $table->string('title', 60);
-        $table->string('description')->nullable();
-        $table->tinyInteger('type_id')->unsigned()->nullable();
+    // Schema::table('files', function (Blueprint $table) { 
+    //     $table->string('filename', 60);
+    //     $table->string('title', 60);
+    //     $table->string('description')->nullable();
+    //     $table->tinyInteger('type_id')->unsigned()->nullable();
 
-    });
+    // });
     }
 
     /**
@@ -32,10 +32,10 @@ class AddFieldsIntoFilesTable extends Migration
     public function down()
 {
     Schema::table('files', function (Blueprint $table) {
-        $table->dropColumn('filename');
-        $table->dropColumn('title');
-        $table->dropColumn('description');
-        $table->dropColumn('type_id');
+        // $table->dropColumn('filename');
+        // $table->dropColumn('title');
+        // $table->dropColumn('description');
+        // $table->dropColumn('type_id');
 
     });
 

@@ -7,6 +7,8 @@ use App\Models\Core\Auth\Traits\SendUserPasswordReset;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravelista\Comments\Commenter;
+
 
 /**
  * Class BaseUser.
@@ -28,7 +30,6 @@ abstract class BaseUser extends Authenticatable
         'last_name',
         'email',
         'password',
-        'active',
         'last_login_at',
         'created_by',
         'status_id',
@@ -230,6 +231,26 @@ abstract class BaseUser extends Authenticatable
     {
         return "{$this->first_name} {$this->last_name}";
     }
+    
+    public function getOKrRoute()
+    {
+        return route('user.okr', $this->id);
+    }
+
+
+    public function actions()
+    {
+        return $this->hasMany('App\Action', 'user_id');
+    }
+    
+    public function invitation()
+    {
+        return $this->hasMany(Invitation::class);
+    }
+
+
+
+
 
     
 }

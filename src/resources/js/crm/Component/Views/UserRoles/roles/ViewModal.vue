@@ -2,14 +2,15 @@
     <app-modal modal-id="view-user-modal"
                modal-size="default" modal-alignment="top"
                @close-modal="closeModal">
-        <!-- <template slot="header">
+        <template slot="header">
+
             <h5 class="modal-title">{{ role.name }} : {{ $t('permission') }}</h5>
             <button type="button" class="close outline-none" data-dismiss="modal" aria-label="Close">
                 <span>
                     <app-icon :name="'x'"></app-icon>
                 </span>
             </button>
-        </template> -->
+        </template>
 
         <template slot="body">
             <template v-if="role.name === 'App Admin'">
@@ -87,6 +88,22 @@ export default {
     mixins: [FormSubmitMixin],
     props: {
         role: {}
+    },
+    computed: {
+    getRoleDisplayName() {
+      switch (this.role.name) {
+        case 'App Admin':
+          return 'Sys Admin';
+        case 'Manager':
+          return 'Director';
+        case 'Agent':
+          return 'Agent Display Name'; // Replace with the desired name
+        case 'Client':
+          return 'Client Display Name'; // Replace with the desired name
+        default:
+          return this.role.name;
+        }
+        }
     },
     data() {
         return {
