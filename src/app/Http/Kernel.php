@@ -42,6 +42,7 @@ class Kernel extends HttpKernel
             \App\Http\Middleware\LocaleMiddleware::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\ToBeLoggedOut::class,
+            \App\Http\Middleware\MarkNotificationAsRead::class
         ],
 
         'api' => [
