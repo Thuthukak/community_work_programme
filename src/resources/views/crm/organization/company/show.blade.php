@@ -1,11 +1,11 @@
 <div class="row justify-content-center">
     <div class="col align-self-end text-right">
         @if ($company->following())
-        <a href="{{ route('follow.cancel', [get_class($company), $company]) }}" class="text-warning" data-toggle="tooltip" data-placement="right" title="取消追蹤">
+        <a href="{{ route('follow.cancel', [get_class($company), $company]) }}" class="text-warning" data-toggle="tooltip" data-placement="right" title="Unfollow">
             <i class="fas fa-star" style="font-size: 24px;"></i>
         </a>
         @else
-        <a href="{{ route('follow', [get_class($company), $company]) }}" class="text-warning" data-toggle="tooltip" data-placement="right" title="追蹤">
+        <a href="{{ route('follow', [get_class($company), $company]) }}" class="text-warning" data-toggle="tooltip" data-placement="right" title="Follow">
             <i class="far fa-star" style="font-size: 24px;"></i>
         </a>
         @endif
@@ -29,7 +29,7 @@
                         <img src="{{ $company->users[$i]->getAvatar() }}" alt="" class="avatar-xs">
                     </a>
                     @if (count($company->users)>5 && $i == 4)
-                    <a class="d-inline-block pt-2" href="{{ route('company.member') }}" data-toggle="tooltip" data-placement="bottom" title="與其他 {{ count($company->users)-5 }} 位成員">
+                    <a class="d-inline-block pt-2" href="{{ route('company.member') }}" data-toggle="tooltip" data-placement="bottom" title="with other {{ count($company->users)-5 }} members">
                         <img src="{{ asset('img/icon/more/gray.svg') }}" alt="" class="avatar-xs">
                     </a>
                     @endif
@@ -56,10 +56,10 @@
 <div class="row justify-content-end">
     <div class="col text-right align-self-end">
         @can('update', $company)
-            <a href="#" data-toggle="modal" data-target="#editCompany" class="tooltipBtn text-info" data-placement="top" title="編輯組織"><i class="fas fa-edit u-margin-4"></i></a>            
+            <a href="#" data-toggle="modal" data-target="#editCompany" class="tooltipBtn text-info" data-placement="top" title="Edit Organization"><i class="fas fa-edit u-margin-4"></i></a>            
         @endcan
         @can('delete', $company)
-            <a href="#" data-toggle="dropdown" class="tooltipBtn text-info" data-placement="top" title="刪除組織"><i class="fas fa-trash-alt"></i></a>
+            <a href="#" data-toggle="dropdown" class="tooltipBtn text-info" data-placement="top" title="Delete Organization"><i class="fas fa-trash-alt"></i></a>
             <form method="POST" id="companyDelete" action="{{ route('company.destroy') }}">
                 @csrf
                 {{ method_field('DELETE') }}
@@ -68,15 +68,16 @@
                         <div class="col-auto text-danger"><i class="fas fa-exclamation-triangle"></i></div>
                     </div>
                     <div class="row">
-                        <div class="col text-center">
-                            刪除組織後，<br>
-                            將失去組織中所有資料！！<br>
-                            確認要刪除組織嗎？<br>
-                        </div>
+                    <div class="col text-center">
+                        After deleting the organization,<br>
+                        all data within the organization will be lost!!<br>
+                        Are you sure you want to delete the organization?<br>
+                    </div>
+
                     </div>
                     <div class="row justify-content-center mt-3">
-                        <div class="col-auto text-center pr-2"><button class="btn btn-danger pl-4 pr-4" type="submit">刪除</button></div>
-                        <div class="col-auto text-center pl-2"><a class="btn btn-secondary text-white pl-4 pr-4">取消</a></div>
+                        <div class="col-auto text-center pr-2"><button class="btn btn-danger pl-4 pr-4" type="submit">Delete</button></div>
+                        <div class="col-auto text-center pl-2"><a class="btn btn-secondary text-white pl-4 pr-4">Cancel</a></div>
                     </div>
                 </div>
             </form>
