@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.crm')
 @section('title','個人Action')
 @section('content')
 <div class="container">
@@ -9,7 +9,7 @@
     @can('update', $owner)
     <div class="row m-3">
         <div class="col font-weight-light">
-            <h4>我的Action</h4>
+            <h4>My action</h4>
         </div>
     </div>
     @endcan
@@ -47,7 +47,7 @@
         </div>
     </div>
     @endcannot
-    {{-- okrs/action換頁標籤 --}}
+    {{-- OKRS/ACTION Page Change Tag --}}
     <ul class="nav nav-tabs justify-content-end" id="myTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link" id="okr-tab" href="{{route('user.okr',$owner->id)}}">OKRs</a>
@@ -62,69 +62,69 @@
             <div class="col-auto mb-2">
                 <form action="{{route('user.action',$owner->id)}}" class="form-inline search-form">
                     <select name="isdone" class="form-control input-sm mr-2 ml-2">
-                        <option value="false">未完成</option>
-                        <option value="true">完成</option>
+                        <option value="false">unfinished</option>
+                        <option value="true">Finish</option>
                     </select>
                     <select name="state" class="form-control input-sm mr-2 ml-2">
-                        <option value="now">執行中</option>
-                        <option value="back">過去</option>
-                        <option value="future">未來</option>
+                        <option value="now">Execution</option>
+                        <option value="back">past</option>
+                        <option value="future">future</option>
                     </select>
                     <select name="order" class="form-control input-sm mr-2 ml-2">
-                        <option value="finished_at_asc">期限排序</option>
-                        <option value="started_at_asc">起始日排序</option>
-                        <option value="priority_asc">優先度排序</option>
+                        <option value="finished_at_asc">Sorting</option>
+                        <option value="started_at_asc">Starting date sorting</option>
+                        <option value="priority_asc">Priority sorting</option>
                     </select>
-                    <button class="btn btn-primary">搜索</button>
+                    <button class="btn btn-primary">search</button>
                 </form>
             </div>
         </div>
-        {{-- action列表 --}}
+        {{-- ACTION list --}}
         <div class="row">
             <div class="col-12">
                 <table class="rwd-table table table-hover">
                     <thead>
                         <tr class="bg-primary text-light text-center">
-                            <th>完成</th>
-                            <th>優先度</th>
-                            <th>期限</th>
-                            <th>來源</th>
-                            <th>標題</th>
-                            <th>附檔</th>
-                            <th>回覆</th>
-                            <th>最後更新</th>
+                            <th>Finish</th>
+                            <th>priority</th>
+                            <th>the term</th>
+                            <th>source</th>
+                            <th>title</th>
+                            <th>Attachment</th>
+                            <th>Reply</th>
+                            <th>latest update</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach($actions as $action)
                         <tr class="text-center">
-                            <td data-th="完成" class="align-middle">
+                            <td data-th="Finish" class="align-middle">
                                 <form action="{{ route('actions.done', $action->id) }}" method="post" id="doneAct{{ $action->id }}">
                                     @csrf
                                     <input type="checkbox" name="" id="" {{ $action->isdone? 'checked="checked"':'' }}  onclick="document.getElementById('doneAct{{ $action->id }}').submit()">
                                 </form>
                             </td>
-                            <td data-th="優先度" class="alert-{{$action->priority()->getResults()->color}} align-middle">
+                            <td data-th="priority" class="alert-{{$action->priority()->getResults()->color}} align-middle">
                                 {{$action->priority()->getResults()->priority}}
                             </td>
-                            <td data-th="期限" class="align-middle">
+                            <td data-th="the term" class="align-middle">
                                 {{$action->finished_at}}
                             </td>
-                            <td data-th="來源" class="align-middle">
+                            <td data-th="source" class="align-middle">
                                 {{str_split($action->objective->model_type,4)[1]}}
                             </td>
-                            <td data-th="標題" class="align-middle">
+                            <td data-th="title" class="align-middle">
                                 <a href="{{ route('actions.show',$action->id) }}">
                                     {{$action->title}}
                                 </a>
                             </td>
-                            <td data-th="附檔" class="align-middle">
+                            <td data-th="Attachment" class="align-middle">
                                 {{count($action->getRelatedFiles())}}
                             </td>
-                            <td data-th="回覆" class="align-middle">
+                            <td data-th="Reply" class="align-middle">
                                 {{$action->comments->count()}}
                             </td>
-                            <td data-th="最後更新" class="align-middle">
+                            <td data-th="latest update" class="align-middle">
                                 {{$action->updated_at}}
                             </td>
                         </tr>

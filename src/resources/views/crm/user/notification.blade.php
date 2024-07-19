@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.crm')
 @section('title', '全部通知')
 @section('content')
 <div class="container">
@@ -6,26 +6,26 @@
         <thead>
             <tr class="bg-primary text-light text-center">
                 <th>
-                    圖片
+                    picture
                 </th>
                 <th>
-                    訊息
+                    message
                 </th>
                 <th>
-                    時間
+                    time
                 </th>
             </tr>
         </thead>
         <tbody>
             @foreach($notifications as $n)
             <tr class="text-center">
-                <td data-th="圖片" class="align-middle">
+                <td data-th="picture" class="align-middle">
                     <img src="{{ $n->data['data']['icon'] }}" alt="" class="avatar-sm">
                 </td>
-                <td data-th="訊息" class="align-middle">
+                <td data-th="message" class="align-middle">
                     <a href={{ $n->data['data']['link'] }}>{{ $n->data['data']['message'] }}</a>
                 </td>
-                <td data-th="時間" class="align-middle">
+                <td data-th="time" class="align-middle">
                     {{ $n->created_at }}
                 </td>
                 @endforeach

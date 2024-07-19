@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.crm')
 @section('title','個人綜覽')
 @section('script')
 <script src="{{ asset('js/avatar.js') }}" defer></script>
@@ -24,7 +24,7 @@
             {{ session('error') }}
         </div>
         @endif
-        <h4 class="col-md-10">基本資料
+        <h4 class="col-md-10">basic information
             <hr class="u-mt-8">
         </h4>
         <div class="col-md-10">
@@ -48,7 +48,7 @@
                             <span class="pl-4 font-weight-normal" style="font-size:14px">{{ $user->position }}</span>
                         </p>
                         <p class="mb-0 text-truncate text-black-50 motto" style="font-size:14px">{{ $user->description }}</p>
-                        <input type="text" class="{{ $user->description?'u-hidden':'' }} motto-input w-75 pt-2" name="description" id="description" value="{{ $user->description }}" placeholder="請輸入座右銘" style="color: #495057; border: 1px solid #ced4da; background-color: #fff;">
+                        <input type="text" class="{{ $user->description?'u-hidden':'' }} motto-input w-75 pt-2" name="description" id="description" value="{{ $user->description }}" placeholder="Please enter the motto" style="color: #495057; border: 1px solid #ced4da; background-color: #fff;">
                     </form>
                 </div>
                 <div class="row col-md-6 pt-4">
@@ -61,7 +61,7 @@
                             <div class="row">
                                 <div class="col-auto pl-0 pr-0 align-self-center">
                                     <span>{{ $user->complianceRateAvg() }}％</span><br>
-                                    <span style="font-size:4px">達成率</span>
+                                    <span style="font-size:4px">Reaching rate</span>
                                 </div>
                             </div>
                         </div>
@@ -74,12 +74,12 @@
                             <div class="row">
                                 <div class="col-auto pl-0 pr-0 align-self-center">
                                     <span>{{ $actionComplianceRate['complete'] }}</span><br>
-                                    <span style="font-size:4px">完成</span>
+                                    <span style="font-size:4px">Finish</span>
                                 </div>
                                 <div class="col-auto pl-1 pr-1 ">/</div>
                                 <div class="col-auto pl-0 pr-0 align-self-center">
                                     <span>{{ $actionComplianceRate['all'] }}</span><br>
-                                    <span style="font-size:4px">總數</span>
+                                    <span style="font-size:4px">total</span>
                                 </div>
                             </div>
                         </div>
@@ -91,12 +91,12 @@
                             <div class="row">
                                 <div class="col-auto pl-0 pr-0 align-self-center">
                                     <span>{{ count($user->projects()->where('isdone',true)->get()) }}</span><br>
-                                    <span style="font-size:4px">完成</span>
+                                    <span style="font-size:4px">Finish</span>
                                 </div>
                                 <div class="col-auto pl-1 pr-1 ">/</div>
                                 <div class="col-auto pl-0 pr-0 align-self-center">
                                     <span>{{ count($user->projects) }}</span><br>
-                                    <span style="font-size:4px">總數</span>
+                                    <span style="font-size:4px">total</span>
                                 </div>
                             </div>
                         </div>
@@ -108,7 +108,7 @@
     </div>
     
     <div class="row justify-content-center pb-4 pt-4">
-        <h4 class="col-md-10">帳號設定
+        <h4 class="col-md-10">Account setting
             <hr class="u-mt-8">
         </h4>
         <div class="col-md-10">
@@ -127,13 +127,13 @@
                     <span class="mb-0 font-weight-bold text-truncate text-primary pr-4">Password</span>
                 </div>
                 <div class="col-auto">
-                    <a class="mb-0" href="#" data-toggle="modal" data-target="#resetPassword">變更密碼</a>
+                    <a class="mb-0" href="#" data-toggle="modal" data-target="#resetPassword">Change password</a>
                 </div>
             </div>
         </div>
     </div>
     <div class="row justify-content-center pt-4">
-        <h4 class="col-md-10 u-mb-8">帳號權限</h4>
+        <h4 class="col-md-10 u-mb-8">Account permissions</h4>
         <div class="col-md-10">
             <table class="table table-hover text-center">
                 <thead>
@@ -145,18 +145,18 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td class="align-middle">公司</td>
+                        <td class="align-middle">company</td>
                         <td class="align-middle">{{ isset($user->company)?$user->company->name:'-' }}</td>
                         <td class="align-middle">{{ isset($user->company)?$user->role($user->company)->name:'-' }}</td>
                     </tr>
                     <tr>
-                        <td class="align-middle">部門</td>
+                        <td class="align-middle">department</td>
                         <td class="align-middle">{{ isset($user->department) && $user->department?$user->department->name:'-' }}</td>
                         <td class="align-middle">{{ isset($user->department) && $user->department?$user->role($user->department)->name:'-' }}</td>
                     </tr>
                     @foreach ($user->projects as $project)
                     <tr>
-                        <td class="align-middle">專案</td>
+                        <td class="align-middle">project</td>
                         <td class="align-middle">{{ isset($project->name)?$project->name:'-' }}</td>
                         <td class="align-middle">{{ isset($project->name)?$user->role($project)->name:'-' }}</td>
                     </tr>
@@ -167,7 +167,7 @@
         </div>
     </div>
     <div class="row justify-content-center pb-4 pt-4">
-        <h4 class="col-md-10">紛絲人數・{{ count($user->follower) }}
+        <h4 class="col-md-10">Number of people ・{{ count($user->follower) }}
             <hr class="u-mt-8">
         </h4>
         <div class="col-md-10 text-center">
@@ -177,7 +177,7 @@
         </div>
     </div>
 </div>
-{{-- 重設密碼modal --}}
+{{-- Reset the password MODAL --}}
 <div class="modal fade " id="resetPassword" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered modal-md" role="document">
         <div class="modal-content">
@@ -189,18 +189,18 @@
             <div class="modal-body">
                 <div class="row pb-4">
                     <div class="col-12 text-center font-weight-bold">
-                        <h5>變更密碼</h5>
+                        <h5>Change password</h5>
                     </div>
                 </div>
                 <form method="POST" action="{{ route('user.resetPassword') }}" enctype="multipart/form-data">
                     @csrf
-                    {{-- 舊密碼 --}}
+                    {{-- Old Password --}}
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label class="text-primary" for="current_password">現在密碼<strong class="invalid-feedback"></strong></label>
+                                <label class="text-primary" for="current_password">Now password<strong class="invalid-feedback"></strong></label>
                                 <input type="password" class="form-control {{ $errors->has('current_password') ? ' is-invalid' : '' }}"
-                                    id="current_password" name="current_password" placeholder="請輸入現在密碼">
+                                    id="current_password" name="current_password" placeholder="Please enter the current password">
                                 @if ($errors->has('current_password'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('current_password') }}</strong>
@@ -209,13 +209,13 @@
                             </div>
                         </div>
                     </div>
-                    {{-- 新設密碼 --}}
+                    {{-- New password --}}
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label class="text-primary" for="password">新設密碼<strong class="invalid-feedback"></strong></label>
+                                <label class="text-primary" for="password">New password<strong class="invalid-feedback"></strong></label>
                                 <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}"
-                                    id="password" name="password" placeholder="請輸入新設密碼">
+                                    id="password" name="password" placeholder="Please enter the new password">
                                 @if ($errors->has('password'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('password') }}</strong>
@@ -224,13 +224,13 @@
                             </div>
                         </div>
                     </div>
-                    {{-- 新設密碼 --}}
+                    {{-- New password --}}
                     <div class="row">
                         <div class="col-12">
                             <div class="form-group">
-                                <label class="text-primary" for="password_confirmation">新設密碼確認<strong class="invalid-feedback"></strong></label>
+                                <label class="text-primary" for="password_confirmation">New password confirmation<strong class="invalid-feedback"></strong></label>
                                 <input type="password" class="form-control {{ $errors->has('password_confirmation') ? ' is-invalid' : '' }}"
-                                    id="password_confirmation" name="password_confirmation" placeholder="請確認新設密碼">
+                                    id="password_confirmation" name="password_confirmation" placeholder="Please confirm the new password">
                                 @if ($errors->has('password_confirmation'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('password_confirmation') }}</strong>
@@ -240,10 +240,10 @@
                         </div>
                     </div>
 
-                    {{-- 建立按鈕 --}}
+                    {{-- Create button --}}
                     <div class="form-row u-mt-16 u-mb-32 justify-content-end">
                         <div class="form-group">
-                            <button class="btn btn-primary" type="submit">變更</button>
+                            <button class="btn btn-primary" type="submit">change</button>
                         </div>
                     </div>
                 </form>
