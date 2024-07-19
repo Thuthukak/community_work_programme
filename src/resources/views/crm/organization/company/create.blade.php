@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="row u-margin-16 u-mt-32 u-ml-32">
-                    <div class="col-md-12"><h5>建立新的組織?</h5></div>
+                    <div class="col-md-12"><h5>Establish a new organization?</h5></div>
                 </div>
                 <form method="POST" action="{{ route('company.store') }}" enctype="multipart/form-data">
                     @csrf
@@ -18,7 +18,7 @@
                             </div>
                             <div class="form-group u-ml-16 w-25" style="display:inline-block">
                                 <label for="company_name">組織名稱<strong class="invalid-feedback"></strong></label>
-                                <input type="text" name="company_name" id="company_name" value="" placeholder="請輸入組織名稱" class="form-control {{ $errors->has('company_name') ? ' is-invalid' : '' }}" required>
+                                <input type="text" name="company_name" id="company_name" value="" placeholder="Organization Name" class="form-control {{ $errors->has('company_name') ? ' is-invalid' : '' }}" required>
                             </div>
                         </div>
                     </div>

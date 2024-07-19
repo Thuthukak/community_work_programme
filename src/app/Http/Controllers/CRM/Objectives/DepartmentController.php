@@ -4,13 +4,13 @@ namespace App\Http\Controllers\CRM\Objectives;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Company;
-use App\Department;
-use App\Objective;
+use App\Models\CRM\Company\Company;
+// use App\Department;
+use App\Models\CRM\Objective\Objective;
 use App\Http\Requests\ObjectiveRequest;
-use App\Charts\SampleChart;
+// use App\Charts\SampleChart;
 use App\Models\Core\Auth\User;
-use App\Permission;
+// use App\Permission;
 use Notification;
 use App\Notifications\DepartmentNotification;
 

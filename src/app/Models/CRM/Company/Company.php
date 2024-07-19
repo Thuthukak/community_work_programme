@@ -10,6 +10,7 @@ use App\Models\CRM\Objective\traits\HasObjectiveTrait;
 use App\Models\CRM\Avatar\traits\HasAvatarTrait;
 use App\Models\CRM\Follow\traits\HasFollowTrait;
 use App\Interfaces\HasObjectiveInterface;
+use App\Models\Core\Auth\User;
 use App\Interfaces\HasInvitationInterface;
 // use App\Traits\HasInvitationTrait;
 // use App\Traits\HasPermissionTrait;
@@ -35,7 +36,7 @@ class Company extends Model implements HasObjectiveInterface, HasInvitationInter
 
     public function projects()
     {
-        return $this->hasMany(Project::class);
+        return $this->hasMany(App\Models\ProjectManagement\Projects\Project::class);
     }
 
     public function getOKrRoute()

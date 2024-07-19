@@ -5,17 +5,17 @@ namespace App\Http\Controllers\CRM\Objectives;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CompanyRequest;
-use App\Company;
+use App\Models\CRM\Company\Company;
 use App\Models\Core\Auth\User;
-use App\Objective;
-use App\Charts\SampleChart;
-use App\Http\Requests\ObjectiveRequest;
-use App\Department;
-use App\Project;
-use App\Permission;
-use App\Follow;
+use App\Models\CRM\Objective\Objective;
+// use App\Charts\SampleChart;
+use App\Http\Requests\CRM\Objectives\ObjectiveRequest;
+use App\Models\ProjectManagement\Projects\Project;
+// use App\Permission;
+use App\Http\Controllers\Controller;
+use App\Models\CRM\Follow\Follow;
 use Notification;
-use App\Notifications\DepartmentNotification;
+// use App\Notifications\DepartmentNotification;
 use Aws\Api\Validator;
 
 class CompanyController extends Controller
@@ -50,7 +50,7 @@ class CompanyController extends Controller
             'order' => $request->input('order', ''),
         ];
 
-        return view('organization.company.okr', $data);
+        return view('crm.organization.company.okr', $data);
     }
 
     public function storeObjective(ObjectiveRequest $request, Company $company)
@@ -68,7 +68,6 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
-        dd($request);
         $company = Company::where('id', auth()->user()->company_id)->first();
         $company['okrs'] = $company ? $company->getOkrsWithPage($request)['okrs'] : null;
 
@@ -88,7 +87,7 @@ class CompanyController extends Controller
 
        
 
-        return view('organization.index', $data);
+        return view('crm.organization.index', $data);
     }
 
     /**

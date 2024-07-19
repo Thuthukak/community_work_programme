@@ -16,7 +16,7 @@ class KeyResultRecord extends Model
 
     public function keyresult()
     {
-        return $this->belongsTo('App\KeyResult', 'key_results_id');
+        return $this->belongsTo('App\Models\CRM\KeyResult\KeyResult', 'key_results_id');
     }
 
     public function accomplishRate()

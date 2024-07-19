@@ -5,7 +5,7 @@
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            <strong>警告！</strong> 請修正以下表單錯誤：
+            <strong>warning!</strong> Please fix the following form error:
             <ul>
                 @foreach($errors->all() as $error)
                     <li>{{ $error }}</li>

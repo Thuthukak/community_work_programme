@@ -4,6 +4,7 @@ namespace App\Models\CRM\KeyResult;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\CRM\Objective\Objective;
 
 class KeyResult extends Model
 {
@@ -23,17 +24,17 @@ class KeyResult extends Model
 
     public function objective()
     {
-        return $this->belongsTo('App\Objective');
+        return $this->belongsTo(Objective::class);
     }
 
     public function keyResultRecords()
     {
-        return $this->hasMany(KeyResultRecord::class);
+        return $this->hasMany(App\Models\CRM\KeyResultRecord\KeyResultRecord::class);
     }
 
     public function actions()
     {
-        return $this->hasMany(Action::class);
+        return $this->hasMany(App\Models\CRM\Action\Action::class);
     }
 
     public function color()

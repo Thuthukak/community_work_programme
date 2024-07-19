@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Requests\CRM\Objectives;
+
 use Illuminate\Foundation\Http\FormRequest;
 use \Illuminate\Validation\Validator;
 

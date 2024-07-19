@@ -4,10 +4,10 @@ namespace App\Http\Controllers\CRM\Objectives;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Company;
+use App\Models\CRM\company\Company;
 use App\Models\Core\Auth\User;
-use App\Objective;
-use App\Charts\SampleChart;
+use App\Models\CRM\Objective\Objective;
+// use App\Charts\SampleChart;
 
 class SearchController extends Controller
 {

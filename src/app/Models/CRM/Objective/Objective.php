@@ -5,9 +5,10 @@ namespace App\Models\CRM\Objective;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 // use Laravelista\Comments\Commentable;
-use App\Charts\SampleChart;
+// use App\Charts\SampleChart;
 use App\Interfaces\HasNotifiableInterface;
 use App\Models\CRM\Organization\Organization;
+use App\Models\CRM\KeyResult\KeyResult;
 
 
 class Objective extends Model implements HasNotifiableInterface
@@ -37,29 +38,29 @@ class Objective extends Model implements HasNotifiableInterface
 
     public function actions()
     {
-        return $this->hasManyThrough('App\Action', 'App\KeyResult', 'objective_id', 'related_kr');
+        return $this->hasManyThrough('App\Models\CRM\Action\Action', 'App\Models\CRM\KeyResult\KeyResult', 'objective_id', 'related_kr');
     }
 
     public function keyResultRecords()
     {
-        return $this->hasManyThrough('App\KeyResultRecord', 'App\KeyResult', 'objective_id', 'key_results_id');
+        return $this->hasManyThrough('App\Models\CRM\KeyResultRecord\KeyResultRecord', 'App\Models\CRM\KeyResult\KeyResult', 'objective_id', 'key_results_id');
     }
 
-    public function getChart()
-    {
-        $datas = $this->getRelatedKrRecord();
-        $chart = new SampleChart;
-        if (!$datas) {
-            $chart->labels([0]);
-            $chart->dataset('None', 'line', [0]);
-        }
-        $chart->title('Kr Achievement Rate Change Chart', 22, '#216869', true, "'Helvetica Neue','Helvetica','Arial',sans-serif");
-        foreach ($datas as $data) {
-            $chart->labels($data['update']);
-            $chart->dataset($data['kr_id'], 'line', $data['accomplish']);
-        }
-        return $chart;
-    }
+    // public function getChart()
+    // {
+    //     $datas = $this->getRelatedKrRecord();
+    //     $chart = new SampleChart;
+    //     if (!$datas) {
+    //         $chart->labels([0]);
+    //         $chart->dataset('None', 'line', [0]);
+    //     }
+    //     $chart->title('Kr Achievement Rate Change Chart', 22, '#216869', true, "'Helvetica Neue','Helvetica','Arial',sans-serif");
+    //     foreach ($datas as $data) {
+    //         $chart->labels($data['update']);
+    //         $chart->dataset($data['kr_id'], 'line', $data['accomplish']);
+    //     }
+    //     return $chart;
+    // }
     public function getRelatedKrRecord()
     {
         //宣告

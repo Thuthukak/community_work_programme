@@ -12,7 +12,7 @@ class Priority extends Model
     ];
     public function actions()
     {
-        return $this->hasMany(Action::class);
+        return $this->hasMany(App\Models\CRM\Action\Action::class);
     }
 }
 
