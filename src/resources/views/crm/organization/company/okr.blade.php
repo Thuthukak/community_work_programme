@@ -3,17 +3,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.css">
 
-@section('script')
-<script src="{{ asset('js/avatar.js') }}" defer></script>
-<script src="{{ asset('js/tooltip.js') }}" defer></script>
-<script src="{{ asset('js/circle-progress.min.js') }}" defer></script>
-<script src="{{ asset('js/circleProgress.js') }}" defer></script>
-<script src="{{ asset('js/editbtn.js') }}" defer></script>
-{{-- Chartjs --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
-<script src="{{ asset('js/chart.js') }}" defer></script>
-<script src="{{ asset('js/okr.js') }}" defer></script>
-@endsection
+
 @section('title','Objective')
 @section('contents')
 <div class="container">
@@ -34,33 +24,34 @@
         <div class="row m-3 pt-4 justify-content-center">
             <div class="col-auto">{{ $pageInfo['link'] }}</div>
             <div class="col-auto mb-2">
-                <form action="{{ $company->getOKrRoute() }}" class="form-inline search-form">
-                    <input autocomplete="off" class="form-control input-sm" name="st_date" id="filter_started_at" value=""
-                        placeholder="起始日">
-                    <input autocomplete="off" class="form-control input-sm ml-md-2" name="fin_date" id="filter_finished_at"
-                        value="" placeholder="結算日">
-                    <select name="order" class="form-control input-sm mr-md-2 ml-md-2">
-                        <option value="">排序方式</option>
-                        <option value="started_at_asc">起始日由近到遠</option>
-                        <option value="started_at_desc">起始日由遠到近</option>
-                        <option value="finished_at_asc">完成日由近到遠</option>
-                        <option value="finished_at_desc">完成日由遠到近</option>
-                        <option value="updated_at_asc">最近更新由近到遠</option>
-                        <option value="updated_at_desc">最近更新由遠到近</option>
-                    </select>
-                    <button class="btn btn-primary">篩選</button>
-                </form>
+            <form action="{{ $company->getOKrRoute() }}" class="form-inline search-form">
+                <input autocomplete="off" class="form-control input-sm" name="st_date" id="filter_started_at" value=""
+                    placeholder="Start date">
+                <input autocomplete="off" class="form-control input-sm ml-md-2" name="fin_date" id="filter_finished_at"
+                    value="" placeholder="Settlement date">
+                <select name="order" class="form-control input-sm mr-md-2 ml-md-2">
+                    <option value="">Sort by</option>
+                    <option value="started_at_asc">Start date, earliest to latest</option>
+                    <option value="started_at_desc">Start date, latest to earliest</option>
+                    <option value="finished_at_asc">Finish date, earliest to latest</option>
+                    <option value="finished_at_desc">Finish date, latest to earliest</option>
+                    <option value="updated_at_asc">Recently updated, earliest to latest</option>
+                    <option value="updated_at_desc">Recently updated, latest to earliest</option>
+                </select>
+                <button class="btn btn-primary">Filter</button>
+            </form>
+
             </div>
         </div>
         @if ($company->okrs)
             @foreach($company->okrs as $okr)
-                @include('okrs.okr', ['okr' => $okr, 'owner'=>$company])
+                @include('crm.okrs.okr', ['okr' => $okr, 'owner'=>$company])
             @endforeach
         @else
             <div id="dragCard" class="row justify-content-md-center u-mt-16">
                 <div class="alert alert-warning alert-dismissible fade show u-mt-32" role="alert">
                     <strong><i class="fas fa-exclamation-circle pl-2 pr-2"></i></strong>
-                    當前期間尚未建立OKR !!
+                    No OKRs have been established for the current period !!
                 </div>
             </div>
         @endif

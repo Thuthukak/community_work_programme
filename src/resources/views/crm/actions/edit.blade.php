@@ -1,18 +1,18 @@
-@extends('layouts.master')
+@extends('layouts.crm')
 @section('title','Edit Action')
-@section('content')
+@section('contents')
 <div class="container">
     <div class="row mb-2">
         <div class="col">
-            <a href="{{url()->previous()}}" class="text-black-50"><i class="fas fa-chevron-left"></i> 返回</a>
+            <a href="{{url()->previous()}}" class="text-black-50"><i class="fas fa-chevron-left"></i> return</a>
         </div>
     </div>
     <div class="row justify-content-center mt-4 mb-4">
         <div class="col-md-10 col-12">
-            <h4>編輯 Action</h4>
+            <h4>edit Action</h4>
         </div>
     </div>
-    @include('actions.error',[$errors])
+    @include('crm.actions.error',[$errors])
     <div class="row justify-content-center">
         <div class="col-md-10 col-12">
             @foreach($actions as $action)

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\CRM\Objectives;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Core\Auth\User;
-use App\Objective;
+use App\Models\CRM\Objective\Objective;
 
 class ObjectiveController extends Controller
 {

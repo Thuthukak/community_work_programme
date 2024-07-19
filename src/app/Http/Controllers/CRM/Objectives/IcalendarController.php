@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\CRM\Objectives;
 
 
-use App\Action;
+use App\Models\CRM\Action\Action;
 use App\Http\Controllers\Controller;
 use App\Models\Core\Auth\User;
-use App\Activity;
-use App\Objective;
+use App\Models\CRM\Activity\Activity;
+use App\Models\CRM\Objective\Objective;
 use Illuminate\Http\Request;
 
 class IcalendarController extends Controller

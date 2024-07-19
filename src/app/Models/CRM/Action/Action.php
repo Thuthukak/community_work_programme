@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 // use Laravelista\Comments\Commentable;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
+use App\Models\Core\Auth\User;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\Models\Media;
 use App\Interfaces\HasNotifiableInterface;
 use App\Interfaces\HasInvitationInterface;
@@ -16,7 +17,7 @@ use App\Models\CRM\Avatar\traits\HasAvatarTrait;
 
 class Action extends Model implements HasMedia, HasNotifiableInterface, HasInvitationInterface
 {
-    use  HasMediaTrait, HasAvatarTrait;
+    use  InteractsWithMedia, HasAvatarTrait;
 
     protected $fillable = [
         'user_id',

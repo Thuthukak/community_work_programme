@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.crm')
 @section('title','個人行事曆')
 
 @section('script')
@@ -35,12 +35,12 @@
         @endif
     </div>
     <select class="btn btn-primary mb-2" id="school_selector">
-        <option class="btn-light" value="all">全部 All</option>
-        <option class="btn-light" value="1">目標 Objective</option>
-        <option class="btn-light" value="2">作為 Action</option>
-        <option class="btn-light" value="3">行程 Activity</option>
+        <option class="btn-light" value="all">All</option>
+        <option class="btn-light" value="1">Objective</option>
+        <option class="btn-light" value="2">Action</option>
+        <option class="btn-light" value="3">Activity</option>
     </select>
-    <button id="copyBT" class="btn btn-secondary mb-2 btn-sm">複製ical日曆網址</button>
+    <button id="copyBT" class="btn btn-secondary mb-2 btn-sm">Copy the ical calendar website</button>
     <a id="icalcontent" href="{{route('calendar.ical')}}">{{route('calendar.ical')}}</a>
    
     <div id="calendar" data-uid="{{auth()->user()->id}}"></div>
@@ -50,40 +50,40 @@
             <div class="modal-dialog modal-dialog-centered modal-md" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">新增行程</h5>
+                        <h5 class="modal-title">New itinerary</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div class="form-group col-md-12">
-                            <label for="title">內容</label>
-                            <input type="text" class="form-control" name="title" id="title" placehoder="輸入行程" required>
+                            <label for="title">content</label>
+                            <input type="text" class="form-control" name="title" id="title" placehoder="Input stroke" required>
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="started_at">起始日</label>
+                            <label for="started_at">Starting day</label>
                             <input autocomplete="off" class="form-control" name="st_date" id="started_at">
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="st_time">起始時間</label>
+                            <label for="st_time">Start time</label>
                             <input type="time" class="form-control" name="st_time" id="st_time">
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="finished_at">完成日</label>
+                            <label for="finished_at">Completion date</label>
                             <input autocomplete="off" class="form-control" name="fin_date" id="finished_at">
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="fin_time">完成時間</label>
+                            <label for="fin_time">Completion time</label>
                             <input type="time" class="form-control" name="fin_time" id="fin_time">
                         </div>
                         <div class="form-group col-md-12">
-                            <label for="color">選擇顏色</label>
-                            <input type="color" class="form-control" name="color" id="color" placehoder="選擇顏色" required>
+                            <label for="color">choose the color</label>
+                            <input type="color" class="form-control" name="color" id="color" placehoder="choose the color" required>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <div class="col-md-12 text-right">
-                            <button class="btn btn-primary " type="submit" name="submit">新增</button>
+                            <button class="btn btn-primary " type="submit" name="submit">Create</button>
                         </div>
                     </div>
                 </div>

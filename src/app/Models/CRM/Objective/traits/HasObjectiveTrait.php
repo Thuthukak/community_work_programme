@@ -111,7 +111,7 @@ trait HasObjectiveTrait
                 "objective" => $obj,
                 "keyresults" => $obj->keyresults,
                 "actions" => $obj->actions,
-                "chart" => $obj->getChart(),
+                // "chart" => $obj->getChart(),
             ];
         }
 

@@ -6,11 +6,11 @@ namespace App\Http\Controllers\CRM\Objectives;
 use MaddHatter\LaravelFullCalendar\Facades\Calendar;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\ActivityRequest;
+use App\Http\Requests\CRM\Objectives\ActivityRequest;
 use App\Models\Core\Auth\User;
-use App\Action;
-use App\Activity;
-use App\Objective;
+use App\Models\CRM\Action\Action;
+use App\Models\CRM\Activity\Activity;
+use App\Models\CRM\Objective\Objective;
 use Carbon\Carbon;
 
 class ActivityController extends Controller

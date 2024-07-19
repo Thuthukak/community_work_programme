@@ -5,13 +5,13 @@ namespace App\Http\Controllers\CRM\Objectives;
 use Storage;
 use App\Http\Controllers\Controller;
 use App\Models\Core\Auth\User;
-use App\Action;
-use App\Objective;
-use App\KeyResult;
-use App\Priority;
+use App\Models\CRM\Action\Action;
+use App\Models\CRM\Objective\Objective;
+use App\Models\CRM\KeyResult\KeyResult;
+use App\Models\CRM\Priority\Priority;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use App\Http\Requests\ActionRequest;
+use App\Http\Requests\CRM\Objectives\ActionRequest;
 use Spatie\MediaLibrary\Models\Media;
 
 class ActionsController extends Controller
@@ -28,6 +28,8 @@ class ActionsController extends Controller
 
     public function create(Objective $objective)
     {
+
+        // dd($objective);
         $this->authorize('storeObjective', $objective->model);
 
         $priorities = Priority::all();
@@ -40,7 +42,7 @@ class ActionsController extends Controller
             'keyresults' => $keyresults,
             'priorities' => $priorities,
         ];
-        return view('actions.create', $data);
+        return view('crm.actions.create', $data);
     }
 
     public function store(ActionRequest $request)
@@ -82,7 +84,7 @@ class ActionsController extends Controller
             'files' => $files,
         ];
 
-        return view('actions.show', $data);
+        return view('crm.actions.show', $data);
     }
 
     public function edit(Action $action)
@@ -108,7 +110,7 @@ class ActionsController extends Controller
             'files' => $files,
             'priorities' => $priorities,
         ];
-        return view('actions.edit', $data);
+        return view('crm.actions.edit', $data);
     }
 
     public function update(ActionRequest $request, Action $action)
