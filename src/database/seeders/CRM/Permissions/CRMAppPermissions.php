@@ -206,7 +206,32 @@ return [
     [
         'name' => 'view_projects',
         'type_id' => $crmId,
-        'group_name' => 'deals'
+        'group_name' => 'projects'
+    ],
+    [
+        'name' => 'create_projects',
+        'type_id' => $crmId,
+        'group_name' => 'projects'
+    ], [
+        'name' => 'update_projects',
+        'type_id' => $crmId,
+        'group_name' => 'projects'
+    ], [
+        'name' => 'delete_projects',
+        'type_id' => $crmId,
+        'group_name' => 'projects'
+    ], [
+        'name' => 'view_projects_issue',
+        'type_id' => $crmId,
+        'group_name' => 'projects'
+    ], [
+        'name' => 'view_projects_tasks',
+        'type_id' => $crmId,
+        'group_name' => 'projects'
+    ], [
+        'name' => 'view_projects_comments',
+        'type_id' => $crmId,
+        'group_name' => 'projects'
     ],
 
 

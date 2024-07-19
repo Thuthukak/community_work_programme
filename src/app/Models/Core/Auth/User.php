@@ -15,6 +15,9 @@ use Illuminate\Contracts\Translation\HasLocalePreference;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Activitylog\Traits\CausesActivity;
 use Spatie\Activitylog\Traits\LogsActivity;
+use App\Models\CRM\Objective\traits\HasObjectiveTrait;
+use App\Models\CRM\Avatar\traits\HasAvatarTrait;
+use App\Interfaces\HasObjectiveInterface;
 
 class User extends BaseUser implements HasLocalePreference
 {
@@ -33,8 +36,10 @@ class User extends BaseUser implements HasLocalePreference
         Eventually,
         Notifiable,
         CausesActivity,
-        UserStatus;
-
+        UserStatus, 
+        HasObjectiveTrait, 
+        HasAvatarTrait;
+        
     public function preferredLocale()
     {
         return app()->getLocale() ?? 'en';

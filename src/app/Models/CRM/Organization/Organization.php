@@ -12,6 +12,8 @@ use App\Models\CRM\Organization\Traits\OrganizationRelationshipsTrait;
 use App\Models\CRM\Organization\Traits\Rules\OrganizationRules;
 use App\Models\CRM\Traits\OpenClosedDealsTrait;
 use Illuminate\Database\Eloquent\Builder;
+use App\Interfaces\HasObjectiveInterface;
+use App\Models\CRM\Objective\traits\HasObjectiveTrait;
 
 class Organization extends BaseModel
 {
@@ -21,6 +23,7 @@ class Organization extends BaseModel
     use OrganizationRelationshipsTrait,
         OrganizationRules,
         // OpenClosedDealsTrait,
+        HasObjectiveTrait,
         DescriptionGeneratorTrait;
 
 

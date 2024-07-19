@@ -64,7 +64,8 @@ class AddRowInsertToRolePermissionRoleTable extends Migration
                         'stages',
                         'custom_fields',
                         'discussions',
-                        'notifications'
+                        'notifications',
+                        'projects'
                     ])->get();
 
                 $agentPermission = Permission::whereIn('name', [
@@ -92,6 +93,7 @@ class AddRowInsertToRolePermissionRoleTable extends Migration
                         'view_organizations',
                         'view_deals',
                         'view_proposals',
+                        'view_projects',
                         'view_pipelines',
                         'user_info_lead',
                         'view_discussions',
