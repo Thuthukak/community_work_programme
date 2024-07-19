@@ -4,10 +4,10 @@ namespace App\Http\Controllers\CRM\Objectives;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CRM\Objectives\KeyResultRequest;
-use App\Models\CRM\KeyResult\KeyResult;
+use App\Http\Requests\KeyResultRequest;
+use App\KeyResult;
 use App\Models\Core\Auth\User;
-use App\Models\CRM\Objective\Objective;
+use App\Objective;
 
 class KrController extends Controller
 {

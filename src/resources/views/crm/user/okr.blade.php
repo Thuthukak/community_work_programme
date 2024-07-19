@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.crm')
 @section('title','個人OKR')
 @section('script')
 <script src="{{ asset('js/okr.js') }}" defer></script>
