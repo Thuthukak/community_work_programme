@@ -6,7 +6,7 @@
 @section('contents')
 <div class="container">
     @include('crm.organization.company.show')
-    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+    <ul class="nav nav-tabs justify-content-flex-start" style="margin-left: -100px" id="myTab" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="okr-tab" data-toggle="tab" href="#okr" role="tab" aria-controls="okr"
                 aria-selected="false">OKRs</a>
@@ -14,7 +14,6 @@
     </ul>
     <div class="tab-pane fade show pl-sm-4 pr-sm-4">
         <div class="row m-3 pt-4 justify-content-center">
-            <div class="col-auto">{{ $pageInfo['link'] }}</div>
             <div class="col-auto mb-2">
             <form action="{{ $company->getOKrRoute() }}" class="form-inline search-form">
                 <input autocomplete="off" class="form-control input-sm" name="st_date" id="filter_started_at" value=""
@@ -30,7 +29,7 @@
                     <option value="updated_at_asc">Recently updated, earliest to latest</option>
                     <option value="updated_at_desc">Recently updated, latest to earliest</option>
                 </select>
-                <button class="btn btn-primary">Filter</button>
+                <button class="btn btn-info">Filter</button>
             </form>
             </div>
         </div>
