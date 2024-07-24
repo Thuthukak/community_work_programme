@@ -22,6 +22,7 @@ use Database\Seeders\CRM\priorities\PrioritiesTableSeeder;
 use Database\Seeders\CRM\Activity\ActivityTypesTableSeeder;
 use Database\Seeders\CRM\Contact\PhoneEmailTypeSeeder;
 use Database\Seeders\CRM\Template\TemplateTableSeeder;
+use Database\Seeders\CRM\Companies\CompaniesTableSeeder;
 use Database\Seeders\CRM\Country\CountrySeeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
@@ -37,30 +38,31 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
         $this->disableForeignKeys();
-        $this->call(PrioritiesTableSeeder::class);
-        $this->call(StatusSeeder::class);
-        $this->call(TypeSeeder::class);
-        $this->call(UserTableSeeder::class);
-        $this->call(PermissionTableSeeder::class);
-        $this->call(PermissionRoleTableSeeder::class);
-        $this->call(UserRoleTableSeeder::class);
-        $this->call(SettingTableSeeder::class);
-        $this->call(CustomFieldTypeSeeder::class);
-        $this->call(NotificationChannelTableSeeder::class);
-        $this->call(NotificationEventTableSeeder::class);
-        $this->call(NotificationSettingsSeeder::class);
-        $this->call(NotificationTemplateSeeder::class);
+        $this->call(CompaniesTableSeeder::class);
+        // $this->call(PrioritiesTableSeeder::class);
+        // $this->call(StatusSeeder::class);
+        // $this->call(TypeSeeder::class);
+        // $this->call(UserTableSeeder::class);
+        // $this->call(PermissionTableSeeder::class);
+        // $this->call(PermissionRoleTableSeeder::class);
+        // $this->call(UserRoleTableSeeder::class);
+        // $this->call(SettingTableSeeder::class);
+        // $this->call(CustomFieldTypeSeeder::class);
+        // $this->call(NotificationChannelTableSeeder::class);
+        // $this->call(NotificationEventTableSeeder::class);
+        // $this->call(NotificationSettingsSeeder::class);
+        // $this->call(NotificationTemplateSeeder::class);
 
-        // /*
-        //  * CRM Seeders
-        // */
-        $this->call(DefaultStagesTableSeeder::class);
-        $this->call(LostReasonsTableSeeder::class);
-        $this->call(ContactTypesTableSeeder::class);
-        $this->call(ActivityTypesTableSeeder::class);
-        $this->call(PhoneEmailTypeSeeder::class);
-        $this->call(TemplateTableSeeder::class);
-        $this->call(CountrySeeder::class);
+        // // /*
+        // //  * CRM Seeders
+        // // */
+        // $this->call(DefaultStagesTableSeeder::class);
+        // $this->call(LostReasonsTableSeeder::class);
+        // $this->call(ContactTypesTableSeeder::class);
+        // $this->call(ActivityTypesTableSeeder::class);
+        // $this->call(PhoneEmailTypeSeeder::class);
+        // $this->call(TemplateTableSeeder::class);
+        // $this->call(CountrySeeder::class);
         $this->enableForeignKeys();
         Model::reguard();
     }

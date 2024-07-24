@@ -87,7 +87,7 @@
         document.querySelectorAll('.add-action-btn').forEach(function(button) {
         button.addEventListener('click', function() {
         var objectiveId = this.getAttribute('data-id');
-        var url = `{{ route('actions.create', ':id') }}`.replace(':id', objectiveId);
+        var url = `{{ url('objective') }}/${objectiveId}/action/create`;
 
         console.log(objectiveId);
         console.log(url);
@@ -106,7 +106,6 @@
             return response.json();
         })
         .then(data => {
-
             console.log('Fetched Data:', data); // Debugging line
 
             document.querySelector('#createActionForm').reset();
@@ -148,6 +147,7 @@
         });
     });
 });
+
 
 
 
