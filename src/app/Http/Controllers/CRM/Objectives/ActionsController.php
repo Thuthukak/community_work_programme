@@ -9,10 +9,17 @@ use App\Models\CRM\Action\Action;
 use App\Models\CRM\Objective\Objective;
 use App\Models\CRM\KeyResult\KeyResult;
 use App\Models\CRM\Priority\Priority;
+
+use App\Models\ProjectManagement\Projects\Project;
+use App\Models\CRM\Pipeline\Pipeline;
+use  App\Models\CRM\Proposal\Proposal;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\CRM\Objectives\ActionRequest;
 use Spatie\MediaLibrary\Models\Media;
+
+use Log;
 
 class ActionsController extends Controller
 {
@@ -23,30 +30,140 @@ class ActionsController extends Controller
 
     public function index()
     {
+        $actions = Action::all();
 
+        $data = [
+         
+            'actions' => $actions,
+         ];
+    
+        return view('crm.actions.index', $data);
     }
 
-    public function create(Objective $objective)
+
+    public function create($objective)
+    {
+        try {
+            // Ensure the objective exists
+            $objectiveExists = Objective::find($objective);
+            if (!$objectiveExists) {
+                return response()->json(['error' => 'Objective not found.'], 404);
+            }
+    
+            $priorities = Priority::all();
+            $keyresults = KeyResult::where('objective_id', $objective)->get();
+    
+            // Debugging lines
+            Log::info('Priorities:', $priorities->toArray());
+            Log::info('Key Results:', $keyresults->toArray());
+    
+            $data = [
+                'objective' => $objective,
+                'keyresults' => $keyresults,
+                'priorities' => $priorities,
+            ];
+    
+            return response()->json($data);
+        } catch (\Exception $e) {
+            Log::error('Error in create method:', ['exception' => $e]);
+            return response()->json([
+                'error' => 'An unexpected error occurred.'
+            ], 500);
+        }
+    }
+    
+
+    public  function get()
     {
 
-        // dd($objective);
-        $this->authorize('storeObjective', $objective->model);
-
-        $priorities = Priority::all();
-        $user = User::where('id', '=', auth()->user()->id)->first();
-        $keyresults = KeyResult::where('objective_id', '=', $objective->id)->get();
-        if ($keyresults->toArray() == null) return redirect()->route('user.okr', auth()->user()->id);
-        $data = [
-            'owner' => $user,
-            'objective' => $objective,
-            'keyresults' => $keyresults,
-            'priorities' => $priorities,
-        ];
-        return view('crm.actions.create', $data);
+        try {
+            $objectives = Objective::all();
+            $priorities = Priority::all();
+    
+            $data = [
+                'objectives' => $objectives,
+                'priorities' => $priorities,
+            ];
+    
+            return response()->json($data);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        
     }
+    }
+
+
+
+    public function listActions()
+    {
+        $actions = Action::all();
+
+        $this->authorize('view', $actions);
+
+        $okrsWithPage = $company->getOkrsWithPage($request);
+        $company['okrs'] = $okrsWithPage['okrs'];
+
+        $data = [
+            'user' => auth()->user(),
+            'company' => $company,
+            'pageInfo' => $okrsWithPage['pageInfo'],
+            'order' => $request->input('order', ''),
+        ];
+
+        return view('crm.actions.index', $data);
+    }
+    
+    
+
+    // fetch related entity for action selected 
+
+    public function getModels(Request $request ,$actionOn)
+    {
+        try {
+            // Fetch models based on the actionOn value
+            $models = [];
+
+          
+                if ($actionOn == 'Project') {
+                    $models = Project::all(); // Fetch all projects
+                } elseif ($actionOn == 'Onboarding') {
+                    $models = Pipeline::all(); // Fetch all pipelines
+                } elseif ($actionOn == 'Proposal') {
+                    $models = Proposal::all(); // Fetch all proposals
+                } else {
+                    $models = [];
+                }
+            
+                // Return the models as JSON along with the actionOn
+                return response()->json([
+                    'models' => $models,
+                ]);
+            
+                } catch (\Exception $e) {
+            \Log::error("Error fetching models: " . $e->getMessage());
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    
+
+    // fetch related key results  for Objective selected 
+
+    public function getKeyResults($id)
+    {
+        try {
+            $keyResults = KeyResult::where('objective_id', $id)->get();
+    
+            return response()->json($keyResults);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
+    }
+    
+
 
     public function store(ActionRequest $request)
     {
+
         $this->authorize('storeObjective', KeyResult::find($request->krs_id)->objective->model);
 
         $attr['user_id'] = auth()->user()->id;
@@ -56,8 +173,10 @@ class ActionsController extends Controller
         $attr['content'] = $request->input('act_content');
         $attr['started_at'] = $request->input('st_date');
         $attr['finished_at'] = $request->input('fin_date');
+       
 
         $action = Action::create($attr);
+
         if ($request->input('invite')) {
             $action->sendInvitation($request);
         }
@@ -65,14 +184,16 @@ class ActionsController extends Controller
             $action->addRelatedFiles();
         }
 
+        // dd($action->priority);
+
         $objective = $action->objective;
+
         return redirect()->to($objective->model->getOKrRoute() . '#oid-' . $objective->id);
     }
 
     public function show(Action $action)
     {
 
-        dd($action);
         $user = User::where('id', '=', auth()->user()->id)->first();
         $files = $action->getRelatedFiles();
         $obj = $action->objective;

@@ -89,7 +89,7 @@ class DepartmentController extends Controller
             $attr['parent_department_id'] = $matchs[1];
         }
         $attr['user_id'] = auth()->user()->id;
-        $attr['company_id'] = auth()->user()->company_id;
+        $attr['company_id'] = auth()->user()->id;
         $department = Department::create($attr);
         $department->addAvatar($request);
 

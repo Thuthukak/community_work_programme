@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Interfaces\HasNotifiableInterface;
 use App\Models\CRM\Organization\Organization;
 use App\Models\CRM\KeyResult\KeyResult;
+use App\Models\CRM\Action\Action;
 
 
 class Objective extends Model implements HasNotifiableInterface
@@ -38,7 +39,7 @@ class Objective extends Model implements HasNotifiableInterface
 
     public function actions()
     {
-        return $this->hasManyThrough('App\Models\CRM\Action\Action', 'App\Models\CRM\KeyResult\KeyResult', 'objective_id', 'related_kr');
+        return $this->hasManyThrough(Action::class , 'App\Models\CRM\KeyResult\KeyResult', 'objective_id', 'related_kr');
     }
 
     public function keyResultRecords()

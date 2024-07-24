@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 // use Laravelista\Comments\Commentable;
 use App\Models\Core\Auth\User;
+use App\Models\CRM\Priority\Priority;
+use App\Models\CRM\Objective\Objective;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\Models\Media;
@@ -28,6 +30,8 @@ class Action extends Model implements HasMedia, HasNotifiableInterface, HasInvit
         'content',
         'started_at',
         'finished_at',
+        'model_id',
+        'model_type',
     ];
     protected $touches = ['objective'];
 
@@ -41,9 +45,15 @@ class Action extends Model implements HasMedia, HasNotifiableInterface, HasInvit
         return $this->keyresult->belongsTo(Objective::class);
     }
 
+
+    public function getActionRoute()
+    {
+        return route('actions.action');
+    }
+
     public function keyresult()
     {
-        return $this->belongsTo('App\KeyResult', 'related_kr');
+        return $this->belongsTo('App\Models\CRM\KeyResult\KeyResult', 'related_kr');
     }
 
     public function getUpdatedAtAttribute($date)
@@ -53,7 +63,7 @@ class Action extends Model implements HasMedia, HasNotifiableInterface, HasInvit
 
     public function priority()
     {
-        return $this->belongsTo('App\Priority', 'priority');
+        return $this->belongsTo(Priority::class, 'priority');
     }
 
     public function addRelatedFiles()

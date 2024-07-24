@@ -28,6 +28,8 @@ class ActionRequest extends FormRequest
             'st_date' => 'required|date',
             'fin_date' => 'required|date|after:st_date',
             'act_content' => 'required',
+            'model_id' =>'required',
+            'model_type' => 'required',
         ];
     }
 
@@ -38,6 +40,7 @@ class ActionRequest extends FormRequest
             'st_date' => 'Start Date',
             'fin_date' => 'Finish Date',
             'act_content' => 'Content',
+            'model_id'  => 'Action To'
         ];
     }
     
