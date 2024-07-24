@@ -11,6 +11,9 @@ use App\Models\CRM\Organization\Organization;
 use App\Models\CRM\Objective\Objective;
 use App\Models\CRM\KeyResult\KeyResult;
 use App\Models\CRM\Company\Company;
+use App\Models\CRM\Pipeline\Pipeline;
+use App\Models\CRM\Proposal\Proposal;
+use App\Models\ProjectManagement\Projects\Project;
 use App\Models\CRM\KeyResultRecord\KeyResultRecord;
 use DB;
 class OkrController extends Controller
@@ -36,7 +39,13 @@ class OkrController extends Controller
 
         DB::enableQueryLog(); // Enable query log
 
-        $company = company::where('user_id', auth()->user()->id)->first();
+        $company = company::where('id', 1)->first();
+
+        $pipeline = Pipeline::all();
+        $projects = Project::all();
+        $proposals = Proposal::all();
+            //  dd($proposals);
+
 
                 // dd(DB::getQueryLog()); // Show results of log
 
@@ -56,6 +65,23 @@ class OkrController extends Controller
             'order' => $request->input('order', ''),
             'routeObjectiveStore' => $routeObjectiveStore,
         ];
+        
+        // dd($data);
+
+        $Apidata = [
+            'user' => auth()->user(),
+            'company' => $company,
+            'pageInfo' => $okrsWithPage['pageInfo'],
+            'st_date' => $request->input('st_date', ''),
+            'fin_date' => $request->input('fin_date', ''),
+            'order' => $request->input('order', ''),
+            'routeObjectiveStore' => $routeObjectiveStore,
+        ];
+
+        if (request()->ajax()) {
+
+            return response()->json($Apidata);
+        }
         // dd($data);
 
 

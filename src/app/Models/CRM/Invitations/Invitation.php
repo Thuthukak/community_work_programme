@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\CRM\Follow;
+namespace App\Models\CRM\Invitations;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Follow extends Model
+class Invitation extends Model
 {
     protected $fillable = [
         'model_type', 'model_id', 'user_id'
@@ -21,4 +21,3 @@ class Follow extends Model
         return $this->belongsTo(App\Models\Core\Auth\User::class);
     }
 }
-

@@ -11,7 +11,8 @@ use App\Models\Core\File\File;
 use App\Models\Core\Setting\Setting;
 use App\Models\Core\Traits\CreatedByRelationship;
 use App\Models\Core\Traits\StatusRelationship;
-
+use App\Models\CRM\Follow\Follow;
+use App\Models\CRM\Invitations\Invitation;
 /**
  * Class UserRelationship.
  */
@@ -64,5 +65,17 @@ trait UserRelationship
     {
         return $this->morphOne(File::class, 'fileable')
             ->whereType('profile_picture');
+    }
+
+
+
+    public function invitation()
+    {
+        return $this->hasMany(Invitation::class);
+    }
+
+    public function follow()
+    {
+        return $this->hasMany(Follow::class);
     }
 }

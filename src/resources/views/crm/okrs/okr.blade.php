@@ -275,12 +275,15 @@
             <div class="card-body">
                 @can('storeObjective', $owner)
                 @if($okr['keyresults']->toArray())
-                <a class="btn btn-success mb-3 w-100" href="{{ route('actions.create',$okr['objective']->id) }}"><i class="fa fa-plus fa-sm"></i>
-                    Action</a>
-                @else
+                
+                <button class="btn btn-warning btn-sm p-2 fa fa-plus fa-sm w-100 add-action-btn" data-id="{{  $okr['objective']->id }}" data-toggle="modal" data-target="#createActionModal">
+                    {{ trans('Action') }}
+                </button>
+               @else
                 <button type="button" class="btn btn-secondary w-100" disabled><i class="fa fa-lock fa-sm"></i> Please add Key Results first
                 (Key indicators)</button>
                 @endif
+               {{ $okr['actions']}}
                 @include('crm.okrs.listaction',$okr)
                 @endcan
             </div>
@@ -304,7 +307,97 @@
             </div>
         </div>
     </div>
+
+
+<!-- Modal -->
+<div id="createActionModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable" style="max-height: 100%;">
+        <!-- Modal content-->
+        <div class="modal-content" style="max-height: calc(100vh - 210px); overflow-y: auto;">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ __('Add Action') }}</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {!! Form::open(['route' => 'actions.store', 'method' => 'POST', 'class' => 'p-4', 'id' => 'createActionForm']) !!}
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="action_title">Action</label>
+                    <input type="text" class="form-control" name="act_title" id="action_title" required>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label for="priority">Priority</label>
+                    <select id="priority" class="form-control" name="priority" required>
+                        <option value="">Select Priority</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="started_at">Starting day</label>
+                    <input autocomplete="off" class="form-control" name="st_date" id="started_at" required>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="finished_at">Completion date</label>
+                    <input autocomplete="off" class="form-control" name="fin_date" id="finished_at" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="keyresult">Associated KR</label>
+                    <select class="form-control" name="krs_id" id="keyresult" required>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="action_on">Action On</label>
+                    <select id="action_on" class="form-control" name="action_on" required>
+                        <option value="">Onboarding</option>
+                        <option value="">Project</option>
+                        <option value="">Proposal</option>
+
+                    </select>
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="model">Target</label>
+                    <select id="model" class="form-control" name="model" required>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="action_content">Content</label>
+                    <textarea class="form-control" id="action_content" rows="7" name="act_content" style="resize: none;" required></textarea>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <label for="files">Upload Attachment</label>
+                    <input type="file" class="form-control-file" name="files[]" id="files" multiple>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-12 text-right">
+                    <button class="btn btn-primary" type="submit">Send out</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('app.cancel') }}</button>
+                </div>
+            </div>
+
+            {!! Form::close() !!}
+        </div>
+    </div>
 </div>
 
-
+</div>
 <br />
+
+

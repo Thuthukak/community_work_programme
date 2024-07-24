@@ -15,6 +15,10 @@ use App\Http\Controllers\ProjectManagement\IssueController as IssuesController;
 use App\Http\Controllers\ProjectManagement\Projects\TasksController;
 use App\Models\Core\Auth\User;
 use App\Http\Controllers\CRM\Objectives\OkrController;
+use App\Http\Controllers\CRM\Objectives\KrController;
+use App\Http\Controllers\CRM\Objectives\FollowController;
+use App\Http\Controllers\CRM\Objectives\CompanyController;
+use App\Http\Controllers\CRM\Objectives\ActionsController;
 use Illuminate\Support\Facades\Route;
 
 // Root route
@@ -248,86 +252,99 @@ Route::patch('issues/{issue}/options', [OptionController::class ,'update'])->nam
 
     # OKR
     // Delete Objective
-    Route::delete('objective/{objective}/destroy', 'ObjectiveController@destroy')->name('objective.destroy');
+    Route::delete('objective/{objective}/destroy', [ObjectiveController::class , 'destroy'])->name('objective.destroy');
 
     //view list okrs 
     Route::get('Objectives/', [OkrController::class ,'listOKR'])->name('iokr.list');
 
     // Edit OKR page
-    Route::get('okr/{objective}/edit', 'OkrController@edit')->name('okr.edit');
+    Route::get('okr/{objective}/edit', [OkrController::class , 'edit'])->name('okr.edit');
     // Update the modified OKR
-    Route::patch('okr/{objective}/update', 'OkrController@update')->name('okr.update');
+    Route::patch('okr/{objective}/update', [OkrController::class , 'update'])->name('okr.update');
     // Save Key Result
-    Route::post('kr/store', 'KrController@store')->name('kr.store');
+    Route::post('kr/store', [KrController::class , 'store'])->name('kr.store');
     // Delete Key Result
-    Route::delete('kr/{keyresult}/destroy', 'KrController@destroy')->name('kr.destroy');
+    Route::delete('kr/{keyresult}/destroy', [KrController::class , 'destroy'])->name('kr.destroy');
     // JSON API
-    Route::get('objective/{objective}/getArray', 'ObjectiveController@getArray')->name('objective.getArray');
+    Route::get('objective/{objective}/getArray', [ObjectiveController::class , 'getArray'])->name('objective.getArray');
 
 
 
-    # Action
+ # Action
+
+ // show list of actions 
+ Route::get('actions/models/{actionOn}', [ActionsController::class, 'getModels'])->name('actions.models');
+ //fecth related action 
+Route::get('/actions', [ActionsController::class , 'index'])->name('actions.index');
+
+//get objective and priorities for creating a n Action
+
+Route::get('/actions/get', [ActionsController::class, 'get'])->name('actions.get');
+
+//get key results 
+Route::get('/actions/keyresults/{id}', [ActionsController::class, 'getKeyResults'])->name('actions.keyresults');
+
 // Create Action page
-Route::get('objective/{objective}/action/create', 'ActionsController@create')->name('actions.create');
+Route::get('objective/{objective}/action/create', [ActionController::class, 'create'])->name('actions.create');
 // Save Action
-Route::post('actions/store', 'ActionsController@store')->name('actions.store');
+Route::post('actions/store', [ActionsController::class , 'store'])->name('actions.store');
 // Complete Action
-Route::post('actions/{action}/done', 'ActionsController@done')->name('actions.done');
+Route::post('actions/{action}/done', [ActionsController::class , 'done'])->name('actions.done');
 // Edit Action page
-Route::get('actions/{action}/edit', 'ActionsController@edit')->name('actions.edit');
+Route::get('actions/{action}/edit', [ActionsController::class , 'edit'])->name('actions.edit');
 // Update Action
-Route::patch('actions/{action}/update', 'ActionsController@update')->name('actions.update');
+Route::patch('actions/{action}/update', [ActionsController::class , 'update'])->name('actions.update');
 // Show specified Action
-Route::get('actions/{action}/show', 'ActionsController@show')->where('action', '[0-9]+')->name('actions.show');
+Route::get('actions/{action}/show', [ActionsController::class , 'show'])->where('action', '[0-9]+')->name('actions.show');
 // Delete personal Action
-Route::delete('actions/{action}/destroy', 'ActionsController@destroy')->name('actions.destroy');
+Route::delete('actions/{action}/destroy', [ActionsController::class ,'destroy'])->name('actions.destroy');
 // Delete Action's file
-Route::get('actions/{action}/media/{media}/destroy', 'ActionsController@destroyFile')->name('actions.destroyFile');
+Route::get('actions/{action}/media/{media}/destroy', [ActionsController::class , 'destroyFile'])->name('actions.destroyFile');
 // Return search
-Route::get('objective/{objective}/action/user/search', 'ActionsController@search')->name('actions.user.search');
+Route::get('objective/{objective}/action/user/search', [ActionsController::class , 'search'])->name('actions.user.search');
 // Reject invitation
-Route::get('actions/{action}/member/{member}/invite/reject', 'ActionsController@rejectInvite')->name('actions.member.invite.reject');
+Route::get('actions/{action}/member/{member}/invite/reject', [ActionsController::class ,' rejectInvite'])->name('actions.member.invite.reject');
 // Agree to invitation
-Route::get('actions/{action}/member/{member}/invite/agree', 'ActionsController@agreeInvite')->name('actions.member.invite.agree');
+Route::get('actions/{action}/member/{member}/invite/agree', [ActionsController::class , 'agreeInvite'])->name('actions.member.invite.agree');
 
 
 # Organization OKR
 // Organization OKR homepage
-Route::get('organization', 'CompanyController@index')->name('company.index');
+Route::get('organization', [CompanyController::class , 'index'])->name('company.index');
 // Add company
-Route::post('organization/company/store', 'CompanyController@store')->name('company.store');
+Route::post('organization/company/store', [CompanyController::class , 'store'])->name('company.store');
 // Edit company page
-Route::get('organization/company/edit', 'CompanyController@edit')->name('company.edit');
+Route::get('organization/company/edit', [CompanyController::class , 'edit'])->name('company.edit');
 // Update company
-Route::patch('organization/company/update', 'CompanyController@update')->name('company.update');
+Route::patch('organization/company/update', [CompanyController::class , 'update'])->name('company.update');
 // Delete company
-Route::delete('organization/company/destroy', 'CompanyController@destroy')->name('company.destroy');
+Route::delete('organization/company/destroy', [CompanyController::class , 'destroy'])->name('company.destroy');
 // Show company OKR
-Route::get('organization/company/okr', 'CompanyController@listOKR')->name('company.okr');
+Route::get('organization/company/okr', [CompanyController::class , 'listOKR'])->name('company.okr');
 // Add company Objective
-Route::post('organization/company/{company}/objective/store', 'CompanyController@storeObjective')->name('company.objective.store');
+Route::post('organization/company/{company}/objective/store', [CompanyController::class , 'storeObjective'])->name('company.objective.store');
 // Company members page
-Route::get('organization/company/member', 'CompanyController@member')->name('company.member');
+Route::get('organization/company/member', [CompanyController::class , 'member'])->name('company.member');
 // Send invite
-Route::post('organization/company/{company}/member/invite', 'CompanyController@inviteMember')->name('company.member.invite');
+Route::post('organization/company/{company}/member/invite', [CompanyController::class , 'inviteMember'])->name('company.member.invite');
 // Cancel invite
-Route::patch('organization/company/{company}/member/{member}/invite/destroy', 'CompanyController@cancelInvite')->name('company.member.invite.destroy');
+Route::patch('organization/company/{company}/member/{member}/invite/destroy', [CompanyController::class , 'cancelInvite'])->name('company.member.invite.destroy');
 // Reject invite
-Route::get('organization/company/{company}/member/{member}/invite/reject', 'CompanyController@rejectInvite')->name('company.member.invite.reject');
+Route::get('organization/company/{company}/member/{member}/invite/reject', [CompanyController::class , 'rejectInvite'])->name('company.member.invite.reject');
 // Agree to invite
-Route::get('organization/company/{company}/member/{member}/invite/agree', 'CompanyController@agreeInvite')->name('company.member.invite.agree');
+Route::get('organization/company/{company}/member/{member}/invite/agree', [CompanyController::class , 'agreeInvite'])->name('company.member.invite.agree');
 // Update company members
-Route::patch('organization/company/member/update', 'CompanyController@updateMember')->name('company.member.update');
+Route::patch('organization/company/member/update', [CompanyController::class , 'updateMember'])->name('company.member.update');
 // Delete company members
-Route::patch('organization/company/member/{member}/destroy', 'CompanyController@destroyMember')->name('company.member.destroy');
+Route::patch('organization/company/member/{member}/destroy', [CompanyController::class , 'destroyMember'])->name('company.member.destroy');
 // Change company admin
-Route::patch('organization/company/admin/change', 'CompanyController@changeAdmin')->name('company.admin.change');
+Route::patch('organization/company/admin/change', [CompanyController::class , 'changeAdmin'])->name('company.admin.change');
 // Delete company admin
-Route::patch('organization/company/admin/delete', 'CompanyController@deleteAdmin')->name('company.admin.delete');
+Route::patch('organization/company/admin/delete', [CompanyController::class , 'deleteAdmin'] )->name('company.admin.delete');
 // Import users
-Route::get('organization/company/admin/import', 'CompanyController@importUser')->name('company.import.user');
+Route::get('organization/company/admin/import', [CompanyController::class , 'importUser'])->name('company.import.user');
 // Handle bulk import of users
-Route::post('organization/company/admin/import', 'CompanyController@handleImportUser')->name('company.bulk.import.user');
+Route::post('organization/company/admin/import', [CompanyController::class , 'handleImportUser'])->name('company.bulk.import.user');
 
 // Show sub-department page
 Route::get('organization/department/{department}', 'DepartmentController@index')->name('department.index');
@@ -369,8 +386,8 @@ Route::get('user/{user}/okr', 'UserController@listOKR')->name('user.okr');
    Route::post('user/resetPassword','UserController@resetPassword')->name('user.resetPassword');
     # 追蹤
     //專案首頁
-    Route::get('follow', 'FollowController@index')->name('follow.index');
+    Route::get('follow', [FollowController::class , 'index'])->name('follow.index');
     //追蹤
-    Route::get('follow/{type}/{owner}', 'FollowController@follow')->name('follow');
+    Route::get('follow/{type}/{owner}', [FollowController::class , 'follow'])->name('follow');
     //取消追蹤
-    Route::get('follow/{type}/{owner}/cancel', 'FollowController@cancel')->name('follow.cancel');
+    Route::get('follow/{type}/{owner}/cancel', [FollowController::class ,'cancel'])->name('follow.cancel');

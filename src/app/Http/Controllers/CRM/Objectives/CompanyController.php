@@ -35,7 +35,8 @@ class CompanyController extends Controller
      */
     public function listOKR(Request $request)
     {
-        $company = Company::where('id', auth()->user()->company_id)->first();
+        $company = Company::where('id', 1)->first();
+
         $this->authorize('view', $company);
 
         $okrsWithPage = $company->getOkrsWithPage($request);
@@ -68,26 +69,27 @@ class CompanyController extends Controller
      */
     public function index(Request $request)
     {
-        $company = Company::where('id', auth()->user()->company_id)->first();
+        $company = Company::where('id', 1)->first();
         $company['okrs'] = $company ? $company->getOkrsWithPage($request)['okrs'] : null;
 
-        $departments = Department::where(['company_id' => auth()->user()->company_id, 'parent_department_id' => null])->get();
-        foreach ($departments as $department) {
-            $department['okrs'] = $department ? $department->getOkrsWithPage($request)['okrs'] : null;
-        }
+        // $departments = Department::where(['company_id' => auth()->user()->id, 'parent_department_id' => null])->get();
+        // foreach ($departments as $department) {
+        //     $department['okrs'] = $department ? $department->getOkrsWithPage($request)['okrs'] : null;
+        // }
 
         $invitations = auth()->user()->invitation->where('model_type', Company::class);
+        dd($company);
 
         $data = [
             'company' => $company,
             'user' => auth()->user(),
-            'departments' => $departments,
+            // 'departments' => $departments,
             'invitations' => $invitations
         ];
 
        
 
-        return view('crm.organization.index', $data);
+        return view('crm.organization.company.index', $data);
     }
 
     /**
@@ -121,11 +123,13 @@ class CompanyController extends Controller
      */
     public function update(Request $request)
     {
-        $company = Company::find(auth()->user()->company_id);
+        $company = Company::find(auth()->user()->id);
         $this->authorize('update', $company);
 
         $attr['name'] = $request->company_name;
         $attr['description'] = $request->company_description;
+
+        // dd($attr);
         $company->update($attr);
 
         $company->addAvatar($request);
@@ -229,7 +233,7 @@ class CompanyController extends Controller
      */
     public function search()
     {
-        $results = User::where('company_id', auth()->user()->company_id)->get();
+        $results = User::where('company_id', auth()->user()->id)->get();
 
         return response()->json($results);
     }
@@ -245,7 +249,7 @@ class CompanyController extends Controller
         $this->authorize('memberSetting', $company);
         $userIds = preg_split("/[,]+/", $request->invite);
         foreach ($userIds as $userId) {
-            User::where('id', $userId)->update(['company_id' => auth()->user()->company_id]);
+            User::where('id', $userId)->update(['company_id' => auth()->user()->id]);
         }
 
         return redirect()->route('company.member');
@@ -294,7 +298,7 @@ class CompanyController extends Controller
         $this->authorize('view', $company);
         $company['okrs'] = $company ? $company->getOkrsWithPage($request)['okrs'] : null;
 
-        $departments = Department::where(['company_id' => auth()->user()->company_id, 'parent_department_id' => null])->get();
+        $departments = Department::where(['company_id' => auth()->user()->id, 'parent_department_id' => null])->get();
         foreach ($departments as $department) {
             $department['okrs'] = $department ? $department->getOkrsWithPage($request)['okrs'] : null;
         }

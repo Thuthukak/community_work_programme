@@ -18,6 +18,7 @@ use Database\Seeders\Traits\TruncateTable;
 use Database\Seeders\CRM\Stage\DefaultStagesTableSeeder;
 use Database\Seeders\CRM\Deal\LostReasonsTableSeeder;
 use Database\Seeders\CRM\Contact\ContactTypesTableSeeder;
+use Database\Seeders\CRM\priorities\PrioritiesTableSeeder;
 use Database\Seeders\CRM\Activity\ActivityTypesTableSeeder;
 use Database\Seeders\CRM\Contact\PhoneEmailTypeSeeder;
 use Database\Seeders\CRM\Template\TemplateTableSeeder;
@@ -36,6 +37,7 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
         $this->disableForeignKeys();
+        $this->call(PrioritiesTableSeeder::class);
         $this->call(StatusSeeder::class);
         $this->call(TypeSeeder::class);
         $this->call(UserTableSeeder::class);
@@ -49,9 +51,9 @@ class DatabaseSeeder extends Seeder
         $this->call(NotificationSettingsSeeder::class);
         $this->call(NotificationTemplateSeeder::class);
 
-        /*
-         * CRM Seeders
-        */
+        // /*
+        //  * CRM Seeders
+        // */
         $this->call(DefaultStagesTableSeeder::class);
         $this->call(LostReasonsTableSeeder::class);
         $this->call(ContactTypesTableSeeder::class);

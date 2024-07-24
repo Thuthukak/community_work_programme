@@ -20,8 +20,8 @@ use App\Http\Controllers\Core\Notification\NotificationChannelController;
 use App\Http\Controllers\Core\Auth\User\UserPasswordController as BaseUserPasswordControllerAlias;
 
 Route::group(['prefix' => 'app'], function () {
-    Route::get('types', [TypeController::class, 'index'])
-        ->name('types.index');
+    Route::get('typtypes.indexes', [TypeController::class, 'index'])
+        ->name('');
 
     Route::get('statuses', [StatusController::class, 'index'])
         ->name('statuses.index');

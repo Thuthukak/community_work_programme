@@ -21,10 +21,10 @@ class SearchController extends Controller
         #判斷公司是否存在到要查詢
         $usersCount = 0;
         $projectsCount = 0;
-        if (auth()->user()->company_id) {
+        if (auth()->user()->id) {
             #判斷搜索是否為空        
             if ($search = $request->input('search', '')) {
-                $company = Company::query()->where('id', '=', auth()->user()->company_id)->first();
+                $company = Company::query()->where('id', '=', 1)->first();
                 $usersBuilder = $company->users();
                 $projectsBuilder = auth()->user()->projects();
             #定義模糊查詢                
