@@ -6,14 +6,9 @@
 @section('contents')
 <div class="container">
     @include('crm.organization.company.show')
-    <ul class="nav nav-tabs justify-content-flex-start" style="margin-left: -100px" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="okr-tab" data-toggle="tab" href="#okr" role="tab" aria-controls="okr"
-                aria-selected="false">OKRs</a>
-        </li>
-    </ul>
     <div class="tab-pane fade show pl-sm-4 pr-sm-4">
         <div class="row m-3 pt-4 justify-content-center">
+            <div class="col-auto">{{ $pageInfo['link'] }}</div>
             <div class="col-auto mb-2">
             <form action="{{ $company->getOKrRoute() }}" class="form-inline search-form">
                 <input autocomplete="off" class="form-control input-sm" name="st_date" id="filter_started_at" value=""
@@ -47,7 +42,7 @@
         @endif
     </div>
   <!-- Button trigger modal -->
-  <div class="position-fixed" style="top: 100px; right: 20px;">
+  <div class="position-fixed" style="top: 100px; right: 50px;">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#objective">
                 <img src="{{ asset('img/icon/add/lightgreen.svg') }}" alt="Add Objective">
             </button>

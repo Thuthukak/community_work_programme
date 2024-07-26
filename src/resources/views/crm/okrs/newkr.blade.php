@@ -6,7 +6,8 @@
     }
 @endphp
 
-<a class="btn btn-success mb-3 mt-3" data-toggle="collapse" href="#collapse{{ $okr['objective']->id }}" role="button" aria-expanded="false" aria-controls="collapse{{ $okr['objective']->id }}">
+
+<a class="btn btn-success btn-sm ml-2 mb-3 mt-3" data-toggle="collapse" href="#collapse{{ $okr['objective']->id }}" role="button" aria-expanded="false" aria-controls="collapse{{ $okr['objective']->id }}">
      <i class="fa fa-plus fa-sm"></i> KR
 </a>
 
@@ -17,11 +18,11 @@
             <div class="form-row">
                 <input type="hidden" class="form-control" name="krs_owner" id="keyresult_owner" value="{{ $okr['objective']->id }}">
                 <div class="form-group col-md-12">
-                    <label for="keyresult_title">Key Performance Indicator(KeyResult) <strong class="text-danger">{{ $isError ? $errors->first('krs_title') : '' }}</strong>  </label>
+                    <label for="keyresult_title"> Key Performance Indicator(KeyResult) <strong class="text-danger">{{ $isError ? $errors->first('krs_title') : '' }}</strong>  </label>
                     <input type="text" class="form-control" name="krs_title" id="keyresult_title" value="{{ old('krs_title') }}">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="keyresult_confidence">Achievement Rate <strong class="text-danger">{{ $isError ? $errors->first('krs_now'): '' }}</strong></label>
+                    <label for="keyresult_confidence"> Achievement Rate <strong class="text-danger">{{ $isError ? $errors->first('krs_now'): '' }}</strong></label>
                     <input type="text" class="js-range-slider kr-slider" id="keyresult_slider" name="krs_now" value="{{ old('krs_now') ? old('krs_now') : '0' }}"
                         data-min="{{ old('krs_init') ? old('krs_init') : '0' }}"
                         data-max="{{ old('krs_tar') }}"
@@ -68,5 +69,6 @@
         </form>
     </div>
 </div>
+
 
 

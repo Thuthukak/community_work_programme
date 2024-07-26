@@ -7,7 +7,7 @@
     </div>
     @endcan
     @cannot('update', $owner)
-    <div class="row">
+    <div class="row m-4">
         <div class="col align-self-end text-right">
             @if ($owner->following())
             <a href="{{ route('follow.cancel', [get_class($owner), $owner]) }}" class="text-warning">

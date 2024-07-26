@@ -23,10 +23,10 @@
             </div>
             <div class="col-md-10">
                 <div class="row">
-                    <div class="col-md-5 col-sm-5" style="line-height: 32px; font-size: 16px;">{{
+                    <div class="col-md-5 col-sm-5" style="line-height: 21px; font-size: 16px;">{{
                         $okr['objective']->title }}</div>
                     <div class="col-md-7 col-sm-7 row justify-content-end">
-                        <div class="pt-2" style="display:inline-block; width:60%;">
+                        <div class="pt-2 " style="display:inline-block; width:60%;">
                             <div class="progress" style="height:20px;">
                                 @if($okr['objective']->getScore()<0) 
                                     <div class="progress-bar bg-danger" role="progressbar" style="width:{{ abs($okr['objective']->getScore()) }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ $okr['objective']->getScore() }}%</div>
@@ -114,7 +114,7 @@
         {{-- Card indicator --}}
         <div class="row">
             <div class="col-md-2 font-weight-bold text-md-right align-self-center pr-0">
-                <h4 style="font-size:18px;">Key Results</h4>
+                <h4 style="font-size:18px; margin-top: 14px">Key Results</h4>
             </div>
             <div class="col-md-10">
                 @foreach ($okr['keyresults'] as $kr)
