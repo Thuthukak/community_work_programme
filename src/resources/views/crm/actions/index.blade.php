@@ -68,8 +68,8 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form method="POST" action="{{ route('actions.store') }}" enctype="multipart/form-data" class="p-4" id="createActionForm">
-
+                    <form method="POST" action="{{ route('actions.storeloneaction') }}" enctype="multipart/form-data" class="p-4" id="createActionForm">
+                    @csrf
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="action_title">Action</label>
@@ -111,8 +111,8 @@
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="action_on">Action On</label>
-                            <select id="action_on" class="form-control" name="action_on" required>
+                            <label for="model_type">Action On</label>
+                            <select id="model_type" class="form-control" name="model_type" required>
                                 <option value="">Select Action On</option>
                                 <option value="Onboarding">Onboarding</option>
                                 <option value="Project">Project</option>
@@ -120,8 +120,8 @@
                             </select>
                         </div>
                         <div class="form-group col-md-6">
-                            <label for="target">Target Entity</label>
-                            <select id="target" class="form-control" name="target" required>
+                            <label for="model_id">Target Entity</label>
+                            <select id="model_id" class="form-control" name="model_id" required>
                             </select>
                         </div>
                     </div>
@@ -231,7 +231,7 @@
     }
 });
             // Handle Action On Selection
-            document.querySelector('#action_on').addEventListener('change', function() {
+            document.querySelector('#model_type').addEventListener('change', function() {
             let actionOn = this.value;
 
             console.log('Selected Action On:', actionOn); // Debugging line
@@ -248,7 +248,7 @@
             })
             .then(data => {
                 console.log('Fetched Data:', data); // Debugging line
-                let modelSelect = document.querySelector('#target');
+                let modelSelect = document.querySelector('#model_id');
 
                 if (modelSelect) {
                     modelSelect.innerHTML = '<option value="">Select Target</option>';
@@ -257,6 +257,17 @@
                     });
                 } else {
                     console.error('Element with id "model" not found');
+                }
+
+
+                let modelpath = document.querySelector('#model_type')
+
+                if(modelpath)
+                {
+                    modelpath.innerHTML = '';
+                    data.models.forEach(model => {
+                        modelpath.innerHTML += `<option value="${model.model}">${actionOn}</option>`;
+                    });
                 }
             })
             .catch(error => {

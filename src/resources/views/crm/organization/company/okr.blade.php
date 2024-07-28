@@ -14,7 +14,6 @@
     </ul>
     <div class="tab-pane fade show pl-sm-4 pr-sm-4">
         <div class="row m-3 pt-4 justify-content-center">
-            <div class="col-auto">{{ $pageInfo['link'] }}</div>
             <div class="col-auto mb-2">
             <form action="{{ $company->getOKrRoute() }}" class="form-inline search-form">
                 <input autocomplete="off" class="form-control input-sm" name="st_date" id="filter_started_at" value=""
@@ -84,24 +83,27 @@
             disableMobile: true // optional: to force the desktop version on mobile devices
         });
 
-        document.querySelectorAll('.add-action-btn').forEach(function(button) {
-        button.addEventListener('click', function() {
+        document.querySelectorAll('.add-action-btn').forEach(function (button) {
+        button.addEventListener('click', function () {
         var objectiveId = this.getAttribute('data-id');
-        var url = `{{ url('objective') }}/${objectiveId}/action/create`;
+        var url = `{{ route('actions.create', ':id') }}`.replace(':id', objectiveId);
 
-        console.log(objectiveId);
         console.log(url);
 
-        // AJAX request to fetch data
+        // Get the CSRF token from the meta tag
+        
+
         fetch(url, {
-            method: 'GET',
             headers: {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         })
         .then(response => {
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+
+                console.log(url);
+                throw new Error(url +'Network response was not ok');
             }
             return response.json();
         })

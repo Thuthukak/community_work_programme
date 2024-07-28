@@ -78,7 +78,6 @@ class CompanyController extends Controller
         // }
 
         $invitations = auth()->user()->invitation->where('model_type', Company::class);
-        dd($company);
 
         $data = [
             'company' => $company,
@@ -89,7 +88,7 @@ class CompanyController extends Controller
 
        
 
-        return view('crm.organization.company.index', $data);
+        return view('crm.organization.company.okr', $data);
     }
 
     /**

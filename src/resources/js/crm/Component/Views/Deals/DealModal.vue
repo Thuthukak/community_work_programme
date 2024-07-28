@@ -478,9 +478,13 @@ export default {
       });
     },
     beforeSubmit() {
+      console.log('###############Before Submit')
       this.loading = true;
     },
     submit() {
+
+      console.log('###############Start Submiting')
+
       let customData = [];
       this.customFields.map((el) => {
         let item = {
@@ -532,10 +536,15 @@ export default {
       });
     },
     afterError(response) {
+
+      console.log(response)
+
       this.loading = false;
       this.errors = response.data.errors;
     },
     afterSuccess(response) {
+
+
       this.$store.dispatch("getDeal");
       this.$toastr.s(response.data.message);
       this.$hub.$emit("reload-" + this.tableId);
@@ -544,6 +553,7 @@ export default {
       this.closeModal();
     },
     afterFinalResponse() {
+
       this.loading = false;
     },
     afterSuccessFromGetEditData(response) {
@@ -561,6 +571,9 @@ export default {
       this.formData.expired_at = new Date(expired_at);
     },
     closeModal(value) {
+
+      console.log('###############Inside the close modal  Submiting')
+
       this.$emit("close-modal", value);
     },
     getPipeline() {

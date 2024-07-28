@@ -41,7 +41,12 @@ mix.webpackConfig({
 if (mix.inProduction()) {
     mix.version().options({
         // Optimize JS minification process
-        terser: {}
+        terser: {
+
+            cache: true,
+            parallel: true,
+            sourceMap: true
+        }
     });
 } else {
     // Uses inline source-maps on development

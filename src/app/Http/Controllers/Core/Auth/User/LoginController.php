@@ -11,6 +11,8 @@ use App\Hooks\User\CustomRoute;
 use Illuminate\Testing\Fluent\Concerns\Debugging; // Include the Debugging trait
 use Illuminate\Support\Stringable;
 // use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Log;
+
 
 
 

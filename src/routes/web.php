@@ -288,14 +288,22 @@ Route::get('/actions/keyresults/{id}', [ActionsController::class, 'getKeyResults
 Route::get('objective/{objective}/action/create', [ActionController::class, 'create'])->name('actions.create');
 // Save Action
 Route::post('actions/store', [ActionsController::class , 'store'])->name('actions.store');
+Route::post('actions/storeloneaction', [ActionsController::class , 'storeloneaction'])->name('actions.storeloneaction');
+
 // Complete Action
 Route::post('actions/{action}/done', [ActionsController::class , 'done'])->name('actions.done');
 // Edit Action page
 Route::get('actions/{action}/edit', [ActionsController::class , 'edit'])->name('actions.edit');
 // Update Action
 Route::patch('actions/{action}/update', [ActionsController::class , 'update'])->name('actions.update');
+
+Route::patch('actions/{action}/update', [ActionsController::class , 'updateloneaction'])->name('actions.updateloneaction');
+
 // Show specified Action
 Route::get('actions/{action}/show', [ActionsController::class , 'show'])->where('action', '[0-9]+')->name('actions.show');
+Route::get('actions/{action}/show', [ActionsController::class , 'showloneaction'])->where('action', '[0-9]+')->name('actions.showloneaction');
+
+
 // Delete personal Action
 Route::delete('actions/{action}/destroy', [ActionsController::class ,'destroy'])->name('actions.destroy');
 // Delete Action's file
