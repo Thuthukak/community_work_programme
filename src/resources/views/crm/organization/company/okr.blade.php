@@ -6,12 +6,6 @@
 @section('contents')
 <div class="container">
     @include('crm.organization.company.show')
-    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="okr-tab" data-toggle="tab" href="#okr" role="tab" aria-controls="okr"
-                aria-selected="false">OKRs</a>
-        </li>
-    </ul>
     <div class="tab-pane fade show pl-sm-4 pr-sm-4">
         <div class="row m-3 pt-4 justify-content-center">
             <div class="col-auto mb-2">
@@ -29,7 +23,7 @@
                     <option value="updated_at_asc">Recently updated, earliest to latest</option>
                     <option value="updated_at_desc">Recently updated, latest to earliest</option>
                 </select>
-                <button class="btn btn-primary">Filter</button>
+                <button class="btn btn-info">Filter</button>
             </form>
             </div>
         </div>
@@ -47,7 +41,7 @@
         @endif
     </div>
   <!-- Button trigger modal -->
-  <div class="position-fixed" style="top: 100px; right: 20px;">
+  <div class="position-fixed" style="top: 100px; right: 50px;">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#objective">
                 <img src="{{ asset('img/icon/add/lightgreen.svg') }}" alt="Add Objective">
             </button>
@@ -83,37 +77,37 @@
             disableMobile: true // optional: to force the desktop version on mobile devices
         });
 
+
+        var AddActionUrl = "{{ route('actions.create', ['objective' => ':id']) }}";
+
         document.querySelectorAll('.add-action-btn').forEach(function (button) {
         button.addEventListener('click', function () {
         var objectiveId = this.getAttribute('data-id');
-        var url = `{{ route('actions.create', ':id') }}`.replace(':id', objectiveId);
+        var url = AddActionUrl.replace(':id', objectiveId);
 
-        console.log(url);
-
-        // Get the CSRF token from the meta tag
+        console.log(objectiveId);
         
-
-        fetch(url, {
+        fetch( url , {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         })
         .then(response => {
+            console.log(response);
             if (!response.ok) {
 
-                console.log(url);
                 throw new Error(url +'Network response was not ok');
             }
             return response.json();
         })
         .then(data => {
+
             console.log('Fetched Data:', data); // Debugging line
 
             document.querySelector('#createActionForm').reset();
             document.querySelector('#priority').innerHTML = '';
             document.querySelector('#keyresult').innerHTML = '';
-            document.querySelector('#action_on').innerHTML = '';
 
             // Populate priorities
             let prioritySelect = document.querySelector('#priority');
@@ -130,91 +124,71 @@
             }
 
             // Populate action_on with static options
-            const actionOnOptions = ['projects', 'pipeline', 'proposals'];
-            actionOnOptions.forEach(function(option) {
-                document.querySelector('#action_on').innerHTML += `<option value="${option}">${option.charAt(0).toUpperCase() + option.slice(1)}</option>`;
-            });
-
-            flatpickr("#started_at", {
-                defaultDate: data.default_start_date || new Date()
-            });
-            flatpickr("#finished_at", {
-                defaultDate: data.default_end_date || new Date()
-            });
+            // const actionOnOptions = ['Onboarding', 'Project', 'Proposal'];
+            // actionOnOptions.forEach(function(option) {
+            //     document.querySelector('#model_type').innerHTML += `<option value="${option}">${option.charAt(0).toUpperCase() + option.slice(1)}</option>`;
+            // });
 
             $('#createActionModal').modal('show');
         })
         .catch(error => {
-            console.error('Error fetching data:', error);
+                console.error('Error fetching data:', error);
+            });
         });
     });
-});
 
 
 
 
-document.querySelector('#createActionForm').addEventListener('submit', function(event) {
-    let isValid = true;
+        document.querySelector('#model_type').addEventListener('change', function() {
+            var actionOn = this.value;
 
-    // Check if each required field is filled
-    document.querySelectorAll('input[required], select[required], textarea[required]').forEach(function(field) {
-        if (!field.value) {
-            isValid = false;
-            field.classList.add('is-invalid');
-        } else {
-            field.classList.remove('is-invalid');
-        }
-    });
-
-    // Prevent form submission if not valid
-    if (!isValid) {
-        event.preventDefault();
-        alert('Please fill out all required fields.');
-    }
-});
-
-
-document.querySelector('#action_on').addEventListener('change', function() {
-    var actionOn = this.value;
-    
-    // Make sure actionOn is not empty
-    if (actionOn) {
-        fetchModels(actionOn);
-    }
-});
-
-function fetchModels(actionOn) {
-
-    fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Update the model dropdown
-        var modelDropdown = document.querySelector('#model');
-        modelDropdown.innerHTML = ''; // Clear existing options
-
-        data.models.forEach(function(model) {
-            var option = document.createElement('option');
-            option.value = model.id;
-            option.textContent = model.name;
-            modelDropdown.appendChild(option);
+            console.log('###########Acton On value ::' + actionOn);
+            // Make sure actionOn is not empty
+            if (actionOn) {
+                fetchModels(actionOn);
+            }
         });
-    })
-    .catch(error => {
-        console.error('Error fetching models:', error);
-    });
-}
 
-});
+        function fetchModels(actionOn) {
+            fetch(`{{ url('actions/models') }}/${actionOn}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                console.log('Response Status:', response.status); // Debugging line
+                return response.json();
+            })
+            .then(data => {
+                console.log('Fetched Data:', data); // Debugging line
+                let modelSelect = document.querySelector('#model_id');
+
+                if (modelSelect) {
+                    modelSelect.innerHTML = '<option value="">Select Target</option>';
+                    data.models.forEach(model => {
+                        modelSelect.innerHTML += `<option value="${model.id}">${model.name}</option>`;
+                    });
+
+                    let lastModel = data.models.filter(model => typeof model === 'object').pop();
+                if (lastModel) {
+                    document.querySelector('#full_model_type').value = lastModel.model;
+                    console.log(document.querySelector('#full_model_type').value);
+                } else {
+                    console.error('No valid model object found');
+                }
+                } else {
+                    console.error('Element with id "model_id" not found');
+                }
+
+
+            })
+            .catch(error => {
+                console.error('Error fetching models:', error);
+            });
+        }
+        });
 </script>
 
 

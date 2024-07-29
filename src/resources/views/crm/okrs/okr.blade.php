@@ -23,10 +23,10 @@
             </div>
             <div class="col-md-10">
                 <div class="row">
-                    <div class="col-md-5 col-sm-5" style="line-height: 32px; font-size: 16px;">{{
+                    <div class="col-md-5 col-sm-5" style="line-height: 21px; font-size: 16px;">{{
                         $okr['objective']->title }}</div>
                     <div class="col-md-7 col-sm-7 row justify-content-end">
-                        <div class="pt-2" style="display:inline-block; width:60%;">
+                        <div class="pt-2 " style="display:inline-block; width:60%;">
                             <div class="progress" style="height:20px;">
                                 @if($okr['objective']->getScore()<0) 
                                     <div class="progress-bar bg-danger" role="progressbar" style="width:{{ abs($okr['objective']->getScore()) }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ $okr['objective']->getScore() }}%</div>
@@ -114,7 +114,7 @@
         {{-- Card indicator --}}
         <div class="row">
             <div class="col-md-2 font-weight-bold text-md-right align-self-center pr-0">
-                <h4 style="font-size:18px;">Key Results</h4>
+                <h4 style="font-size:18px; margin-top: 14px">Key Results</h4>
             </div>
             <div class="col-md-10">
                 @foreach ($okr['keyresults'] as $kr)
@@ -283,7 +283,6 @@
                 <button type="button" class="btn btn-secondary w-100" disabled><i class="fa fa-lock fa-sm"></i> Please add Key Results first
                 (Key indicators)</button>
                 @endif
-               {{ $okr['actions']}}
                 @include('crm.okrs.listaction',$okr)
                 @endcan
             </div>
@@ -357,20 +356,24 @@
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="action_on">Action On</label>
-                    <select id="action_on" class="form-control" name="action_on" required>
-                        <option value="">Onboarding</option>
-                        <option value="">Project</option>
-                        <option value="">Proposal</option>
-
+                    <label for="model_type">Action On</label>
+                    <select id="model_type" class="form-control" name="model_type" required>
+                        <option value="">Select Action On</option>
+                        <option value="Onboarding">Onboarding</option>
+                        <option value="Project">Project</option>
+                        <option value="Proposal">Proposal</option>
                     </select>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="model">Target</label>
-                    <select id="model" class="form-control" name="model" required>
+                    <label for="model_id">Target</label>
+                    <select id="model_id" class="form-control" name="model_id" required>
                     </select>
                 </div>
+
+                <input type="hidden" name="full_model_type" id="full_model_type">
+
             </div>
+
 
             <div class="form-row">
                 <div class="form-group col-md-12">

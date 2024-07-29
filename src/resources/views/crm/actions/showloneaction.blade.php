@@ -120,7 +120,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form method="POST" action="{{ route('actions.updateloneaction' , $action->id) }}" enctype="multipart/form-data" class="p-4" id="createActionForm">
+                    <form method="POST" action="{{ route('actions.updateloneaction' , $action->id) }}" enctype="multipart/form-data" class="p-4" id="EditActionForm">
                     @csrf
                     @method('PATCH')
 

@@ -9,10 +9,10 @@
     <div class="row justify-content-center">
         <div class="col-md-10 col-12">
             {{-- edit --}}
-            @can('update', $actions)
+            @can('update', $action)
             <div class="row justify-content-end">
                 <div class="col-auto">
-                    <a class="text-info" href="#" onclick="document.getElementById('doneAct{{ $actions->id }}').submit()"><i class="fas fa-check-circle"></i> {{ $action->isdone?'Cancel':'Finish' }}</a>
+                    <a class="text-info" href="#" onclick="document.getElementById('doneAct{{ $action->id }}').submit()"><i class="fas fa-check-circle"></i> {{ $action->isdone?'Cancel':'Finish' }}</a>
                     <form method="POST" id="doneAct{{ $action->id }}" action="{{ route('actions.done',$action->id) }}">
                         @csrf
                     </form>

@@ -285,7 +285,7 @@ Route::get('/actions/get', [ActionsController::class, 'get'])->name('actions.get
 Route::get('/actions/keyresults/{id}', [ActionsController::class, 'getKeyResults'])->name('actions.keyresults');
 
 // Create Action page
-Route::get('objective/{objective}/action/create', [ActionController::class, 'create'])->name('actions.create');
+Route::get('objective/{objective}/action/create', [ActionsController::class, 'create'])->name('actions.create');
 // Save Action
 Route::post('actions/store', [ActionsController::class , 'store'])->name('actions.store');
 Route::post('actions/storeloneaction', [ActionsController::class , 'storeloneaction'])->name('actions.storeloneaction');
@@ -295,13 +295,13 @@ Route::post('actions/{action}/done', [ActionsController::class , 'done'])->name(
 // Edit Action page
 Route::get('actions/{action}/edit', [ActionsController::class , 'edit'])->name('actions.edit');
 // Update Action
-Route::patch('actions/{action}/update', [ActionsController::class , 'update'])->name('actions.update');
+Route::patch('actions/{action}/update', [ActionsController::class, 'update'])->name('actions.update');
 
-Route::patch('actions/{action}/update', [ActionsController::class , 'updateloneaction'])->name('actions.updateloneaction');
+Route::patch('actions/{action}/updateloneaction', [ActionsController::class , 'updateloneaction'])->name('actions.updateloneaction');
 
 // Show specified Action
 Route::get('actions/{action}/show', [ActionsController::class , 'show'])->where('action', '[0-9]+')->name('actions.show');
-Route::get('actions/{action}/show', [ActionsController::class , 'showloneaction'])->where('action', '[0-9]+')->name('actions.showloneaction');
+Route::get('actions/{action}/showloneaction', [ActionsController::class , 'showloneaction'])->where('action', '[0-9]+')->name('actions.showloneaction');
 
 
 // Delete personal Action

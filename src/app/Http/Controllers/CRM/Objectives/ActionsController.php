@@ -41,12 +41,12 @@ class ActionsController extends Controller
     }
 
 
-    public function create(Objective $objective)
+    public function create($objective)
     {
         try {
             // Ensure the objective exists
             $priorities = Priority::all();
-            $keyResults = KeyResult::where('objective_id', $objective->id)->get();
+            $keyResults = KeyResult::where('objective_id', $objective)->get();
     
             $data = [
                 'priorities' => $priorities,
@@ -133,6 +133,7 @@ class ActionsController extends Controller
             $models->each(function ($item) use ($modelClass) {
                 $item->model = $modelClass;
             });
+            $models[] = $modelClass;
     
             $data = [
                 'models' => $models
@@ -173,12 +174,13 @@ class ActionsController extends Controller
     {
 
 
+
         $this->authorize('storeObjective', KeyResult::find($request->krs_id)->objective->model);
 
         $attr['user_id'] = auth()->user()->id;
         $attr['related_kr'] = $request->input('krs_id');
         $attr['priority'] = $request->input('priority');
-        $attr['model_type'] = $request->input('model_type');
+        $attr['model_type'] = $request->input('full_model_type');
         $attr['model_id'] = $request->input('model_id');
         $attr['title'] = $request->input('act_title');
         $attr['content'] = $request->input('act_content');
@@ -198,8 +200,8 @@ class ActionsController extends Controller
 
 
         $objective = $action->objective;
-
         // dd($objective);
+
 
         return redirect()->to($objective->model->getOKrRoute() . '#oid-' . $objective->id);
     }
@@ -212,7 +214,7 @@ class ActionsController extends Controller
         $attr['user_id'] = auth()->user()->id;
         $attr['related_kr'] = $request->input('krs_id');
         $attr['priority'] = $request->input('priority');
-        $attr['model_type'] = $request->input('model_type');
+        $attr['model_type'] = $request->input('full_model_type');
         $attr['model_id'] = $request->input('model_id');
         $attr['title'] = $request->input('act_title');
         $attr['content'] = $request->input('act_content');
@@ -324,6 +326,8 @@ class ActionsController extends Controller
                     'objective' => $objective,
 
                 ];
+
+                
                 return response()->json($data);
 
 
@@ -335,6 +339,8 @@ class ActionsController extends Controller
         }
     }
 
+    
+
     public function update(ActionRequest $request, Action $action)
     {
         $this->authorize('update', $action);
@@ -342,13 +348,16 @@ class ActionsController extends Controller
         if ($request->input('invite') && $request->input('invite') != $action->user_id) {
             $action->sendInvitation($request);
         }
-
+        $attr['user_id'] = auth()->user()->id;
         $attr['related_kr'] = $request->input('krs_id');
         $attr['priority'] = $request->input('priority');
+        $attr['model_type'] = $request->input('model_type');
+        $attr['model_id'] = $request->input('model_id');
         $attr['title'] = $request->input('act_title');
         $attr['content'] = $request->input('act_content');
         $attr['started_at'] = $request->input('st_date');
         $attr['finished_at'] = $request->input('fin_date');
+
 
         $action->update($attr);
 
@@ -389,7 +398,7 @@ class ActionsController extends Controller
         }
 
         $objective = $action->objective;
-        return redirect()->route('actions.index');
+        return redirect()->route('actions.showloneaction', $action);
     }
 
     public function destroy(Action $action)
@@ -397,7 +406,7 @@ class ActionsController extends Controller
         $this->authorize('delete', $action);
         $objective = $action->objective;
         $redirectURL = $objective->model->getOKrRoute();
-        $action->invitation()->delete();
+        // $action->invitation()->delete();
         $action->delete();
 
         return redirect()->to($redirectURL . '#oid-' . $objective->id);

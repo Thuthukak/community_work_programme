@@ -6,13 +6,13 @@
 @section('contents')
 <div class="container">
 
-    <ul class="nav nav-tabs justify-content-center" id="myTab" role="tablist">
+    <ul class="nav nav-tabs justify-content-flex-start" style="margin-left: -100px" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="okr-tab" data-toggle="tab" href="#okr" role="tab" aria-controls="actions"
+            <a class="nav-link active " id="okr-tab" data-toggle="tab" href="#okr" role="tab" aria-controls="actions"
                 aria-selected="false">Actions</a>
         </li>
     </ul>
-    <div class="tab-pane fade show pl-sm-4 pr-sm-4">
+    <div class="tab-pane fade show pl-sm-4 mt-4 pr-sm-4">
         <div class="row m-3 pt-4 justify-content-center">
             <div class="col-auto mb-2">
             <form action="" class="form-inline search-form">
@@ -29,7 +29,7 @@
                     <option value="updated_at_asc">Recently updated, earliest to latest</option>
                     <option value="updated_at_desc">Recently updated, latest to earliest</option>
                 </select>
-                <button class="btn btn-primary">Filter</button>
+                <button class="btn btn-info">Filter</button>
             </form>
             </div>
         </div>
@@ -47,11 +47,11 @@
         @endif
     </div>
   <!-- Button trigger modal -->
-  <div class="position-fixed" style="top: 100px; right: 20px;">
+  <div class="position-fixed" style="top: 100px; right: 100px;">
   <button class="btn btn-warning btn-sm p-2 fa fa-plus fa-sm w-100 add-action-btn"  data-toggle="modal" data-target="#createActionModal">
  {{ trans('Action') }}
      </button>               
-                 <img src="{{ asset('img/icon/add/lightgreen.svg') }}" alt="Add Action">
+                 <img src="{{ asset('img/icon/add/lightgreen.svg') }}" alt="">
             </button>
         </div>
     @can('storeObjective', $actions)
@@ -124,6 +124,9 @@
                             <select id="model_id" class="form-control" name="model_id" required>
                             </select>
                         </div>
+
+                        <input type="hidden" name="full_model_type" id="full_model_type">
+
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-12">
@@ -169,6 +172,8 @@
 
         document.querySelector('.add-action-btn').addEventListener('click', function() {
         var url = `{{ route('actions.get') }}`;
+
+        console.log(url)
         
         fetch(url, {
             method: 'GET',
@@ -209,7 +214,6 @@
     document.querySelector('#objective').addEventListener('change', function() {
     let objectiveId = this.value;
 
-    console.log(objectiveId);
     if (objectiveId) {
         fetch(`{{ url('actions/keyresults') }}/${objectiveId}`, {
             method: 'GET',
@@ -234,7 +238,6 @@
             document.querySelector('#model_type').addEventListener('change', function() {
             let actionOn = this.value;
 
-            console.log('Selected Action On:', actionOn); // Debugging line
 
             fetch(`{{ url('actions/models') }}/${actionOn}`, {
                 method: 'GET',
@@ -251,24 +254,26 @@
                 let modelSelect = document.querySelector('#model_id');
 
                 if (modelSelect) {
-                    modelSelect.innerHTML = '<option value="">Select Target</option>';
-                    data.models.forEach(model => {
+                modelSelect.innerHTML = '<option value="">Select Target</option>';
+                data.models.forEach(model => {
+                    if (typeof model === 'object') {
                         modelSelect.innerHTML += `<option value="${model.id}">${model.name}</option>`;
-                    });
+                    }
+                });
+
+                let lastModel = data.models.filter(model => typeof model === 'object').pop();
+                if (lastModel) {
+                    document.querySelector('#full_model_type').value = lastModel.model;
+                    console.log(document.querySelector('#full_model_type').value);
                 } else {
-                    console.error('Element with id "model" not found');
+                    console.error('No valid model object found');
                 }
+            } else {
+                console.error('Element with id "model" not found');
+            }
 
 
-                let modelpath = document.querySelector('#model_type')
 
-                if(modelpath)
-                {
-                    modelpath.innerHTML = '';
-                    data.models.forEach(model => {
-                        modelpath.innerHTML += `<option value="${model.model}">${actionOn}</option>`;
-                    });
-                }
             })
             .catch(error => {
                 console.error('Error fetching models:', error);

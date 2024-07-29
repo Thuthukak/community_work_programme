@@ -1,8 +1,19 @@
+<div>
+<ul class="nav justify-content-flex-start" style="margin-left: -100px; margin-top: 30px; color: #374151 !important;font-family: 'Poppins', sans-serif !important; font-weight: 500 !important; font-size: 1rem !important;" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link project-title page-header-pill text-xl  font-semibold" id="okr-tab" data-toggle="tab"  role="tab" aria-controls="okr"
+                aria-selected="false">Objectives and Key Results</a>
+        </li>
+    </ul>
+    <br>
+    <br>
+</div>
+<div class="custom-container-wrapper">
 <div class="row justify-content-center">
-    <div class="col align-self-end text-right">
+    <div class="col align-self-end text-right m-5">
         @if ($company->following())
         <a href="{{ route('follow.cancel', [get_class($company), $company]) }}" class="text-warning" data-toggle="tooltip" data-placement="right" title="Unfollow">
-            <i class="fas fa-star" style="font-size: 24px;"></i>
+            <i class="fas fa-star" style="font-size: 24px; margin-top: 5px"></i>
         </a>
         @else
         <a href="{{ route('follow', [get_class($company), $company]) }}" class="text-warning" data-toggle="tooltip" data-placement="right" title="Follow">
@@ -16,7 +27,7 @@
         <div class="row">
             <div class="col-auto">
                 <a class="u-ml-8 u-mr-8" href="{{ route('company.okr') }}">
-                    <img src="{{ $company->getAvatar() }}" alt="" class="avatar text-center bg-white">
+                    <img src="storage/logo/6683fbf19b192.png" alt="" class="avatar text-center bg-white">
                 </a>
             </div>
             <div class="col align-self-center text-truncate">
@@ -53,13 +64,13 @@
     </div>
 </div>
 
-<div class="row justify-content-end">
+<div class="row justify-content-end mr-4">
     <div class="col text-right align-self-end">
         @can('update', $company)
-            <a href="#" data-toggle="modal" data-target="#editCompany" class="tooltipBtn text-info" data-placement="top" title="Edit Organization"><i class="fas fa-edit u-margin-4"></i></a>            
+            <a href="#" data-toggle="modal" data-target="#editCompany" class="tooltipBtn text-info" data-placement="top" title="Edit Organization"><i class="fas btn-lg fa-edit btn btn-warning btn-xs edit-project-btn u-margin-4"></i></a>            
         @endcan
         @can('delete', $company)
-            <a href="#" data-toggle="dropdown" class="tooltipBtn text-info" data-placement="top" title="Delete Organization"><i class="fas fa-trash-alt"></i></a>
+            <a href="#" data-toggle="dropdown" class="tooltipBtn text-info" data-placement="top" title="Delete Organization"><i class="fas btn-lg btn btn-danger btn-xs edit-project-btn fa-trash-alt"></i></a>
             <form method="POST" id="companyDelete" action="{{ route('company.destroy') }}">
                 @csrf
                 {{ method_field('DELETE') }}
@@ -83,6 +94,7 @@
             </form>
         @endcan
     </div>
+</div>
 </div>
 
 
