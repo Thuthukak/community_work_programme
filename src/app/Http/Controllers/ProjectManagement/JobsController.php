@@ -43,7 +43,7 @@ class JobsController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function index()
+    public function index($request)
     {
         $user = auth()->user();
         $User = new User();
