@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ProjectManagement\Projects;
 
 use App\Models\ProjectManagement\Projects\Project;
+use App\Models\ProjectManagement\Projects\File;
 use App\Models\ProjectManagement\Projects\ProjectsRepository;
 use App\Http\Controllers\Controller;
 use App\Models\CRM\Person\Person;
@@ -10,6 +11,8 @@ use App\Http\Requests\ProjectManagement\Projects\CreateRequest;
 use App\Http\Requests\ProjectManagement\Projects\UpdateRequest;
 use App\Models\Core\Auth\User;
 use Illuminate\Http\Request;
+use DB;
+
 
 /**
  * Projects Controller.
@@ -38,9 +41,9 @@ class ProjectsController extends Controller
      */
     public function index(Request $request)
     {
+
         $status = null;
         $statusId = $request->get('status_id');
-        // dd($statusId);
         if ($statusId) {
             $status = $this->repo->getStatusName($statusId);
         }
@@ -88,23 +91,6 @@ class ProjectsController extends Controller
 
 
 
-    // private function convertToProjectManagementUser($user)
-    // {
-    //     // Assuming the User models are interchangeable and you can simply return it
-    //     // If not, you might need to create a new instance and map properties accordingly
-    //     return new User([
-    //         'id' => $user->id,
-    //         'name' => $user->first_name,
-    //         'email' => $user->email,
-    //         "password" => $user->password,
-    //         "remember_token" => $user->remember_token,
-    //         "lang" => $user->lang,
-    //         "lang" => $user->lang,
-    //         "created_at" => $user->created_at,
-    //         "updated_at" => $user->updated_at
-    //         // map other properties as needed
-    //     ]);
-    // }
 
     /**
      * Show create project form.
@@ -150,11 +136,40 @@ class ProjectsController extends Controller
 
 
 
+        DB::enableQueryLog(); // Enable query log
+
+        if (empty($project->items)) {
+            // Retrieve the project from the database
+            $project = Project::find($project->id);
+        
+            // Retrieve the table name and id
+            $tableName = $project->getTable();
+            // dd($tableName);
+
+            $projectId = $project->id;
+            // dd($projectId);
+
+        
+            // Retrieve the associated files
+            $files = File::where('fileable_type', $tableName)
+                         ->where('fileable_id', $projectId)
+                         ->get();
+
+                                //  dd(DB::getQueryLog()); // Show results of log
+
+        
+            // dd($project);
+        }
+
+
+
         $Organization = $this->repo->getOrganizationsById($project->organization_id);
         // dd($Organization);
 
+        // dd($project->files);
 
-        return view('crm.projects.show', compact('project', 'Organization'));
+
+        return view('crm.projects.show', compact('project', 'Organization','files'));
     }
 
     // /**

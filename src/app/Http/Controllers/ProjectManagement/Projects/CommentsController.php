@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ProjectManagement\Projects;
 
 use App\Models\ProjectManagement\Projects\Comment;
+use App\Models\ProjectManagement\Projects\File;
 use App\Models\ProjectManagement\Projects\Project;
 use App\Models\CRM\Person\Person;
 use App\Http\Controllers\Controller;
@@ -25,12 +26,36 @@ class CommentsController extends Controller
         $editableComment = null;
         $comments = $project->comments()->with('creator')->latest()->paginate();
 
+
+
+        if (empty($project->items)) {
+            // Retrieve the project from the database
+            $project = Project::find($project->id);
+        
+            // Retrieve the table name and id
+            $tableName = $project->getTable();
+            // dd($tableName);
+
+            $projectId = $project->id;
+            // dd($projectId);
+
+        
+            // Retrieve the associated files
+            $files = File::where('fileable_type', $tableName)
+                         ->where('fileable_id', $projectId)
+                         ->get();
+
+                                //  dd(DB::getQueryLog()); // Show results of log
+
+        
+            // dd($project);
+        }
         if (request('action') == 'comment-edit' && request('comment_id') != null) {
             $editableComment = Comment::find(request('comment_id'));
         }
 
 
-        return view('crm.projects.comments', compact('project', 'comments', 'editableComment'));
+        return view('crm.projects.comments', compact('project', 'comments', 'editableComment' , 'files'));
     }
 
     /**

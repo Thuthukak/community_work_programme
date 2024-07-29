@@ -3,7 +3,7 @@
 return [
     // Labels
     'issue'         => 'Issue',
-    'list'          => 'Issue List',
+    'issue_list'    => 'Issue List',
     'search'        => 'Search Issue',
     'search_text'   => 'Title ...',
     'all'           => 'All Issue',
@@ -55,4 +55,5 @@ return [
     'on_hold'    => 'On Hold',
     'invalid'    => 'Invalid',
     'all_status' => 'All Status',
+    'issues_on_progress' => 'Issues in Progress',
 ];

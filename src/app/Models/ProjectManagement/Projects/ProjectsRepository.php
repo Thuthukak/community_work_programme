@@ -5,6 +5,7 @@ namespace App\Models\ProjectManagement\Projects;
 use App\Models\ProjectManagement\BaseRepository;
 use App\Models\ProjectManagement\Partners\Customer;
 use App\Models\CRM\Organization\Organization;
+use App\Models\ProjectManagement\Projects\Issue;
 use App\Models\CRM\Person\Person;
 use App\Models\Core\Auth\User;
 use DB;
@@ -25,11 +26,51 @@ class ProjectsRepository extends BaseRepository
     public function getProjects($q, $statusId, User $user)
     {
 
+
         $statusIds = array_keys(ProjectStatus::toArray());
 
 
 
         if ($user->hasRole('admin') == true) {
+                    dd($statusIds);
+
+            return $user->projects()
+                ->where(function ($query) use ($q, $statusId, $statusIds) {
+                    $query->where('projects.name', 'like', '%'.$q.'%');
+
+                    if ($statusId && in_array($statusId, $statusIds)) {
+                        $query->where('status_id', $statusId);
+                    }
+                })
+                ->latest()
+                ->with(['Organization', 'jobs'])
+                ->paginate($this->_paginate);
+        }
+
+        return $this->model->latest()
+            ->where(function ($query) use ($q, $statusId, $statusIds) {
+                $query->where('name', 'like', '%'.$q.'%');
+
+                if ($statusId && in_array($statusId, $statusIds)) {
+                    $query->where('status_id', $statusId);
+                }
+            })
+            ->with('organization')
+            ->paginate($this->_paginate);
+    }
+
+
+    public function getIssues($q, $statusId, User $user)
+    {
+
+
+        $statusIds = array_keys(IssueStatus::toArray());
+
+
+
+        if ($user->hasRole('admin') == true) {
+                    dd($statusIds);
+
             return $user->projects()
                 ->where(function ($query) use ($q, $statusId, $statusIds) {
                     $query->where('projects.name', 'like', '%'.$q.'%');
@@ -76,6 +117,11 @@ class ProjectsRepository extends BaseRepository
     public function getStatusName($statusId)
     {
         return ProjectStatus::getNameById($statusId);
+    }
+
+    public function getIssueStatusName($statusId)
+    {
+        return Issue::getStatusAttribute();
     }
 
     public function createNewCustomer($customerName, $customerEmail)

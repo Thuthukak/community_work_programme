@@ -37,8 +37,8 @@
 
 @auth()
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         window.localStorage.setItem('permissions', JSON.stringify(
             <?php echo json_encode(array_merge(
@@ -62,13 +62,9 @@
 
 
 
-<!-- Include necessary JS libraries -->
-<script src="{{ url('../assets/js/jquery.js') }}"></script>
-<script src="{{ url('../assets/js/bootstrap.min.js') }}"></script>
+
 @include('crm.layouts.partials.noty')
-<script src="{{ url('../assets/js/plugins/metisMenu/metisMenu.min.js') }}"></script>
 @yield('ext_js')
-<script src="{{ url('../assets/js/sb-admin-2.js') }}"></script>
 
 
 

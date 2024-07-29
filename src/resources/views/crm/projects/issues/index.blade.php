@@ -17,7 +17,7 @@
 
     <div class="create-button-wrapper">
         @can('create', new App\Models\ProjectManagement\Projects\Issue)
-            <button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#createIssueModal" data-project-id="{{ $project->id }}">{{ trans('Add Issue') }}</button>
+            <button class="btn btn-warning btn-sm p-2 mb-3" data-toggle="modal" data-target="#createIssueModal" data-project-id="{{ $project->id }}">{{ trans('Add Issue') }}</button>
 
         @endcan
     </div>
@@ -27,12 +27,13 @@
 
 
 @section('content-project')
-<div id="project-issues" class="issue-table panel panel-default table-responsive">
-    <div class="panel-heading">
-        <h3 class="panel-title">{{ __('project.issues') }}</h3>
+<div class="panel-heading">
+        <h3 class="panel-title custom-text-muted table-margin">{{ __('project.issues') }}</h3>
     </div>
-    <table class="table table-condensed table-striped">
-        <thead>
+<div class="table-wrapper shadow">
+<div id="project-issues" class="panel panel-default table-responsive">  
+    <table class="table table-condensed">
+        <thead class="custom-th2">
             <th>{{ __('app.table_no') }}</th>
             <th>{{ __('issue.title') }}</th>
             <th>{{ __('issue.priority') }}</th>
@@ -52,7 +53,7 @@
                 <td>{{ $no }}</td>
                 <td>{{ $issue->title }}</td>
                 <td>{!! $issue->priority_label !!}</td>
-                <td class="text-black">{!! $issue->status_label !!}</td>
+                <td class="text-black" style="text-color: black">{!! $issue->status_label !!}</td>
                 <td class="text-center">{{ $issue->comments_count }}</td>
                 <td>{{ $issue->pic->name }}</td>
                 <td>{{ $issue->creator->name }}</td>
@@ -71,6 +72,7 @@
             @endforelse
         </tbody>
     </table>
+</div>
 </div>
 
 

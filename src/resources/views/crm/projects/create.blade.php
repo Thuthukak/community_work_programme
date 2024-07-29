@@ -47,7 +47,7 @@
 </div>
 @endsection
 
-@section('ext_css')
+<!-- @section('ext_css')
 <link rel="stylesheet" href="{{ url('assets/css/plugins/jquery.datetimepicker.css') }}">
 @endsection
 
@@ -66,4 +66,4 @@
     });
 })();
 </script>
-@endsection
+@endsection -->

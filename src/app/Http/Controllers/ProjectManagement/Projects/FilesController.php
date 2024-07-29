@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\ProjectManagement\Projects;
 
 use App\Models\ProjectManagement\Projects\File;
+use App\Models\ProjectManagement\Projects\Project;
 use App\Http\Controllers\ProjectManagement\Controller;
 use App\Models\CRM\Person\Person;
 use File as FileSystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use DB;
 
 /**
  * Project Files Controller.
@@ -23,6 +25,7 @@ class FilesController extends Controller
     public function index(Request $request, $fileableId)
     {
 
+        // dd($request);
 
 
         $editableFile = null;
@@ -34,8 +37,31 @@ class FilesController extends Controller
         $files = $model->files;
 
 
+        // dd($fileableId);
+
+        DB::enableQueryLog(); // Enable query log
+
+
+        if(empty($files->items))
+        {
+            $files = Project::find($fileableId);
+            
+
+                $files = File::where('fileable_type', $fileableType)
+                 ->where('fileable_id', $fileableId)
+                 ->get();
+
+        }
+
+
+        // dd(DB::getQueryLog()); // Show results of log
         if (in_array($request->get('action'), ['edit', 'delete']) && $request->has('id')) {
+
+
+
             $editableFile = File::find($request->get('id'));
+
+            // dd($editableFile);
         }
 
        
@@ -61,6 +87,7 @@ class FilesController extends Controller
 
 
         $fileableType = array_search($request->get('fileable_type'), $this->fileableTypes);
+
 
         if ($fileableType) {
             $file = $this->proccessPhotoUpload($request->except('_token'), $fileableType, $fileableId);
@@ -103,6 +130,9 @@ class FilesController extends Controller
 
     public function update(Request $request, File $file)
     {
+
+                    // dd($file);
+
         $file->title = $request->get('title');
         $file->description = $request->get('description');
         $file->save();

@@ -5,7 +5,7 @@
 @section('action-buttons')
 @can('create', new App\Models\ProjectManagement\Projects\ProjectJob)
 <div class="action-btns-container">
-    {!! html_link_to_route('projects.jobs.create', __('job.create'), [$project->id], ['class' => 'btn btn-sm btn-primary p-2', 'icon' => 'plus']) !!}
+<button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#createTaskModal" data-project-id="{{ $project->id }}">{{ trans('Add New Task') }}</button>
     {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project->id], ['class' => 'btn btn-sm btn-success p-2', 'icon' => 'plus']) !!}
 @endcan
 @endsection
@@ -64,6 +64,56 @@
         </div>
     </div>
 </div>
+
+
+<!-- Create task modal -->
+<div id="createTaskModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ __('Add Task') }}</h4>
+            </div>
+            {!! Form::open(['route' => ['projects.jobs.store', $project->id], 'method' => 'POST']) !!}
+            <div class="modal-body">
+                {!! FormField::text('name', ['label' => trans('job.name')]) !!}
+
+                {!! FormField::textarea('description', ['label' => __('job.description')]) !!}
+
+            
+                <div class="row">
+                    <div class="col-sm-4">
+                        {!! FormField::price('price', [
+                            'label'    => __('job.price'),
+                            'currency' => Option::get('money_sign', 'Rp'),
+                            'value'    => 0,
+                        ]) !!}
+                    </div>
+                    <div class="col-md-4">
+                        {!! FormField::select('person_id', $persons, ['label' => __('Assign to'), 'value' => 1]) !!}
+                    </div>
+                    <div class="col-sm-4">
+                        {!! FormField::radios('type_id', [1 => __('job.main'), __('job.additional')], ['value' => 1, 'label' => __('job.type'), 'list_style' => 'unstyled']) !!}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        {!! FormField::text('target_start_date', ['label' => __('job.target_start_date'), 'class' => 'date-select']) !!}
+                    </div>
+                    <div class="col-md-6">
+                        {!! FormField::text('target_end_date', ['label' => __('job.target_end_date'), 'class' => 'date-select']) !!}
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                {{ Form::submit(__('Save'), ['class' => 'btn btn-primary']) }}
+                {{ link_to_route('projects.jobs.index', __('app.cancel'), [$project], ['class' => 'btn btn-default']) }}
+            </div>
+            {!! Form::close() !!}
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('ext_css')
@@ -76,43 +126,43 @@
     }
     </style>
 @endsection
-
 @section('script')
 <script src="{{ asset('assets/js/plugins/select2.min.js') }}"></script>
-
 <script>
-(function() {
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize Select2 for select[name=project_id]
     $('select[name=project_id]').select2();
+
+    // Initialize Flatpickr for date inputs
+    flatpickr(".date-select", {
+        dateFormat: "Y-m-d",
+        disableMobile: true // optional: to force the desktop version on mobile devices
+    });
 
     @if ($selectedProject)
         @foreach ($selectedProject->jobs as $job)
-
             $('#project_job_id_{{ $job->id }}').change(function () {
                 $('.project_job_id_{{ $job->id }}_tasks').prop('checked', this.checked);
             });
 
             @foreach($job->tasks as $task)
-
                 $('#{{ $job->id }}_task_id_{{ $task->id }}').change(function () {
-
                     var condition = false;
 
                     $.each($(".project_job_id_{{ $job->id }}_tasks"), function( key, value ) {
                         if(value.checked == true){
-                            condition = true
+                            condition = true;
                         }
                     });
 
-
-                    if(condition == true){
+                    if(condition) {
                         $('#project_job_id_{{ $job->id }}').prop('checked', true);
                     }
                 });
-
             @endforeach
-
         @endforeach
     @endif
-})();
+});
 </script>
+
 @endsection

@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-    <div class="custom-panel-heading"><h3 class="panel-title">{{ trans('project.detail') }}</h3></div>
+    <div class="custom-panel-heading"><h3 class="panel-title custom-text-muted">{{ trans('project.detail') }}</h3></div>
     <div class="panel-body">
         <table class="table table-condensed showprojtable">
             <tbody>
@@ -15,7 +15,7 @@
                 <tr><td>{{ trans('project.due_date') }}</td><td>{{ date_id($project->due_date) }}</td></tr>
                 <tr><td>{{ trans('app.status') }}</td><td>{{ $project->present()->status }}</td></tr>
                 <tr>
-                    <td>{{ trans('Organization') }}</td>
+                    <td>{{ trans('Or  ganization') }}</td>
                     <td>
                     </td>
                 </tr>

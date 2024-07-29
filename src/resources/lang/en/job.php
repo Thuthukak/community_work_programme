@@ -3,7 +3,7 @@
 return [
     'job'           => 'Task',
     'list'          => 'Task List',
-    'on_progress'   => 'Task on Progress',
+    'on_progress'   => 'Task in Progress',
     'detail'        => 'Task Detail',
     'search'        => 'Search Job',
     'found'         => 'Task found.',
@@ -18,7 +18,8 @@ return [
     'ends'          => 'Ends',
     'actual'        => 'Actual',
     'duration'      => 'Duration',
-    'select_worker' => 'Select Worker',
+    'person'        => 'Person',
+    
 
     // Actions
     'create'                 => 'Create new Task',

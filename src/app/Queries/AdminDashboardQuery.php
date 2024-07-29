@@ -108,7 +108,7 @@ class AdminDashboardQuery
 
 
         if ($user->hasRole('admin') == false) {
-            $jobQuery->where('worker_id', $user->id);
+            $jobQuery->where('person_id', $user->id);
         }
 
         if ($projectId) {

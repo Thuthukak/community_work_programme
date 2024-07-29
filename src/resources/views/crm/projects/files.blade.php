@@ -5,26 +5,29 @@
 @section('contents')
 @include('crm.projects.partials.breadcrumb',['title' => __('project.files')])
 
-<h4 class="page-header-pill-layouts">
-    {{ $project->name }} 
-</h4>
+
+    <h4 class="header-pill">
+        {{ $project->name }} 
+    </h4>
+
 
 @include('crm.projects.partials.nav-tabs')
 <div class="row">
     <div class="col-md-7" style="margin-top:10px">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title" style="margin-left:20px">{{ __('project.files') }}</h3>
+                <h3 class="custom-text-muted" style="margin-left:20px">{{ __('project.files') }}</h3>
             </div>
-            <div class="panel-body table-responsive" style="margin-left:20px">
-                <table class="table table-condensed table-striped">
-                    <thead>
+            <div class="table-wrapper shadow">
+            <div class="panel-body table-responsive" >
+                <table class="table table-condensed ">
+                    <thead class="custom-th" >
                         <th>{{ __('app.table_no') }}</th>
                         <th>{{ __('file.file') }}</th>
-                        <th class="text-center">{{ __('file.updated_at') }}</th>
-                        <th class="text-right">{{ __('file.size') }}</th>
-                        <th class="text-center">{{ __('file.download') }}</th>
-                        <th class="text-center">{{ __('app.action') }}</th>
+                        <th class="text-center datatable-th pt-0 pr-0">{{ __('file.updated_at') }}</th>
+                        <th class="text-right datatable-th pt-0 pr-0">{{ __('file.size') }}</th>
+                        <th class="text-center datatable-th pt-0 pr-0">{{ __('file.download') }}</th>
+                        <th class="text-center datatable-th pt-0 pr-0">{{ __('app.action') }}</th>
                     </thead>
                     <tbody class="sort-files">
 
@@ -45,19 +48,20 @@
                                 {!! html_link_to_route('files.download', '', [$file->id], ['icon' => 'file', 'title' => __('file.download')]) !!}
                             </td>
                             <td class="text-center">
-                                {!! html_link_to_route('projects.files', '', [$project, 'action' => 'edit', 'id' => $file->id], ['icon' => 'edit', 'title' => __('file.edit')]) !!}
-                                {!! html_link_to_route('projects.files', '', [$project, 'action' => 'delete', 'id' => $file->id], ['icon' => 'remove', 'title' => __('file.delete'), 'id' => 'delete-file-'.$file->id]) !!}
+                                {!! html_link_to_routes('projects.files', '', [$project, 'action' => 'edit', 'id' => $file->id], ['icon' => 'edit', 'title' => __('file.edit')]) !!}
+                                {!! html_link_to_routes('projects.files', '', [$project, 'action' => 'delete', 'id' => $file->id], ['icon' => 'remove', 'title' => __('file.delete'), 'id' => 'delete-file-'.$file->id]) !!}
                             </td>
                         </tr>
                         @empty
-                        <tr><td colspan="6">{{ __('file.empty') }}</td></tr>
+                        <tr><td colspan="6" class="custom-text-muted">{{ __('file.empty') }}</td></tr>
                         @endforelse
                     </tbody>
                 </table>
             </div>
+            </div> 
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-4 upload-wrapper shadow" style="margin-top:50px">
         @if (Request::has('action') == false)
         <div class="panel panel-default" style="margin-top:10px">
             <div class="panel-heading"><h3 class="panel-title">{{ __('file.create') }}</h3></div>

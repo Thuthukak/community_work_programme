@@ -60,7 +60,7 @@ class PipelineController extends Controller
                 $pipeline->stage()->updateOrCreate($item);
             }
         }
-
+        dd($pipeline);
         notify()
             ->on('pipeline_created')
             ->with($pipeline)

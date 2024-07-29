@@ -10,6 +10,7 @@ return [
     'back_to_index'     => 'Back to Sub Task List',
     'not_found'         => 'Sub Task not found.',
     'move_to_other_job' => 'Move to other Task',
+    'set_as_job' => 'Set As Job',
 
     // Actions
     'create'    => 'Create new Sub Task',

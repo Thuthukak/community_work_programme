@@ -1,7 +1,7 @@
 <template>
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-            <a class="navbar-brand brand-logo" href="/dashboard"><img src="../../assets/images/invoice_logo.png" alt="logo" /></a>
+            <a class="navbar-brand brand-logo-mini" href="/dashboard"><img src="../../assets/images/invoice_logo.png" alt="logo" /></a>
             <a class="navbar-brand brand-logo-mini" href="/dashboard"><img src="../../assets/images/invoice_logo.png" alt="logo" /></a>
         </div>
         <ul class="nav nav-scrolling">

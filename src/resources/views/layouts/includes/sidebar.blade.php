@@ -26,6 +26,67 @@
             ],
         ], */
         [
+            'id' => 'ObjectivekeyResults',
+            'icon' => 'target',
+            'name' => __('default.keyResults',[],$locale),
+            'permission' => authorize_any(['view_activities']),
+            'subMenu' => [
+                [
+                    'name' => __('default.listobjectives',[],$locale),
+                    'url' => request()->root().'/Objectives',
+                    'permission' => authorize_any(['view_activities']),
+                ],
+                [
+                    'name' => __('default.listactions',[],$locale),
+                    'url' => request()->root().'/actions',
+                    'permission' => authorize_any(['view_activities']),
+                ],
+            ],
+        ],
+        [
+            'id' => 'proposals',
+            'icon' => 'hexagon',
+            'name' => __('default.proposals',[],$locale),
+            'permission' => authorize_any(['view_proposals']),
+            'subMenu' => [
+                [
+                    'name' => __('default.proposal_list',[],$locale),
+                    'url' => request()->root().'/proposals/list/view',
+                    'permission' => authorize_any(['view_proposals']),
+                ],
+                [
+                    'name' => __('default.templates',[],$locale),
+                    'url' => request()->root().'/template/view',
+                    'permission' => authorize_any(['view_templates']),
+                ],
+            ],
+        ],
+        [
+            'id' => 'projects',
+            'icon' => 'clipboard',
+            'name' => __('default.projects',[],$locale),
+            'permission' => authorize_any(['view_activities']),
+            'subMenu' => [
+                [
+                    'name' => __('default.project_list',[],$locale),
+                    'url' => request()->root().'/projects',
+                    'permission' => authorize_any(['view_activities']),
+                ],
+                [
+                    'name' => __('default.job_list',[],$locale),
+                    'url' => request()->root().'/jobs',
+                    'permission' => authorize_any(['view_activities']),
+                ],
+                [
+                    'name' => __('Issue List',[],$locale),
+                    'url' => request()->root().'/issues',
+                    'permission' => authorize_any(['view_activities']),
+                ],
+          
+              
+            ],
+        ],
+        [
             'id' => 'leads',
             'icon' => 'users',
             'name' => __('default.leads',[],$locale),
@@ -86,25 +147,6 @@
            'url' => request()->root().'/invoices/list',
            'permission' => authorize_any(['view_invoice']),
         ],*/
-
-        [
-            'id' => 'proposals',
-            'icon' => 'hexagon',
-            'name' => __('default.proposals',[],$locale),
-            'permission' => authorize_any(['view_proposals']),
-            'subMenu' => [
-                [
-                    'name' => __('default.proposal_list',[],$locale),
-                    'url' => request()->root().'/proposals/list/view',
-                    'permission' => authorize_any(['view_proposals']),
-                ],
-                [
-                    'name' => __('default.templates',[],$locale),
-                    'url' => request()->root().'/template/view',
-                    'permission' => authorize_any(['view_templates']),
-                ],
-            ],
-        ],
         [
             'id' => 'activities',
             'icon' => 'activity',
@@ -123,27 +165,6 @@
                 ],
             ],
         ],
-        [
-            'id' => 'project_management',
-            'icon' => 'clipboard',
-            'name' => __('default.project_management',[],$locale),
-            'permission' => authorize_any(['view_projects']),
-            'subMenu' => [
-                [
-                    'name' => __('default.project_list',[],$locale),
-                    'url' => request()->root().'/projects',
-                    'permission' => authorize_any(['view_activities']),
-                ],
-                [
-                    'name' => __('default.job_list',[],$locale),
-                    'url' => request()->root().'/jobs',
-                    'permission' => authorize_any(['view_projects']),
-                ],
-          
-              
-            ],
-        ],
-    
         [
             'id' => __t('expenses'),
             'icon' => 'dollar-sign',
@@ -201,14 +222,9 @@
         ],
     ];
 @endphp
-<!-- <sidebar :data="{{ json_encode($data) }}"
+<sidebar :data="{{ json_encode($data) }}"
          :logo-icon-src="{{json_encode(env('APP_URL').config('settings.application.company_icon'))}}"
          :logo-src="{{json_encode(env('APP_URL').config('settings.application.company_logo'))}}"
          logo-url="{{env('APP_URL')}}">
 
-</sidebar> -->
-<sidebar :data="{{ json_encode($data) }}"
-         :logo-icon-src="'/storage/icon/66714a8ed657b.svg'"
-         :logo-src="'/path/to/your/logo.png'"
-         logo-url="http://your-app-url">
 </sidebar>

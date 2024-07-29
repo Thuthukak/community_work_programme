@@ -609,7 +609,14 @@ return array_merge(
         //Project 
         'project' => 'Project',
         'area_of_projects' => 'Area_Of_Projects',
-        ''
+        
+
+        //okr 
+        'keyResults' => 'Key Objectives',
+        'listobjectives' => 'Objectives List',
+        'listactions' => 'Actions List',
+
+        
 
     ],
     require 'custom.php'

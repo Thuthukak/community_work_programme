@@ -14,6 +14,11 @@ use App\Http\Controllers\ProjectManagement\Issues\OptionController;
 use App\Http\Controllers\ProjectManagement\IssueController as IssuesController;
 use App\Http\Controllers\ProjectManagement\Projects\TasksController;
 use App\Models\Core\Auth\User;
+use App\Http\Controllers\CRM\Objectives\OkrController;
+use App\Http\Controllers\CRM\Objectives\KrController;
+use App\Http\Controllers\CRM\Objectives\FollowController;
+use App\Http\Controllers\CRM\Objectives\CompanyController;
+use App\Http\Controllers\CRM\Objectives\ActionsController;
 use Illuminate\Support\Facades\Route;
 
 // Root route
@@ -166,11 +171,13 @@ Route::post('projects/{project}/comments', [CommentsController::class ,'store'])
 Route::get('projects/{project}/files', [FilesController::class, 'index'])->name('project.files');
 Route::get('projects/{id}/files', [ProjectsController::class, 'files'])->name('projects.files');
 Route::post('projects/{project}/files', [FilesController::class, 'create'])->name('files.upload');
-Route::post('projects/{projectId}/files/update', [FilesController::class, 'update']);
+Route::post('projects/{project}/files/update', [FilesController::class, 'update']);
 Route::post('projects/files/{fileable}', [FilesController::class, 'create'])->name('files.upload');
-Route::post('projects/files/{file}', [FilesController::class, 'show'])->name('files.download');
-Route::post('projects/files/{file}', [FilesController::class, 'update'])->name('files.update');
-Route::post('projects/files/{file}', [FilesController::class, 'destroy'])->name('files.destroy');
+Route::get('projects/files/{file}', [FilesController::class, 'show'])->name('files.download');
+Route::patch('projects/files/{file}', [FilesController::class, 'update'])->name('files.update');
+Route::delete('projects/files/{file}', [FilesController::class, 'destroy'])->name('files.destroy');
+// Route::get('projects/{project}/files', [FilesController::class, 'index'])->name('files.edit');
+ 
 
 // Subscription routes
 Route::get('projects/{project}/subscriptions', [ProjectsController::class, 'subscriptions'])->name('projects.subscriptions');
@@ -212,15 +219,175 @@ Route::post('subscriptions/store', [SubscriptionsController::class, 'store'])->n
     Route::get('jobs/{job}/comments', [CommentsController::class ,'index'])->name('jobs.comments.index');
     Route::post('jobs/{job}/comments', [CommentsController::class , 'store'])->name('jobs.comments.store');
     Route::patch('jobs/{job}/comments/{comment}',[CommentsController::class , 'update'])->name('jobs.comments.update');
-    Route::delete('jobs/{job}/comments/{comment}', [CommentsController::class ,'destroy'])->name('jobs.comments.destroy');Route::post('issues/{issue}/comments', 'Issues\CommentController@store')->name('issues.comments.store');
+    Route::delete('jobs/{job}/comments/{comment}', [CommentsController::class ,'destroy'])->name('jobs.comments.destroy');
+    Route::post('issues/{issue}/comments', 'Issues\CommentController@store')->name('issues.comments.store');
     Route::post('issues/{issue}/comments', [IssueController::class ,'store'])->name('issues.comments.store');
 
 
     /*
  * Issue Options Routes
  */
+Route::get('/issues' , [App\Http\Controllers\ProjectManagement\Issues\IssueController::class , 'index'])->name('issues.issues');
 Route::patch('issues/{issue}/options', [OptionController::class ,'update'])->name('issues.options.update');
 
 // Route::get('issues/', [IssuesController::class ,'index'])->name('issues.index');
 
-Route::resource('issues', IssueController::class);
+// Route::resource('issues', IssueController::class);
+
+
+//okr routes
+
+
+        # Personal Calendar
+        // Route::resource('events','EventController');
+        Route::get('calendar', 'ActivityController@calendar')->name('calendar.index');
+        Route::post('calendar/user/{user}/create', 'ActivityController@create')->name('calendar.create');
+        Route::get('calendar/activity/{activity}/show', 'ActivityController@show')->name('calendar.show');
+        Route::patch('calendar/activity/{activity}/update', 'ActivityController@update')->name('calendar.update');
+        Route::delete('calendar/activity/{activity}/destroy', 'ActivityController@destroy')->name('calendar.destroy');
+        // Get iCal format
+        Route::get("ical-events", "IcalendarController@getEventsICalObject")->name('calendar.ical');
+
+
+
+    # OKR
+    // Delete Objective
+    Route::delete('objective/{objective}/destroy', [ObjectiveController::class , 'destroy'])->name('objective.destroy');
+
+    //view list okrs 
+    Route::get('Objectives/', [OkrController::class ,'listOKR'])->name('iokr.list');
+
+    // Edit OKR page
+    Route::get('okr/{objective}/edit', [OkrController::class , 'edit'])->name('okr.edit');
+    // Update the modified OKR
+    Route::patch('okr/{objective}/update', [OkrController::class , 'update'])->name('okr.update');
+    // Save Key Result
+    Route::post('kr/store', [KrController::class , 'store'])->name('kr.store');
+    // Delete Key Result
+    Route::delete('kr/{keyresult}/destroy', [KrController::class , 'destroy'])->name('kr.destroy');
+    // JSON API
+    Route::get('objective/{objective}/getArray', [ObjectiveController::class , 'getArray'])->name('objective.getArray');
+
+
+
+ # Action
+
+ // show list of actions 
+ Route::get('actions/models/{actionOn}', [ActionsController::class, 'getModels'])->name('actions.models');
+ //fecth related action 
+Route::get('/actions', [ActionsController::class , 'index'])->name('actions.index');
+
+//get objective and priorities for creating a n Action
+
+Route::get('/actions/get', [ActionsController::class, 'get'])->name('actions.get');
+
+//get key results 
+Route::get('/actions/keyresults/{id}', [ActionsController::class, 'getKeyResults'])->name('actions.keyresults');
+
+// Create Action page
+Route::get('objective/{objective}/action/create', [ActionController::class, 'create'])->name('actions.create');
+// Save Action
+Route::post('actions/store', [ActionsController::class , 'store'])->name('actions.store');
+// Complete Action
+Route::post('actions/{action}/done', [ActionsController::class , 'done'])->name('actions.done');
+// Edit Action page
+Route::get('actions/{action}/edit', [ActionsController::class , 'edit'])->name('actions.edit');
+// Update Action
+Route::patch('actions/{action}/update', [ActionsController::class , 'update'])->name('actions.update');
+// Show specified Action
+Route::get('actions/{action}/show', [ActionsController::class , 'show'])->where('action', '[0-9]+')->name('actions.show');
+// Delete personal Action
+Route::delete('actions/{action}/destroy', [ActionsController::class ,'destroy'])->name('actions.destroy');
+// Delete Action's file
+Route::get('actions/{action}/media/{media}/destroy', [ActionsController::class , 'destroyFile'])->name('actions.destroyFile');
+// Return search
+Route::get('objective/{objective}/action/user/search', [ActionsController::class , 'search'])->name('actions.user.search');
+// Reject invitation
+Route::get('actions/{action}/member/{member}/invite/reject', [ActionsController::class ,' rejectInvite'])->name('actions.member.invite.reject');
+// Agree to invitation
+Route::get('actions/{action}/member/{member}/invite/agree', [ActionsController::class , 'agreeInvite'])->name('actions.member.invite.agree');
+
+
+# Organization OKR
+// Organization OKR homepage
+Route::get('organization', [CompanyController::class , 'index'])->name('company.index');
+// Add company
+Route::post('organization/company/store', [CompanyController::class , 'store'])->name('company.store');
+// Edit company page
+Route::get('organization/company/edit', [CompanyController::class , 'edit'])->name('company.edit');
+// Update company
+Route::patch('organization/company/update', [CompanyController::class , 'update'])->name('company.update');
+// Delete company
+Route::delete('organization/company/destroy', [CompanyController::class , 'destroy'])->name('company.destroy');
+// Show company OKR
+Route::get('organization/company/okr', [CompanyController::class , 'listOKR'])->name('company.okr');
+// Add company Objective
+Route::post('organization/company/{company}/objective/store', [CompanyController::class , 'storeObjective'])->name('company.objective.store');
+// Company members page
+Route::get('organization/company/member', [CompanyController::class , 'member'])->name('company.member');
+// Send invite
+Route::post('organization/company/{company}/member/invite', [CompanyController::class , 'inviteMember'])->name('company.member.invite');
+// Cancel invite
+Route::patch('organization/company/{company}/member/{member}/invite/destroy', [CompanyController::class , 'cancelInvite'])->name('company.member.invite.destroy');
+// Reject invite
+Route::get('organization/company/{company}/member/{member}/invite/reject', [CompanyController::class , 'rejectInvite'])->name('company.member.invite.reject');
+// Agree to invite
+Route::get('organization/company/{company}/member/{member}/invite/agree', [CompanyController::class , 'agreeInvite'])->name('company.member.invite.agree');
+// Update company members
+Route::patch('organization/company/member/update', [CompanyController::class , 'updateMember'])->name('company.member.update');
+// Delete company members
+Route::patch('organization/company/member/{member}/destroy', [CompanyController::class , 'destroyMember'])->name('company.member.destroy');
+// Change company admin
+Route::patch('organization/company/admin/change', [CompanyController::class , 'changeAdmin'])->name('company.admin.change');
+// Delete company admin
+Route::patch('organization/company/admin/delete', [CompanyController::class , 'deleteAdmin'] )->name('company.admin.delete');
+// Import users
+Route::get('organization/company/admin/import', [CompanyController::class , 'importUser'])->name('company.import.user');
+// Handle bulk import of users
+Route::post('organization/company/admin/import', [CompanyController::class , 'handleImportUser'])->name('company.bulk.import.user');
+
+// Show sub-department page
+Route::get('organization/department/{department}', 'DepartmentController@index')->name('department.index');
+// Save new department
+Route::post('organization/department/store', 'DepartmentController@store')->name('department.store');
+// Edit department page
+Route::get('organization/department/{department}/edit', 'DepartmentController@edit')->name('department.edit');
+// Update department
+Route::patch('organization/department/{department}/update', 'DepartmentController@update')->name('department.update');
+// Delete department
+Route::delete('organization/department/{department}/destroy', 'DepartmentController@destroy')->name('department.destroy');
+// Show department OKR
+Route::get('organization/department/{department}/okr', 'DepartmentController@listOKR')->name('department.okr');
+// Add department Objective
+Route::post('organization/department/{department}/objective/store', 'DepartmentController@storeObjective')->name('department.objective.store');
+// Department members page
+Route::get('organization/department/{department}/member', 'DepartmentController@member')->name('department.member');
+// Department members settings page
+Route::get('organization/department/{department}/member/setting', 'DepartmentController@memberSetting')->name('department.member.setting');
+// Add department member
+Route::post('organization/department/{department}/member/store', 'DepartmentController@storeMember')->name('department.member.store');
+// Update department member
+Route::patch('organization/department/{department}/member/{member}/update', 'DepartmentController@updateMember')->name('department.member.update');
+// Delete department member
+Route::patch('organization/department/{department}/member/{member}/destroy', 'DepartmentController@destroyMember')->name('department.member.destroy');
+
+
+Route::get('user/{user}/okr', 'UserController@listOKR')->name('user.okr');
+
+   // 顯示個人Action
+   Route::get('user/{user}/action', 'UserController@listAction')->name('user.action');
+   // 顯示個人帳號設定
+   Route::get('user/{user}', 'UserController@settings')->name('user.settings');
+   // 更新個人照片
+   Route::patch('user/{user}/update', 'UserController@update')->name('user.update');
+   // 新增個人O
+   Route::post('user/{user}/objective/store', 'UserController@storeObjective')->name('user.objective.store');
+   //變更密碼
+   Route::post('user/resetPassword','UserController@resetPassword')->name('user.resetPassword');
+    # 追蹤
+    //專案首頁
+    Route::get('follow', [FollowController::class , 'index'])->name('follow.index');
+    //追蹤
+    Route::get('follow/{type}/{owner}', [FollowController::class , 'follow'])->name('follow');
+    //取消追蹤
+    Route::get('follow/{type}/{owner}/cancel', [FollowController::class ,'cancel'])->name('follow.cancel');

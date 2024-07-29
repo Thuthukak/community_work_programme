@@ -36,23 +36,23 @@
                 @endcan
         </div>
         <div>
-            <!-- @can('delete', $comment)
+            @can('delete', $comment)
                 {!! FormField::delete(
                     ['route' => ['projects.comments.destroy', $project, $comment], 'class' => ''],
                     '&times;',
                     ['class' => 'btn-link', 'id' => 'delete-comment-'.$comment->id],
                     ['comment_id' => $comment->id, 'page' => request('page')]
                 ) !!}
-            @endcan -->
+            @endcan
             @can('delete', $comment)
-            <a href="{{ route('projects.comments.destroy', ['project' => $project->id, 'comment' => $comment->id]) }}" 
+            <!-- <a href="{{ route('projects.comments.destroy', ['project' => $project->id, 'comment' => $comment->id]) }}" 
                 class="btn btn-danger btn-xs" 
                 title="{{ __('comment.delete') }}" 
                 id="delete-comment-{{ $comment->id }}">
                 <svg width="16" height="16" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg" fill="#ffffff">
                 <path d="M1490 1327q0 53-37 90t-90 37-90-37L896 1060l-377 357q-37 37-90 37t-90-37-37-90 37-90l357-377-357-377q-37-37-37-90t37-90 90-37 90 37l377 357 377-357q37-37 90-37t90 37 37 90-37 90L1060 896l357 377q37 37 37 90z"/>
                 </svg>
-            </a>
+            </a> -->
 @endcan
 
         </div>

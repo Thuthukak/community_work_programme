@@ -25,7 +25,7 @@
                     <div class="col-sm-4">
                         {!! FormField::price('price', [
                             'label'    => __('job.price'),
-                            'currency' => Option::get('money_sign', 'Rp'),
+                            'currency' => Option::get('money_sign', 'R'),
                             'value'    => 0,
                         ]) !!}
                     </div>

@@ -56,7 +56,7 @@ ExtraNameSpace\ClassName@method
 To pass parameter
 
 ```
-App\User 5|string|58,hello,78|12:58:59
+App\Models\Core\Auth\User 5|string|58,hello,78|12:58:59
 ```
 
 > Note: parameters are separated by `|`. Array parameter value are `,` seprated. Numeric string value will auto converted as `int` type value. This was also applicable for array.

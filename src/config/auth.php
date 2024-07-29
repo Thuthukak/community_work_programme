@@ -45,17 +45,6 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
-        'pm' => [ // New guard for Project Management
-            'driver' => 'session',
-            'provider' => 'pm_users',
-        ],
-
-        'pm_api' => [ // New API guard for Project Management
-            'driver' => 'token',
-            'provider' => 'pm_users',
-            'hash' => false,
-        ],
-
         
     ],
 
@@ -80,11 +69,6 @@ return [
         'users' => [ //provider for CRM
             'driver' => 'eloquent',
             'model' => App\Models\Core\Auth\User::class,
-        ],
-
-        'pm_users' => [ // New provider for Project Management
-            'driver' => 'eloquent',
-            'model' => App\Models\ProjectManagement\Users\User::class,
         ],
     ],
 
