@@ -8,7 +8,10 @@
     <br>
     <br>
 </div>
-<div class="custom-container-wrapper">
+<div class="custom-container-wrapper" style="margin:20px;background: white;
+    justify-content:center;
+    padding-bottom: 50px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); ">
 <div class="row justify-content-center">
     <div class="col align-self-end text-right m-5">
         @if ($company->following())

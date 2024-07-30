@@ -1,4 +1,5 @@
 @extends('layouts.crm')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.css">
 @section('title','Action')
 @section('contents')
 
@@ -7,24 +8,24 @@
         <div class="col">
         </div>
     </div>
-    <div class="row justify-content-center">
+    <div class="row justify-content-center custom-container-wrapper" style="margin-top:40px; padding-top: 50px;">
         <div class="col-md-10 col-12">
             {{-- edit --}}
             @can('update', $action)
             <div class="row justify-content-end">
-                <div class="col-auto">
-                    <a class="text-info" href="#" onclick="document.getElementById('doneAct{{ $action->id }}').submit()"><i class="fas fa-check-circle"></i> {{ $action->isdone?'Cancel':'Finish' }}</a>
+                <div class="col-auto ">
+                    <a class="text-info " href="#" onclick="document.getElementById('doneAct{{ $action->id }}').submit()"><i class="fas  btn btn-success btn-xs edit-project-btn fa-edit fa-check-circle"></i> {{ $action->isdone?'Cancel':'Finish' }}</a>
                     <form method="POST" id="doneAct{{ $action->id }}" action="{{ route('actions.done',$action->id) }}">
                         @csrf
                     </form>
                 </div>
                 <div class="col-auto">
-                <button class="btn text-info fas fa-edit p-2  fa-sm w-100 edit-action-btn" data-id="{{  $action->id }}" data-toggle="modal" data-target="#EditActionModal">
+                <button class="fas  btn btn-primary btn-xs edit-project-btn fa-edit" data-id="{{  $action->id }}" data-toggle="modal" data-target="#EditActionModal">
                     {{ trans('Edit') }}
                 </button>
                 </div>
                 <div class="col-auto">
-                    <a href="#" data-toggle="dropdown" class="text-info"><i class="fas fa-trash-alt"></i> delete</a>
+                    <a href="#" data-toggle="dropdown" class="text-info"><i class="fas btn btn-danger btn-xs edit-project-btn fa-trash-alt"></i></a>
                     <form method="POST" id="deleteAct{{ $action->id }}" action="{{ route('actions.destroy', $action->id) }}">
                         @csrf
                         {{ method_field('DELETE') }}

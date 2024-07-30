@@ -1,4 +1,8 @@
-    <div class="custom-container-wrapper" style="padding:16px"  >
+    <div class="custom-container-wrapper" style="margin:20px;
+    background: white;
+    justify-content:center;
+    padding-bottom: 50px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); padding:16px"  >
     <div class="row mt-2">
         @if($action->isdone == null)
         <div class="col-auto align-self-center mb-3 pr-0">
