@@ -3,49 +3,56 @@
 @section('title','Action')
 @section('contents')
 
-<div class="container">
+<div class="container custom-container-wrapperxmargin" style="margin-top:40px; padding-top: 50px; padding-left: 40px">
     <div class="row mb-2">
         <div class="col">
         </div>
     </div>
-    <div class="row justify-content-center custom-container-wrapper" style="margin-top:40px; padding-top: 50px;">
-        <div class="col-md-10 col-12">
-            {{-- edit --}}
-            @can('update', $action)
-            <div class="row justify-content-end">
-                <div class="col-auto ">
-                    <a class="text-info " href="#" onclick="document.getElementById('doneAct{{ $action->id }}').submit()"><i class="fas  btn btn-success btn-xs edit-project-btn fa-edit fa-check-circle"></i> {{ $action->isdone?'Cancel':'Finish' }}</a>
-                    <form method="POST" id="doneAct{{ $action->id }}" action="{{ route('actions.done',$action->id) }}">
-                        @csrf
-                    </form>
-                </div>
-                <div class="col-auto">
-                <button class="fas  btn btn-primary btn-xs edit-project-btn fa-edit" data-id="{{  $action->id }}" data-toggle="modal" data-target="#EditActionModal">
-                    {{ trans('Edit') }}
+    <div class="row justify-content-center">
+    <div class="col-md-10 col-12">
+        {{-- edit --}}
+        @can('update', $action)
+        <div class="row justify-content-end">
+            <div class="col-auto d-flex">
+                <a class="btn btn-success text-white btn-xs edit-project-btn mr-1" href="#" onclick="document.getElementById('doneAct{{ $action->id }}').submit()">
+                    <i class="fas fa-check-circle text-white"></i> {{ $action->isdone ? 'Cancel' : 'Finish' }}
+                </a>
+                <form method="POST" id="doneAct{{ $action->id }}" action="{{ route('actions.done', $action->id) }}">
+                    @csrf
+                </form>
+
+                <button class="btn btn-primary btn-xs edit-project-btn mr-1" data-id="{{  $action->id }}" data-toggle="modal" data-target="#EditActionModal">
+                    <i class="fas fa-edit"></i>
                 </button>
-                </div>
-                <div class="col-auto">
-                    <a href="#" data-toggle="dropdown" class="text-info"><i class="fas btn btn-danger btn-xs edit-project-btn fa-trash-alt"></i></a>
-                    <form method="POST" id="deleteAct{{ $action->id }}" action="{{ route('actions.destroy', $action->id) }}">
-                        @csrf
-                        {{ method_field('DELETE') }}
-                        <div class="dropdown-menu u-padding-16">
-                            <div class="row justify-content-center mb-2">
-                                <div class="col-auto text-danger"><i class="fas fa-exclamation-triangle"></i></div>
-                            </div>
-                            <div class="row">
-                                <div class="col text-center">
-                                    Are you sure you want to take Action?<br>
-                                </div>
-                            </div>
-                            <div class="row justify-content-center mt-3">
-                                <div class="col text-center pr-0"><button class="btn btn-danger" type="submit">delete</button></div>
-                                <div class="col text-center pl-0"><a class="btn btn-secondary text-white">Cancel</a></div>
+
+                <a href="#" data-toggle="dropdown" class="btn btn-danger btn-xs edit-project-btn mr-1">
+                    <i class="fas fa-trash-alt text-white"></i>
+                </a>
+                <form method="POST" id="deleteAct{{ $action->id }}" action="{{ route('actions.destroy', $action->id) }}">
+                    @csrf
+                    {{ method_field('DELETE') }}
+                    <div class="dropdown-menu u-padding-16">
+                        <div class="row justify-content-center mb-2">
+                            <div class="col-auto text-danger"><i class="fas fa-exclamation-triangle"></i></div>
+                        </div>
+                        <div class="row">
+                            <div class="col text-center">
+                                Are you sure you want to take Action?<br>
                             </div>
                         </div>
-                    </form>
-                </div>
+                        <div class="row justify-content-center mt-3">
+                            <div class="col text-center pr-0"><button class="btn btn-danger" type="submit">Delete</button></div>
+                            <div class="col text-center pl-0"><a class="btn btn-secondary text-white">Cancel</a></div>
+                        </div>
+                    </div>
+                </form>
             </div>
+        </div>
+        
+    </div>
+</div>
+
+
             @endcan
             {{-- kr --}}
             <div class="row">
@@ -59,7 +66,7 @@
                 <div class="col-auto">
                     <h4>{{ $action->title }}</h4>
                 </div>
-                <div class="col-auto text-right text-muted align-self-center">{{ $action->updated_at }}renew</div>
+                <div class="col-auto text-right text-muted align-self-center">{{ $action->updated_at }}</div>
             </div>
             <div class="row mt-4 mb-4">
                 <div class="col-auto align-self-center text-muted pr-md-4" style="line-height: 24px;">
@@ -70,7 +77,7 @@
                 <div class="col-auto align-self-center text-muted pl-md-4 pr-md-4" style="line-height: 24px;">
                 person in charge｜
                     <a href="{{ route('user.okr', $action->user->id) }}" title="{{ $action->user->name }}">
-                        <img src="{{ $action->user->getAvatar() }}" class="avatar-xs mr-1">
+                        <img src="{{ asset('storage/icon/green.png') }}" class="avatar-xs mr-1">
                         <span>{{ $action->user->name }}</span>
                     </a>
                 </div>
