@@ -19,8 +19,8 @@
     <table class="task-progress-table table table-condensed">
         <thead>
             <th>{{ __('app.table_no') }}</th>
-            <th>{{ __('project.name') }}</th>
             <th>{{ __('job.name') }}</th>
+            <th>{{ __('project.name') }}</th>
             <th class="text-center">{{ __('job.tasks_count') }}</th>
             <th class="text-center">{{ __('job.progress') }}</th>
             @can('see-pricings', new App\Models\ProjectManagement\Projects\ProjectJob)
@@ -33,7 +33,6 @@
             @forelse($jobs as $key => $job)
             <tr>
                 <td>{{ 1 + $key }}</td>
-                <td>{{ $job->project->nameLink() }}</td>
                 <td>
                     {{ $job->nameLink() }}
                     @if ($job->tasks->isEmpty() == false)
@@ -47,6 +46,7 @@
                     </ul>
                     @endif
                 </td>
+                <td>{{ $job->project->nameLink() }}</td>
                 <td class="text-center">{{ $job->tasks_count = $job->tasks->count() }}</td>
                 <td class="text-center">{{ format_decimal($job->progress) }} %</td>
                 @can('see-pricings', $job)

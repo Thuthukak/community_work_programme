@@ -43,9 +43,9 @@ if (mix.inProduction()) {
         // Optimize JS minification process
         terser: {
 
-            cache: true,
-            parallel: true,
-            sourceMap: true
+            // cache: true,
+            // parallel: true,
+            // sourceMap: true
         }
     });
 } else {

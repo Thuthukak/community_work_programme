@@ -478,12 +478,10 @@ export default {
       });
     },
     beforeSubmit() {
-      console.log('###############Before Submit')
       this.loading = true;
     },
     submit() {
 
-      console.log('###############Start Submiting')
 
       let customData = [];
       this.customFields.map((el) => {
@@ -537,7 +535,6 @@ export default {
     },
     afterError(response) {
 
-      console.log(response)
 
       this.loading = false;
       this.errors = response.data.errors;
@@ -572,7 +569,6 @@ export default {
     },
     closeModal(value) {
 
-      console.log('###############Inside the close modal  Submiting')
 
       this.$emit("close-modal", value);
     },

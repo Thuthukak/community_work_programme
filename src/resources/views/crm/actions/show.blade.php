@@ -1,4 +1,6 @@
 @extends('layouts.crm')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.css">
+
 @section('title','Action')
 @section('contents')
 <div class="container">

@@ -9,7 +9,7 @@
         </div>
         <div class="col-auto text-right align-self-center mb-sm-2 mb-4">
             <a href="{{ route('user.okr', $action->user->id) }}" title="{{$action->user->name}}" class="ml-4 mr-4 text-muted">
-                <img src="{{ $action->user->getAvatar() }}" class="avatar-xs mr-2">{{$action->user->name}} 執行
+                <img src="{{ $action->user->getAvatar() }}" class="avatar-xs mr-2">{{$action->user->name}} 
             </a>
             <i class="fas fa-paperclip text-muted pr-2"></i> {{count($action->getRelatedFiles())}}
             <i class="far fa-comment-dots text-muted pl-4 pr-2"></i> {{'removed count method'}}
