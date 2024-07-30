@@ -276,8 +276,8 @@
                 @can('storeObjective', $owner)
                 @if($okr['keyresults']->toArray())
                 
-                <button class="btn btn-warning btn-sm p-2 fa fa-plus fa-sm w-100 add-action-btn" data-id="{{  $okr['objective']->id }}" data-toggle="modal" data-target="#createActionModal">
-                    {{ trans('Action') }}
+                <button class="btn btn-warning btn-sm p-2 fa  fa-sm w-100 add-action-btn" data-id="{{  $okr['objective']->id }}" data-toggle="modal" data-target="#createActionModal" style=" font-family: 'Poppins', sans-serif;">
+                    Add Action
                 </button>
                @else
                 <button type="button" class="btn btn-secondary w-100" disabled><i class="fa fa-lock fa-sm"></i> Please add Key Results first
