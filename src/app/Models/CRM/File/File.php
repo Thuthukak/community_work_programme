@@ -7,10 +7,6 @@ class File extends CoreFile
 {
     protected $appends = ['icon'];
 
-    public function getIconAttribute()
-    {
-        return config('crm-config.icon.for_file_icon');
-    }
 
     public function __construct(array $attributes = [])
     {
@@ -19,4 +15,12 @@ class File extends CoreFile
         // Merge the appends from the parent class
         $this->appends = array_merge(['icon'], $this->appends);
     }
+
+    
+    public function getIconAttribute()
+    {
+        return config('crm-config.icon.for_file_icon');
+    }
+
+
 }
