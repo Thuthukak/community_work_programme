@@ -99,13 +99,13 @@
                 </div>
             </div>
             @endif
-            <hr>
+            <!-- <hr>
             <div class="row">
                 <div class="col">
                     @comments(['model' => $action])
                     @endcomments
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
