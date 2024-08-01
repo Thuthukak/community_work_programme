@@ -1,4 +1,4 @@
-    <div class="custom-container-wrapper" style="margin:20px;
+    <div style="
     background: white;
     justify-content:center;
     padding-bottom: 50px;
