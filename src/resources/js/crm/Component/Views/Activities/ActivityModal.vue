@@ -199,21 +199,20 @@
                                 $t("deal")
                             }}</label>
                         <div class="col-sm-10">
-<!--                            <app-input-->
-<!--                                type="search-select"-->
-<!--                                list-value-field="title"-->
-<!--                                :list="dealList"-->
-<!--                                :placeholder="$t('choose_a_deal')"-->
-<!--                                :required="true"-->
-<!--                                v-model="formData.contextable_id"-->
-<!--                            />-->
+                            <!-- <app-input
+                                type="search-select"
+                               list-value-field="title"
+                               :list="dealList"
+                                :placeholder="$t('choose_a_deal')"
+                                :required="true"
+                                v-model="formData.contextable_id"                            />
                             <app-input
                                 v-model="formData.contextable_id"
                                 :options="dealsOptions"
                                 :placeholder="$t('choose_a_deal')"
                                 type="search-and-select"
                                 :error-message="$errorMessage(errors, 'contextable_id')"
-                            />
+                            /> -->
                         </div>
                     </div>
                     <!-- deal media object input -->

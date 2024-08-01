@@ -6,14 +6,12 @@
 @section('contents')
 <div class="container">
 
-<ul class="nav justify-content-flex-start" style="margin-left: -100px; margin-top: 25px; color: #374151 !important;font-family: 'Poppins', sans-serif !important; font-weight: 500 !important; font-size: 1rem !important;" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link project-title page-header-pill text-xl  font-semibold" id="okr-tab" data-toggle="tab"  role="tab" aria-controls="okr"
-                aria-selected="false">Actions</a>
-        </li>
-    </ul>
-    <br>
-    <br>
+<div class="row align-items-center justify-content-between" style="margin: 40px;">
+ 
+   <h4 class="header-pill col-auto">Objectives and Key Results</h4>
+    <div class="col-auto">
+    </div>
+</div>
     <div class="tab-pane fade show pl-sm-4 mt-4 pr-sm-4">
         <div class="row m-3 pt-4 justify-content-center">
             <div class="col-auto mb-2">
@@ -50,7 +48,7 @@
     </div>
   <!-- Button trigger modal -->
   <div class="position-fixed" style="top: 100px; right: 100px;">
-  <button class="btn btn-warning btn-sm p-2 fa  fa-sm w-100 add-action-btn" style="font-family: 'Poppins', sans-serif "  data-toggle="modal" data-target="#createActionModal">  
+  <button class="btn btn-warning btn-sm p-2 fa  fa-sm w-100 add-action-btn" style="font-family: 'Poppins', sans-serif "  data-toggle="modal" data-target="#createActionModal">
  {{ trans('Add Action') }}
      </button>               
                  <img src="{{ asset('img/icon/add/lightgreen.svg') }}" alt="">

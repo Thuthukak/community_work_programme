@@ -1,20 +1,9 @@
-<div>
-<ul class="nav justify-content-flex-start" style="margin-left: -100px; margin-top: 30px; color: #374151 !important;font-family: 'Poppins', sans-serif !important; font-weight: 500 !important; font-size: 1rem !important;" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link project-title page-header-pill text-xl  font-semibold" id="okr-tab" data-toggle="tab"  role="tab" aria-controls="okr"
-                aria-selected="false">Objectives and Key Results</a>
-        </li>
-    </ul>
-    <br>
-    <br>
-</div>
-<div class="custom-container-wrapper">
-<br>
-<br>  
-<br>
-<br>
-<br>
-<br>
+
+<div class="custom-container-wrapper pt-5" style="margin:20px;background: white;
+    justify-content:left;
+    padding-bottom: 50px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); ">
+
 <div class="row justify-content-center">
     <div class="col-md-4 u-padding-16">
         <div class="row">
@@ -71,23 +60,23 @@
                     <div class="row justify-content-center mb-2">
                         <div class="col-auto text-danger"><i class="fas fa-exclamation-triangle"></i></div>
                     </div>
-                    <div class="row">
-                    <div class="col text-center">
-                        After deleting the organization,<br>
-                        all data within the organization will be lost!!<br>
-                        Are you sure you want to delete the organization?<br>
-                    </div>
+                            <div class="row">
+                            <div class="col text-center">
+                                After deleting the organization,<br>
+                                all data within the organization will be lost!!<br>
+                                Are you sure you want to delete the organization?<br>
+                            </div>
 
-                    </div>
-                    <div class="row justify-content-center mt-3">
-                        <div class="col-auto text-center pr-2"><button class="btn btn-danger pl-4 pr-4" type="submit">Delete</button></div>
-                        <div class="col-auto text-center pl-2"><a class="btn btn-secondary text-white pl-4 pr-4">Cancel</a></div>
-                    </div>
+                            </div>
+                            <div class="row justify-content-center mt-3">
+                                <div class="col-auto text-center pr-2"><button class="btn btn-danger pl-4 pr-4" type="submit">Delete</button></div>
+                                <div class="col-auto text-center pl-2"><a class="btn btn-secondary text-white pl-4 pr-4">Cancel</a></div>
+                            </div>
+                        </div>
+                    </form>
+                    @endcan
                 </div>
-            </form>
-        @endcan
-    </div>
-</div>
+        </div>
 </div>
 
 

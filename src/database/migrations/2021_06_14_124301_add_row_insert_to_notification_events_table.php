@@ -28,11 +28,11 @@ class AddRowInsertToNotificationEventsTable extends Migration
 
                 $template = DB::table('notification_templates')->insertGetId(
                     [
-                        'subject' => 'A deal named {deal_name} has been assigned by {action_by}',
+                        'subject' => 'An onboarding named {deal_name} has been assigned by {action_by}',
                         'default_content' => '<p><img src="{app_logo}" style="height: 75px"></p>
 <p>
 </p><p><span style="background-color: var(--form-control-bg) ; color: var(--default-font-color) ;">Hi {receiver_name}, </span><br></p><p>
-We are going to inform you that a deal named  {deal_name}.  has been assigned by {action_by}.</p><br>
+This is to inform you that an onboarding named  {deal_name}.  has been assigned by {action_by}.</p><br>
 <p></p><p>Thanks for being with us.
 </p><p>Regards,</p><p>{app_name}</p><p></p><p></p>',
                         'custom_content' => null,

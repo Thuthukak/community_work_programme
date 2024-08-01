@@ -16,7 +16,35 @@
 
 @section('title','Objective')
 @section('contents')
-<div class="container">
+<div class="row align-items-center justify-content-between" style="margin: 40px;">
+ 
+   <h4 class="header-pill col-auto">Objectives and Key Results</h4>
+    <div class="col-auto">
+        <!-- Button trigger modal -->
+    <div class="" style="top: 100px; right: 50px;">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#objective">
+                Add Objective
+            </button>
+        </div>
+    @can('storeObjective', $company)
+        <a href="#" data-toggle="modal" data-target="#objective" class="newObjective"><img src="{{ asset('img/icon/add/lightgreen.svg') }}" alt=""></a>
+        <div class="modal {{ count($errors) == 0 ? 'fade' : '' }}" id="objective" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    @include('crm.okrs.create', ['route'=>route('company.objective.store', $company->id)])
+                </div>
+            </div>
+        </div>
+    </div>
+             @endcan
+    </div>
+
+<div class="container" style="margin-left:20px; margin-top:0px;">
     @include('crm.organization.company.show')
     <div class="tab-pane fade show pl-sm-4 pr-sm-4">
         <div class="row m-3 pt-4 justify-content-center">
@@ -52,29 +80,7 @@
             </div>
         @endif
     </div>
-  <!-- Button trigger modal -->
-  <div class="position-fixed" style="top: 100px; right: 50px;">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#objective">
-                <img src="{{ asset('img/icon/add/lightgreen.svg') }}" alt="Add Objective">
-            </button>
-        </div>
-    @can('storeObjective', $company)
-        <a href="#" data-toggle="modal" data-target="#objective" class="newObjective"><img src="{{ asset('img/icon/add/lightgreen.svg') }}" alt=""></a>
-        <div class="modal {{ count($errors) == 0 ? 'fade' : '' }}" id="objective" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span>&times;</span>
-                        </button>
-                    </div>
-                    @include('crm.okrs.create', ['route'=>route('company.objective.store', $company->id)])
-                </div>
-            </div>
-        </div>
-        </div>
-    @endcan
-</div>
+  
 @endsection
 @section('script')
 <!-- Include Flatpickr JS from cdnjs -->
