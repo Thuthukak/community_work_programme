@@ -50,8 +50,8 @@
     </div>
   <!-- Button trigger modal -->
   <div class="position-fixed" style="top: 100px; right: 100px;">
-  <button class="btn btn-warning btn-sm p-2 fa  fa-sm w-100 add-action-btn" style="font-family: 'Poppins', sans-serif "  data-toggle="modal" data-target="#createActionModal"> Add 
- {{ trans('Action') }}
+  <button class="btn btn-warning btn-sm p-2 fa  fa-sm w-100 add-action-btn" style="font-family: 'Poppins', sans-serif "  data-toggle="modal" data-target="#createActionModal">  
+ {{ trans('Add Action') }}
      </button>               
                  <img src="{{ asset('img/icon/add/lightgreen.svg') }}" alt="">
             </button>

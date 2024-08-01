@@ -1,5 +1,17 @@
 @extends('layouts.crm')
 
+@section('script')
+<!-- <script src="{{ asset('js/okr/avatar.js') }}" defer></script>
+<script src="{{ asset('js/okr/tooltip.js') }}" defer></script>
+<script src="{{ asset('js/okr/circle-progress.min.js') }}" defer></script>
+<script src="{{ asset('js/okr/circleProgress.js') }}" defer></script>
+<script src="{{ asset('js/okr/editbtn.js') }}" defer></script> -->
+{{-- Chartjs --}}
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script> -->
+<!-- <script src="{{ asset('js/kr/chart.js') }}" defer></script>
+<script src="{{ asset('js/okr.js') }}" defer></script> -->
+@endsection
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.css">
 
 @section('title','Objective')
@@ -142,8 +154,6 @@
 
         document.querySelector('#model_type').addEventListener('change', function() {
             var actionOn = this.value;
-
-            console.log('###########Acton On value ::' + actionOn);
             // Make sure actionOn is not empty
             if (actionOn) {
                 fetchModels(actionOn);

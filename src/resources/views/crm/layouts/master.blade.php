@@ -11,16 +11,16 @@
     <link rel="shortcut icon" href="{{ asset('img/logo/favicon.ico') }}">
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <script src="{{ asset('js/sidebar.js') }}" defer></script>
-    {{-- <script src="{{ asset('js/scroll.js') }}" defer></script> --}}
+    <script src="{{ asset('js/okr/app.js') }}" defer></script>
+    <script src="{{ asset('js/okr/sidebar.js') }}" defer></script>
+    {{-- <script src="{{ asset('js/okr/scroll.js') }}" defer></script> --}}
     <script src="https://unpkg.com/gijgo@1.9.11/js/gijgo.min.js" type="text/javascript" defer></script>
-    <script src="{{ asset('js/datepicker.js') }}" defer></script>
+    <script src="{{ asset('js/okr/datepicker.js') }}" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/js/ion.rangeSlider.min.js" defer></script>
-    <script src="{{ asset('js/slider.js') }}" defer></script>
+    <script src="{{ asset('js/okr/slider.js') }}" defer></script>
     {{-- <script src="https://js.pusher.com/3.1/pusher.min.js" defer></script> --}}
-    <script src="{{ asset('js/notification.js') }}" defer></script>
-    <script src="{{ asset('js/textarea.js') }}" defer></script>
+    <script src="{{ asset('js/okr/notification.js') }}" defer></script>
+    <script src="{{ asset('js/okr/textarea.js') }}" defer></script>
     @yield('script')
 
     <!-- Fonts -->
@@ -33,12 +33,12 @@
         crossorigin="anonymous">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/base.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/component.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/okr/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/okr/base.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/okr/component.css') }}" rel="stylesheet">
     <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('css/ion.rangeSlider.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/bootstrap-notifications.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/okr/ion.rangeSlider.css') }}" rel="stylesheet" />
+    <link href="{{ asset('css/okr/bootstrap-notifications.min.css') }}" rel="stylesheet">
 
     @yield('stylesheet')
 </head>

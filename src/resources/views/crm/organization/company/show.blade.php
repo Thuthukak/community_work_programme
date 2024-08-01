@@ -9,19 +9,12 @@
     <br>
 </div>
 <div class="custom-container-wrapper">
-<div class="row justify-content-center">
-    <div class="col align-self-end text-right m-5">
-        @if ($company->following())
-        <a href="{{ route('follow.cancel', [get_class($company), $company]) }}" class="text-warning" data-toggle="tooltip" data-placement="right" title="Unfollow">
-            <i class="fas fa-star" style="font-size: 24px; margin-top: 5px"></i>
-        </a>
-        @else
-        <a href="{{ route('follow', [get_class($company), $company]) }}" class="text-warning" data-toggle="tooltip" data-placement="right" title="Follow">
-            <i class="far fa-star" style="font-size: 24px;"></i>
-        </a>
-        @endif
-    </div>
-</div>
+<br>
+<br>  
+<br>
+<br>
+<br>
+<br>
 <div class="row justify-content-center">
     <div class="col-md-4 u-padding-16">
         <div class="row">

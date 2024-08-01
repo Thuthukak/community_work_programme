@@ -25,14 +25,15 @@ class ProjectsRepository extends BaseRepository
 
     public function getProjects($q, $statusId, User $user)
     {
-
+        // dd($q);
 
         $statusIds = array_keys(ProjectStatus::toArray());
 
 
+        // dd($user->hasRole('admin'));
 
         if ($user->hasRole('admin') == true) {
-                    dd($statusIds);
+                 
 
             return $user->projects()
                 ->where(function ($query) use ($q, $statusId, $statusIds) {

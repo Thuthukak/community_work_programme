@@ -8,13 +8,19 @@
 
 
 <div class="panel panel-default table-responsive">
-    <div class="filter-heading panel-heading">
-        {{ Form::open(['method' => 'get', 'class' => 'form-inline']) }}
-        {!! FormField::select('project_id', $projects, ['label' => __('project.select'), 'placeholder' => __('project.all'),'class' => 'mr-2']) !!}
-        {{ Form::submit(__('app.filter'), ['class' => 'btn btn-info btn-m mr-1 filter-task-progress']) }}
-        {{ link_to_route('jobs.index', __('app.reset'), [], ['class' => 'btn btn-danger p-2 mr-1 btn-sm filter-task-progress']) }}
-        {{ Form::close() }}
+<div class="project-controls flex justify-between items-center mb-4">
+        <div class="index-nav-tabs pull-left hidden-xs">@include('crm.jobs.partials.index-nav-tabs')</div>
+        {!! Form::open(['method' => 'get', 'class' => 'form-inline search-form']) !!}
+        {{ Form::hidden('status_id') }}
+        <div class="relative">
+            <button type="submit" class="search-button">
+                <i class="fas fa-search"></i>
+            </button>
+            {!! Form::text('q', Request::get('q'), ['class' => 'form-control index-search-field', 'placeholder' => trans('project.search')]) !!}
+        </div>
+        {!! Form::close() !!}
     </div>
+
     <div class="table-wrapper shadow" style="margin:20px">
     <table class="task-progress-table table table-condensed">
         <thead>

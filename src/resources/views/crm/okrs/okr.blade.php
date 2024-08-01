@@ -8,7 +8,7 @@
                 <span class="font-weight-light pl-2 pr-4">{{ $okr['objective']->started_at }} ~ {{ $okr['objective']->finished_at }}</span>
                 @can('storeObjective', $owner)
                 <a class="close okr-close-btn">
-                    <i class="far fa-edit"></i>
+                <i class="far fa-edit"></i>       
                 </a>
                 @endcan
             </div>
@@ -40,7 +40,7 @@
                             {{-- Edit O button--}}
                             <a href="#" data-toggle="modal" data-target="#objectiveEdit{{ $okr['objective']->id }}" class="pl-2 pr-2 text-info"><i class="fas fa-pencil-alt"></i></a>        
                             {{-- Edit o modal --}}
-                            <div class="modal fade" id="objectiveEdit{{ $okr['objective']->id }}" tabindex="-1" role="dialog">
+                            <div class="modal fade" id="objectiveEdit{{ $okr['objective']->id }}" role="dialog">
                                 <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">

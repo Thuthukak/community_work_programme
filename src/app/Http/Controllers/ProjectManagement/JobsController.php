@@ -46,6 +46,7 @@ class JobsController extends Controller
     public function index( Request $request)
     {
         $user = auth()->user();
+        // dd($request);
 
         if (!$user->hasRole('admin')) {
             $projects = Project::whereIn('status_id', [2, 3])->pluck('name', 'id');
@@ -58,8 +59,37 @@ class JobsController extends Controller
         // Extract the IDs from the collection
         $ids = $projects->keys();
 
+        $status = null;
+        $statusId = $request->get('status_id');
+        if ($statusId) {
+
+            $status = $this->repo->getStatusName($statusId);
+        }
+
+    
+
+        // dd($statusId);
+
+
+
+
+       // Convert authenticated user to ProjectManagement\Users\User instance
+       $user = auth()->user();
+
+       $projects = $this->repo->getProjects($request->get('q'), $statusId, $user);
+
+       
+
         // Fetch data related to the IDs
+        $ids = $projects->getCollection()->map(function($project) {
+            return $project->id;
+        })->toArray();
+
+
         $jobs = ProjectJob::whereIn('project_id', $ids)->get();
+
+                // dd($jobs);
+
 
         return view('crm.jobs.unfinished', compact('jobs', 'projects'));
     }
