@@ -42,6 +42,7 @@ class CompanyController extends Controller
         $okrsWithPage = $company->getOkrsWithPage($request);
         $company['okrs'] = $okrsWithPage['okrs'];
 
+
         $data = [
             'user' => auth()->user(),
             'company' => $company,
@@ -51,6 +52,7 @@ class CompanyController extends Controller
             'order' => $request->input('order', ''),
         ];
 
+        // dd($data);
         return view('crm.organization.company.okr', $data);
     }
 

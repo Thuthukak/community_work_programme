@@ -74,7 +74,7 @@
 
                         <div class="col-md-6">
                             <label>{{ __('Organization') }}</label><br>
-                            <a href="{{ route('organizations.show', ['organization' => $project->organization_id]) }}">
+                            <a href="{{ route('organizations.show',  $project->organization_id) }}">
                                 {{ __($Organization->name) }}
                             </a>
                         </div>

@@ -83,6 +83,16 @@ class Organization extends BaseModel
     }
 
 
+     /**
+     * Organization has many projects.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function jobs()
+    {
+        return $this->hasMany('App\Models\ProjectManagement\Projects\ProjectJob');
+    }
+
     
     public function files()
     {

@@ -44,6 +44,7 @@ class DepartmentController extends Controller
             'fin_date' => $request->input('fin_date', ''),
             'order' => $request->input('order', ''),
         ];
+        dd($data);
 
         return view('organization.department.okr', $data);
     }

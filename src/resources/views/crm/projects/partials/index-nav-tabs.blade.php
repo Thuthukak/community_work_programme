@@ -5,6 +5,8 @@
     $activeLinkStyles = 'background-color: #007bff; color: white;';
 @endphp
 
+
+
 <!-- Nav tabs -->
 <ul style="display: flex; gap: 1rem; list-style: none; padding: 0; margin: 0;">
     <li class="nav-item">

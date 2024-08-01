@@ -55,27 +55,28 @@ trait HasObjectiveTrait
     public function getObjectivesBuilder(Request $request)
     {
         $builder = $this->objectives();
-        # 如果有做搜尋則跑此判斷
+        // dd($builder);
+        # If a search is performed, then run this judgment
         if ($request->input('st_date', '') || $request->input('fin_date', '')) {
-            # 判斷起始日期搜索是否為空        
+            # Check if the start date search is empty.        
             if ($search = $request->input('st_date', '')) {
                 $builder->where(function ($query) use ($search) {
                     $query->where('finished_at', '>=', $search);
                 });
             }
-            # 判斷終點日期搜索是否為空        
+            # Check if the end date search is empty.        
             if ($search = $request->input('fin_date', '')) {
                 $builder->where(function ($query) use ($search) {
                     $query->where('started_at', '<=', $search);
                 });
             }
-            # 判斷使用內建排序與否
+            # Determine whether to use built-in sorting or not
             if ($order = $request->input('order', '')) { 
-                # 判斷value是以 _asc 或者 _desc 结尾來排序
+                # Determine if the value ends with _asc or _desc for sorting
                 if (preg_match('/^(.+)_(asc|desc)$/', $order, $m)) {
-                    # 判斷是否為指定的接收的參數
+                    # Determine if it is one of the specified received parameters.
                     if (in_array($m[1], ['started_at', 'finished_at', 'updated_at'])) {   
-                        # 開始排序              
+                        # Start sorting              
                         $builder->orderBy($m[1], $m[2]);
                     }
                 }
@@ -92,20 +93,25 @@ trait HasObjectiveTrait
     public function getPages(Request $request)
     {
         $builder = $this->getObjectivesBuilder($request);
+        // dd($builder);
 
-        $pages = $builder->paginate(4)->appends([
+        $pages = $builder->paginate()->appends([
             'st_date' => $request->input('st_date', ''),
             'fin_date' => $request->input('fin_date', ''),
             'order' => $request->input('order', '')
         ]);
+
 
         return $pages;
     }
 
     public function getOkrsWithPage(Request $request)
     {
+
+
         $okrs = [];
         $pages = $this->getPages($request);
+
         foreach ($pages as $obj) {
             $okrs[] = [
                 "objective" => $obj,
