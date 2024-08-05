@@ -13,6 +13,7 @@ use App\Http\Controllers\API\ProjectJobsController;
 use App\Http\Controllers\ProjectManagement\Issues\OptionController;
 use App\Http\Controllers\ProjectManagement\IssueController as IssuesController;
 use App\Http\Controllers\ProjectManagement\Projects\TasksController;
+use  App\Http\Controllers\CRM\Contact\OrganizationController;
 use App\Models\Core\Auth\User;
 use App\Http\Controllers\CRM\Objectives\OkrController;
 use App\Http\Controllers\CRM\Objectives\KrController;
@@ -319,6 +320,11 @@ Route::get('actions/{action}/member/{member}/invite/agree', [ActionsController::
 # Organization OKR
 // Organization OKR homepage
 Route::get('organization', [CompanyController::class , 'index'])->name('company.index');
+
+//get a list of all available organizations 
+
+Route::get('organization/lists', [OrganizationController::class, 'get'])->name('organization.get');
+
 // Add company
 Route::post('organization/company/store', [CompanyController::class , 'store'])->name('company.store');
 // Edit company page

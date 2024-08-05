@@ -48,16 +48,16 @@ class JobsController extends Controller
         $user = auth()->user();
         // dd($request);
 
-        if (!$user->hasRole('admin')) {
-            $projects = Project::whereIn('status_id', [2, 3])->pluck('name', 'id');
-        } else {
-            $projects = $user->projects()
-                ->whereIn('status_id', [2, 3])
-                ->pluck('projects.name', 'projects.id');
-        }
+        // if (!$user->hasRole('admin')) {
+        //     $projects = Project::whereIn('status_id', [2, 3])->pluck('name', 'id');
+        // } else {
+        //     $projects = $user->projects()
+        //         ->whereIn('status_id', [2, 3])
+        //         ->pluck('projects.name', 'projects.id');
+        // }
 
-        // Extract the IDs from the collection
-        $ids = $projects->keys();
+        // // Extract the IDs from the collection
+        // $ids = $projects->keys();
 
         $status = null;
         $statusId = $request->get('status_id');

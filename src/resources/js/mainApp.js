@@ -6,6 +6,7 @@ import moment from "moment";
 import "./core/coreApp";
 import "./crm/crmComponent";
 import {urlGenerator} from "./crm/Helpers/helpers";
+// import  "./crm/Helpers/filter";
 import crmVuexStore from "./crm/Store";
 
 window.moment = moment;
