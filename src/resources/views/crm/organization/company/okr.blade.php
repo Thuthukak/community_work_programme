@@ -134,8 +134,8 @@
                 <img src="{{ asset('img/icon/add/lightgreen.svg') }}" alt="Add Objective">
             </button>
         </div>
-    @can('storeObjective', $company)
-        <a href="#" data-toggle="modal" data-target="#objective" class="newObjective"><img src="{{ asset('img/icon/add/lightgreen.svg') }}" alt=""></a>
+        @can('storeObjective', $company)
+        <a href="#" data-toggle="modal" data-target="#objective" class="newObjective"></a>
         <div class="modal {{ count($errors) == 0 ? 'fade' : '' }}" id="objective" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
@@ -152,6 +152,7 @@
     @endcan
 </div>
 @endsection
+
 @section('script')
 <!-- Include Flatpickr JS from cdnjs -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.js"></script>
@@ -161,7 +162,6 @@
 <!-- Your script to initialize Flatpickr -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Initialize Flatpickr on the date input fields
         flatpickr("#filter_started_at, #filter_finished_at, #st_date, #fin_date ,#started_at , #finished_at", {
             dateFormat: "Y-m-d",
             disableMobile: true // optional: to force the desktop version on mobile devices
@@ -439,6 +439,4 @@
     });
         });
 </script>
-
-
-
+@endsection

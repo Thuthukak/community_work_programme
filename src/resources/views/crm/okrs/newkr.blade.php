@@ -5,7 +5,7 @@
         $isError = $okr['objective']->id == $errors->first('krs_owner');
     }
 @endphp
-
+<!-- +KR form on Objective card in okr.blade -->
 <a class="btn btn-success btn-sm ml-2 mb-3 mt-3" data-toggle="collapse" href="#collapse{{ $okr['objective']->id }}" role="button" aria-expanded="false" aria-controls="collapse{{ $okr['objective']->id }}">
      <i class="fa fa-plus fa-sm"></i> KR
 </a>

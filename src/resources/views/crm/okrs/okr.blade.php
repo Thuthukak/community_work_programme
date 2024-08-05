@@ -1,4 +1,5 @@
-
+<!-- this is the card for okr starting with date on top then objective and key result -->
+<div class="container-fluid " style="margin-top: 40px;">
 <span class="anchor" id="oid-{{ $okr['objective']->id }}"></span>
 <div class="card m-4 okr-card">
     <div class="card-header bg-transparent" style="border-bottom: none;">
@@ -15,7 +16,6 @@
         </div>
     </div>
     <div class="card-body">
-
         {{-- Card target --}}
         <div class="row align-items-center">
             <div class="col-md-2 font-weight-bold text-md-right pr-0">
@@ -275,10 +275,11 @@
             <div class="card-body">
                 @can('storeObjective', $owner)
                 @if($okr['keyresults']->toArray())
-                
-                <button class="btn btn-warning btn-sm p-2 fa  fa-sm w-100 add-action-btn" data-id="{{  $okr['objective']->id }}" data-toggle="modal" data-target="#createActionModal" style=" font-family: 'Poppins', sans-serif;">
-                    Add Action
-                </button>
+                <div class="text-right">
+            <button class="btn btn-warning btn-sm mb-2 p-2 fa fa-sm add-action-btn" data-id="{{ $okr['objective']->id }}" data-toggle="modal" data-target="#createActionModal" style="font-family: 'Poppins', sans-serif;">
+                Add Action
+            </button>
+        </div>
                @else
                 <button type="button" class="btn btn-secondary w-100" disabled><i class="fa fa-lock fa-sm"></i> Please add Key Results first
                 (Key indicators)</button>
@@ -402,5 +403,6 @@
 
 </div>
 <br />
+</div>
 
 

@@ -1,9 +1,8 @@
 
-<div class="custom-container-wrapper pt-5" style="margin:20px;background: white;
+<div class="custom-container-wrapper pt-5" style="margin:20px;margin-left:50px; margin-right:50px; background: white;
     justify-content:left;
     padding-bottom: 50px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); ">
-
 <div class="row justify-content-center">
     <div class="col-md-4 u-padding-16">
         <div class="row">
