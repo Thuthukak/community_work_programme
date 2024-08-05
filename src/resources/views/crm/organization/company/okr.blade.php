@@ -58,7 +58,7 @@
 </style>
 @section('title','Objective')
 @section('contents')
-<div class="row align-items-center justify-content-between" style="margin: 60px;">
+<div class="row align-items-center justify-content-between" style="margin: 70px;">
     <h4 class="header-pill col-auto">Objectives and Key Results</h4>
     <div class="col-auto">
         <!-- Button trigger modal -->
@@ -88,7 +88,7 @@
 <div class="container-fluid" style="margin-right:60px;">
     @include('crm.organization.company.show')
     <div class="tab-pane fade show pl-sm-4 pr-sm-4">
-        <div class="row m-3 pt-4 justify-content-start" style="margin 20px;">
+        <div class="row m-3 pt-4 justify-content-start">
             <div class="filters">
         <div class="filter-item">
             <button class="filter-btn" style="border-radius: 25px; padding:12px" id="datefilter">Date Range</button>

@@ -1,5 +1,5 @@
 
-<div class="custom-container-wrapper pt-5" style="margin:20px;margin-left:50px; margin-right:50px; background: white;
+<div class="custom-container-wrapper pt-5" style="margin:20px;margin-left:60px; margin-right:80px; background: white;
     justify-content:left;
     padding-bottom: 50px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); ">
