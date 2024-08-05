@@ -1,4 +1,5 @@
-
+<!-- this is the card for okr starting with date on top then objective and key result -->
+<div class="container-fluid " style="margin-top: 40px;">
 <span class="anchor" id="oid-{{ $okr['objective']->id }}"></span>
 <div class="card m-4 okr-card">
     <div class="card-header bg-transparent" style="border-bottom: none;">
@@ -15,7 +16,6 @@
         </div>
     </div>
     <div class="card-body">
-
         {{-- Card target --}}
         <div class="row align-items-center">
             <div class="col-md-2 font-weight-bold text-md-right pr-0">
@@ -402,5 +402,6 @@
 
 </div>
 <br />
+</div>
 
 

@@ -5,18 +5,16 @@
 @section('title','Objective')
 
 @section('contents')
-<div class="container justify-content-between" style="margin:20px;" >
-    <div class="row align-items-center justify-content-between mb-4">
-        <h4 class="header-pill col-auto">Actions</h4>
-        <div class="col-auto text-right">
+<div class="container-fluid" style="margin-top: 40px;">
+    <div class="row align-items-center justify-content-between mb-4" style="margin-left: 10px;">
+        <h4 class="header-pill col-auto">Actions List</h4>
+        <div class="col-auto text-right" style="margin-right: 40px;">
             <!-- Button trigger modal -->
-            <button class="btn btn-warning btn-m p-2 fa fa-sm w-100 add-action-btn" style="font-family: 'Poppins', sans-serif " data-toggle="modal" data-target="#createActionModal">
+            <button class="btn btn-primary btn-with-shadow" style="font-family: 'Poppins', sans-serif " data-toggle="modal" data-target="#createActionModal">
                 {{ trans('Add Action') }}
             </button>
         </div>
     </div>
-</div>
-    <div class="container" style="margin: 40px;">
     <div class="row mb-4">
         <div class="col-auto">
             <form action="" class="form-inline search-form">
@@ -35,19 +33,24 @@
             </form>
         </div>
     </div>
-    <div class="tab-pane fade show pl-sm-4 mt-4 pr-sm-4">
-        @if ($actions)
-            @foreach($actions as $action)
-                @include('crm.actions.actions', ['actions' => $actions])
-            @endforeach
-        @else
-            <div id="dragCard" class="row justify-content-md-center u-mt-16">
-                <div class="alert alert-warning alert-dismissible fade show u-mt-32" role="alert">
-                    <strong><i class="fas fa-exclamation-circle pl-2 pr-2"></i></strong>
-                    No Actions have been established for the Company !!
-                </div>
+    <!-- actions -->
+    <div class="row">
+        <div class="col-12" style="padding-left: 20px; padding-right: 20px;">
+            <div class="tab-pane fade show pl-sm-4 mt-4 pr-sm-4">
+                @if ($actions)
+                    @foreach($actions as $action)
+                        @include('crm.actions.actions', ['actions' => $actions])
+                    @endforeach
+                @else
+                    <div id="dragCard" class="row justify-content-md-center u-mt-16">
+                        <div class="alert alert-warning alert-dismissible fade show u-mt-32" role="alert">
+                            <strong><i class="fas fa-exclamation-circle pl-2 pr-2"></i></strong>
+                            No Actions have been established for the Company !!
+                        </div>
+                    </div>
+                @endif
             </div>
-        @endif
+        </div>
     </div>
 </div>
 
@@ -192,39 +195,72 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    let keyResultSelect = document.querySelector('#keyresult');
-                    keyResultSelect.innerHTML = '<option value="">Select Key Result</option>';
+                    let keyresultSelect = document.querySelector('#keyresult');
+                    keyresultSelect.innerHTML = '<option value="">Select Key Result</option>';
                     data.forEach(kr => {
-                        keyResultSelect.innerHTML += `<option value="${kr.id}">${kr.title}</option>`;
+                        keyresultSelect.innerHTML += `<option value="${kr.id}">${kr.title}</option>`;
                     });
                 })
-                .catch(error => console.error('Error fetching key results:', error));
+                .catch(error => {
+                    console.error('Error fetching key results:', error);
+                });
+            } else {
+                document.querySelector('#keyresult').innerHTML = '<option value="">Select Key Result</option>';
             }
         });
 
         document.querySelector('#model_type').addEventListener('change', function() {
-            let actionOn = this.value;
-            fetch(`{{ url('actions/models') }}/${actionOn}`, {
-                method: 'GET',
+            let modelType = this.value;
+            if (modelType) {
+                fetch(`{{ url('actions/entities') }}/${modelType}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    let modelIdSelect = document.querySelector('#model_id');
+                    modelIdSelect.innerHTML = '<option value="">Select Target Entity</option>';
+                    data.forEach(entity => {
+                        modelIdSelect.innerHTML += `<option value="${entity.id}">${entity.name}</option>`;
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching entities:', error);
+                });
+            } else {
+                document.querySelector('#model_id').innerHTML = '<option value="">Select Target Entity</option>';
+            }
+        });
+
+        document.querySelector('#createActionForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const url = this.action;
+
+            fetch(url, {
+                method: 'POST',
+                body: formData,
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Accept': 'application/json'
                 }
             })
-            .then(response => response.json())
-            .then(data => {
-                let modelSelect = document.querySelector('#model_id');
-                modelSelect.innerHTML = '<option value="">Select Target</option>';
-                data.models.forEach(model => {
-                    modelSelect.innerHTML += `<option value="${model.id}">${model.name}</option>`;
-                });
-
-                let lastModel = data.models.pop();
-                if (lastModel) {
-                    document.querySelector('#full_model_type').value = lastModel.model;
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(errorData => {
+                        throw new Error(errorData.message || 'Error adding action');
+                    });
                 }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Action added successfully:', data);
+                // Handle successful response, e.g., close modal, update UI
             })
             .catch(error => {
-                console.error('Error fetching models:', error);
+                console.error('Error adding action:', error);
+                // Handle error response, e.g., show error message
             });
         });
     });

@@ -3,7 +3,6 @@
     justify-content:left;
     padding-bottom: 50px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); ">
-
 <div class="row justify-content-center">
     <div class="col-md-4 u-padding-16">
         <div class="row">
