@@ -19,8 +19,8 @@
 
         {{-- Card target --}}
         <div class="row align-items-center">
-            <div class="col-md-2 font-weight-bold text-md-right pr-0">
-                <h4 style="font-size:18px;">Objective</h4>
+            <div class="col-md-2 font-weight-bold text-md-right pr-0" style="margin-top: 10px;">
+                <h4 style="font-size:18px;">Objective:</h4>
             </div>
             <div class="col-md-10">
                 <div class="row">
@@ -39,7 +39,7 @@
                         @can('storeObjective', $owner)
                         <div class="pt-2 pl-3 pr-2 btn-edit-group" style="display:none;">
                             {{-- Edit O button--}}
-                            <a href="#" data-toggle="modal" data-target="#objectiveEdit{{ $okr['objective']->id }}" class="pl-2 pr-2 text-info"><i class="fas fa-pencil-alt"></i></a>        
+                            <a href="#" data-toggle="modal" data-target="#objectiveEdit{{ $okr['objective']->id }}" class="pl-2 pr-2 text-info"><i class="fas btn-lg fa-edit btn btn-warning btn-xs edit-project-btn u-margin-4"></i></a>        
                             {{-- Edit o modal --}}
                             <div class="modal" id="objectiveEdit{{ $okr['objective']->id }}" tabindex="-1" role="dialog">
                                 <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -84,7 +84,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#" data-toggle="dropdown" class="text-info"><i class="fas fa-trash-alt"></i></a>
+                            <a href="#" data-toggle="dropdown" class="text-info"><i class="fas btn btn-danger btn-xs edit-project-btn fa-trash-alt"></i></a>
                             <form method="POST" id="deleteKR{{ $okr['objective']->id }}" action="{{ route('objective.destroy', $okr['objective']->id) }}">
                                 @csrf
                                 {{ method_field('DELETE') }}
@@ -141,7 +141,7 @@
                         @can('storeObjective', $owner)
                         <div class="pt-2 pl-3 pr-2 btn-edit-group" style="display:none;">
                             {{-- Edit KR button --}}
-                            <a href="#" data-toggle="modal" data-target="#keyresult{{ $kr->id }}" class="pl-2 pr-2 text-info"><i class="fas fa-pencil-alt"></i></a>        
+                            <a href="#" data-toggle="modal" data-target="#keyresult{{ $kr->id }}" class="pl-2 pr-2 text-info"><i class="fas btn-lg fa-edit btn btn-warning btn-xs edit-project-btn u-margin-4"></i></a>        
                             {{-- Edit Kr Modal --}}
                             <div class="modal" id="keyresult{{ $kr->id }}" tabindex="-1" role="dialog">
                                 <div class="modal-dialog modal-dialog-centered modal-md" role="document">
@@ -216,7 +216,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#" data-toggle="dropdown" class="text-info"><i class="fas fa-trash-alt"></i></a>
+                            <a href="#" data-toggle="dropdown" class="text-info"><i class="fas btn btn-danger btn-xs edit-project-btn fa-trash-alt"></i></a>
                             <form method="POST" id="deleteKR{{ $kr->id }}" action="{{ route('kr.destroy', $kr->id) }}">
                                 @csrf
                                 {{ method_field('DELETE') }}
@@ -277,7 +277,7 @@
                 @can('storeObjective', $owner)
                 @if($okr['keyresults']->toArray())
                 <div class="text-right">
-            <button class="btn btn-warning btn-sm mb-2 p-2 fa fa-sm add-action-btn" data-id="{{ $okr['objective']->id }}" data-toggle="modal" data-target="#createActionModal" style="font-family: 'Poppins', sans-serif;">
+            <button class="btn btn-primary btn-sm mb-2 p-2 fa fa-sm add-action-btn" data-id="{{ $okr['objective']->id }}" data-toggle="modal" data-target="#createActionModal" style="font-family: 'Poppins', sans-serif;">
                 Add Action
             </button>
         </div>

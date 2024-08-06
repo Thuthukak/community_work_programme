@@ -89,28 +89,7 @@
             </div>
         @endif
     </div>
-  <!-- Button trigger modal -->
-  <div class="position-fixed" style="top: 100px; right: 50px;">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#objective">
-                <img src="{{ asset('img/icon/add/lightgreen.svg') }}" alt="Add Objective">
-            </button>
-        </div>
-    @can('storeObjective', $company)
-        <a href="#" data-toggle="modal" data-target="#objective" class="newObjective"><img src="{{ asset('img/icon/add/lightgreen.svg') }}" alt=""></a>
-        <div class="modal {{ count($errors) == 0 ? 'fade' : '' }}" id="objective" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span>&times;</span>
-                        </button>
-                    </div>
-                    @include('crm.okrs.create', ['route'=>route('company.objective.store', $company->id)])
-                </div>
-            </div>
-        </div>
-        </div>
-    @endcan
+  
 </div>
 
 @endsection

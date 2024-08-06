@@ -1,7 +1,7 @@
 $('.circle').circleProgress({
     size: 50,
     fill: {
-        gradient: ["#69D1C5", "#3BA99C"]
+        gradient: ["#f3700c", "#ff740b"]
     },
     lineCap: 'round',
     startAngle: 180
@@ -10,7 +10,7 @@ $('.circle').circleProgress({
 $('.circle-lg').circleProgress({
     size: 90,
     fill: {
-        gradient: ["#69D1C5", "#21897E"]
+        gradient: ["#f3700c", "#ff740b"]
     },
     lineCap: 'round',
     startAngle: 90
@@ -18,7 +18,7 @@ $('.circle-lg').circleProgress({
 $('.circle-4').circleProgress({
     size: 90,
     fill: {
-        gradient: ["#F77787"]
+        gradient: ["#ff740b"]
     },
     lineCap: 'round',
     startAngle: 90,
@@ -27,7 +27,7 @@ $('.circle-4').circleProgress({
 $('.circle-3').circleProgress({
     size: 90,
     fill: {
-        gradient: ["#FFB5B1"]
+        gradient: ["#ff740b"]
     },
     lineCap: 'round',
     startAngle: 90,
@@ -36,7 +36,7 @@ $('.circle-3').circleProgress({
 $('.circle-2').circleProgress({
     size: 90,
     fill: {
-        gradient: ["#7EBCE6"]
+        gradient: ["#ff740b"]
     },
     lineCap: 'round',
     startAngle: 90,
@@ -45,7 +45,7 @@ $('.circle-2').circleProgress({
 $('.circle-1').circleProgress({
     size: 90,
     fill: {
-        gradient: ["#3387BF"]
+        gradient: ["#ff740b"]
     },
     lineCap: 'round',
     startAngle: 90,
