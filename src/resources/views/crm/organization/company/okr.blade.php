@@ -1,120 +1,54 @@
 @extends('layouts.crm')
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.css">
-<style>
-.filters {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
+<link href="{{ asset('src/public/assets/css/okr/app.css') }}" rel="stylesheet">
+<link href="{{ asset('src/public/assets/css/okr/base.css') }}" rel="stylesheet">
+<link href="{{ asset('css/component.css') }}" rel="stylesheet">
+<link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ asset('src/public/assets/css/okr/ion.rangeSlider.css') }}" rel="stylesheet" />
+<link href="{{ asset('src/public/assets/css/okr/bootstrap-notifications.min.css') }}" rel="stylesheet">
 
-.filter-item {
-    position: relative;
-}
+@section('script')
 
-.dropdown-content {
-    display: none;
-    list-style-type: none; 
-    padding: 10px;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: white;
-    min-width: 160px;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    z-index: 1;
-}
-.dropdown-content ul li {
-        display: flex; 
-        align-items: center; 
-        margin-bottom: 5px; 
-    }
-.dropdown-content ul li input {
-   margin: 5px; 
-}
-.dropdown-content ul li {
-        display: flex; 
-        align-items: center; 
-        margin-bottom: 5px; 
-    }
-.dropdown-content ul li label {
-   margin: 5px; 
-}
-.filter-btn {
-    cursor: pointer;
-    padding: 12px;
-    border: none;
-    background-color: white;
-    color: grey;
-    border-radius: 25px;
-}
+<script src="{{ asset('src/public/assets/js/okr/app.js') }}" defer></script>
+<script src="{{ asset('src/public/assets/js/okr/tooltip.js') }}" defer></script>
+<script src="{{ asset('src/public/assets/js/okr/circle-progress.min.js') }}" defer></script>
+<script src="{{ asset('src/public/assets/js/okr/circleProgress.js') }}" defer></script>
+<script src="{{ asset('src/public/assets/js/okr/editbtn.js') }}" defer></script>
+{{-- Chartjs --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+<script src="{{ asset('src/public/assets/js/okr/chart.js') }}" defer></script>
+<script src="{{ asset('src/public/assets/js/okr/okr.js') }}" defer></script>
 
-.search-field {
-    padding: 12px;
-    border-radius: 25px;
-    border: 1px solid #ccc;
-}
-</style>
+
+
+@endsection
+
 @section('title','Objective')
 @section('contents')
 <div class="container">
     @include('crm.organization.company.show')
     <div class="tab-pane fade show pl-sm-4 pr-sm-4">
-        <div class="filters">
-        <div class="filter-item">
-            <button class="filter-btn" style="border-radius: 25px; padding:12px" id="datefilter">Date Range</button>
-            <div id="dateDropdown" class="dropdown-content">
-                <form id="dateRangeForm" class="filter-form">
-                    @include('crm.organization.company.partials.datefilter')
-                </form>
-            </div>
-        </div>
-
-        <div class="filter-item">
-        <button class="filter-btn" id="Organizationlist" style="border-radius: 25px; padding:12px">Organization</button>
-        <div id="organizationDropdown" class="dropdown-content" style="display: none;">
-            <form id="organizationForm" class="filter-form">
-                <ul id="organizationListContainer"></ul>
-                <br>
-                <button type="button" id="clearOrganizations" class="btn btn-clear pl-sm-0">Clear</button>
-                <button type="button" id="applyOrganizations" class="btn btn-primary">Apply</button>
-            </form>
-        </div>
-        </div>
-
-
-        <div class="filter-item">
-        <button class="filter-btn" id="Projectvalue" style="border-radius: 25px; padding:12px">Project Value</button>
-        <div id="valueDropdown" class="dropdown-content" style="display: none;">
-            <form id="projectValueForm" class="filter-form">
-                <div class="form-group">
-                    <label for="minValue">Minimum Value</label>
-                    <input type="number" id="minValue" class="form-control" placeholder="Min value" step="1">
-                </div>
-                <div class="form-group">
-                    <label for="maxValue">Maximum Value</label>
-                    <input type="number" id="maxValue" class="form-control" placeholder="Max value" step="1">
-                </div>
-                <button type="button" id="clearValues" class="btn btn-clear pl-sm-0">Clear</button>
-                <button type="button" id="applyValues" class="btn btn-primary">Apply</button>
+        <div class="row m-3 pt-4 justify-content-center">
+            <div class="col-auto mb-2">
+            <form action="{{ $company->getOKrRoute() }}" class="form-inline search-form">
+                <input autocomplete="off" class="form-control input-sm" name="st_date" id="filter_started_at" value=""
+                    placeholder="Start date">
+                <input autocomplete="off" class="form-control input-sm ml-md-2" name="fin_date" id="filter_finished_at"
+                    value="" placeholder="Settlement date">
+                <select name="order" class="form-control input-sm mr-md-2 ml-md-2">
+                    <option value="">Sort by</option>
+                    <option value="started_at_asc">Start date, earliest to latest</option>
+                    <option value="started_at_desc">Start date, latest to earliest</option>
+                    <option value="finished_at_asc">Finish date, earliest to latest</option>
+                    <option value="finished_at_desc">Finish date, latest to earliest</option>
+                    <option value="updated_at_asc">Recently updated, earliest to latest</option>
+                    <option value="updated_at_desc">Recently updated, latest to earliest</option>
+                </select>
+                <button class="btn btn-info">Filter</button>
             </form>
             </div>
         </div>
-
-        <div class="filter-item">
-        <button class="filter-btn" id="it-has" style="border-radius: 25px; padding:12px">Have</button>
-        <div id="classDropdown" class="dropdown-content" style="display: none;">
-            <form id="clausesForm" class="filter-form">
-                <label><input type="checkbox" name="Proposal">Proposal</label>
-                <label><input type="checkbox" name="Actions">Actions</label>
-                <label><input type="checkbox" name="Objectives">Objectives</label>
-                <button type="button" id="clearClauses" class="btn btn-clear pl-sm-0">Clear</button>
-                <button type="button" id="applyClauses" class="btn btn-primary">Apply</button>
-            </form>
-        </div>
-        </div>
-    </div>
         @if ($company->okrs)
             @foreach($company->okrs as $okr)
                 @include('crm.okrs.okr', ['okr' => $okr, 'owner'=>$company])
@@ -134,8 +68,8 @@
                 <img src="{{ asset('img/icon/add/lightgreen.svg') }}" alt="Add Objective">
             </button>
         </div>
-        @can('storeObjective', $company)
-        <a href="#" data-toggle="modal" data-target="#objective" class="newObjective"></a>
+    @can('storeObjective', $company)
+        <a href="#" data-toggle="modal" data-target="#objective" class="newObjective"><img src="{{ asset('img/icon/add/lightgreen.svg') }}" alt=""></a>
         <div class="modal {{ count($errors) == 0 ? 'fade' : '' }}" id="objective" tabindex="-1" role="dialog">
             <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                 <div class="modal-content">
@@ -152,16 +86,17 @@
     @endcan
 </div>
 @endsection
-
 @section('script')
 <!-- Include Flatpickr JS from cdnjs -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.js"></script>
 
 
 
+
 <!-- Your script to initialize Flatpickr -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Flatpickr on the date input fields
         flatpickr("#filter_started_at, #filter_finished_at, #st_date, #fin_date ,#started_at , #finished_at", {
             dateFormat: "Y-m-d",
             disableMobile: true // optional: to force the desktop version on mobile devices
@@ -276,167 +211,8 @@
                 console.error('Error fetching models:', error);
             });
         }
-
-
-
-        document.getElementById("Organizationlist").addEventListener("click", function() {
-            event.stopPropagation();
-            var dropdown = document.getElementById('organizationDropdown');
-            if (dropdown.style.display === "block") {
-                dropdown.style.display = "none";
-            } else {
-                closeAllDropdowns();
-                dropdown.style.display = "block";
-
-                var url = `{{ route('organization.get') }}`;
-
-                fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    console.log('Fetched data:', data);
-
-                    const organizationListContainer = document.getElementById('organizationListContainer');
-                    organizationListContainer.innerHTML = '';                  
-                    const hr = document.createElement('hr');
-
-
-                    for (const [id, name] of Object.entries(data)) {
-                        const listItem = document.createElement('li');
-
-                        
-                        const checkbox = document.createElement('input');
-                        checkbox.type = 'checkbox';
-                        checkbox.id = `organization-${id}`;
-                        checkbox.value = id;
-                        checkbox.classList.add('organization-checkbox');
-
-                        const label = document.createElement('label');
-                        label.htmlFor = `organization-${id}`;
-                        label.textContent = name;
-
-                        listItem.appendChild(checkbox);
-                        listItem.appendChild(label);
-                        listItem.classList.add('organization-item');
-                        
-                        organizationListContainer.appendChild(listItem);
-                    }
-                    organizationListContainer.appendChild(hr);
-
-                })
-                .catch(error => {
-                    console.error('Error fetching organization data:', error);
-                });
-            }
-        });
-
-        document.getElementById("clearOrganizations").addEventListener("click", function() {
-            const checkboxes = document.querySelectorAll('.organization-checkbox');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = false;
-            });
-        });
-
-        document.getElementById("applyOrganizations").addEventListener("click", function() {
-            const selectedOrganizations = [];
-            const checkboxes = document.querySelectorAll('.organization-checkbox:checked');
-            checkboxes.forEach(checkbox => {
-                selectedOrganizations.push({
-                    id: checkbox.value,
-                    name: checkbox.nextElementSibling.textContent
-                });
-            });
-            console.log('Selected Organizations:', selectedOrganizations);
-            document.getElementById('organizationDropdown').style.display = 'none';
-        });
-
-
-        function selectOrganization(id, name) {
-            console.log('Selected Organization:', id, name);
-            document.getElementById('organizationDropdown').style.display = 'none';
-        }
-
-        document.getElementById("it-has").addEventListener("click", toggleIsWith);
-
-        function toggleIsWith(event) {
-            event.stopPropagation();
-            var dropdown = document.getElementById('classDropdown');
-            if (dropdown.style.display === "block") {
-                dropdown.style.display = "none";
-            } else {
-                closeAllDropdowns();
-                dropdown.style.display = "block";
-            }
-        }
-
-        document.getElementById("clearClauses").addEventListener("click", function() {
-            const checkboxes = document.querySelectorAll('#clausesForm input[type="checkbox"]');
-            checkboxes.forEach(checkbox => {
-                checkbox.checked = false;
-            });
-        });
-
-        document.getElementById("applyClauses").addEventListener("click", function() {
-            const selectedClauses = [];
-            const checkboxes = document.querySelectorAll('#clausesForm input[type="checkbox"]:checked');
-            checkboxes.forEach(checkbox => {
-                selectedClauses.push(checkbox.name);
-            });
-            console.log('Selected Clauses:', selectedClauses);
-            document.getElementById('classDropdown').style.display = 'none';
-        });
-
-        document.getElementById("Projectvalue").addEventListener("click", toggleProjectValue);
-
-        function toggleProjectValue(event) {
-            event.stopPropagation();
-            var dropdown = document.getElementById('valueDropdown');
-            if (dropdown.style.display === "block") {
-                dropdown.style.display = "none";
-            } else {
-                closeAllDropdowns();
-                dropdown.style.display = "block";
-            }
-        }
-
-        document.getElementById("clearValues").addEventListener("click", function() {
-            document.getElementById("minValue").value = '';
-            document.getElementById("maxValue").value = '';
-        });
-
-        document.getElementById("applyValues").addEventListener("click", function() {
-            var minValue = document.getElementById("minValue").value;
-            var maxValue = document.getElementById("maxValue").value;
-            console.log("Min Value:", minValue, "Max Value:", maxValue);
-            // Add your code to handle the selected values
-            document.getElementById('valueDropdown').style.display = 'none';
-        });
-
-
-        function closeAllDropdowns() {
-            var dropdowns = document.getElementsByClassName("dropdown-content");
-            for (var i = 0; i < dropdowns.length; i++) {
-                dropdowns[i].style.display = "none";
-            }
-        }
-
-        window.onclick = function(event) {
-            if (!event.target.matches('.filter-btn') && !event.target.closest('.dropdown-content')) {
-                closeAllDropdowns();
-            }
-        }
-
-    });
         });
 </script>
-@endsection
+
+
+

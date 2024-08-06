@@ -32,7 +32,6 @@
             <div class="row">
                 <div class="col-auto">
                     <a class="u-ml-8" href="{{ $owner->getOKrRoute() }}">
-                        <img src="{{ $owner->getAvatar() }}" alt="" class="avatar text-center bg-white">
                     </a>
                 </div>
                 <div class="col align-self-center text-truncate">

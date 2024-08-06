@@ -75,7 +75,6 @@
                 <div class="col-auto align-self-center text-muted pl-md-4 pr-md-4" style="line-height: 24px;">
                 person in charge｜
                     <a href="{{ route('user.okr', $action->user->id) }}" title="{{ $action->user->name }}">
-                        <img src="{{ asset('storage/icon/green.png') }}" class="avatar-xs mr-1" style="width: 24px; height: 24px;">
                         <span>{{ $action->user->name }}</span>
                     </a>
                 </div>

@@ -11,13 +11,4 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
         crossorigin="anonymous">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/okr/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/okr/base.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/okr/component.css') }}" rel="stylesheet">
-    <link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
-    <link href="{{ asset('css/okr/ion.rangeSlider.css') }}" rel="stylesheet" />
-    <link href="{{ asset('css/okr/bootstrap-notifications.min.css') }}" rel="stylesheet">
-
-
 @stack('after-styles')

@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-auto">
                 <a class="u-ml-8 u-mr-8" href="{{ route('company.okr') }}">
-                    <img src="storage/logo/6683fbf19b192.png" alt="" class="avatar text-center bg-white">
+                    <img src="storage/app/public/logo/6684078937564.jpg" alt="" class="avatar text-center bg-white">
                 </a>
             </div>
             <div class="col align-self-center text-truncate">

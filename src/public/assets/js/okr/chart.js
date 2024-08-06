@@ -1,7 +1,7 @@
 $(function(){
+    
     var keyValue = document.cookie.match('(^|;) ?' + "open" + '=([^;]*)(;|$)');
     var id = keyValue ? keyValue[2] : null;
-    console.log();
     if(id.match('History')){
         var oid = $('#'+id).parents('.card-footer').find('.historybtn').attr("data-oid");
         openChart(oid);

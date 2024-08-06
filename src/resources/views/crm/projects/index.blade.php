@@ -359,12 +359,16 @@
 
 <!-- Your script to initialize Flatpickr -->
 <script>
+
+    
     document.addEventListener('DOMContentLoaded', function() {
         // Initialize Flatpickr on the date input fields
         flatpickr("#proposal_date, #start_date, #due_date, #end_date", {
             dateFormat: "Y-m-d",
             disableMobile: true // optional: to force the desktop version on mobile devices
         });
+
+
 
         document.querySelectorAll('.edit-project-btn').forEach(function(button) {
             button.addEventListener('click', function() {
@@ -427,6 +431,10 @@
                 });
             });
         });
+
+
+       
+
 
         document.getElementById("projectstage").addEventListener("click", toggleDropdown);
 
@@ -555,13 +563,68 @@
                     name: checkbox.nextElementSibling.textContent
                 });
             });
-            console.log('Selected Organizations:', selectedOrganizations);
+
+            if(selectedOrganizations)
+            {
+                console.log('Selected Organizations:', selectedOrganizations);
+
+
+                var url = `{{ route('organization.get') }}`;
+
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Fetched data:', data);
+
+                    const organizationListContainer = document.getElementById('organizationListContainer');
+                    organizationListContainer.innerHTML = '';                  
+                    const hr = document.createElement('hr');
+
+
+                    for (const [id, name] of Object.entries(data)) {
+                        const listItem = document.createElement('li');
+
+                        
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.id = `organization-${id}`;
+                        checkbox.value = id;
+                        checkbox.classList.add('organization-checkbox');
+
+                        const label = document.createElement('label');
+                        label.htmlFor = `organization-${id}`;
+                        label.textContent = name;
+
+                        listItem.appendChild(checkbox);
+                        listItem.appendChild(label);
+                        listItem.classList.add('organization-item');
+                        
+                        organizationListContainer.appendChild(listItem);
+                    }
+                    organizationListContainer.appendChild(hr);
+
+                })
+                .catch(error => {
+                    console.error('Error fetching organization data:', error);
+                });
+            }
+
             document.getElementById('organizationDropdown').style.display = 'none';
         });
 
 
         function selectOrganization(id, name) {
-            console.log('Selected Organization:', id, name);
             document.getElementById('organizationDropdown').style.display = 'none';
         }
 
@@ -634,7 +697,6 @@
                 closeAllDropdowns();
             }
         }
-
     });
 </script>
 @endsection

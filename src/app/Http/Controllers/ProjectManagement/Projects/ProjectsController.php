@@ -43,25 +43,31 @@ class ProjectsController extends Controller
     public function index(Request $request)
     {
 
+
+        if (request()->ajax()) {
+          
+
+
+
+            return response()->json([
+                'status' => $status,
+                'statusId' => $statusId,
+                'projects' => $project,
+                'Organization' => $Organization
+            ]);
+            
+        }  
+
+
+
         $status = null;
         $statusId = $request->get('status_id');
         if ($statusId) {
             $status = $this->repo->getStatusName($statusId);
         }
-
-
-        
-
-
-       // Convert authenticated user to ProjectManagement\Users\User instance
        $user = auth()->user();
 
        $projects = $this->repo->getProjects($request->get('q'), $statusId, $user);
-
-            //   dd($projects);
-
-
-
        $this->authorize('create', new Project());
 
        $Organization = $this->repo->getOrganizationsList();
