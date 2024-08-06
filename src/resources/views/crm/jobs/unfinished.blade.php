@@ -67,10 +67,10 @@
         </div>
             {!! Form::close() !!}
 </div>
-   <div class="filters">
+   <div class="filters" style="margin-left:20px;">
         <div class="filter-item">
             <button class="btn filter-btn" type="button" id="projectstage" style="background-color: white; color: grey;" aria-haspopup="true" aria-expanded="false">
-                Project Progress
+                Project Progress <i class="fas fa-caret-down arrow-icon" id="dropdownArrow"></i>
             </button>
             <div id="progressDropdown" class="dropdown-content">
                 @include('crm.jobs.partials.index-nav-tabs')

@@ -104,24 +104,24 @@
     </div>
 
     
-    <div class="project-controls flex justify-between items-center mb-4">
+    <div class="project-controls flex justify-between items-center mb-4" >
        <div class="index-nav-tabs pull-left hidden-xs">
          </div>
           {!! Form::open(['method' => 'get', 'class' => 'form-inline search-form']) !!}
           {{ Form::hidden('status_id') }}
           <div class="relative">
           <button type="submit" class="search-button">
-          <i class="fas fa-search"></i>
+          <i class="fas fa-search "></i>
           </button>
-          {!! Form::text('q', Request::get('q'), ['class' => 'form-control index-search-field', 'placeholder' => trans('project.search')]) !!}
+          {!! Form::text('q', Request::get('q'), ['class' => 'form-control index-search-field ', 'placeholder' => trans('project.search')]) !!}
        </div>
           {!! Form::close() !!}
     </div>
 
-            <div class="filters">
+            <div class="filters" style="margin-left:20px;">
     <div class="filter-item">
         <button class="btn filter-btn" type="button" id="projectstage" style="background-color: white; color: grey;" aria-haspopup="true" aria-expanded="false">
-            Project Progress
+            Project Progress <i class="fas fa-caret-down arrow-icon" id="dropdownArrow"></i>
         </button>
         <div id="progressDropdown" class="dropdown-content">
             @include('crm.projects.partials.index-nav-tabs')
@@ -130,7 +130,7 @@
 
     <div class="filter-item">
         <button class="filter-btn" style="border-radius: 25px; padding:12px" id="datefilter">Date Range</button>
-        <div id="dateDropdown" class="dropdown-content">
+        <div id="dateDropdown" class="dropdown-content" style="display: none;">
             <form id="dateRangeForm" class="filter-form">
                 @include('crm.projects.partials.datefilterDropdown')
             </form>
@@ -139,15 +139,19 @@
 
     <div class="filter-item">
     <button class="filter-btn" id="Organizationlist" style="border-radius: 25px; padding:12px">Organization</button>
-    <div id="organizationDropdown" class="dropdown-content" style="display: none;">
+    <div id="organizationDropdown" class="dropdown-content" style="display:none;">
         <form id="organizationForm" class="filter-form">
             <ul id="organizationListContainer"></ul>
             <br>
-            <button type="button" id="clearOrganizations" class="btn btn-clear pl-sm-0">Clear</button>
-            <button type="button" id="applyOrganizations" class="btn btn-primary">Apply</button>
+            <hr>
+            <div class="d-flex justify-content-between mt-3">
+                <button type="button" id="clearOrganizations" class="btn btn-clear">Clear</button>
+                <button type="button" id="applyOrganizations" class="btn btn-primary">Apply</button>
+            </div>
         </form>
     </div>
-    </div>
+</div>
+
 
 
     <div class="filter-item">
