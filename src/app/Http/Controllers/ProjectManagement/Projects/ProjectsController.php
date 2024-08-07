@@ -42,24 +42,6 @@ class ProjectsController extends Controller
      */
     public function index(Request $request)
     {
-
-
-        if (request()->ajax()) {
-          
-
-
-
-            return response()->json([
-                'status' => $status,
-                'statusId' => $statusId,
-                'projects' => $project,
-                'Organization' => $Organization
-            ]);
-            
-        }  
-
-
-
         $status = null;
         $statusId = $request->get('status_id');
         if ($statusId) {
@@ -73,7 +55,45 @@ class ProjectsController extends Controller
        $Organization = $this->repo->getOrganizationsList();
 
 
+            if (request()->ajax()) {
+                
+
+
+
+                return response()->json([
+                    'status' => $status,
+                    'statusId' => $statusId,
+                    'projects' => $project,
+                    'Organization' => $Organization
+                ]);
+                
+            }  
+
        return view('crm.projects.index', compact('projects', 'status', 'statusId','Organization'));
+    }
+
+    public function filter(Request $request)
+    {
+        $organizations = $request->input('organizations', []);
+
+        $projects = Project::whereIn('organization_id', $organizations)->get();
+
+        return response()->json([
+            'projects' => $projects->map(function($project) {
+                return [
+                    'id' => $project->id,
+                    'name' => $project->name,
+                    'start_date' => $project->start_date,
+                    'work_duration' => $project->work_duration,
+                    'progress' => $project->getJobOveralProgress(),
+                    'due_date' => $project->due_date,
+                    'project_value' => $project->project_value,
+                    'status' => $project->present()->status,
+                    'organization_id' => $project->organization_id,
+                    'organization_name' => is_object($project->organization) ? $project->organization->name : $project->organization
+                ];
+            })
+        ]);
     }
 
 

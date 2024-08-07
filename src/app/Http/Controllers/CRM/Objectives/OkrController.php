@@ -40,13 +40,6 @@ class OkrController extends Controller
         DB::enableQueryLog(); // Enable query log
 
         $company = company::where('id', 1)->first();
-
-        $pipeline = Pipeline::all();
-        $projects = Project::all();
-        $proposals = Proposal::all();
-            //  dd($proposals);
-
-
                 // dd(DB::getQueryLog()); // Show results of log
 
         $this->authorize('view', $company);
@@ -55,21 +48,10 @@ class OkrController extends Controller
         $company['okrs'] = $okrsWithPage['okrs'];    
         $routeObjectiveStore = route('user.objective.store', auth()->user()->id);
 
-        
+        // dd($okrsWithPage);
+
 
         $data = [
-            'user' => auth()->user(),
-            'company' => $company,
-            'pageInfo' => $okrsWithPage['pageInfo'],
-            'st_date' => $request->input('st_date', ''),
-            'fin_date' => $request->input('fin_date', ''),
-            'order' => $request->input('order', ''),
-            'routeObjectiveStore' => $routeObjectiveStore,
-        ];
-        
-        // dd($data);
-
-        $Apidata = [
             'user' => auth()->user(),
             'company' => $company,
             'pageInfo' => $okrsWithPage['pageInfo'],
@@ -81,7 +63,7 @@ class OkrController extends Controller
 
         if (request()->ajax()) {
 
-            return response()->json($Apidata);
+            return response()->json($data);
         }
         // dd($data);
 

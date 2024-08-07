@@ -125,6 +125,8 @@ Route::get('projects/create', [ProjectsController::class, 'create'])->name('proj
 Route::get('projects/{project}/delete', [ProjectsController::class, 'delete'])->name('projects.delete');
 Route::get('projects/destroy', [ProjectsController::class, 'destroy'])->name('projects.destroy');
 Route::delete('projects/{project}', [ProjectsController::class, 'destroy'])->name('projects.destroy');
+Route::post('projects/filter', [ProjectController::class, 'filter'])->name('projects.filter');
+
 
 
 //api calls 

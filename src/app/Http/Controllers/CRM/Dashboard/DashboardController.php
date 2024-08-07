@@ -17,6 +17,12 @@ class DashboardController extends Controller
 
     public function index()
     {
+
+        //Okrs 
+        $totalOkr = 0;
+        $okrs = [];
+        list($totalOkr, $okrs) = $this-> okrInformation($totalOkr,$okrs);
+
         // Deal Both
         $dealChart = [];
         $totalDealsChartElement = [];
@@ -35,6 +41,16 @@ class DashboardController extends Controller
         $employees = [];
         list($totalEmployee, $employees) = $this->employeeInformation($totalEmployee, $employees);
 
+        //keyResults info 
+
+        $keyResultsMonths = [];
+        $keyResultsdata = [];
+
+        $keyResults = $this->service->getLastSixMonthsKeyResults();
+        $keyResultsMonths = $keyResults['months'];
+        $keyResultsdata = $keyResults['keyResults'];
+    
+
         // Pipeline
 
         $totalProposal = $this->service->bothProposal();
@@ -46,6 +62,20 @@ class DashboardController extends Controller
 
         $sendingRate = $totalProposal > 0 ? intval(($totalSendProposal / $totalProposal) * 100) : 0;
         $acceptanceRate = $totalSendProposal > 0 ? intval(($totalAcceptedProposal / $totalSendProposal) * 100) : 0;
+        
+        // Objective Progress 
+        $objectivesProgress = $this->service->getObjectivesProgress();
+        $overallProgress = $objectivesProgress['overall_progress'];
+        $formattedProgress = $overallProgress !== null ? number_format($overallProgress, 2) : null;
+
+        // dd($formattedProgress);
+
+        // get actions rate 
+
+        $actionsRate = $this->service->getActionsRates();
+        $actioncreatedPerWeek = $actionsRate['rateActionsCreatedPerWeek'];
+        $actionDonePerWeek = $actionsRate['rateActionsDonePerMonth'];
+        $actionRatePerWeek = ($actioncreatedPerWeek + $actionDonePerWeek)/2;
 
         // Pipeline
 
@@ -90,6 +120,12 @@ class DashboardController extends Controller
                 'background_color' => $pipelineBackgroundColor,
                 'top_five_owners_name' => $fiveOwnerName,
                 'five_owner_deal' => $fiveOwnerDeals,
+                'total_okr' => $totalOkr,
+                'okrs' => $okrs,
+                'objectives_Progress' => $formattedProgress,
+                'actionRatePerWeek' => $actionRatePerWeek,
+                'keyResultsMonths' => $keyResultsMonths,
+                'keyResultsdata' => $keyResultsdata,
             ];
         } else {
             return [
@@ -142,6 +178,23 @@ class DashboardController extends Controller
         );
 
         return [$totalContact, $contacts];
+    }
+
+    public function okrInformation($totalOkr, array $okrs)
+    {
+        $totalObjectives = $this->service->totalObjectives();
+        $totalkeyResults = $this->service->totalKeyResults();
+        $totalActions = $this->service->totalActions();
+        $totalOkr = $totalObjectives;
+
+        array_push(
+            $okrs,
+            ['value' => $totalObjectives, 'key' => 'objectives'],
+            ['value' => $totalkeyResults, 'key' => 'keyResults'],
+            ['value' => $totalActions, 'key' => 'actions']
+        );
+
+        return [$totalOkr, $okrs];
     }
 
     public function employeeInformation($totalEmployee, array $employees)

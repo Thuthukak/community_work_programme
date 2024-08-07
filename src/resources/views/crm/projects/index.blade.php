@@ -104,24 +104,24 @@
     </div>
 
     
-    <div class="project-controls flex justify-between items-center mb-4" >
+    <div class="project-controls flex justify-between items-center mb-4">
        <div class="index-nav-tabs pull-left hidden-xs">
          </div>
           {!! Form::open(['method' => 'get', 'class' => 'form-inline search-form']) !!}
           {{ Form::hidden('status_id') }}
           <div class="relative">
           <button type="submit" class="search-button">
-          <i class="fas fa-search "></i>
+          <i class="fas fa-search"></i>
           </button>
-          {!! Form::text('q', Request::get('q'), ['class' => 'form-control index-search-field ', 'placeholder' => trans('project.search')]) !!}
+          {!! Form::text('q', Request::get('q'), ['class' => 'form-control index-search-field', 'placeholder' => trans('project.search')]) !!}
        </div>
           {!! Form::close() !!}
     </div>
 
-            <div class="filters" style="margin-left:20px;">
+            <div class="filters">
     <div class="filter-item">
         <button class="btn filter-btn" type="button" id="projectstage" style="background-color: white; color: grey;" aria-haspopup="true" aria-expanded="false">
-            Project Progress <i class="fas fa-caret-down arrow-icon" id="dropdownArrow"></i>
+            Project By Status
         </button>
         <div id="progressDropdown" class="dropdown-content">
             @include('crm.projects.partials.index-nav-tabs')
@@ -130,7 +130,7 @@
 
     <div class="filter-item">
         <button class="filter-btn" style="border-radius: 25px; padding:12px" id="datefilter">Date Range</button>
-        <div id="dateDropdown" class="dropdown-content" style="display: none;">
+        <div id="dateDropdown" class="dropdown-content">
             <form id="dateRangeForm" class="filter-form">
                 @include('crm.projects.partials.datefilterDropdown')
             </form>
@@ -139,19 +139,15 @@
 
     <div class="filter-item">
     <button class="filter-btn" id="Organizationlist" style="border-radius: 25px; padding:12px">Organization</button>
-    <div id="organizationDropdown" class="dropdown-content" style="display:none;">
+    <div id="organizationDropdown" class="dropdown-content" style="display: none;">
         <form id="organizationForm" class="filter-form">
             <ul id="organizationListContainer"></ul>
             <br>
-            <hr>
-            <div class="d-flex justify-content-between mt-3">
-                <button type="button" id="clearOrganizations" class="btn btn-clear">Clear</button>
-                <button type="button" id="applyOrganizations" class="btn btn-primary">Apply</button>
-            </div>
+            <button type="button" id="clearOrganizations" class="btn btn-clear pl-sm-0">Clear</button>
+            <button type="button" id="applyOrganizations" class="btn btn-primary">Apply</button>
         </form>
     </div>
-</div>
-
+    </div>
 
 
     <div class="filter-item">
@@ -214,7 +210,7 @@
                         <th>{{ trans('Organization') }}</th>
                         <th>{{ trans('app.action') }}</th>
                     </thead>
-                    <tbody>
+                    <tbody id="projectList">
                         @foreach($projects as $key => $project)
                             <tr>
                                 <td>{{ $projects->firstItem() + $key }}</td>
@@ -562,25 +558,24 @@
             const selectedOrganizations = [];
             const checkboxes = document.querySelectorAll('.organization-checkbox:checked');
             checkboxes.forEach(checkbox => {
-                selectedOrganizations.push({
-                    id: checkbox.value,
-                    name: checkbox.nextElementSibling.textContent
-                });
+                selectedOrganizations.push(checkbox.value);
             });
 
-            if(selectedOrganizations)
-            {
+            if(selectedOrganizations.length > 0) {
                 console.log('Selected Organizations:', selectedOrganizations);
 
+                var url = `{{ route('projects.filter') }}`;
 
-                var url = `{{ route('organization.get') }}`;
+                console.log(url);
 
                 fetch(url, {
-                    method: 'GET',
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-Requested-With': 'XMLHttpRequest'
-                    }
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                    },
+                    body: JSON.stringify({ organizations: selectedOrganizations })
                 })
                 .then(response => {
                     if (!response.ok) {
@@ -589,38 +584,33 @@
                     return response.json();
                 })
                 .then(data => {
-                    console.log('Fetched data:', data);
+                    console.log('Filtered data:', data);
 
-                    const organizationListContainer = document.getElementById('organizationListContainer');
-                    organizationListContainer.innerHTML = '';                  
-                    const hr = document.createElement('hr');
+                    const projectList = document.getElementById('projectList');
+                    projectList.innerHTML = '';
 
-
-                    for (const [id, name] of Object.entries(data)) {
-                        const listItem = document.createElement('li');
-
-                        
-                        const checkbox = document.createElement('input');
-                        checkbox.type = 'checkbox';
-                        checkbox.id = `organization-${id}`;
-                        checkbox.value = id;
-                        checkbox.classList.add('organization-checkbox');
-
-                        const label = document.createElement('label');
-                        label.htmlFor = `organization-${id}`;
-                        label.textContent = name;
-
-                        listItem.appendChild(checkbox);
-                        listItem.appendChild(label);
-                        listItem.classList.add('organization-item');
-                        
-                        organizationListContainer.appendChild(listItem);
-                    }
-                    organizationListContainer.appendChild(hr);
-
+                    data.projects.forEach(project => {
+                        const tr = document.createElement('tr');
+                        tr.innerHTML = `
+                            <td>${project.id}</td>
+                            <td>${project.name}</td>
+                            <td class="text-center">${project.start_date}</td>
+                            <td class="text-right">${project.work_duration}</td>
+                            <td class="text-right">${project.progress} %</td>
+                            <td class="text-center">${project.due_date}</td>
+                            <td class="text-right">${project.project_value}</td>
+                            <td class="text-center">${project.status}</td>
+                            <td><a href="/organizations/edit/${project.organization_id}">${project.organization_name}</a></td>
+                            <td>
+                                <a href="/projects/show/${project.id}" class="btn btn-info btn-xs" title="Show"><i class="fas fa-search"></i></a>
+                                <button class="btn btn-warning btn-xs edit-project-btn" data-id="${project.id}" data-toggle="modal" data-target="#editProjectModal" title="Edit"><i class="fas fa-edit"></i></button>
+                            </td>
+                        `;
+                        projectList.appendChild(tr);
+                    });
                 })
                 .catch(error => {
-                    console.error('Error fetching organization data:', error);
+                    console.error('Error fetching filtered project data:', error);
                 });
             }
 
