@@ -26,8 +26,8 @@
 
 @section('title','Objective')
 @section('contents')
-<div class="row align-items-center justify-content-between" style="margin: 70px;">
-    <h4 class="header-pill col-auto">Objectives and Key Results</h4>
+<div class="row align-items-center justify-content-between" style="margin-left:70px; margin-right:70px; margin-top:20px; margin-bottom:40px">
+    <h4 class="header-pill col-auto" style="font-family: 'Poppins', sans-serif;">Objectives and Key Results</h4>
     <div class="col-auto">
         <!-- Button trigger modal -->
         <div class="" style="top: 100px; right: 50px;">

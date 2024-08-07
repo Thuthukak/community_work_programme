@@ -25,6 +25,18 @@
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 1;
 }
+.dropdown-content-date {
+    display: none;
+    list-style-type: none; 
+    padding: 10px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: transparent;
+    min-width: 160px;
+    
+    z-index: 1;
+}
 .dropdown-content ul li {
         display: flex; 
         align-items: center; 
@@ -130,20 +142,20 @@
 
     <div class="filter-item">
         <button class="filter-btn" style="border-radius: 25px; padding:12px" id="datefilter">Date Range</button>
-        <div id="dateDropdown" class="dropdown-content" style="display: none;">
+        <div id="dateDropdown" class="dropdown-content-date">
             <form id="dateRangeForm" class="filter-form">
-                @include('crm.projects.partials.datefilterDropdown')
+                @include('crm.projects.partials.dateFilterDropdownCustom')
             </form>
         </div>
     </div>
 
     <div class="filter-item">
-    <button class="filter-btn" id="Organizationlist" style="border-radius: 25px; padding:12px">Organization</button>
-    <div id="organizationDropdown" class="dropdown-content" style="display:none;">
-        <form id="organizationForm" class="filter-form">
-            <ul id="organizationListContainer"></ul>
-            <br>
-            <hr>
+            <button class="filter-btn" id="Organizationlist" style="border-radius: 25px; padding:12px">Organization</button>
+        <div id="organizationDropdown" class="dropdown-content" style="display:none;">
+            <form id="organizationForm" class="filter-form">
+                <ul id="organizationListContainer"></ul>
+                <br>
+                <hr>
             <div class="d-flex justify-content-between mt-3">
                 <button type="button" id="clearOrganizations" class="btn btn-clear">Clear</button>
                 <button type="button" id="applyOrganizations" class="btn btn-primary">Apply</button>

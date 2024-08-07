@@ -22,6 +22,18 @@
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
     z-index: 1;
 }
+.dropdown-content-date {
+    display: none;
+    list-style-type: none; 
+    padding: 10px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: transparent;
+    min-width: 160px;
+    
+    z-index: 1;
+}
 .dropdown-content ul li {
         display: flex; 
         align-items: center; 
@@ -78,9 +90,9 @@
         </div>
         <div class="filter-item">
             <button class="filter-btn" style="border-radius: 25px; padding:12px" id="datefilter">Date Range</button>
-            <div id="dateDropdown" class="dropdown-content">
+            <div id="dateDropdown" class="dropdown-content-date">
                 <form id="dateRangeForm" class="filter-form">
-                    @include('crm.projects.partials.datefilterDropdown')
+                    @include('crm.projects.partials.dateFilterDropdownCustom')
                 </form>
             </div>
         </div>
