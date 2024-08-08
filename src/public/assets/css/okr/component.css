@@ -49,7 +49,7 @@ textarea{
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #21897E;
+    background-color: #ff740b;
     height: 100%;
     padding-top: 60px;
 }
@@ -126,18 +126,18 @@ textarea{
 /* btn-menu */
 .btn-menu{
     border-radius: 50%;
-    color: #21897E;
+    color: #ff740b;
 }
 .btn-menu:hover{
     background-color: #F2F2F2;
-    color: #21897E;
+    color: #ff740b;
 }
 .btn-menu:focus{
     box-shadow: none;
 }
 .btn-menu.open{
     color: #fff;
-    background-color: #3BA99C;
+    background-color: #ff740b;
 }
 /* Search */
 .form-control.search{
@@ -160,7 +160,7 @@ textarea{
     }
 }
 .form-control.search:focus{
-    border-color: #3BA99C;
+    border-color: #ff740b;
     box-shadow: none;
 }
 .btn.btn-search{
@@ -176,8 +176,8 @@ textarea{
 }
 .btn.btn-search:hover {
     color: #fff;
-    background-color: #3BA99C;
-    border-color: #3BA99C;
+    background-color: #ff740b;
+    border-color: #ff740b;
 }
 .btn.btn-search:focus{
     -webkit-box-shadow: 0.1rem 0.1rem 0.3rem 0.1rem rgba(108, 117, 125, 0.2);
@@ -413,7 +413,7 @@ main{
     transition: all 0.5s;
 }
 #addMember:hover{
-    color: #3BA99C;
+    color: #ff740b;
 }
 .organizationIcon{
     display: inline-block;
@@ -432,7 +432,7 @@ main{
     left: 12px;
     width: 30px;
     text-align: center;
-    color: #21897E;
+    color: #ff740b;
 }
 
 .circle-progress-text{

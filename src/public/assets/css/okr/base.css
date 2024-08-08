@@ -20,43 +20,43 @@
 
 /* Background */
 .bg-primary {
-    background-color: #21897E !important;
+    background-color: #ff740b !important;
 }
 
 a.bg-primary:hover,
 a.bg-primary:focus,
 button.bg-primary:hover,
 button.bg-primary:focus {
-    background-color: #21897E !important;
+    background-color: #ff740b !important;
 }
 
 /* Text */
 .text-primary {
-    color: #3BA99C !important;
+    color: #ff740b !important;
 }
 
 a.text-primary:hover,
 a.text-primary:focus {
-    color: #3BA99C !important;
+    color: #ff740b !important;
 }
 
 /* Button */
 .btn-outline-primary {
-    color: #3BA99C;
+    color: #ff740b;
     background-color: transparent;
     background-image: none;
-    border-color: #3BA99C;
+    border-color: #ff740b;
 }
 
 .btn-outline-primary:hover {
     color: #fff;
-    background-color: #3BA99C;
-    border-color: #3BA99C;
+    background-color: #ff740b;
+    border-color: #ff740b;
 }
 
 .btn-outline-primary.disabled,
 .btn-outline-primary:disabled {
-    color: #3BA99C;
+    color: #ff740b;
     background-color: transparent;
 }
 
@@ -64,35 +64,35 @@ a.text-primary:focus {
 .btn-outline-primary:not(:disabled):not(.disabled).active,
 .show>.btn-outline-primary.dropdown-toggle {
     color: #fff;
-    background-color: #3BA99C;
-    border-color: #3BA99C;
+    background-color: #ff740b;
+    border-color: #ff740b;
 }
 
 .btn-primary {
     color: #fff;
-    background-color: #3BA99C;
-    border-color: #3BA99C;
+    background-color: #ff740b;
+    border-color: #ff740b;
 }
 
 .btn-primary:hover {
     color: #fff;
-    background-color: #21897E;
-    border-color: #21897E;
+    background-color: #ff740b;
+    border-color: #ff740b;
 }
 
 .btn-primary.disabled,
 .btn-primary:disabled {
     color: #fff;
-    background-color: #3BA99C;
-    border-color: #3BA99C;
+    background-color: #ff740b;
+    border-color: #ff740b;
 }
 
 .btn-primary:not(:disabled):not(.disabled):active,
 .btn-primary:not(:disabled):not(.disabled).active,
 .show>.btn-primary.dropdown-toggle {
     color: #fff;
-    background-color: #21897E;
-    border-color: #21897E;
+    background-color: #ff740b;
+    border-color: #ff740b;
 }
 
 /* ---------------------- */

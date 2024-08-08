@@ -71,7 +71,7 @@
 }
 .btn.btn-login:hover{
     background-color: #FFE484;
-    color: #21897E;
+    color: #ff740b;
 }
 @media (max-width: 767px) {
     .btn.btn-login{
@@ -99,7 +99,7 @@
 }
 
 .price .header {
-    background-color: #3BA99C;
+    background-color: #ff740b;
     color: white;
     font-size: 25px;
     border-top-left-radius: 10px;
