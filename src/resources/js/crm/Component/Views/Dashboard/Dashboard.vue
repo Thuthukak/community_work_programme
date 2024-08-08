@@ -9,94 +9,67 @@
       <app-overlay-loader />
     </div>
     <template v-else>
-
-      <div class="row">
-          <div class="col-xl-3 mb-primary">
-            <div class="card card-with-shadow border-1">
-              <div
-                class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
-              >
-                <h5 class="card-title mb-0">{{ $t("Active Data") }}</h5>
-              </div>
-              <div class="card-body p-primary">
-                <div
-                  v-for="(item, index) in okrlist"
-                  :key="index"
-                  :class="index == contactList.length - 1 ? '' : 'pb-primary'"
-                  class="dashboard-widgets dashboard-icon-widget"
-                >
-                  <div class="icon-wrapper">
-                    <app-icon :key="item.icon" :name="item.icon" />
-                  </div>
-                  <div class="widget-data">
-                    <h6>{{ item.value }}</h6>
-                    <p>{{ item.title }}</p>
-                  </div>
+      <div class="row same-height-container">
+        <!-- First Card -->
+        <div class="col-xl-3 mb-primary">
+          <div class="card card-with-shadow border-1 same-height">
+            <div class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">{{ $t("Active Data") }}</h5>
+            </div>
+            <div class="card-body p-primary">
+              <div v-for="(item, index) in okrlist" :key="index" :class="index == contactList.length - 1 ? '' : 'pb-primary'" class="dashboard-widgets dashboard-icon-widget">
+                <div class="icon-wrapper">
+                  <app-icon :key="item.icon" :name="item.icon" />
+                </div>
+                <div class="widget-data">
+                  <h6>{{ item.value }}</h6>
+                  <p>{{ item.title }}</p>
                 </div>
               </div>
             </div>
           </div>
-         
-          <div class="col-xl-3 mb-primary">
-            <div class="card card-with-shadow border-0">
-              <div
-                class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
-              >
-                <h5 class="card-title mb-0">{{ $t("Objectives Rate") }}</h5>
-              </div>
-
-          <div class="row dashboard-circle-widget">
-              <div class="col-xl-12 mb-4 mb-xl-0">
-                <app-widget
-                  :type="'app-widget-with-circle'"
-                  :label="$t('Obectives  progress')"
-                  :number="objectivesProgress"
-                />
-              </div>
-          </div>
+        </div>
+        
+        <!-- Second Card -->
+        <div class="col-xl-3 mb-primary">
+          <div class="card card-with-shadow-custom border-1 same-height">
+            <div class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">{{ $t("Objectives Rate") }}</h5>
             </div>
-          </div>  
-
-          <div class="col-xl-3 mb-primary">
-            <div class="card card-with-shadow border-0">
-              <div
-                class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
-              >
-                <h5 class="card-title mb-0">{{ $t("Actions Rate per week") }}</h5>
-              </div>
+            <div class="row dashboard-circle-widget">
               <div class="col-xl-12 mb-4 mb-xl-0">
-                <app-widget
-                  :type="'app-widget-with-circle'"
-                  :label="$t('actions completion rate')"
-                  :number="actionsRate"
-                />
+                <app-widget :type="'app-widget-with-circle'" :label="$t('Objectives progress')" :number="objectivesProgress" />
               </div>
-                </div>
-              </div> 
-          <div class="col-xl-3  mb-primary">
-            <div class="card card-with-shadow border-0">
-              <div
-                class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
-              >
-                <h5 class="card-title mb-0">{{ $t("Net Confidence Score") }}</h5>
-              </div>
-
-          <div class="row dashboard-circle-widget">
-              <div class="col-xl-12 mb-4 mb-xl-0">
-                <app-widget
-                  :type="'app-widget-with-circle'"
-                  :label="$t('Obectives Key results progress')"
-                  :number="sendingRate"
-                />
-              </div>
-          </div>
             </div>
-          </div>  
+          </div>
+        </div>
 
+        <!-- Third Card -->
+        <div class="col-xl-3 mb-primary">
+          <div class="card card-with-shadow border-1 same-height">
+            <div class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">{{ $t("Actions Rate per week") }}</h5>
+            </div>
+            <div class="col-xl-12 mb-4 mb-xl-0">
+              <app-widget :type="'app-widget-with-circle'" :label="$t('Actions completion rate')" :number="actionsRate" />
+            </div>
+          </div>
+        </div>
 
-              
+        <!-- Fourth Card -->
+        <div class="col-xl-3 mb-primary">
+          <div class="card card-with-shadow border-1 same-height">
+            <div class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center">
+              <h5 class="card-title mb-0">{{ $t("Net Confidence Score") }}</h5>
+            </div>
+            <div class="row dashboard-circle-widget ">
+              <div class="col-xl-12 mb-4 mb-xl-0">
+                <app-widget :type="'app-widget-with-circle'" :label="$t('Objectives Key results progress')" :number="sendingRate" />
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-
 
          
       <div class="row">
@@ -788,3 +761,18 @@ export default {
   },
 };
 </script>
+<style scoped>
+.same-height-container {
+  display: flex;
+}
+
+.same-height {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.same-height .card-body {
+  flex-grow: 1;
+}
+</style>
