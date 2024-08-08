@@ -8,6 +8,10 @@ use App\Models\CRM\Deal\Deal;
 use App\Models\CRM\Organization\Organization;
 use App\Models\CRM\Person\Person;
 use App\Models\CRM\Pipeline\Pipeline;
+use App\Models\CRM\Objective\Objective;
+use App\Models\CRM\KeyResult\KeyResult;
+use App\Models\CRM\KeyResultRecord\KeyResultRecord;
+use App\Models\CRM\Action\Action;
 use App\Models\CRM\Proposal\Proposal;
 use App\Models\CRM\User\User;
 use App\Services\ApplicationBaseService;
@@ -167,10 +171,203 @@ class DashboardService extends ApplicationBaseService
         return Deal::filters($this->filter)->where('status_id', $status)->count();
     }
 
+    public function getEachObjectivesProgress()
+    {
+        // Fetch all objectives with their key results
+        $objectives = Objective::with('keyResults')->get();
+
+        // dd($objectives);
+        // Calculate progress for each objective
+        $objectivesProgress = $objectives->map(function ($objective) {
+            // Calculate the progress of each key result
+            $keyResultsProgress = $objective->keyResults->map(function ($keyResult) {
+                $initial = $keyResult->initial_value;
+                $target = $keyResult->target_value;
+                $current = $keyResult->current_value;
+
+                // Avoid division by zero
+                if ($target - $current == 0) {
+                    $progress = 100;
+                } else {
+                    $progress = (($current - $initial) / ($target - $initial)) * 100;
+                }
+
+                return $progress;
+            });
+
+
+
+            // Calculate the average progress for the objective
+            $objectiveProgress = $keyResultsProgress->avg();
+
+            return [
+                'objective' => $objective,
+                'progress' => $objectiveProgress,
+                'title' => $objective->title, // Add objective name here
+            ];
+        });
+
+        return $objectivesProgress;
+    }
+
+
+             function getLastSixMonthsKeyResults()
+        {
+            // Define the time period for the past 6 months
+            $startDate = Carbon::now()->subMonths(6)->startOfDay();
+            $endDate = Carbon::now()->endOfDay();
+            
+            // Get the names of the last 6 months
+            $months = [];
+            for ($i = 5; $i >= 0; $i--) {
+                array_push($months, Carbon::now()->subMonths($i)->format('M'));
+            }
+        
+            // Query the KeyResult table for entries created within the last 6 months
+            $keyResults = KeyResult::whereBetween('created_at', [$startDate, $endDate])->get();
+        
+            // Initialize an empty array to hold key results with completion percentages
+            $keyResultsWithCompletion = [];
+        
+            // Calculate the completion percentage for each key result
+            foreach ($keyResults as $keyResult) {
+                $initialValue = $keyResult->initial_value;
+                $targetValue = $keyResult->target_value;
+                $currentValue = $keyResult->current_value;
+        
+                $completionPercentage = 0;
+                if ($targetValue > $initialValue) {
+                    $completionPercentage = (($currentValue - $initialValue) / ($targetValue - $initialValue)) * 100;
+                }
+        
+                array_push($keyResultsWithCompletion, [
+                    'title' => $keyResult->title,
+                    'completion_percentage' => $completionPercentage
+                ]);
+            }
+        
+            // Return the month names and the key results with their completion percentages
+            return [
+                'months' => $months,
+                'keyResults' => $keyResultsWithCompletion
+            ];
+        }
+            public function getActionsRates()
+        {
+            // Define the time period for the past 6 months
+            $startDate = Carbon::now()->subMonths(6)->startOfDay();
+            $endDate = Carbon::now()->endOfDay();
+
+            // Calculate the total number of actions created and completed in the specified period
+            $totalActionsCreated = Action::whereBetween('created_at', [$startDate, $endDate])->count();
+            $totalActionsDone = Action::whereNotNull('isdone')->whereBetween('isdone', [$startDate, $endDate])->count();
+
+            // Calculate the number of days, weeks, months, and years in the specified period
+            $totalDays = $startDate->diffInDays($endDate);
+            $totalWeeks = $startDate->diffInWeeks($endDate);
+            $totalMonths = $startDate->diffInMonths($endDate);
+            $totalYears = $startDate->diffInYears($endDate);
+
+            // Calculate the rates per day, per week, per month, and per year
+            $rateActionsCreatedPerDay = $totalDays > 0 ? $totalActionsCreated / $totalDays : 0;
+            $rateActionsDonePerDay = $totalDays > 0 ? $totalActionsDone / $totalDays : 0;
+
+            $rateActionsCreatedPerWeek = $totalWeeks > 0 ? $totalActionsCreated / $totalWeeks : 0;
+            $rateActionsDonePerWeek = $totalWeeks > 0 ? $totalActionsDone / $totalWeeks : 0;
+
+            $rateActionsCreatedPerMonth = $totalMonths > 0 ? $totalActionsCreated / $totalMonths : 0;
+            $rateActionsDonePerMonth = $totalMonths > 0 ? $totalActionsDone / $totalMonths : 0;
+
+            $rateActionsCreatedPerYear = $totalYears > 0 ? $totalActionsCreated / $totalYears : 0;
+            $rateActionsDonePerYear = $totalYears > 0 ? $totalActionsDone / $totalYears : 0;
+
+            // Return the rates
+            return [
+                'rateActionsCreatedPerDay' => round($rateActionsCreatedPerDay, 2),
+                'rateActionsDonePerDay' => round($rateActionsDonePerDay, 2),
+                'rateActionsCreatedPerWeek' => round($rateActionsCreatedPerWeek, 2),
+                'rateActionsDonePerWeek' => round($rateActionsDonePerWeek, 2),
+                'rateActionsCreatedPerMonth' => round($rateActionsCreatedPerMonth, 2),
+                'rateActionsDonePerMonth' => round($rateActionsDonePerMonth, 2),
+                'rateActionsCreatedPerYear' => round($rateActionsCreatedPerYear, 2),
+                'rateActionsDonePerYear' => round($rateActionsDonePerYear, 2),
+            ];
+        }
+
+ 
+    public function getObjectivesProgress()
+    {
+        // Fetch all objectives with their key results
+        $objectives = Objective::with('keyResults')->get();
+
+        // Initialize a collection to hold all key results progress
+        $allKeyResultsProgress = collect();
+
+        // Calculate progress for each objective and accumulate key result progress
+        $objectives->each(function ($objective) use (&$allKeyResultsProgress) {
+            if ($objective->keyResults->isEmpty()) {
+                // Log if no key results are found for the objective
+                \Log::info('No Key Results for Objective:', ['objective_id' => $objective->id]);
+                return;
+            }
+
+            // Calculate the progress of each key result
+            $keyResultsProgress = $objective->keyResults->map(function ($keyResult) {
+                $initial = $keyResult->initial_value;
+                $target = $keyResult->target_value;
+                $current = $keyResult->current_value;
+
+               
+
+                // Avoid division by zero
+                if ($target - $current == 0) {
+                    return 100;
+                } else {
+                    return (($current - $initial) / ($target - $initial)) * 100;
+                }
+            });
+
+            // Filter out any null or invalid progress values
+            $validKeyResultsProgress = $keyResultsProgress->filter(function ($progress) {
+                return !is_null($progress) && $progress >= 0;
+            });
+
+          
+
+            // Merge the valid key results progress into the overall collection
+            $allKeyResultsProgress = $allKeyResultsProgress->merge($validKeyResultsProgress);
+        });
+
+
+        // Calculate the overall progress
+        $overallProgress = $allKeyResultsProgress->isEmpty() ? null : $allKeyResultsProgress->avg();
+
+        // Log overall progress for debugging
+        \Log::info('Overall Progress:', ['overall_progress' => $overallProgress]);
+
+        return [
+            'overall_progress' => $overallProgress,
+        ];
+    }
+
     public function totalOrganization()
     {
         return Organization::count();
     }
+    public function totalObjectives()
+    {
+        return Objective::count();
+    }
+    public function totalKeyResults()
+    {
+        return KeyResult::count();
+    }
+    public function totalActions()
+    {
+        return Action::count();
+    }
+
+
 
     public function totalPeople()
     {

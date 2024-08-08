@@ -17,6 +17,12 @@ class DashboardController extends Controller
 
     public function index()
     {
+
+        //Okrs 
+        $totalOkr = 0;
+        $okrs = [];
+        list($totalOkr, $okrs) = $this-> okrInformation($totalOkr,$okrs);
+
         // Deal Both
         $dealChart = [];
         $totalDealsChartElement = [];
@@ -35,6 +41,16 @@ class DashboardController extends Controller
         $employees = [];
         list($totalEmployee, $employees) = $this->employeeInformation($totalEmployee, $employees);
 
+        //keyResults info 
+
+        $keyResultsMonths = [];
+        $keyResultsdata = [];
+
+        $keyResults = $this->service->getLastSixMonthsKeyResults();
+        $keyResultsMonths = $keyResults['months'];
+        $keyResultsdata = $keyResults['keyResults'];
+    
+
         // Pipeline
 
         $totalProposal = $this->service->bothProposal();
@@ -46,9 +62,33 @@ class DashboardController extends Controller
 
         $sendingRate = $totalProposal > 0 ? intval(($totalSendProposal / $totalProposal) * 100) : 0;
         $acceptanceRate = $totalSendProposal > 0 ? intval(($totalAcceptedProposal / $totalSendProposal) * 100) : 0;
+        
+        // Objective Progress 
+        $objectivesProgress = $this->service->getObjectivesProgress();
+        $overallProgress = $objectivesProgress['overall_progress'];
+        $formattedProgress = $overallProgress !== null ? number_format($overallProgress, 2) : null;
 
+        // get actions rate 
+        $actionsRate = $this->service->getActionsRates();
+        $actioncreatedPerWeek = $actionsRate['rateActionsCreatedPerWeek'];
+        $actionDonePerWeek = $actionsRate['rateActionsDonePerMonth'];
+        $actionRatePerWeek = ($actioncreatedPerWeek + $actionDonePerWeek)/2;
+
+        $rateActionsCreatedPerDayArray = $actionsRate['rateActionsCreatedPerDay'];
+        $rateActionsDonePerDayArray =  $actionsRate['rateActionsDonePerDay'];
+        $rateActionsCreatedPerWeekArray =  $actionsRate['rateActionsCreatedPerWeek'];
+        $rateActionsDonePerWeekArray =  $actionsRate['rateActionsDonePerWeek'];
+        $rateActionsCreatedPerMonthArray =  $actionsRate['rateActionsCreatedPerMonth'];
+        $rateActionsDonePerMonthArray =  $actionsRate['rateActionsDonePerMonth'];
+        $rateActionsCreatedPerYearArray =  $actionsRate['rateActionsCreatedPerYear'];
+        $rateActionsDonePerYearArray =  $actionsRate['rateActionsDonePerYear'];
+
+        list( $rateActionsCreatedPerDayArray,$rateActionsDonePerDayArray, $rateActionsCreatedPerWeekArray, $rateActionsDonePerWeekArray,$rateActionsCreatedPerMonthArray,
+        $rateActionsDonePerMonthArray,$rateActionsCreatedPerYearArray,$rateActionsDonePerYearArray) = 
+        $this->getActionRatesOverview($rateActionsCreatedPerDayArray, $rateActionsDonePerDayArray,  $rateActionsCreatedPerWeekArray, $rateActionsDonePerWeekArray, $rateActionsCreatedPerMonthArray, $rateActionsDonePerMonthArray, $rateActionsCreatedPerYearArray,$rateActionsDonePerYearArray,);
+    
+        dd($rateActionsDonePerWeekArray);
         // Pipeline
-
         $pipelineName = [];
         $pipelineTotalDeals = [];
         $pipelineBackgroundColor = [];
@@ -60,7 +100,6 @@ class DashboardController extends Controller
 
 
         // Top Five owners
-
         $topFiveOwners = $this->service->topFiveOwners($this->service->statuses['status_active']);
 
         $fiveOwnerName = [];
@@ -90,6 +129,22 @@ class DashboardController extends Controller
                 'background_color' => $pipelineBackgroundColor,
                 'top_five_owners_name' => $fiveOwnerName,
                 'five_owner_deal' => $fiveOwnerDeals,
+                'total_okr' => $totalOkr,
+                'okrs' => $okrs,
+                'objectives_Progress' => $formattedProgress,
+                'actionRatePerWeek' => $actionRatePerWeek,
+                'keyResultsMonths' => $keyResultsMonths,
+                'keyResultsdata' => $keyResultsdata,
+                'rateActionsCreatedPerDay' => $rateActionsCreatedPerDayArray,
+                'rateActionsDonePerDayArray' => $rateActionsDonePerDayArray,
+                'rateActionsCreatedPerWeek' => $rateActionsCreatedPerWeekArray,
+                'rateActionsDonePerWeek' => $rateActionsDonePerWeekArray,
+                'rateActionsCreatedPerMonth' => $rateActionsCreatedPerMonthArray,
+                'rateActionsDonePerMonth' => $rateActionsDonePerMonthArray,
+                'rateActionsCreatedPerYear' => $rateActionsCreatedPerYearArray,
+                'rateActionsDonePerYear' => $rateActionsDonePerYearArray,
+                
+
             ];
         } else {
             return [
@@ -100,6 +155,34 @@ class DashboardController extends Controller
         }
     }
 
+    //get actions rates 
+
+    public function getActionRatesOverview($rateActionsCreatedPerDay, $rateActionsDonePerDay, $rateActionsCreatedPerWeek,  $rateActionsDonePerWeek, $rateActionsCreatedPerMonth,
+                                    $rateActionsDonePerMonth,$rateActionsCreatedPerYear,$rateActionsDonePerYear,)
+    {
+        $rateActionsCreatedPerDayArray= [];
+        $rateActionsDonePerDayArray = [];
+        $rateActionsCreatedPerWeekArray = [];
+        $rateActionsDonePerWeekArray = [];
+        $rateActionsCreatedPerMonthArray = [];
+        $rateActionsDonePerMonthArray = [];
+        $rateActionsCreatedPerYearArray = [];
+        $rateActionsDonePerYearArray = [];
+
+        array_push($rateActionsCreatedPerDayArray, round($rateActionsCreatedPerDay, 2));
+        array_push($rateActionsDonePerDayArray, round($rateActionsDonePerDay, 2));
+        array_push($rateActionsCreatedPerWeekArray, round($rateActionsCreatedPerWeek, 2));
+        array_push($rateActionsDonePerWeekArray, round($rateActionsDonePerWeek, 2));
+        array_push($rateActionsCreatedPerMonthArray, round($rateActionsCreatedPerMonth, 2));
+        array_push($rateActionsDonePerMonthArray, round($rateActionsDonePerMonth, 2));
+        array_push($rateActionsCreatedPerYearArray, round($rateActionsCreatedPerYear, 2));
+        array_push($rateActionsDonePerYearArray, round($rateActionsDonePerYear, 2));
+
+        
+        return [ $rateActionsCreatedPerDayArray,$rateActionsDonePerDayArray, $rateActionsCreatedPerWeekArray, $rateActionsDonePerWeekArray,$rateActionsCreatedPerMonthArray,$rateActionsDonePerMonthArray,$rateActionsCreatedPerYearArray,$rateActionsDonePerYearArray,];
+
+
+    }
     public function dealChartElement(array $dealChart, array $totalDealsChartElement, $totalDeal)
     {
         $openDeal = $this->service->dealsCountByStatus($this->service->statuses['status_open']);
@@ -142,6 +225,23 @@ class DashboardController extends Controller
         );
 
         return [$totalContact, $contacts];
+    }
+
+    public function okrInformation($totalOkr, array $okrs)
+    {
+        $totalObjectives = $this->service->totalObjectives();
+        $totalkeyResults = $this->service->totalKeyResults();
+        $totalActions = $this->service->totalActions();
+        $totalOkr = $totalObjectives;
+
+        array_push(
+            $okrs,
+            ['value' => $totalObjectives, 'key' => 'objectives'],
+            ['value' => $totalkeyResults, 'key' => 'keyResults'],
+            ['value' => $totalActions, 'key' => 'actions']
+        );
+
+        return [$totalOkr, $okrs];
     }
 
     public function employeeInformation($totalEmployee, array $employees)

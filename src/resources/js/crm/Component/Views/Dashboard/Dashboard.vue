@@ -9,6 +9,139 @@
       <app-overlay-loader />
     </div>
     <template v-else>
+
+      <div class="row">
+          <div class="col-xl-3 mb-primary">
+            <div class="card card-with-shadow border-1">
+              <div
+                class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
+              >
+                <h5 class="card-title mb-0">{{ $t("Active Data") }}</h5>
+              </div>
+              <div class="card-body p-primary">
+                <div
+                  v-for="(item, index) in okrlist"
+                  :key="index"
+                  :class="index == contactList.length - 1 ? '' : 'pb-primary'"
+                  class="dashboard-widgets dashboard-icon-widget"
+                >
+                  <div class="icon-wrapper">
+                    <app-icon :key="item.icon" :name="item.icon" />
+                  </div>
+                  <div class="widget-data">
+                    <h6>{{ item.value }}</h6>
+                    <p>{{ item.title }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+         
+          <div class="col-xl-3 mb-primary">
+            <div class="card card-with-shadow border-0">
+              <div
+                class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
+              >
+                <h5 class="card-title mb-0">{{ $t("Objectives Rate") }}</h5>
+              </div>
+
+          <div class="row dashboard-circle-widget">
+              <div class="col-xl-12 mb-4 mb-xl-0">
+                <app-widget
+                  :type="'app-widget-with-circle'"
+                  :label="$t('Obectives  progress')"
+                  :number="objectivesProgress"
+                />
+              </div>
+          </div>
+            </div>
+          </div>  
+
+          <div class="col-xl-3 mb-primary">
+            <div class="card card-with-shadow border-0">
+              <div
+                class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
+              >
+                <h5 class="card-title mb-0">{{ $t("Actions Rate per week") }}</h5>
+              </div>
+              <div class="col-xl-12 mb-4 mb-xl-0">
+                <app-widget
+                  :type="'app-widget-with-circle'"
+                  :label="$t('actions completion rate')"
+                  :number="actionsRate"
+                />
+              </div>
+                </div>
+              </div> 
+          <div class="col-xl-3  mb-primary">
+            <div class="card card-with-shadow border-0">
+              <div
+                class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
+              >
+                <h5 class="card-title mb-0">{{ $t("Net Confidence Score") }}</h5>
+              </div>
+
+          <div class="row dashboard-circle-widget">
+              <div class="col-xl-12 mb-4 mb-xl-0">
+                <app-widget
+                  :type="'app-widget-with-circle'"
+                  :label="$t('Obectives Key results progress')"
+                  :number="sendingRate"
+                />
+              </div>
+          </div>
+            </div>
+          </div>  
+
+
+              
+      </div>
+
+
+         
+      <div class="row">
+
+          <div class="col-xl-6 mb-primary">
+            <div class="card card-with-shadow border-0">
+              <div
+                class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
+              >
+                <h5 class="card-title mb-0">{{ $t("KeyResults ") }}</h5>
+              </div>
+              <div class="card-body min-height-340">
+                <app-overlay-loader v-if="dataload" />
+                <app-chart
+                  type="bar-chart"
+                  v-else
+                  :height="340"
+                  :labels="barChartLabel"
+                  :data-sets="barChartData"
+                />
+              </div>
+            </div>
+          </div>
+        
+          <div class="col-xl-6 mb-primary">
+            <div class="card card-with-shadow border-0">
+              <div
+                class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
+              >
+                <h5 class="card-title mb-0">{{ $t("Actions") }}</h5>
+              </div>
+              <div class="card-body min-height-340">
+                <app-overlay-loader v-if="dataload" />
+                <app-chart
+                  type="bar-chart"
+                  v-else
+                  :height="340"
+                  :labels="barChartLabel"
+                  :data-sets="barChartData"
+                />
+              </div>
+            </div>
+          </div>
+      </div>
+
       <div class="row">
         <div class="col-xl-8 mb-primary">
           <div class="card card-with-shadow border-0 h-100">
@@ -389,6 +522,26 @@ export default {
           value: 10247,
         },
       ],
+
+      // Total Okrs - App widget
+      okrlist: [
+        {
+          icon: "eye",
+          title: this.$t("Total Objectives"),
+          value: 10247,
+        },
+        {
+          icon: "navigation",
+          title: this.$t("Total KeyResults"),
+          value: 10247,
+        },
+        {
+          icon: "check-square",
+          title: this.$t("Total Actions"),
+          value: 10247,
+        },
+      ],
+
       // Total Employees - App widget
       employeesList: [
         {
@@ -436,9 +589,14 @@ export default {
         },
       ],
 
+      keyResultsMonths:[],
+      keyResultsdata: [],
+      totalOkr:null,
       totalContact: null,
       totalEmployees: null,
       sendingRate: null,
+      actionsRate: null,
+      objectivesProgress:null,
       acceptanceRate: null,
       totalSendProposal: null,
       totalAcceptedProposal: null,
@@ -478,6 +636,11 @@ export default {
               item.value = response.data.contacts[index].value;
             });
 
+            this.totalOkr = response.data.total_okr;
+            this.okrlist.forEach((item, index) => {
+              item.value = response.data.okrs[index].value;
+            });
+
             // Employees
             this.totalEmployees = response.data.total_employee;
             this.employeesList.forEach((employee, index) => {
@@ -486,16 +649,22 @@ export default {
 
             // Total send proposal
             this.totalSendProposal = response.data.total_send_proposal;
-
+            this.actionsRate = response.data.actionRatePerWeek;
             // total accepted proposal
             this.totalAcceptedProposal = response.data.total_accepted_proposal;
 
             // Sending Rate
+            this.objectivesProgress = response.data.objectives_Progress;
+
+            // ObjectivesProgress
             this.sendingRate = response.data.sending_rate;
 
             //acceptance rate
             this.acceptanceRate = response.data.acceptance_rate;
 
+            //Objectives Key results 
+
+            this.keyResultsMonths = response.data.keyResultsMonths;
             // Total Pipeline
 
             this.totalPipeline = response.data.total_pipeline;
