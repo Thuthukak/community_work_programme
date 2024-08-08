@@ -5,6 +5,7 @@ namespace App\Models\ProjectManagement\Projects;
 use App\Models\Core\Auth\User;
 use App\Models\CRM\Person\Person;
 use DB;
+use App\Models\CRM\Organization\Organization;
 use Illuminate\Database\Eloquent\Model;
 use Laracasts\Presenter\PresentableTrait;
 
@@ -85,6 +86,16 @@ class ProjectJob extends Model
     public function tasks()
     {
         return $this->hasMany(Task::class)->orderBy('position');
+    }
+
+        /**
+     * Project belongs to a Organization relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Concerns\belongsTo
+     */
+    public function Organization()
+    {
+        return $this->belongsTo(Organization::class);
     }
 
     /**

@@ -19,7 +19,7 @@ use Database\Seeders\CRM\Stage\DefaultStagesTableSeeder;
 use Database\Seeders\Traits\DisableForeignKeys;
 use Database\Seeders\Traits\TruncateTable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Databa5se\Seeder;
+use Illuminate\Database\Seeder;
 
 class SetupSeeder extends Seeder
 {

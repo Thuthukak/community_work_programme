@@ -23,6 +23,7 @@ class ActionRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
             'act_title' => 'required',
             'st_date' => 'required|date',

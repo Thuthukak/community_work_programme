@@ -5,8 +5,10 @@ namespace App\Models\ProjectManagement\Projects;
 use App\Models\ProjectManagement\BaseRepository;
 use App\Models\Core\Auth\User;
 use App\Models\CRM\Person\Person;
+use App\Models\ProjectManagement\Projects\Project;
 use App\Http\Controllers\Core\UserConverter;
 use App\Queries\AdminDashboardQuery;
+use ProjectStatus;
 use DB;
 
 /**
@@ -114,6 +116,57 @@ class JobsRepository extends BaseRepository
         $job->update($jobData);
 
         return $job;
+    }
+
+
+    public function getStatusName($statusId)
+    {
+
+
+        return ProjectStatus::getNameById($statusId);
+    }
+    public function getProjects($q, $statusId, User $user)
+    {
+
+
+        $statusIds = array_keys(ProjectStatus::toArray());
+
+
+        // dd($user->hasRole('admin'));
+
+
+
+        if ($user->hasRole('admin') == true) {
+
+        // if (true) {
+
+
+                return $user->projects()
+                ->where(function ($query) use ($q, $statusId, $statusIds) {
+                    $query->where('projects.name', 'like', '%'.$q.'%');
+
+                    if ($statusId && in_array($statusId, $statusIds)) {
+                        $query->where('status_id', $statusId);
+                    }
+                })
+                ->latest()
+                ->with(['Organization', 'jobs'])
+                ->paginate($this->_paginate);
+        }
+
+        return Project::where(function ($query) use ($q, $statusId, $statusIds) {
+                if (!empty($q)) {
+                    $query->where('projects.name', 'like', '%'.$q.'%');
+                }
+                
+                if ($statusId && in_array($statusId, $statusIds)) {
+                    $query->where('projects.status_id', $statusId);
+                }
+            })
+            ->with('organization')
+            ->paginate($this->_paginate);
+        ;
+    
     }
 
     public function tasksReorder($sortedData)

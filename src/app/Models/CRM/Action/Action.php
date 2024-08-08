@@ -61,6 +61,11 @@ class Action extends Model implements HasMedia, HasNotifiableInterface, HasInvit
         return Carbon::parse($date)->diffForHumans();
     }
 
+
+    public function getOKrRoute()
+    {
+        return route('actions.okr');
+    }
     public function priority()
     {
         return $this->belongsTo(Priority::class, 'priority');

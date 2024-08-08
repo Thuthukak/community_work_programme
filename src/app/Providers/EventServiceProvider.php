@@ -21,7 +21,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'App\Events\NewNotification' => [
-            'App\Lisenters\NewNotificationLisenters'],
+            'App\Listeners\NewNotificationListeners'],
 
             'App\Events\Projects\Created' => [
                 'App\Listeners\Projects\LogProjectCreationActivity',

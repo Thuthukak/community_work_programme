@@ -126,11 +126,11 @@ We are highly expecting you as soon as possible. Hope you\'ll join us.
                 );
             } else if ($event->name == 'deal_assigned') {
                 $mail = NotificationTemplate::create([
-                    'subject' => 'A deal named {deal_name} has been assigned by {action_by}',
+                    'subject' => 'An onboarding named {deal_name} has been assigned by {action_by}',
                     'default_content' => '<p><img src="{app_logo}" style="height: 75px"></p>
 <p>
 </p><p><span style="background-color: var(--form-control-bg) ; color: var(--default-font-color) ;">Hi {receiver_name}, </span><br></p><p>
-We are going to inform you that a deal named  {deal_name} has been assigned by {action_by}.</p><br>
+This is to inform you that an onboarding named  {deal_name} has been assigned by {action_by}.</p><br>
 <p></p><p>Thanks for being with us.
 </p><p>Regards,</p><p>{app_name}</p><p></p><p></p>',
                     'custom_content' => null,
@@ -257,32 +257,32 @@ We are going to inform you that a deal named  {deal_name} has been assigned by {
             // Deal
 
             'deal_created' => [
-                'system' => 'A new deal named {deal_name} has been created by {action_by}.',
-                'subject' => 'A new deal named {deal_name} has been created in {app_name}',
+                'system' => 'An onboarding named {deal_name} has been created by {action_by}.',
+                'subject' => 'An onboarding named {deal_name} has been created in {app_name}',
                 'content' => '<p><img src="{app_logo}" style="height: 75px"></p>
 <p>
-</p><p><span style="background-color: var(--form-control-bg) ; color: var(--default-font-color) ;">Hi {receiver_name},</span><br></p><p>We are going to inform you that a deal named {deal_name} has been created in {pipeline_name} pipeline by {action_by}. Please have a look at that</p>
+</p><p><span style="background-color: var(--form-control-bg) ; color: var(--default-font-color) ;">Hi {receiver_name},</span><br></p><p>This is to inform you that an onboarding named {deal_name} has been created in {pipeline_name} pipeline by {action_by}. Please have a look at that</p>
 <br>
 <p></p><p>Thanks for being with us.
 </p><p>Regards,</p><p>{app_name}</p><p></p><p></p>'
             ],
 
             'deal_updated' => [
-                'system' => 'A deal named {deal_name} has been updated by {action_by}.',
-                'subject' => 'A deal named {deal_name} has been updated in {app_name}',
+                'system' => 'An onboarding named {deal_name} has been updated by {action_by}.',
+                'subject' => 'An onboarding named {deal_name} has been updated in {app_name}',
                 'content' => '<p><img src="{app_logo}" style="height: 75px"></p>
 <p>
-</p><p><span style="background-color: var(--form-control-bg) ; color: var(--default-font-color) ;">Hi {receiver_name},</span> <br></p><p>We are going to inform you that a deal named {deal_name} has been updated by {action_by}. </p><br>
+</p><p><span style="background-color: var(--form-control-bg) ; color: var(--default-font-color) ;">Hi {receiver_name},</span> <br></p><p>This is to inform you that an onboarding named {deal_name} has been updated by {action_by}. </p><br>
 <p></p><p>Thanks for being with us.
 </p><p>Regards,</p><p>{app_name}</p><p></p><p></p>'
             ],
 
             'deal_deleted' => [
-                'system' => 'A deal named {deal_name} has been deleted by {action_by}.',
-                'subject' => 'A deal named {deal_name} has been deleted by {action_by}',
+                'system' => 'An onboarding named {deal_name} has been deleted by {action_by}.',
+                'subject' => 'An onboarding named {deal_name} has been deleted by {action_by}',
                 'content' => '<p><img src="{app_logo}" style="height: 75px"></p>
 <p>
-</p><p><span style="background-color: var(--form-control-bg) ; color: var(--default-font-color) ;">Hi {receiver_name},</span><br></p><p>We are going to inform you that a deal named {deal_name} has been deleted by {action_by}.</p>
+</p><p><span style="background-color: var(--form-control-bg) ; color: var(--default-font-color) ;">Hi {receiver_name},</span><br></p><p>This is to inform you that an onboarding named {deal_name} has been deleted by {action_by}.</p>
 <p></p><p>Thanks for being with us.
 </p><p>Regards,</p><p>{app_name}</p><p></p><p></p>'
             ],
@@ -318,13 +318,13 @@ We are going to inform you that a deal named  {deal_name} has been assigned by {
             // Activity
 
             'activity_created' => [
-                'system' => 'A new activity titled {activity_title} has been created by {action_by}.',
-                'subject' => 'A new activity titled {activity_title} has been created in {app_name}',
+                'system' => 'A new event titled {activity_title} has been created by {action_by}.',
+                'subject' => 'A new event titled {activity_title} has been created in {app_name}',
                 'content' => '<p><img src="{app_logo}" style="height: 75px"></p>
 <br>
 <p><span style="background-color: var(--form-control-bg) ; color: var(--default-font-color) ;">Hi {receiver_name},</span><br></p><p>We are going to inform you that an activity titled {activity_title} has been created by {action_by}. Please have a look at that.</p>
 <br>
-<p>Activity type: {activity_type}</p>
+<p>Event type: {activity_type}</p>
 <p><b>{contextable_title}</b></p>
 <p>{activity_description}</p>
 <p>Schedule: <a href="https://www.timeanddate.com/worldclock/fixedtime.html?{start_timeanddate_query}">{schedule_start} (UTC)</a> to <a href="https://www.timeanddate.com/worldclock/fixedtime.html?{end_timeanddate_query}">{schedule_end} (UTC)</a></p>
@@ -335,13 +335,13 @@ We are going to inform you that a deal named  {deal_name} has been assigned by {
 <p>Regards,</p><p>{app_name}</p><p></p><p></p>'
             ],
             'activity_reminder' => [
-                'system' => 'Reminder for activity titled {activity_title}.',
-                'subject' => 'Reminder for activity titled {activity_title} in {app_name}',
+                'system' => 'Reminder for event titled {activity_title}.',
+                'subject' => 'Reminder for event titled {activity_title} in {app_name}',
                 'content' => '<p><img src="{app_logo}" style="height: 75px"></p>
 <br>
-<p><span style="background-color: var(--form-control-bg) ; color: var(--default-font-color) ;">Hi {receiver_name},</span><br></p><p>We reminds you that an activity titled {activity_title}, created by {action_by} will held soon. Please have a look at that.</p>
+<p><span style="background-color: var(--form-control-bg) ; color: var(--default-font-color) ;">Hi {receiver_name},</span><br></p><p>We reminds you that an event titled {activity_title}, created by {action_by} will held soon. Please have a look at that.</p>
 <br>
-<p>Activity type: {activity_type}</p>
+<p>Event type: {activity_type}</p>
 <p><b>{contextable_title}</b></p>
 <p>{activity_description}</p>
 <p>Schedule: <a href="https://www.timeanddate.com/worldclock/fixedtime.html?{start_timeanddate_query}">{schedule_start} (UTC)</a> to <a href="https://www.timeanddate.com/worldclock/fixedtime.html?{end_timeanddate_query}">{schedule_end} (UTC)</a></p>

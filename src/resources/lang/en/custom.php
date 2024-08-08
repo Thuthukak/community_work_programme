@@ -79,9 +79,9 @@ return array_merge([
     'view' => 'View',
 
     // Login
-    'hi' => 'Hi',
+    'hi' => 'Welcome',
     'there' => 'There',
-    'login_to_your_dashboard' => 'Login to your dashboard',
+    'login_to_your_dashboard' => 'Login to the CWP Portal',
     'your_email' => 'Enter your email',
     'your_password' => 'Enter your password',
     'login' => 'Login',
@@ -332,7 +332,7 @@ return array_merge([
 
     //Pipeline
     'pipeline_view' => 'Pipeline view',
-    'all_deals' => 'All onboardingss',
+    'all_deals' => 'All onboardings',
     'all_deal' => 'All onbording',
     'edit_deal' => 'Edit onboarding',
     'move_deals' => 'Move onboardings',

@@ -57,6 +57,28 @@
                 );
         }
 
+            //get list of organization names and ids 
+
+            public function get()
+            {
+                try {
+
+
+                    // Fetch all organizations and pluck 'name' and 'id'
+                    $organizations = Organization::pluck('name', 'id');
+        
+                    // dd($organizations);
+                    // Log the fetched organizations for debugging
+                    \Log::info('Fetched organizations:', $organizations->toArray());
+        
+                    return response()->json($organizations);
+                } catch (\Exception $e) {
+                    // Log the error message
+                    \Log::error('Error fetching organizations: ' . $e->getMessage());
+                    return response()->json(['error' => 'Error fetching organizations'], 500);
+                }
+            }
+
         public function searchOrganizationLists(Request $request)
         {
 //            return $this->service

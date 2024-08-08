@@ -481,6 +481,8 @@ export default {
       this.loading = true;
     },
     submit() {
+
+
       let customData = [];
       this.customFields.map((el) => {
         let item = {
@@ -532,10 +534,14 @@ export default {
       });
     },
     afterError(response) {
+
+
       this.loading = false;
       this.errors = response.data.errors;
     },
     afterSuccess(response) {
+
+
       this.$store.dispatch("getDeal");
       this.$toastr.s(response.data.message);
       this.$hub.$emit("reload-" + this.tableId);
@@ -544,6 +550,7 @@ export default {
       this.closeModal();
     },
     afterFinalResponse() {
+
       this.loading = false;
     },
     afterSuccessFromGetEditData(response) {
@@ -561,6 +568,8 @@ export default {
       this.formData.expired_at = new Date(expired_at);
     },
     closeModal(value) {
+
+
       this.$emit("close-modal", value);
     },
     getPipeline() {

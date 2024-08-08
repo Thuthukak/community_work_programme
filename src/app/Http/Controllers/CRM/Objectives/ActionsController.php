@@ -18,8 +18,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\CRM\Objectives\ActionRequest;
 use Spatie\MediaLibrary\Models\Media;
-
-use Log;
+use Illuminate\Testing\Fluent\Concerns\Debugging; // Include the Debugging trait
+use Illuminate\Support\Facades\Log;
 
 class ActionsController extends Controller
 {
@@ -45,22 +45,12 @@ class ActionsController extends Controller
     {
         try {
             // Ensure the objective exists
-            $objectiveExists = Objective::find($objective);
-            if (!$objectiveExists) {
-                return response()->json(['error' => 'Objective not found.'], 404);
-            }
-    
             $priorities = Priority::all();
-            $keyresults = KeyResult::where('objective_id', $objective)->get();
-    
-            // Debugging lines
-            Log::info('Priorities:', $priorities->toArray());
-            Log::info('Key Results:', $keyresults->toArray());
+            $keyResults = KeyResult::where('objective_id', $objective)->get();
     
             $data = [
-                'objective' => $objective,
-                'keyresults' => $keyresults,
                 'priorities' => $priorities,
+                'keyresults' => $keyResults,
             ];
     
             return response()->json($data);
@@ -71,6 +61,8 @@ class ActionsController extends Controller
             ], 500);
         }
     }
+    
+    
     
 
     public  function get()
@@ -124,15 +116,32 @@ class ActionsController extends Controller
             $models = [];
 
           
-                if ($actionOn == 'Project') {
-                    $models = Project::all(); // Fetch all projects
-                } elseif ($actionOn == 'Onboarding') {
-                    $models = Pipeline::all(); // Fetch all pipelines
-                } elseif ($actionOn == 'Proposal') {
-                    $models = Proposal::all(); // Fetch all proposals
-                } else {
-                    $models = [];
-                }
+            if ($actionOn == 'Project') {
+                $modelClass = 'App\Models\ProjectManagement\Projects\Project';
+                $models = Project::all(); // Fetch all projects
+            } elseif ($actionOn == 'Onboarding') {
+                $modelClass = 'App\Models\CRM\Pipeline\Pipeline';
+                $models = Pipeline::all(); // Fetch all pipelines
+            } elseif ($actionOn == 'Proposal') {
+                $modelClass = 'App\Models\CRM\Proposal\Proposal';
+                $models = Proposal::all(); // Fetch all proposals
+            } else {
+                $models = [];
+            }
+    
+            // Add the model property to each item in the list
+            $models->each(function ($item) use ($modelClass) {
+                $item->model = $modelClass;
+            });
+            $models[] = $modelClass;
+    
+            $data = [
+                'models' => $models
+            ];
+    
+            Log::info('Data fetched successfully:', $data);
+    
+            return response()->json($data);
             
                 // Return the models as JSON along with the actionOn
                 return response()->json([
@@ -164,11 +173,15 @@ class ActionsController extends Controller
     public function store(ActionRequest $request)
     {
 
+
+
         $this->authorize('storeObjective', KeyResult::find($request->krs_id)->objective->model);
 
         $attr['user_id'] = auth()->user()->id;
         $attr['related_kr'] = $request->input('krs_id');
         $attr['priority'] = $request->input('priority');
+        $attr['model_type'] = $request->input('full_model_type');
+        $attr['model_id'] = $request->input('model_id');
         $attr['title'] = $request->input('act_title');
         $attr['content'] = $request->input('act_content');
         $attr['started_at'] = $request->input('st_date');
@@ -177,6 +190,7 @@ class ActionsController extends Controller
 
         $action = Action::create($attr);
 
+
         if ($request->input('invite')) {
             $action->sendInvitation($request);
         }
@@ -184,11 +198,46 @@ class ActionsController extends Controller
             $action->addRelatedFiles();
         }
 
-        // dd($action->priority);
+
+        $objective = $action->objective;
+        // dd($objective);
+
+
+        return redirect()->to($objective->model->getOKrRoute() . '#oid-' . $objective->id);
+    }
+
+    public function storeloneaction(ActionRequest $request)
+    {
+
+        $this->authorize('storeObjective', KeyResult::find($request->krs_id)->objective->model);
+
+        $attr['user_id'] = auth()->user()->id;
+        $attr['related_kr'] = $request->input('krs_id');
+        $attr['priority'] = $request->input('priority');
+        $attr['model_type'] = $request->input('full_model_type');
+        $attr['model_id'] = $request->input('model_id');
+        $attr['title'] = $request->input('act_title');
+        $attr['content'] = $request->input('act_content');
+        $attr['started_at'] = $request->input('st_date');
+        $attr['finished_at'] = $request->input('fin_date');
+       
+
+        $action = Action::create($attr);
+
+
+        if ($request->input('invite')) {
+            $action->sendInvitation($request);
+        }
+        if ($request->hasFile('files')) {
+            $action->addRelatedFiles();
+        }
+
 
         $objective = $action->objective;
 
-        return redirect()->to($objective->model->getOKrRoute() . '#oid-' . $objective->id);
+        // dd($objective);
+
+        return redirect()->route('actions.index');
     }
 
     public function show(Action $action)
@@ -208,31 +257,89 @@ class ActionsController extends Controller
         return view('crm.actions.show', $data);
     }
 
+    public function showloneaction(Action $action)
+    {
+
+        $user = User::where('id', '=', auth()->user()->id)->first();
+        $files = $action->getRelatedFiles();
+        $obj = $action->objective;
+        $backLink = $obj->model->getOKrRoute() . '#oid-' . $obj->id;
+        $data = [
+            'backLink' => $backLink,
+            'user' => $user,
+            'action' => $action,
+            'files' => $files,
+        ];
+
+        return view('crm.actions.showloneaction', $data);
+    }
+
     public function edit(Action $action)
     {
-        $this->authorize('update', $action);
+        try {
+                $this->authorize('update', $action);
 
-        $priorities = Priority::all();
-        $user = User::where('id', '=', auth()->user()->id)->first();
+                $priorities = Priority::all();
+                $user = User::where('id', '=', auth()->user()->id)->first();
+                
 
-        //使用者的krs
-        $actions = Action::where('id', '=', $action->id)->get();
-        foreach ($actions as $act) {
-            $obj_id = $act->keyresult->objective_id;
+                //使用者的krs
+                $actions = Action::where('id', '=', $action->id)->get();
+                foreach ($actions as $act) {
+                    $obj_id = $act->keyresult->objective_id;
+                    $modelid = $act->model_id;
+                    $modeltype = $act->model_type;
+                }
+
+                $modelpath = explode('\\', $modeltype);
+                $model = end($modelpath);
+
+                if($model == 'Pipeline')
+                {
+                    $target = Pipeline::where('id', $modelid)->get();
+                }elseif($model == 'Project')
+                {
+                    $target = Project::where('id'  , $modelid)->get();
+                }else 
+                {
+                    $target = Proposal::where('id', $modelid)->get();
+                }
+
+                $actions[0]['model_type_name'] = $model;
+
+                $actions[0]['model_id_object'] = $target;
+
+                $keyresults = KeyResult::where('objective_id', '=', $obj_id)->get();
+                $objective = Objective::where('id', '=', $obj_id)->get();
+                
+
+
+
+                $files = $action->getRelatedFiles();
+
+                $data = [
+                    'user' => $user,
+                    'actions' => $actions,
+                    'keyresults' => $keyresults,
+                    'files' => $files,
+                    'priorities' => $priorities,
+                    'objective' => $objective,
+
+                ];
+
+                
+                return response()->json($data);
+
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'An error occurred',
+                'message' => $e->getMessage()
+            ], 500);
         }
-        $keyresults = KeyResult::where('objective_id', '=', $obj_id)->get();
-
-        $files = $action->getRelatedFiles();
-
-        $data = [
-            'user' => $user,
-            'actions' => $actions,
-            'keyresults' => $keyresults,
-            'files' => $files,
-            'priorities' => $priorities,
-        ];
-        return view('crm.actions.edit', $data);
     }
+
+    
 
     public function update(ActionRequest $request, Action $action)
     {
@@ -241,13 +348,16 @@ class ActionsController extends Controller
         if ($request->input('invite') && $request->input('invite') != $action->user_id) {
             $action->sendInvitation($request);
         }
-
+        $attr['user_id'] = auth()->user()->id;
         $attr['related_kr'] = $request->input('krs_id');
         $attr['priority'] = $request->input('priority');
+        $attr['model_type'] = $request->input('model_type');
+        $attr['model_id'] = $request->input('model_id');
         $attr['title'] = $request->input('act_title');
         $attr['content'] = $request->input('act_content');
         $attr['started_at'] = $request->input('st_date');
         $attr['finished_at'] = $request->input('fin_date');
+
 
         $action->update($attr);
 
@@ -259,12 +369,44 @@ class ActionsController extends Controller
         return redirect()->to($objective->model->getOKrRoute() . '#oid-' . $objective->id);
     }
 
+
+    public function updateloneaction(ActionRequest $request, Action $action)
+    {
+        $this->authorize('update', $action);
+
+        if ($request->input('invite') && $request->input('invite') != $action->user_id) {
+            $action->sendInvitation($request);
+        }
+
+
+        $attr['user_id'] = auth()->user()->id;
+        $attr['related_kr'] = $request->input('krs_id');
+        $attr['priority'] = $request->input('priority');
+        $attr['model_type'] = $request->input('model_type');
+        $attr['model_id'] = $request->input('model_id');
+        $attr['title'] = $request->input('act_title');
+        $attr['content'] = $request->input('act_content');
+        $attr['started_at'] = $request->input('st_date');
+        $attr['finished_at'] = $request->input('fin_date');
+
+
+
+        $action->update($attr);
+
+        if ($request->hasFile('files')) {
+            $action->addRelatedFiles();
+        }
+
+        $objective = $action->objective;
+        return redirect()->route('actions.showloneaction', $action);
+    }
+
     public function destroy(Action $action)
     {
         $this->authorize('delete', $action);
         $objective = $action->objective;
         $redirectURL = $objective->model->getOKrRoute();
-        $action->invitation()->delete();
+        // $action->invitation()->delete();
         $action->delete();
 
         return redirect()->to($redirectURL . '#oid-' . $objective->id);

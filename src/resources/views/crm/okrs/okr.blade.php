@@ -1,4 +1,5 @@
-
+<!-- this is the card for okr starting with date on top then objective and key result -->
+<div class="container-fluid " style="margin-top: 40px;">
 <span class="anchor" id="oid-{{ $okr['objective']->id }}"></span>
 <div class="card m-4 okr-card">
     <div class="card-header bg-transparent" style="border-bottom: none;">
@@ -8,7 +9,7 @@
                 <span class="font-weight-light pl-2 pr-4">{{ $okr['objective']->started_at }} ~ {{ $okr['objective']->finished_at }}</span>
                 @can('storeObjective', $owner)
                 <a class="close okr-close-btn">
-                    <i class="far fa-edit"></i>
+                <i class="far fa-edit"></i>       
                 </a>
                 @endcan
             </div>
@@ -18,15 +19,15 @@
 
         {{-- Card target --}}
         <div class="row align-items-center">
-            <div class="col-md-2 font-weight-bold text-md-right pr-0">
-                <h4 style="font-size:18px;">Objective</h4>
+            <div class="col-md-2 font-weight-bold text-md-right pr-0" style="margin-top: 10px;">
+                <h4 style="font-size:18px;">Objective:</h4>
             </div>
             <div class="col-md-10">
                 <div class="row">
-                    <div class="col-md-5 col-sm-5" style="line-height: 21px; font-size: 16px;">{{
+                    <div class="col-md-5 col-sm-5" style="line-height: 32px; font-size: 16px;">{{
                         $okr['objective']->title }}</div>
                     <div class="col-md-7 col-sm-7 row justify-content-end">
-                        <div class="pt-2 " style="display:inline-block; width:60%;">
+                        <div class="pt-2" style="display:inline-block; width:60%;">
                             <div class="progress" style="height:20px;">
                                 @if($okr['objective']->getScore()<0) 
                                     <div class="progress-bar bg-danger" role="progressbar" style="width:{{ abs($okr['objective']->getScore()) }}%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">{{ $okr['objective']->getScore() }}%</div>
@@ -38,7 +39,7 @@
                         @can('storeObjective', $owner)
                         <div class="pt-2 pl-3 pr-2 btn-edit-group" style="display:none;">
                             {{-- Edit O button--}}
-                            <a href="#" data-toggle="modal" data-target="#objectiveEdit{{ $okr['objective']->id }}" class="pl-2 pr-2 text-info"><i class="fas fa-pencil-alt"></i></a>        
+                            <a href="#" data-toggle="modal" data-target="#objectiveEdit{{ $okr['objective']->id }}" class="pl-2 pr-2 text-info"><i class="fas btn-lg fa-edit btn btn-warning btn-xs edit-project-btn u-margin-4"></i></a>        
                             {{-- Edit o modal --}}
                             <div class="modal" id="objectiveEdit{{ $okr['objective']->id }}" tabindex="-1" role="dialog">
                                 <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
@@ -83,7 +84,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#" data-toggle="dropdown" class="text-info"><i class="fas fa-trash-alt"></i></a>
+                            <a href="#" data-toggle="dropdown" class="text-info"><i class="fas btn btn-danger btn-xs edit-project-btn fa-trash-alt"></i></a>
                             <form method="POST" id="deleteKR{{ $okr['objective']->id }}" action="{{ route('objective.destroy', $okr['objective']->id) }}">
                                 @csrf
                                 {{ method_field('DELETE') }}
@@ -114,7 +115,7 @@
         {{-- Card indicator --}}
         <div class="row">
             <div class="col-md-2 font-weight-bold text-md-right align-self-center pr-0">
-                <h4 style="font-size:18px; margin-top: 14px">Key Results</h4>
+                <h4 style="font-size:18px;">Key Results</h4>
             </div>
             <div class="col-md-10">
                 @foreach ($okr['keyresults'] as $kr)
@@ -140,7 +141,7 @@
                         @can('storeObjective', $owner)
                         <div class="pt-2 pl-3 pr-2 btn-edit-group" style="display:none;">
                             {{-- Edit KR button --}}
-                            <a href="#" data-toggle="modal" data-target="#keyresult{{ $kr->id }}" class="pl-2 pr-2 text-info"><i class="fas fa-pencil-alt"></i></a>        
+                            <a href="#" data-toggle="modal" data-target="#keyresult{{ $kr->id }}" class="pl-2 pr-2 text-info"><i class="fas btn-lg fa-edit btn btn-warning btn-xs edit-project-btn u-margin-4"></i></a>        
                             {{-- Edit Kr Modal --}}
                             <div class="modal" id="keyresult{{ $kr->id }}" tabindex="-1" role="dialog">
                                 <div class="modal-dialog modal-dialog-centered modal-md" role="document">
@@ -215,7 +216,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#" data-toggle="dropdown" class="text-info"><i class="fas fa-trash-alt"></i></a>
+                            <a href="#" data-toggle="dropdown" class="text-info"><i class="fas btn btn-danger btn-xs edit-project-btn fa-trash-alt"></i></a>
                             <form method="POST" id="deleteKR{{ $kr->id }}" action="{{ route('kr.destroy', $kr->id) }}">
                                 @csrf
                                 {{ method_field('DELETE') }}
@@ -265,7 +266,7 @@
                 </button>
             </div>
             <div class="col-4 align-self-center pl-0 pr-0">
-                <button class="btn btn-link historybtn" type="button" data-toggle="collapse" data-target="#History{{ $okr['objective']->id }} " data-oid={{ $okr['objective']->id }}>
+                <button class="btn btn-link historybtn" type="button" data-toggle="collapse" data-target="#History{{ $okr['objective']->id }} " data-oid="{{ $okr['objective']->id }}">
                     <i class="fas fa-chart-line"></i> historical data
                 </button>
             </div>
@@ -275,15 +276,15 @@
             <div class="card-body">
                 @can('storeObjective', $owner)
                 @if($okr['keyresults']->toArray())
-                
-                <button class="btn btn-warning btn-sm p-2 fa fa-plus fa-sm w-100 add-action-btn" data-id="{{  $okr['objective']->id }}" data-toggle="modal" data-target="#createActionModal">
-                    {{ trans('Action') }}
-                </button>
+                <div class="text-right">
+            <button class="btn btn-primary btn-sm mb-2 p-2 fa fa-sm add-action-btn" data-id="{{ $okr['objective']->id }}" data-toggle="modal" data-target="#createActionModal" style="font-family: 'Poppins', sans-serif;">
+                Add Action
+            </button>
+        </div>
                @else
                 <button type="button" class="btn btn-secondary w-100" disabled><i class="fa fa-lock fa-sm"></i> Please add Key Results first
                 (Key indicators)</button>
                 @endif
-               {{ $okr['actions']}}
                 @include('crm.okrs.listaction',$okr)
                 @endcan
             </div>
@@ -357,20 +358,24 @@
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="action_on">Action On</label>
-                    <select id="action_on" class="form-control" name="action_on" required>
-                        <option value="">Onboarding</option>
-                        <option value="">Project</option>
-                        <option value="">Proposal</option>
-
+                    <label for="model_type">Action On</label>
+                    <select id="model_type" class="form-control" name="model_type" required>
+                        <option value="">Select Action On</option>
+                        <option value="Onboarding">Onboarding</option>
+                        <option value="Project">Project</option>
+                        <option value="Proposal">Proposal</option>
                     </select>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="model">Target</label>
-                    <select id="model" class="form-control" name="model" required>
+                    <label for="model_id">Target</label>
+                    <select id="model_id" class="form-control" name="model_id" required>
                     </select>
                 </div>
+
+                <input type="hidden" name="full_model_type" id="full_model_type">
+
             </div>
+
 
             <div class="form-row">
                 <div class="form-group col-md-12">
@@ -399,5 +404,6 @@
 
 </div>
 <br />
+</div>
 
 

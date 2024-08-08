@@ -13,6 +13,7 @@ use App\Http\Controllers\API\ProjectJobsController;
 use App\Http\Controllers\ProjectManagement\Issues\OptionController;
 use App\Http\Controllers\ProjectManagement\IssueController as IssuesController;
 use App\Http\Controllers\ProjectManagement\Projects\TasksController;
+use  App\Http\Controllers\CRM\Contact\OrganizationController;
 use App\Models\Core\Auth\User;
 use App\Http\Controllers\CRM\Objectives\OkrController;
 use App\Http\Controllers\CRM\Objectives\KrController;
@@ -285,17 +286,25 @@ Route::get('/actions/get', [ActionsController::class, 'get'])->name('actions.get
 Route::get('/actions/keyresults/{id}', [ActionsController::class, 'getKeyResults'])->name('actions.keyresults');
 
 // Create Action page
-Route::get('objective/{objective}/action/create', [ActionController::class, 'create'])->name('actions.create');
+Route::get('objective/{objective}/action/create', [ActionsController::class, 'create'])->name('actions.create');
 // Save Action
 Route::post('actions/store', [ActionsController::class , 'store'])->name('actions.store');
+Route::post('actions/storeloneaction', [ActionsController::class , 'storeloneaction'])->name('actions.storeloneaction');
+
 // Complete Action
 Route::post('actions/{action}/done', [ActionsController::class , 'done'])->name('actions.done');
 // Edit Action page
 Route::get('actions/{action}/edit', [ActionsController::class , 'edit'])->name('actions.edit');
 // Update Action
-Route::patch('actions/{action}/update', [ActionsController::class , 'update'])->name('actions.update');
+Route::patch('actions/{action}/update', [ActionsController::class, 'update'])->name('actions.update');
+
+Route::patch('actions/{action}/updateloneaction', [ActionsController::class , 'updateloneaction'])->name('actions.updateloneaction');
+
 // Show specified Action
 Route::get('actions/{action}/show', [ActionsController::class , 'show'])->where('action', '[0-9]+')->name('actions.show');
+Route::get('actions/{action}/showloneaction', [ActionsController::class , 'showloneaction'])->where('action', '[0-9]+')->name('actions.showloneaction');
+
+
 // Delete personal Action
 Route::delete('actions/{action}/destroy', [ActionsController::class ,'destroy'])->name('actions.destroy');
 // Delete Action's file
@@ -311,6 +320,11 @@ Route::get('actions/{action}/member/{member}/invite/agree', [ActionsController::
 # Organization OKR
 // Organization OKR homepage
 Route::get('organization', [CompanyController::class , 'index'])->name('company.index');
+
+//get a list of all available organizations 
+
+Route::get('organization/lists', [OrganizationController::class, 'get'])->name('organization.get');
+
 // Add company
 Route::post('organization/company/store', [CompanyController::class , 'store'])->name('company.store');
 // Edit company page

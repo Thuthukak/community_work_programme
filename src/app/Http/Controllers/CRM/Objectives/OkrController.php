@@ -55,6 +55,7 @@ class OkrController extends Controller
         $company['okrs'] = $okrsWithPage['okrs'];    
         $routeObjectiveStore = route('user.objective.store', auth()->user()->id);
 
+        
 
         $data = [
             'user' => auth()->user(),

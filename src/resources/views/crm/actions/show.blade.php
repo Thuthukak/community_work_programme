@@ -1,4 +1,6 @@
 @extends('layouts.crm')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.css">
+
 @section('title','Action')
 @section('contents')
 <div class="container">
@@ -9,10 +11,10 @@
     <div class="row justify-content-center">
         <div class="col-md-10 col-12">
             {{-- edit --}}
-            @can('update', $actions)
+            @can('update', $action)
             <div class="row justify-content-end">
                 <div class="col-auto">
-                    <a class="text-info" href="#" onclick="document.getElementById('doneAct{{ $actions->id }}').submit()"><i class="fas fa-check-circle"></i> {{ $action->isdone?'Cancel':'Finish' }}</a>
+                    <a class="text-info" href="#" onclick="document.getElementById('doneAct{{ $action->id }}').submit()"><i class="fas fa-check-circle"></i> {{ $action->isdone?'Cancel':'Finish' }}</a>
                     <form method="POST" id="doneAct{{ $action->id }}" action="{{ route('actions.done',$action->id) }}">
                         @csrf
                     </form>
@@ -66,7 +68,6 @@
                 <div class="col-auto align-self-center text-muted pl-md-4 pr-md-4" style="line-height: 24px;">
                 person in charge｜
                     <a href="{{ route('user.okr', $action->user->id) }}" title="{{ $action->user->name }}">
-                        <img src="{{ $action->user->getAvatar() }}" class="avatar-xs mr-1">
                         <span>{{ $action->user->name }}</span>
                     </a>
                 </div>
@@ -97,13 +98,13 @@
                 </div>
             </div>
             @endif
-            <hr>
+            <!-- <hr>
             <div class="row">
                 <div class="col">
                     @comments(['model' => $action])
                     @endcomments
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

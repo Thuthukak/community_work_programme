@@ -6,7 +6,7 @@ use App\Events\NewNotification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class NewNotificationLisenters
+class NewNotificationListeners
 {
     /**
      * Create the event listener.

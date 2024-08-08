@@ -1,14 +1,62 @@
 @extends('layouts.crm')
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.css">
+<link href="{{ asset('src/public/assets/css/okr/app.css') }}" rel="stylesheet">
+<link href="{{ asset('src/public/assets/css/okr/base.css') }}" rel="stylesheet">
+<link href="{{ asset('css/component.css') }}" rel="stylesheet">
+<link href="https://unpkg.com/gijgo@1.9.11/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+<link href="{{ asset('src/public/assets/css/okr/ion.rangeSlider.css') }}" rel="stylesheet" />
+<link href="{{ asset('src/public/assets/css/okr/bootstrap-notifications.min.css') }}" rel="stylesheet">
+
+@section('script')
+
+<script src="{{ asset('src/public/assets/js/okr/app.js') }}" defer></script>
+<script src="{{ asset('src/public/assets/js/okr/tooltip.js') }}" defer></script>
+<script src="{{ asset('src/public/assets/js/okr/circle-progress.min.js') }}" defer></script>
+<script src="{{ asset('src/public/assets/js/okr/circleProgress.js') }}" defer></script>
+<script src="{{ asset('src/public/assets/js/okr/editbtn.js') }}" defer></script>
+{{-- Chartjs --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js" charset="utf-8"></script>
+<script src="{{ asset('src/public/assets/js/okr/chart.js') }}" defer></script>
+<script src="{{ asset('src/public/assets/js/okr/okr.js') }}" defer></script>
+
+
+
+@endsection
 
 @section('title','Objective')
 @section('contents')
-<div class="container">
+<div class="row align-items-center justify-content-between" style="margin-left:70px; margin-right:70px; margin-top:20px; margin-bottom:40px">
+    <h4 class="header-pill col-auto" style="font-family: 'Poppins', sans-serif;">Objectives and Key Results</h4>
+    <div class="col-auto">
+        <!-- Button trigger modal -->
+        <div class="" style="top: 100px; right: 50px;">
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#objective">
+                Add Objective
+            </button>
+        </div>
+        @can('storeObjective', $company)
+        <a href="#" data-toggle="modal" data-target="#objective" class="newObjective"></a>
+        <div class="modal {{ count($errors) == 0 ? 'fade' : '' }}" id="objective" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">
+                            <span>&times;</span>
+                        </button>
+                    </div>
+                    @include('crm.okrs.create', ['route'=>route('company.objective.store', $company->id)])
+                </div>
+            </div>
+        </div>
+        @endcan
+    </div>
+</div>
+
+<div class="container-fluid" style="margin-right:60px;">
     @include('crm.organization.company.show')
     <div class="tab-pane fade show pl-sm-4 pr-sm-4">
         <div class="row m-3 pt-4 justify-content-center">
-            <div class="col-auto">{{ $pageInfo['link'] }}</div>
             <div class="col-auto mb-2">
             <form action="{{ $company->getOKrRoute() }}" class="form-inline search-form">
                 <input autocomplete="off" class="form-control input-sm" name="st_date" id="filter_started_at" value=""
@@ -30,7 +78,7 @@
         </div>
         @if ($company->okrs)
             @foreach($company->okrs as $okr)
-                @include('crm.okrs.okr', ['okr' => $okr, 'owner'=>$company])
+                @include('crm.okrs.okr', ['okr' => $okr, 'owner' => $company])
             @endforeach
         @else
             <div id="dragCard" class="row justify-content-md-center u-mt-16">
@@ -41,33 +89,16 @@
             </div>
         @endif
     </div>
-  <!-- Button trigger modal -->
-  <div class="position-fixed" style="top: 100px; right: 50px;">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#objective">
-                <img src="{{ asset('img/icon/add/lightgreen.svg') }}" alt="Add Objective">
-            </button>
-        </div>
-    @can('storeObjective', $company)
-        <a href="#" data-toggle="modal" data-target="#objective" class="newObjective"><img src="{{ asset('img/icon/add/lightgreen.svg') }}" alt=""></a>
-        <div class="modal {{ count($errors) == 0 ? 'fade' : '' }}" id="objective" tabindex="-1" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span>&times;</span>
-                        </button>
-                    </div>
-                    @include('crm.okrs.create', ['route'=>route('company.objective.store', $company->id)])
-                </div>
-            </div>
-        </div>
-        </div>
-    @endcan
+  
 </div>
+
 @endsection
 @section('script')
 <!-- Include Flatpickr JS from cdnjs -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.js"></script>
+
+
+
 
 <!-- Your script to initialize Flatpickr -->
 <script>
@@ -78,34 +109,37 @@
             disableMobile: true // optional: to force the desktop version on mobile devices
         });
 
-        document.querySelectorAll('.add-action-btn').forEach(function(button) {
-        button.addEventListener('click', function() {
+
+        var AddActionUrl = "{{ route('actions.create', ['objective' => ':id']) }}";
+
+        document.querySelectorAll('.add-action-btn').forEach(function (button) {
+        button.addEventListener('click', function () {
         var objectiveId = this.getAttribute('data-id');
-        var url = `{{ url('objective') }}/${objectiveId}/action/create`;
+        var url = AddActionUrl.replace(':id', objectiveId);
 
         console.log(objectiveId);
-        console.log(url);
-
-        // AJAX request to fetch data
-        fetch(url, {
-            method: 'GET',
+        
+        fetch( url , {
             headers: {
+                'Accept': 'application/json',
                 'Content-Type': 'application/json'
             }
         })
         .then(response => {
+            console.log(response);
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+
+                throw new Error(url +'Network response was not ok');
             }
             return response.json();
         })
         .then(data => {
+
             console.log('Fetched Data:', data); // Debugging line
 
             document.querySelector('#createActionForm').reset();
             document.querySelector('#priority').innerHTML = '';
             document.querySelector('#keyresult').innerHTML = '';
-            document.querySelector('#action_on').innerHTML = '';
 
             // Populate priorities
             let prioritySelect = document.querySelector('#priority');
@@ -122,91 +156,69 @@
             }
 
             // Populate action_on with static options
-            const actionOnOptions = ['projects', 'pipeline', 'proposals'];
-            actionOnOptions.forEach(function(option) {
-                document.querySelector('#action_on').innerHTML += `<option value="${option}">${option.charAt(0).toUpperCase() + option.slice(1)}</option>`;
-            });
-
-            flatpickr("#started_at", {
-                defaultDate: data.default_start_date || new Date()
-            });
-            flatpickr("#finished_at", {
-                defaultDate: data.default_end_date || new Date()
-            });
+            // const actionOnOptions = ['Onboarding', 'Project', 'Proposal'];
+            // actionOnOptions.forEach(function(option) {
+            //     document.querySelector('#model_type').innerHTML += `<option value="${option}">${option.charAt(0).toUpperCase() + option.slice(1)}</option>`;
+            // });
 
             $('#createActionModal').modal('show');
         })
         .catch(error => {
-            console.error('Error fetching data:', error);
+                console.error('Error fetching data:', error);
+            });
         });
     });
-});
 
 
 
 
-document.querySelector('#createActionForm').addEventListener('submit', function(event) {
-    let isValid = true;
-
-    // Check if each required field is filled
-    document.querySelectorAll('input[required], select[required], textarea[required]').forEach(function(field) {
-        if (!field.value) {
-            isValid = false;
-            field.classList.add('is-invalid');
-        } else {
-            field.classList.remove('is-invalid');
-        }
-    });
-
-    // Prevent form submission if not valid
-    if (!isValid) {
-        event.preventDefault();
-        alert('Please fill out all required fields.');
-    }
-});
-
-
-document.querySelector('#action_on').addEventListener('change', function() {
-    var actionOn = this.value;
-    
-    // Make sure actionOn is not empty
-    if (actionOn) {
-        fetchModels(actionOn);
-    }
-});
-
-function fetchModels(actionOn) {
-
-    fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        return response.json();
-    })
-    .then(data => {
-        // Update the model dropdown
-        var modelDropdown = document.querySelector('#model');
-        modelDropdown.innerHTML = ''; // Clear existing options
-
-        data.models.forEach(function(model) {
-            var option = document.createElement('option');
-            option.value = model.id;
-            option.textContent = model.name;
-            modelDropdown.appendChild(option);
+        document.querySelector('#model_type').addEventListener('change', function() {
+            var actionOn = this.value;
+            // Make sure actionOn is not empty
+            if (actionOn) {
+                fetchModels(actionOn);
+            }
         });
-    })
-    .catch(error => {
-        console.error('Error fetching models:', error);
-    });
-}
 
-});
+        function fetchModels(actionOn) {
+            fetch(`{{ url('actions/models') }}/${actionOn}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                console.log('Response Status:', response.status); // Debugging line
+                return response.json();
+            })
+            .then(data => {
+                console.log('Fetched Data:', data); // Debugging line
+                let modelSelect = document.querySelector('#model_id');
+
+                if (modelSelect) {
+                    modelSelect.innerHTML = '<option value="">Select Target</option>';
+                    data.models.forEach(model => {
+                        modelSelect.innerHTML += `<option value="${model.id}">${model.name}</option>`;
+                    });
+
+                    let lastModel = data.models.filter(model => typeof model === 'object').pop();
+                if (lastModel) {
+                    document.querySelector('#full_model_type').value = lastModel.model;
+                    console.log(document.querySelector('#full_model_type').value);
+                } else {
+                    console.error('No valid model object found');
+                }
+                } else {
+                    console.error('Element with id "model_id" not found');
+                }
+
+
+            })
+            .catch(error => {
+                console.error('Error fetching models:', error);
+            });
+        }
+        });
 </script>
 
 

@@ -2061,7 +2061,7 @@ export default {
           route("pipelines.index", { _query: { all: true } })
         ).then((res) => {
           if (!res.data[0]) {
-            // this.redirect(route("pipelines.create"));
+            this.redirect(route("pipelines.create"));
           } else {
             this.localPipelineId = Number(res.data[0].id);
           }

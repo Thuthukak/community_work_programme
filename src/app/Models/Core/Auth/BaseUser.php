@@ -27,7 +27,7 @@ abstract class BaseUser extends Authenticatable
      */
     protected $fillable = [
         'first_name',
-        'last_name',
+        'z',
         'email',
         'password',
         'last_login_at',
@@ -232,10 +232,6 @@ abstract class BaseUser extends Authenticatable
         return "{$this->first_name} {$this->last_name}";
     }
     
-    public function getOKrRoute()
-    {
-        return route('user.okr', $this->id);
-    }
 
 
     public function actions()
