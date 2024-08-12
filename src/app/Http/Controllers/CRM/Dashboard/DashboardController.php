@@ -87,7 +87,7 @@ class DashboardController extends Controller
         $rateActionsDonePerMonthArray,$rateActionsCreatedPerYearArray,$rateActionsDonePerYearArray) = 
         $this->getActionRatesOverview($rateActionsCreatedPerDayArray, $rateActionsDonePerDayArray,  $rateActionsCreatedPerWeekArray, $rateActionsDonePerWeekArray, $rateActionsCreatedPerMonthArray, $rateActionsDonePerMonthArray, $rateActionsCreatedPerYearArray,$rateActionsDonePerYearArray,);
     
-        dd($rateActionsDonePerWeekArray);
+        
         // Pipeline
         $pipelineName = [];
         $pipelineTotalDeals = [];
