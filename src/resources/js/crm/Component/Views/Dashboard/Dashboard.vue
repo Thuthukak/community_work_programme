@@ -46,13 +46,12 @@
                 <h5 class="card-title mb-0">{{ $t("Objectives Rate") }}</h5>
               </div>
 
-          <div class="row dashboard-circle-widget">
-              <div class="col-xl-12 mb-4 mb-xl-0">
+          <div class="row  h-5 dashboard-circle-widget ">
+              <div class="col-xl-12  mb-4 mb-xl-0" style= "margin-top:50px">
                 <app-widget
                   :type="'app-widget-with-circle'"
                   :label="$t('Obectives  progress')"
                   :number="objectivesProgress"
-                  
                 />
               </div>
           </div>
@@ -68,8 +67,8 @@
               </div>
               <div class="row dashboard-circle-widget">
 
-              <div class="col-xl-12 mb-4 mb-xl-0">
-                <app-widget
+                <div class="col-xl-12  mb-4 mb-xl-0" style= "margin-top:50px">
+                  <app-widget
                   :type="'app-widget-with-circle'"
                   :label="$t('actions completion rate')"
                   :number="actionsRate"
@@ -88,8 +87,8 @@
               </div>
 
           <div class="row dashboard-circle-widget">
-              <div class="col-xl-12 mb-4 mb-xl-0">
-                <app-widget
+            <div class="col-xl-12  mb-4 mb-xl-0" style= "margin-top:50px">
+              <app-widget
                   :type="'app-widget-with-circle'"
                   :label="$t('Net Confidence score')"
                   :number="netConfidenceScore"

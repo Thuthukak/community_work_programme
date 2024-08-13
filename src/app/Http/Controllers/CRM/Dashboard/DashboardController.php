@@ -86,8 +86,8 @@ class DashboardController extends Controller
         // get actions rate 
         $actionsRate = $this->service->getActionsRates();
         $actioncreatedPerWeek = $actionsRate['rateActionsCreatedPerWeek'];
-        $actionDonePerWeek = $actionsRate['rateActionsDonePerMonth'];
-        $actionRatePerWeek = ($actioncreatedPerWeek + $actionDonePerWeek)/2;
+        $actionDonePerWeek = $actionsRate['rateActionsDonePerWeek'];
+        $actionRatePerWeek = (($actioncreatedPerWeek + $actionDonePerWeek)/2)*100;
 
         $rateActionsCreatedPerDayArray = $actionsRate['rateActionsCreatedPerDay'];
         $rateActionsDonePerDayArray =  $actionsRate['rateActionsDonePerDay'];
@@ -100,7 +100,7 @@ class DashboardController extends Controller
 
         list( $rateActionsCreatedPerDayArray,$rateActionsDonePerDayArray, $rateActionsCreatedPerWeekArray, $rateActionsDonePerWeekArray,$rateActionsCreatedPerMonthArray,
         $rateActionsDonePerMonthArray,$rateActionsCreatedPerYearArray,$rateActionsDonePerYearArray) = 
-        $this->getActionRatesOverview($rateActionsCreatedPerDayArray, $rateActionsDonePerDayArray,  $rateActionsCreatedPerWeekArray, $rateActionsDonePerWeekArray, $rateActionsCreatedPerMonthArray, $rateActionsDonePerMonthArray, $rateActionsCreatedPerYearArray,$rateActionsDonePerYearArray);
+        $this->getActionRatesOverview($rateActionsCreatedPerDayArray, $rateActionsDonePerDayArray,  $rateActionsCreatedPerWeekArray, $rateActionsDonePerWeekArray, $rateActionsCreatedPerMonthArray, $rateActionsDonePerMonthArray, $rateActionsCreatedPerYearArray,$rateActionsDonePerYearArray,);
 
         // Pipeline
         $pipelineName = [];

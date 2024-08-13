@@ -450,7 +450,7 @@ class DashboardService extends ApplicationBaseService
             $endDate = Carbon::now()->endOfDay();
 
             // Calculate the total number of actions created and completed in the specified period
-            $totalActionsCreated = Action::whereBetween('created_at', [$startDate, $endDate])->count();
+            $totalActionsCreated = Action::whereBetween('started_at', [$startDate, $endDate])->count();
             $totalActionsDone = Action::whereNotNull('isdone')->whereBetween('isdone', [$startDate, $endDate])->count();
 
             // Calculate the number of days, weeks, months, and years in the specified period
