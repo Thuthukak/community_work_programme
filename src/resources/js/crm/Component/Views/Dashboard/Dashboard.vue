@@ -12,7 +12,7 @@
       <div class="row same-height-container">
         <!-- First Card -->
         <div class="col-xl-3 mb-primary">
-          <div class="card card-with-shadow border-1 same-height">
+          <div class="card card-with-shadow border-0 same-height">
             <div class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center">
               <h5 class="card-title mb-0">{{ $t("Active Data") }}</h5>
             </div>
@@ -32,7 +32,7 @@
         
         <!-- Second Card -->
         <div class="col-xl-3 mb-primary">
-          <div class="card card-with-shadow-custom border-1 same-height">
+          <div class="card card-with-shadow border-0 same-height">
             <div class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center">
               <h5 class="card-title mb-0">{{ $t("Objectives Rate") }}</h5>
             </div>
@@ -46,7 +46,7 @@
 
         <!-- Third Card -->
         <div class="col-xl-3 mb-primary">
-          <div class="card card-with-shadow border-1 same-height">
+          <div class="card card-with-shadow border-0 same-height">
             <div class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center">
               <h5 class="card-title mb-0">{{ $t("Actions Rate per week") }}</h5>
             </div>
@@ -58,7 +58,7 @@
 
         <!-- Fourth Card -->
         <div class="col-xl-3 mb-primary">
-          <div class="card card-with-shadow border-1 same-height">
+          <div class="card card-with-shadow border-0 same-height">
             <div class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center">
               <h5 class="card-title mb-0">{{ $t("Net Confidence Score") }}</h5>
             </div>

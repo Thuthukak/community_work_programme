@@ -115,89 +115,90 @@
         @endcan
     </div>
 
-    
-    <div class="project-controls flex justify-between items-center mb-4" >
-       <div class="index-nav-tabs pull-left hidden-xs">
-         </div>
-          {!! Form::open(['method' => 'get', 'class' => 'form-inline search-form']) !!}
-          {{ Form::hidden('status_id') }}
-          <div class="relative">
-          <button type="submit" class="search-button">
-          <i class="fas fa-search "></i>
-          </button>
-          {!! Form::text('q', Request::get('q'), ['class' => 'form-control index-search-field ', 'placeholder' => trans('project.search')]) !!}
-       </div>
-          {!! Form::close() !!}
-    </div>
-
-            <div class="filters" style="margin-left:20px;">
-    <div class="filter-item">
-        <button class="btn filter-btn" type="button" id="projectstage" style="background-color: white; color: grey;" aria-haspopup="true" aria-expanded="false">
-            Project Progress <i class="fas fa-caret-down arrow-icon" id="dropdownArrow"></i>
-        </button>
-        <div id="progressDropdown" class="dropdown-content">
-            @include('crm.projects.partials.index-nav-tabs')
+<div class="project-controls flex justify-between items-center mb-4 single-filter single-search-wrapper">
+    <!-- Filters on the left -->
+    <div class="filters d-flex" style="margin-left: 20px;">
+        <div class="filter-item">
+            <button class="btn filter-btn" type="button" id="projectstage" style="background-color: white; color: grey;" aria-haspopup="true" aria-expanded="false">
+                Project Progress <i class="fas fa-caret-down arrow-icon" id="dropdownArrow"></i>
+            </button>
+            <div id="progressDropdown" class="dropdown-content">
+                @include('crm.projects.partials.index-nav-tabs')
+            </div>
         </div>
-    </div>
 
-    <div class="filter-item">
-        <button class="filter-btn" style="border-radius: 25px; padding:12px" id="datefilter">Date Range</button>
-        <div id="dateDropdown" class="dropdown-content-date">
-            <form id="dateRangeForm" class="filter-form">
-                @include('crm.projects.partials.dateFilterDropdownCustom')
-            </form>
+        <div class="filter-item">
+            <button class="filter-btn" style="border-radius: 25px; padding:12px" id="datefilter">Date Range</button>
+            <div id="dateDropdown" class="dropdown-content-date">
+                <form id="dateRangeForm" class="filter-form">
+                    @include('crm.projects.partials.dateFilterDropdownCustom')
+                </form>
+            </div>
         </div>
-    </div>
 
-    <div class="filter-item">
+        <div class="filter-item">
             <button class="filter-btn" id="Organizationlist" style="border-radius: 25px; padding:12px">Organization</button>
-        <div id="organizationDropdown" class="dropdown-content" style="display:none;">
-            <form id="organizationForm" class="filter-form">
-                <ul id="organizationListContainer"></ul>
-                <br>
-                <hr>
-            <div class="d-flex justify-content-between mt-3">
-                <button type="button" id="clearOrganizations" class="btn btn-clear">Clear</button>
-                <button type="button" id="applyOrganizations" class="btn btn-primary">Apply</button>
+            <div id="organizationDropdown" class="dropdown-content" style="display:none;">
+                <form id="organizationForm" class="filter-form">
+                    <ul id="organizationListContainer"></ul>
+                    <br>
+                    <hr>
+                    <div class="d-flex justify-content-between mt-3">
+                        <button type="button" id="clearOrganizations" class="btn btn-clear">Clear</button>
+                        <button type="button" id="applyOrganizations" class="btn btn-primary">Apply</button>
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
-</div>
+        </div>
 
-
-
-    <div class="filter-item">
-    <button class="filter-btn" id="Projectvalue" style="border-radius: 25px; padding:12px">Project Value</button>
-    <div id="valueDropdown" class="dropdown-content" style="display: none;">
-        <form id="projectValueForm" class="filter-form">
-            <div class="form-group">
-                <label for="minValue">Minimum Value</label>
-                <input type="number" id="minValue" class="form-control" placeholder="Min value" step="1">
+        <div class="filter-item">
+            <button class="filter-btn" id="Projectvalue" style="border-radius: 25px; padding:12px">Project Value</button>
+            <div id="valueDropdown" class="dropdown-content" style="display: none;">
+                <form id="projectValueForm" class="filter-form">
+                    <div class="form-group">
+                        <label for="minValue">Minimum Value</label>
+                        <input type="number" id="minValue" class="form-control" placeholder="Min value" step="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="maxValue">Maximum Value</label>
+                        <input type="number" id="maxValue" class="form-control" placeholder="Max value" step="1">
+                    </div>
+                    <button type="button" id="clearValues" class="btn btn-clear pl-sm-0">Clear</button>
+                    <button type="button" id="applyValues" class="btn btn-primary">Apply</button>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="maxValue">Maximum Value</label>
-                <input type="number" id="maxValue" class="form-control" placeholder="Max value" step="1">
+        </div>
+
+        <div class="filter-item">
+            <button class="filter-btn" id="it-has" style="border-radius: 25px; padding:12px">Have</button>
+            <div id="classDropdown" class="dropdown-content" style="display: none;">
+                <form id="clausesForm" class="filter-form">
+                    <label><input type="checkbox" name="Proposal">Proposal</label>
+                    <label><input type="checkbox" name="Actions">Actions</label>
+                    <label><input type="checkbox" name="Objectives">Objectives</label>
+                    <button type="button" id="clearClauses" class="btn btn-clear pl-sm-0">Clear</button>
+                    <button type="button" id="applyClauses" class="btn btn-primary">Apply</button>
+                </form>
             </div>
-            <button type="button" id="clearValues" class="btn btn-clear pl-sm-0">Clear</button>
-            <button type="button" id="applyValues" class="btn btn-primary">Apply</button>
-        </form>
         </div>
     </div>
 
-    <div class="filter-item">
-    <button class="filter-btn" id="it-has" style="border-radius: 25px; padding:12px">Have</button>
-    <div id="classDropdown" class="dropdown-content" style="display: none;">
-        <form id="clausesForm" class="filter-form">
-            <label><input type="checkbox" name="Proposal">Proposal</label>
-            <label><input type="checkbox" name="Actions">Actions</label>
-            <label><input type="checkbox" name="Objectives">Objectives</label>
-            <button type="button" id="clearClauses" class="btn btn-clear pl-sm-0">Clear</button>
-            <button type="button" id="applyClauses" class="btn btn-primary">Apply</button>
-        </form>
+    <!-- Search on the right -->
+    {!! Form::open(['method' => 'get', 'class' => 'form-inline search-form d-flex align-items-center']) !!}
+    {{ Form::hidden('status_id') }}
+    <div class="form-group form-group-with-search d-flex align-items-center relative">
+        <span class="form-control-feedback">
+            <i>
+                <svg class="feather feather-search" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </i>
+        </span>
+        {!! Form::text('q', Request::get('q'), ['class' => 'form-control index-search-field', 'placeholder' => trans('project.search')]) !!}
     </div>
-    </div>
+    {!! Form::close() !!}
 </div>
-
 
 
     <small class="custom-text-muted" style="margin-left:20px;">{{ $projects->total() }} {{ trans('project.found') }}</small>
