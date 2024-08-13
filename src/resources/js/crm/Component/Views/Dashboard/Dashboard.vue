@@ -10,9 +10,10 @@
     </div>
     <template v-else>
 
-      <div class="row">
+      <div class="row same-height-container">
+          <!-- First Card -->
           <div class="col-xl-3 mb-primary">
-            <div class="card card-with-shadow border-1">
+            <div class="card card-with-shadow border-0 same-height">
               <div
                 class="card-header bg-transparent p-primary d-flex  justify-content-between align-items-center"
               >
@@ -36,9 +37,9 @@
               </div>
             </div>
           </div>
-         
+          <!-- Second Card -->
           <div class="col-xl-3 mb-primary">
-            <div class="card card-with-shadow border-0">
+            <div class="card card-with-shadow border-0 same-height">
               <div
                 class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
               >
@@ -57,9 +58,9 @@
           </div>
             </div>
           </div>  
-
+<!-- Third Card -->
           <div class="col-xl-3 mb-primary">
-            <div class="card card-with-shadow border-0">
+            <div class="card card-with-shadow border-0 same-height">
               <div
                 class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
               >
@@ -77,8 +78,9 @@
               </div>
                 </div>
               </div> 
+                 <!-- Fourth Card -->
           <div class="col-xl-3  mb-primary">
-            <div class="card card-with-shadow border-0">
+            <div class="card card-with-shadow border-0 same-height ">
               <div
                 class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
               >
@@ -983,3 +985,18 @@ export default {
   },
 };
 </script>
+<style scoped>
+.same-height-container {
+  display: flex;
+}
+
+.same-height {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.same-height .card-body {
+  flex-grow: 1;
+}
+</style>
