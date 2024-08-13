@@ -21,7 +21,18 @@ class DashboardController extends Controller
         //Okrs 
         $totalOkr = 0;
         $okrs = [];
-        list($totalOkr, $okrs) = $this-> okrInformation($totalOkr,$okrs);
+        list($totalOkr, $okrs) = $this->okrInformation($totalOkr,$okrs);
+
+        //Actions 
+
+        
+        $ActionbarChartLabel = [];
+        $ActionbarChartData = [];
+
+        $actionsData = $this->getActionsdata($ActionbarChartData);
+        $ActionbarChartLabel = $actionsData['labels'];
+        $ActionbarChartData = $actionsData['data'];
+
 
         // Deal Both
         $dealChart = [];
@@ -35,7 +46,6 @@ class DashboardController extends Controller
         $totalContact = 0;
         $contacts = [];
         list($totalContact, $contacts) = $this->contactInformation($totalContact, $contacts);
-
         // Both Employees
         $totalEmployee = 0;
         $employees = [];
@@ -47,9 +57,14 @@ class DashboardController extends Controller
         $keyResultsdata = [];
 
         $keyResults = $this->service->getLastSixMonthsKeyResults();
-        $keyResultsMonths = $keyResults['months'];
-        $keyResultsdata = $keyResults['keyResults'];
-    
+        $keyResultsLabels =array_column($keyResults, 'title');
+
+        $keyResultsdata = $keyResults;
+
+        $netConfidenceScore = $this->getNetConfidenceScore();
+        $formattedNetConfidenceScore = $netConfidenceScore !== null ? number_format($netConfidenceScore, 2) : null;
+
+        // dd($netConfidenceScore);
 
         // Pipeline
 
@@ -62,7 +77,7 @@ class DashboardController extends Controller
 
         $sendingRate = $totalProposal > 0 ? intval(($totalSendProposal / $totalProposal) * 100) : 0;
         $acceptanceRate = $totalSendProposal > 0 ? intval(($totalAcceptedProposal / $totalSendProposal) * 100) : 0;
-        
+
         // Objective Progress 
         $objectivesProgress = $this->service->getObjectivesProgress();
         $overallProgress = $objectivesProgress['overall_progress'];
@@ -85,19 +100,19 @@ class DashboardController extends Controller
 
         list( $rateActionsCreatedPerDayArray,$rateActionsDonePerDayArray, $rateActionsCreatedPerWeekArray, $rateActionsDonePerWeekArray,$rateActionsCreatedPerMonthArray,
         $rateActionsDonePerMonthArray,$rateActionsCreatedPerYearArray,$rateActionsDonePerYearArray) = 
-        $this->getActionRatesOverview($rateActionsCreatedPerDayArray, $rateActionsDonePerDayArray,  $rateActionsCreatedPerWeekArray, $rateActionsDonePerWeekArray, $rateActionsCreatedPerMonthArray, $rateActionsDonePerMonthArray, $rateActionsCreatedPerYearArray,$rateActionsDonePerYearArray,);
-    
-        
+        $this->getActionRatesOverview($rateActionsCreatedPerDayArray, $rateActionsDonePerDayArray,  $rateActionsCreatedPerWeekArray, $rateActionsDonePerWeekArray, $rateActionsCreatedPerMonthArray, $rateActionsDonePerMonthArray, $rateActionsCreatedPerYearArray,$rateActionsDonePerYearArray);
+
         // Pipeline
         $pipelineName = [];
         $pipelineTotalDeals = [];
         $pipelineBackgroundColor = [];
+      
 
         $totalPipeline = $this->service->pipeline();
+        
 
         list($pipelineName, $pipelineTotalDeals, $pipelineBackgroundColor) =
             $this->dealPipeline($pipelineName, $pipelineTotalDeals, $pipelineBackgroundColor);
-
 
         // Top Five owners
         $topFiveOwners = $this->service->topFiveOwners($this->service->statuses['status_active']);
@@ -108,6 +123,7 @@ class DashboardController extends Controller
             array_push($fiveOwnerName, $value->full_name);
             array_push($fiveOwnerDeals, $value->deals_count);
         }
+
 
         if (auth()->user()->can('manage_public_access')) {
 
@@ -129,12 +145,16 @@ class DashboardController extends Controller
                 'background_color' => $pipelineBackgroundColor,
                 'top_five_owners_name' => $fiveOwnerName,
                 'five_owner_deal' => $fiveOwnerDeals,
+                'action_barchart_labels' => $ActionbarChartLabel,
+                'action_barchart_data' => $ActionbarChartData,
+                'net_Confidence_Score' => $formattedNetConfidenceScore,
+                'total_Deals_Chart_Element' => $totalDealsChartElement,
                 'total_okr' => $totalOkr,
                 'okrs' => $okrs,
                 'objectives_Progress' => $formattedProgress,
                 'actionRatePerWeek' => $actionRatePerWeek,
-                'keyResultsMonths' => $keyResultsMonths,
-                'keyResultsdata' => $keyResultsdata,
+                'action_barchart_labels' => $keyResultsLabels,
+                'key_result_barchart_data' => $keyResultsdata,
                 'rateActionsCreatedPerDay' => $rateActionsCreatedPerDayArray,
                 'rateActionsDonePerDayArray' => $rateActionsDonePerDayArray,
                 'rateActionsCreatedPerWeek' => $rateActionsCreatedPerWeekArray,
@@ -181,8 +201,49 @@ class DashboardController extends Controller
         
         return [ $rateActionsCreatedPerDayArray,$rateActionsDonePerDayArray, $rateActionsCreatedPerWeekArray, $rateActionsDonePerWeekArray,$rateActionsCreatedPerMonthArray,$rateActionsDonePerMonthArray,$rateActionsCreatedPerYearArray,$rateActionsDonePerYearArray,];
 
-
     }
+
+
+             public function getNetConfidenceScore()
+        {
+            $objectivesProgress = $this->service->getNetConfidencescore();
+
+            // Calculate the Net Confidence Score as the average of all objectives' average weighted confidence
+            $netConfidenceScore = $objectivesProgress->avg('average_weighted_confidence');
+
+            return $netConfidenceScore;
+        }
+
+
+            public function getActionsdata(array $data)
+            {
+                $actionsRates = $this->service->getActions();
+                
+                // Extract data from the collections
+                $totalActions = $actionsRates['allActions']->count();
+                $newActions = $actionsRates['newActions']->count();
+                $activeCurrentActions = $actionsRates['activeCurrentActions']->count();
+                $dueActions = $actionsRates['dueActions']->count();
+                
+                // Prepare labels and data as percentages
+                $labels = ['New Actions', 'Active Actions', 'Due Actions'];
+                array_push(
+                    $data , [
+                    'Actions  New' => $totalActions > 0 ? ($newActions / $totalActions) * 100 : 0,
+                    'Actions  Active ' =>  $totalActions > 0 ? ($activeCurrentActions / $totalActions) * 100 : 0,
+                    'Actions  Due '  =>  $totalActions > 0 ? ($dueActions / $totalActions) * 100 : 0
+                    ]);
+                
+                // Return labels and data for chart
+                return [
+                    'labels' => $labels,
+                    'data' => $data,
+                ];
+            }
+
+    
+    
+    
     public function dealChartElement(array $dealChart, array $totalDealsChartElement, $totalDeal)
     {
         $openDeal = $this->service->dealsCountByStatus($this->service->statuses['status_open']);
@@ -232,13 +293,15 @@ class DashboardController extends Controller
         $totalObjectives = $this->service->totalObjectives();
         $totalkeyResults = $this->service->totalKeyResults();
         $totalActions = $this->service->totalActions();
+        $totalUsers = $this->service->getTotalUsers();
         $totalOkr = $totalObjectives;
 
         array_push(
             $okrs,
             ['value' => $totalObjectives, 'key' => 'objectives'],
             ['value' => $totalkeyResults, 'key' => 'keyResults'],
-            ['value' => $totalActions, 'key' => 'actions']
+            ['value' => $totalActions, 'key' => 'actions'],
+            ['value' => $totalUsers, 'key' => 'users']
         );
 
         return [$totalOkr, $okrs];
@@ -266,12 +329,14 @@ class DashboardController extends Controller
 
     public function dealPipeline($pipelineName, $pipelineTotalDeals, $pipelineBackgroundColor)
     {
+
+
         // Deals on pipeline
         $dealsOnPipeline = $this->service->pipeline($this->service->statuses[\request()->status]);
+
         if (count($dealsOnPipeline)) {
             $dealsOnPipeline->push(['name' => trans('custom.average'),
                 'deals_count' => $dealsOnPipeline->avg('deals_count'),]);
-
             $sorted = $dealsOnPipeline->sortByDesc('deals_count');
 
             foreach ($sorted as $key => $value) {
@@ -292,8 +357,15 @@ class DashboardController extends Controller
     {
 
         $deals = Deal::filters($this->filter)->get();
+        
 
         return $this->service->dealOverView($deals);
     }
 
+    public function okrOverview() : array
+    {
+        $okrs = KeyResult::all()->get();
+
+        return $this->service->okrOverview($okrs);
+    }
 }

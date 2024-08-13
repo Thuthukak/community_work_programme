@@ -10,7 +10,7 @@
         <h4 class="header-pill col-auto">Actions List</h4>
         <div class="col-auto text-right" style="margin-right: 40px;">
             <!-- Button trigger modal -->
-            <button class="btn btn-primary btn-with-shadow" style="font-family: 'Poppins', sans-serif " data-toggle="modal" data-target="#createActionModal">
+            <button class="btn btn-primary add-action-btn btn-with-shadow" id = "add-action-btn" style="font-family: 'Poppins', sans-serif " data-toggle="modal" data-target="#createActionModal">
                 {{ trans('Add Action') }}
             </button>
         </div>
@@ -71,6 +71,15 @@
                         <label for="action_title">Action</label>
                         <input type="text" class="form-control" name="act_title" id="action_title" required>
                     </div>
+
+                </div>
+                <div class="form-row">
+                <div class="form-group col-md-6">
+                        <label for="manager">Accountable Manager</label>
+                        <select id="manager" class="form-control" name="manager" required>
+                            <option value="">Select Manager</option>
+                        </select>
+                    </div>
                     <div class="form-group col-md-6">
                         <label for="priority">Priority</label>
                         <select id="priority" class="form-control" name="priority" required>
@@ -117,6 +126,7 @@
                     </div>
                     <input type="hidden" name="full_model_type" id="full_model_type">
                 </div>
+
                 <div class="form-row">
                     <div class="form-group col-md-12">
                         <label for="action_content">Content</label>
@@ -165,6 +175,8 @@
                 return response.json();
             })
             .then(data => {
+
+                console.log("fetched data :", data)
                 let objectiveSelect = document.querySelector('#objective');
                 objectiveSelect.innerHTML = '<option value="">Select Objective</option>';
                 data.objectives.forEach(obj => {
@@ -175,6 +187,11 @@
                 prioritySelect.innerHTML = '<option value="">Select Priority</option>';
                 data.priorities.forEach(priority => {
                     prioritySelect.innerHTML += `<option value="${priority.id}">${priority.priority}</option>`;
+                });
+                let managerSelect = document.querySelector('#manager');
+                managerSelect.innerHTML = '<option value="">Select Manager</option>';
+                data.users.forEach(manager => {
+                    managerSelect.innerHTML += `<option value="${manager.id}">${manager.first_name} ${manager.last_name}</option>`;
                 });
 
                 $('#createActionModal').modal('show');
@@ -193,8 +210,15 @@
                         'Content-Type': 'application/json'
                     }
                 })
-                .then(response => response.json())
+                .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+                })      
                 .then(data => {
+                    console.log("fetched data :", data)
+
                     let keyresultSelect = document.querySelector('#keyresult');
                     keyresultSelect.innerHTML = '<option value="">Select Key Result</option>';
                     data.forEach(kr => {
@@ -212,19 +236,39 @@
         document.querySelector('#model_type').addEventListener('change', function() {
             let modelType = this.value;
             if (modelType) {
-                fetch(`{{ url('actions/entities') }}/${modelType}`, {
+                fetch(`{{ url('actions/models') }}/${modelType}`, {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json'
                     }
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
                 .then(data => {
+                    console.log("fetched data :", data)
                     let modelIdSelect = document.querySelector('#model_id');
+                    let modelNameSpace = document.querySelector('#full_model_type');
+
                     modelIdSelect.innerHTML = '<option value="">Select Target Entity</option>';
-                    data.forEach(entity => {
-                        modelIdSelect.innerHTML += `<option value="${entity.id}">${entity.name}</option>`;
+                    data.models.forEach(entity => {
+                        if (entity.name) {
+                            modelIdSelect.innerHTML += `<option value="${entity.id}">${entity.name}</option>`;
+                            modelNameSpace.value = entity.model;
+                        } else if (entity.subject) {
+                            modelIdSelect.innerHTML += `<option value="${entity.id}">${entity.subject}</option>`;
+                            modelNameSpace.value = entity.model;
+                        }
                     });
+
+                    if (data.models.length > 0) {
+                        modelNameSpace.value = data.models[0].model;
+                    } else {
+                        modelNameSpace.value = '';
+                    }
                 })
                 .catch(error => {
                     console.error('Error fetching entities:', error);
@@ -234,35 +278,6 @@
             }
         });
 
-        document.querySelector('#createActionForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = new FormData(this);
-            const url = this.action;
-
-            fetch(url, {
-                method: 'POST',
-                body: formData,
-                headers: {
-                    'Accept': 'application/json'
-                }
-            })
-            .then(response => {
-                if (!response.ok) {
-                    return response.json().then(errorData => {
-                        throw new Error(errorData.message || 'Error adding action');
-                    });
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log('Action added successfully:', data);
-                // Handle successful response, e.g., close modal, update UI
-            })
-            .catch(error => {
-                console.error('Error adding action:', error);
-                // Handle error response, e.g., show error message
-            });
-        });
     });
 </script>
 @endsection

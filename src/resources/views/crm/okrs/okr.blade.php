@@ -277,7 +277,7 @@
                 @can('storeObjective', $owner)
                 @if($okr['keyresults']->toArray())
                 <div class="text-right">
-            <button class="btn btn-primary btn-sm mb-2 p-2 fa fa-sm add-action-btn" data-id="{{ $okr['objective']->id }}" data-toggle="modal" data-target="#createActionModal" style="font-family: 'Poppins', sans-serif;">
+            <button class="btn btn-primary btn-sm mb-2 p-2 fa fa-sm add-action-btn" id="add-action-btn" data-id="{{ $okr['objective']->id }}" data-toggle="modal" data-target="#createActionModal" style="font-family: 'Poppins', sans-serif;">
                 Add Action
             </button>
         </div>
@@ -324,18 +324,27 @@
             {!! Form::open(['route' => 'actions.store', 'method' => 'POST', 'class' => 'p-4', 'id' => 'createActionForm']) !!}
 
             <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="action_title">Action</label>
+                        <input type="text" class="form-control" name="act_title" id="action_title" required>
+                    </div>
+
+                </div>
+                <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="action_title">Action</label>
-                    <input type="text" class="form-control" name="act_title" id="action_title" required>
+                        <label for="manager">Accountable Manager</label>
+                        <select id="manager" class="form-control" name="manager" required>
+                            <option value="">Select Manager</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="priority">Priority</label>
+                        <select id="priority" class="form-control" name="priority" required>
+                            <option value="">Select Priority</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="form-group col-md-6">
-                    <label for="priority">Priority</label>
-                    <select id="priority" class="form-control" name="priority" required>
-                        <option value="">Select Priority</option>
-                    </select>
-                </div>
-            </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">

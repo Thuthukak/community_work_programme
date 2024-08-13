@@ -16,6 +16,7 @@ use App\Models\CRM\Proposal\Proposal;
 use App\Models\CRM\User\User;
 use App\Services\ApplicationBaseService;
 use Carbon\Carbon;
+use DB;
 
 class DashboardService extends ApplicationBaseService
 {
@@ -26,16 +27,124 @@ class DashboardService extends ApplicationBaseService
         $this->filter = $filter;
     }
 
+
+    public function okrOverview($okrs)
+    {
+
+           
+        $weekContainer = array_fill(0, 7, 0);
+        $notStartedWeekMap = $weekContainer;
+        $onGoingWeekMap = $weekContainer;
+        $doneWeekMap = $weekContainer;
+
+        $totalWeekMap = $weekContainer;
+
+
+        // Month of Year Section
+        $yearContainer = array_fill(0, 12, 0);
+        $notStartedYearMap = $yearContainer;
+
+        $onGoingYearMap = $yearContainer;
+
+        $doneYearMap = $yearContainer;
+
+        $totalYearMap = $yearContainer;
+
+        $checkLastOrThisMonth = request()->has('last_month')
+            ? now()->subMonth()->daysInMonth
+            : now()->daysInMonth;
+        $monthContainer = array_fill(1, $checkLastOrThisMonth, 0);
+        $monthNotStarted = $monthContainer;
+        $monthOnGoing = $monthContainer;
+        $monthDone = $monthContainer;
+        $monthTotal = $monthContainer;
+
+
+        // Total Key Results Count
+        $totalKeyResults = $this->keyResultStatusCount($keyResults, 'all');
+
+        // Not Started Key Results Count
+        $notStartedKeyResults = $this->keyResultStatusCount($keyResults, 'not_started');
+
+        // Ongoing Key Results Count
+        $ongoingKeyResults = $this->keyResultStatusCount($keyResults, 'ongoing');
+
+        // Done Key Results Count
+        $doneKeyResults = $this->keyResultStatusCount($keyResults, 'done');
+
+        // Get the created_at dates for not started key results
+        $createdDatesForNotStarted = $this->keyResultStatusPluckFilter($keyResults, 'not_started');
+        list($notStartedWeekMap, $monthNotStarted, $notStartedYearMap)
+        = $this->okrstageFilterss($createdDatesForNotStarted, $notStartedWeekMap, $monthNotStarted, $notStartedYearMap);
+
+        // Get the created_at dates for ongoing key results
+        $createdDatesForOngoing = $this->keyResultStatusPluckFilter($keyResults, 'ongoing');
+
+        list($onGoingWeekMap, $monthOnGoing, $onGoingYearMap)
+        = $this->statusFilters($createdDatesForOngoing, $onGoingWeekMap, $monthOnGoing, $onGoingYearMap);
+
+        // Get the created_at dates for done key results
+        $createdDatesForDone = $this->keyResultStatusPluckFilter($keyResults, 'done');
+
+        list($doneWeekMap, $monthDone, $doneYearMap)
+        = $this->statusFilters($createdDatesForDone, $doneWeekMap, $monthDone, $doneYearMap);
+
+
+        // Get the created_at dates for all key results
+        $createdDatesForAll = $this->keyResultStatusPluckFilter($keyResults, 'all');
+
+        list($totalWeekMap, $monthTotal, $totalYearMap)
+        = $this->statusFilters($createdDatesForAll, $totalWeekMap, $monthTotal, $totalYearMap);
+
+        $okrsOverview = [];
+
+        if(\request()->has('last_seven_days') || \request()->has('this_week') || \request()->has('last_week'))
+        {
+            array_push(
+                $okrsOverview,
+                $notStartedWeekMap,
+                $onGoingWeekMap,
+                $doneWeekMap,
+                $totalWeekMap,
+                     );
+            } elseif(\request()->has('this_month') || \request()->has('last_month'))
+            {
+                array_push(
+                    $okrsOverview,
+                    collect($monthNotStarted)->values(),
+                    collect($monthOnGoing)->values(),
+                    collect($monthDone)->values(),
+                    collect($monthTotal)->values(),
+                );
+            } elseif(\request()->has('this_year') || \request()->has('total'))
+            {
+                array_push(
+                    $okrsOverview,
+                    $notStartedYearMap,
+                    $onGoingYearMap,
+                    $doneYearMap,
+                    $totalYearMap,
+                );
+            }
+
+            return [
+                'deal_over_view' => $okrsOverview,
+                'total_deal_overview' => $totalKeyResults,
+                'open_deal' => $notStartedKeyResults,
+                'won_deal' => $ongoingKeyResults,
+                'lost_deal' => $doneKeyResults,
+            ];
+    }
     public function dealOverView($deals)
     {
         // Deals Overview
-
         $weekContainer = array_fill(0, 7, 0);
         $openWeekMap = $weekContainer;
         $wonWeekMap = $weekContainer;
         $lostWeekMap = $weekContainer;
 
         $totalWeekMap = $weekContainer;
+
 
         // Month of Year Section
         $yearContainer = array_fill(0, 12, 0);
@@ -46,6 +155,9 @@ class DashboardService extends ApplicationBaseService
         $lostYearMap = $yearContainer;
 
         $totalYearMap = $yearContainer;
+
+
+
         $checkLastOrThisMonth = request()->has('last_month')
             ? now()->subMonth()->daysInMonth
             : now()->daysInMonth;
@@ -72,10 +184,8 @@ class DashboardService extends ApplicationBaseService
 
         // Status Open Filter
         $statusOpenFilter = $this->dealStatusPluckFilter($deals, $this->statuses['status_open']);
-
         list($openWeekMap, $month, $openYearMap)
             = $this->statusFilters($statusOpenFilter, $openWeekMap, $month, $openYearMap);
-
         // Status Won Filter
         $statusWonFilter = $this->dealStatusPluckFilter($deals, $this->statuses['status_won']);
 
@@ -135,6 +245,7 @@ class DashboardService extends ApplicationBaseService
 
     public function dealStatusCount($deals, $status = null)
     {
+
         return $deals
             ->when($status, function ($query) use ($status) {
                 return $query->where('status_id', $status);
@@ -142,6 +253,27 @@ class DashboardService extends ApplicationBaseService
                 return $query->whereNotNull('status_id');
             })->count();
     }
+
+
+    public function keyResultStatusCount($keyResults, $status = null)
+    {
+        return $keyResults
+            ->when($status === 'not_started', function ($query) {
+                return $query->whereColumn('current_value', '=', 'initial_value');
+            })
+            ->when($status === 'ongoing', function ($query) {
+                return $query->whereColumn('current_value', '>', 'initial_value')
+                            ->whereColumn('current_value', '<', 'target_value');
+            })
+            ->when($status === 'done', function ($query) {
+                return $query->whereColumn('current_value', '=', 'target_value');
+            })
+            ->when($status === 'all', function ($query) {
+                return $query->whereNotNull('id'); // This will include all key results
+            })
+            ->count();
+    }
+
 
     public function dealStatusPluckFilter($deals, $status = null)
     {
@@ -151,7 +283,43 @@ class DashboardService extends ApplicationBaseService
             })->pluck('created_at');
     }
 
+    public function keyResultStatusPluckFilter($keyResults, $status = null)
+    {
+        return $keyResults
+            ->when($status === 'not_started', function ($query) {
+                return $query->whereColumn('current_value', '=', 'initial_value');
+            })
+            ->when($status === 'ongoing', function ($query) {
+                return $query->whereColumn('current_value', '>', 'initial_value')
+                            ->whereColumn('current_value', '<', 'target_value');
+            })
+            ->when($status === 'done', function ($query) {
+                return $query->whereColumn('current_value', '=', 'target_value');
+            })
+            ->when($status === 'all', function ($query) {
+                return $query->whereNotNull('id'); // Include all key results
+            })
+            ->pluck('created_at');
+    }
+
+
     public function statusFilters($filters, $WeekMap, $month, $YearMap)
+    {
+
+        foreach ($filters as $value) {
+            if (\request()->has('last_seven_days') || \request()->has('this_week') || \request()->has('last_week')) {
+                ++$WeekMap[Carbon::parse($value)->dayOfWeek];
+            } elseif (\request()->has('this_month') || \request()->has('last_month')) {
+                ++$month[Carbon::parse($value)->day];
+            } elseif (\request()->has('this_year') || \request()->has('total')) {
+                ++$YearMap[Carbon::parse($value)->month - 1];
+            }
+        }
+        return [$WeekMap, $month, $YearMap];
+    }
+
+
+    public function okrstageFilters($filters, $WeekMap, $month, $YearMap)
     {
 
         foreach ($filters as $value) {
@@ -171,12 +339,43 @@ class DashboardService extends ApplicationBaseService
         return Deal::filters($this->filter)->where('status_id', $status)->count();
     }
 
+    public function getActions()
+    {
+        $startDate = Carbon::now()->subMonths(6)->startOfDay();
+        $endDate = Carbon::now()->endOfMonth();
+        
+
+        DB::enableQueryLog(); // Enable query log
+
+        $allActions = Action::all();
+
+        $newActions =  Action::whereMonth('created_at', $endDate->month)
+                        ->whereYear('created_at', $endDate->year)
+                        ->get();
+    
+        $activeCurrentActions =  Action::whereDate('started_at', '<=', Carbon::today())
+                    ->whereDate('finished_at', '>=', Carbon::today())
+                    ->get();
+
+
+        $dueActions = Action::whereDate('finished_at', '>=', $endDate)->get();
+                    // dd(DB::getQueryLog()); // Show results of log
+
+        $data = [
+            'allActions' => $allActions,
+            'newActions' => $newActions,
+            'activeCurrentActions' => $activeCurrentActions, 
+            'dueActions' =>$dueActions,
+        ];       
+        
+        return $data;
+    }
+
     public function getEachObjectivesProgress()
     {
         // Fetch all objectives with their key results
         $objectives = Objective::with('keyResults')->get();
 
-        // dd($objectives);
         // Calculate progress for each objective
         $objectivesProgress = $objectives->map(function ($objective) {
             // Calculate the progress of each key result
@@ -211,47 +410,39 @@ class DashboardService extends ApplicationBaseService
     }
 
 
-             function getLastSixMonthsKeyResults()
-        {
-            // Define the time period for the past 6 months
-            $startDate = Carbon::now()->subMonths(6)->startOfDay();
-            $endDate = Carbon::now()->endOfDay();
+            public function getLastSixMonthsKeyResults()
+            {
+                // Define the time period for the past 6 months
+                $startDate = Carbon::now()->subMonths(6)->startOfDay();
+                $endDate = Carbon::now()->endOfDay();
             
-            // Get the names of the last 6 months
-            $months = [];
-            for ($i = 5; $i >= 0; $i--) {
-                array_push($months, Carbon::now()->subMonths($i)->format('M'));
-            }
-        
-            // Query the KeyResult table for entries created within the last 6 months
-            $keyResults = KeyResult::whereBetween('created_at', [$startDate, $endDate])->get();
-        
-            // Initialize an empty array to hold key results with completion percentages
-            $keyResultsWithCompletion = [];
-        
-            // Calculate the completion percentage for each key result
-            foreach ($keyResults as $keyResult) {
-                $initialValue = $keyResult->initial_value;
-                $targetValue = $keyResult->target_value;
-                $currentValue = $keyResult->current_value;
-        
-                $completionPercentage = 0;
-                if ($targetValue > $initialValue) {
-                    $completionPercentage = (($currentValue - $initialValue) / ($targetValue - $initialValue)) * 100;
+                // Query the KeyResult table for entries created within the last 6 months
+                $keyResults = KeyResult::whereBetween('created_at', [$startDate, $endDate])->get();
+            
+                // Initialize an empty array to hold key results with completion percentages
+                $keyResultsWithCompletion = [];
+            
+                // Calculate the completion percentage for each key result
+                foreach ($keyResults as $keyResult) {
+                    $initialValue = $keyResult->initial_value;
+                    $targetValue = $keyResult->target_value;
+                    $currentValue = $keyResult->current_value;
+            
+                    $completionPercentage = 0;
+                    if ($targetValue > $initialValue) {
+                        $completionPercentage = (($currentValue - $initialValue) / ($targetValue - $initialValue)) * 100;
+                    }
+            
+                    array_push($keyResultsWithCompletion, [
+                        'title' => $keyResult->title,
+                        'completion_percentage' => $completionPercentage
+                    ]);
                 }
-        
-                array_push($keyResultsWithCompletion, [
-                    'title' => $keyResult->title,
-                    'completion_percentage' => $completionPercentage
-                ]);
+            
+                // Return only the key results with their completion percentages
+                return $keyResultsWithCompletion;
             }
-        
-            // Return the month names and the key results with their completion percentages
-            return [
-                'months' => $months,
-                'keyResults' => $keyResultsWithCompletion
-            ];
-        }
+    
             public function getActionsRates()
         {
             // Define the time period for the past 6 months
@@ -343,12 +534,65 @@ class DashboardService extends ApplicationBaseService
         $overallProgress = $allKeyResultsProgress->isEmpty() ? null : $allKeyResultsProgress->avg();
 
         // Log overall progress for debugging
-        \Log::info('Overall Progress:', ['overall_progress' => $overallProgress]);
 
         return [
             'overall_progress' => $overallProgress,
         ];
     }
+
+    public function getNetConfidencescore()
+    {
+        // Fetch all objectives with their key results
+        $objectives = Objective::with('keyResults')->get();
+
+        // Calculate progress and weighted confidence for each objective
+        $objectivesProgress = $objectives->map(function ($objective) {
+            // Calculate the progress and weighted confidence of each key result
+            $keyResultsData = $objective->keyResults->map(function ($keyResult) {
+                $initial = $keyResult->initial_value;
+                $target = $keyResult->target_value;
+                $current = $keyResult->current_value;
+                $confidence = $keyResult->confidence;
+                $weight = $keyResult->weight;
+
+                // Avoid division by zero
+                if ($target - $initial == 0) {
+                    $progress = 100;
+                } else {
+                    $progress = (($current - $initial) / ($target - $initial)) * 100;
+                }
+
+                // Calculate weighted confidence contribution
+                $weightedConfidence = $confidence * $weight;
+
+                return [
+                    'progress' => $progress,
+                    'weighted_confidence' => $weightedConfidence,
+                    'weight' => $weight,
+                ];
+            });
+
+            // Calculate the average progress for the objective
+            $objectiveProgress = $keyResultsData->avg('progress');
+
+            // Calculate the total weighted confidence for the objective
+            $totalWeightedConfidence = $keyResultsData->sum('weighted_confidence');
+            $totalWeight = $keyResultsData->sum('weight');
+            $averageWeightedConfidence = $totalWeight > 0 ? $totalWeightedConfidence / $totalWeight : 0;
+            // dd($averageWeightedConfidence);
+            return [
+                'objective' => $objective,
+                'progress' => $objectiveProgress,
+                'average_weighted_confidence' => $averageWeightedConfidence,
+                'title' => $objective->title,
+            ];
+        });
+
+        // dd($averageWeightedConfidence);
+
+        return $objectivesProgress;
+    }
+
 
     public function totalOrganization()
     {
@@ -365,6 +609,11 @@ class DashboardService extends ApplicationBaseService
     public function totalActions()
     {
         return Action::count();
+    }
+
+    public function getTotalUsers()
+    {
+        return User::count();
     }
 
 
@@ -403,6 +652,7 @@ class DashboardService extends ApplicationBaseService
 
     public function pipeline($request = null)
     {
+
         return $request ?
             Pipeline::withCount(['deals' => function ($query) use ($request) {
                 $query->where('status_id', $request);

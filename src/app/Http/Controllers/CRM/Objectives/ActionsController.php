@@ -9,11 +9,9 @@ use App\Models\CRM\Action\Action;
 use App\Models\CRM\Objective\Objective;
 use App\Models\CRM\KeyResult\KeyResult;
 use App\Models\CRM\Priority\Priority;
-
 use App\Models\ProjectManagement\Projects\Project;
 use App\Models\CRM\Pipeline\Pipeline;
 use  App\Models\CRM\Proposal\Proposal;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\CRM\Objectives\ActionRequest;
@@ -47,8 +45,10 @@ class ActionsController extends Controller
             // Ensure the objective exists
             $priorities = Priority::all();
             $keyResults = KeyResult::where('objective_id', $objective)->get();
-    
+            $users = User::all();
+
             $data = [
+                'users' => $users,
                 'priorities' => $priorities,
                 'keyresults' => $keyResults,
             ];
@@ -71,8 +71,9 @@ class ActionsController extends Controller
         try {
             $objectives = Objective::all();
             $priorities = Priority::all();
-    
+            $users = User::all();
             $data = [
+                'users' => $users,
                 'objectives' => $objectives,
                 'priorities' => $priorities,
             ];
@@ -139,8 +140,6 @@ class ActionsController extends Controller
                 'models' => $models
             ];
     
-            Log::info('Data fetched successfully:', $data);
-    
             return response()->json($data);
             
                 // Return the models as JSON along with the actionOn
@@ -177,7 +176,7 @@ class ActionsController extends Controller
 
         $this->authorize('storeObjective', KeyResult::find($request->krs_id)->objective->model);
 
-        $attr['user_id'] = auth()->user()->id;
+        $attr['user_id'] = $request->input('manager');
         $attr['related_kr'] = $request->input('krs_id');
         $attr['priority'] = $request->input('priority');
         $attr['model_type'] = $request->input('full_model_type');
@@ -195,7 +194,7 @@ class ActionsController extends Controller
             $action->sendInvitation($request);
         }
         if ($request->hasFile('files')) {
-            $action->addRelatedFiles();
+           $action->addRelatedFiles();
         }
 
 
@@ -211,7 +210,7 @@ class ActionsController extends Controller
 
         $this->authorize('storeObjective', KeyResult::find($request->krs_id)->objective->model);
 
-        $attr['user_id'] = auth()->user()->id;
+        $attr['user_id'] = $request->input('manager');
         $attr['related_kr'] = $request->input('krs_id');
         $attr['priority'] = $request->input('priority');
         $attr['model_type'] = $request->input('full_model_type');
@@ -280,7 +279,7 @@ class ActionsController extends Controller
                 $this->authorize('update', $action);
 
                 $priorities = Priority::all();
-                $user = User::where('id', '=', auth()->user()->id)->first();
+                $user = User::all();
                 
 
                 //使用者的krs
@@ -348,7 +347,7 @@ class ActionsController extends Controller
         if ($request->input('invite') && $request->input('invite') != $action->user_id) {
             $action->sendInvitation($request);
         }
-        $attr['user_id'] = auth()->user()->id;
+        $attr['user_id'] = $request->input('manager');
         $attr['related_kr'] = $request->input('krs_id');
         $attr['priority'] = $request->input('priority');
         $attr['model_type'] = $request->input('model_type');
@@ -379,7 +378,7 @@ class ActionsController extends Controller
         }
 
 
-        $attr['user_id'] = auth()->user()->id;
+        $attr['user_id'] = $request->input('manager');
         $attr['related_kr'] = $request->input('krs_id');
         $attr['priority'] = $request->input('priority');
         $attr['model_type'] = $request->input('model_type');
