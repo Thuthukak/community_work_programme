@@ -100,7 +100,7 @@ class DashboardController extends Controller
 
         list( $rateActionsCreatedPerDayArray,$rateActionsDonePerDayArray, $rateActionsCreatedPerWeekArray, $rateActionsDonePerWeekArray,$rateActionsCreatedPerMonthArray,
         $rateActionsDonePerMonthArray,$rateActionsCreatedPerYearArray,$rateActionsDonePerYearArray) = 
-        $this->getActionRatesOverview($rateActionsCreatedPerDayArray, $rateActionsDonePerDayArray,  $rateActionsCreatedPerWeekArray, $rateActionsDonePerWeekArray, $rateActionsCreatedPerMonthArray, $rateActionsDonePerMonthArray, $rateActionsCreatedPerYearArray,$rateActionsDonePerYearArray,);
+        $this->getActionRatesOverview($rateActionsCreatedPerDayArray, $rateActionsDonePerDayArray,  $rateActionsCreatedPerWeekArray, $rateActionsDonePerWeekArray, $rateActionsCreatedPerMonthArray, $rateActionsDonePerMonthArray, $rateActionsCreatedPerYearArray,$rateActionsDonePerYearArray);
 
         // Pipeline
         $pipelineName = [];
