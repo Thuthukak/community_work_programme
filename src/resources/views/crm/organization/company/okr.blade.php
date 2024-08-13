@@ -140,6 +140,8 @@
             document.querySelector('#createActionForm').reset();
             document.querySelector('#priority').innerHTML = '';
             document.querySelector('#keyresult').innerHTML = '';
+            document.querySelector('#manager').innerHTML = '';
+
 
             // Populate priorities
             let prioritySelect = document.querySelector('#priority');
@@ -147,6 +149,12 @@
             data.priorities.forEach(priority => {
                 prioritySelect.innerHTML += `<option value="${priority.id}">${priority.priority}</option>`;
             });
+
+            let managerSelect = document.querySelector('#manager');
+                managerSelect.innerHTML = '<option value="">Select Manager</option>';
+                data.users.forEach(manager => {
+                    managerSelect.innerHTML += `<option value="${manager.id}">${manager.first_name} ${manager.last_name}</option>`;
+                });
 
             // Populate keyresults
             if (data.keyresults) {
@@ -173,52 +181,51 @@
 
 
         document.querySelector('#model_type').addEventListener('change', function() {
-            var actionOn = this.value;
-            // Make sure actionOn is not empty
-            if (actionOn) {
-                fetchModels(actionOn);
+            let modelType = this.value;
+            if (modelType) {
+                fetch(`{{ url('actions/models') }}/${modelType}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("fetched data :", data)
+                    let modelIdSelect = document.querySelector('#model_id');
+                    let modelNameSpace = document.querySelector('#full_model_type');
+
+                    modelIdSelect.innerHTML = '<option value="">Select Target Entity</option>';
+                    data.models.forEach(entity => {
+                        if (entity.name) {
+                            modelIdSelect.innerHTML += `<option value="${entity.id}">${entity.name}</option>`;
+                            modelNameSpace.value = entity.model;
+                        } else if (entity.subject) {
+                            modelIdSelect.innerHTML += `<option value="${entity.id}">${entity.subject}</option>`;
+                            modelNameSpace.value = entity.model;
+                        }
+                    });
+
+                    if (data.models.length > 0) {
+                        modelNameSpace.value = data.models[0].model;
+                    } else {
+                        modelNameSpace.value = '';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching entities:', error);
+                });
+            } else {
+                document.querySelector('#model_id').innerHTML = '<option value="">Select Target Entity</option>';
             }
         });
 
-        function fetchModels(actionOn) {
-            fetch(`{{ url('actions/models') }}/${actionOn}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => {
-                console.log('Response Status:', response.status); // Debugging line
-                return response.json();
-            })
-            .then(data => {
-                console.log('Fetched Data:', data); // Debugging line
-                let modelSelect = document.querySelector('#model_id');
-
-                if (modelSelect) {
-                    modelSelect.innerHTML = '<option value="">Select Target</option>';
-                    data.models.forEach(model => {
-                        modelSelect.innerHTML += `<option value="${model.id}">${model.name}</option>`;
-                    });
-
-                    let lastModel = data.models.filter(model => typeof model === 'object').pop();
-                if (lastModel) {
-                    document.querySelector('#full_model_type').value = lastModel.model;
-                    console.log(document.querySelector('#full_model_type').value);
-                } else {
-                    console.error('No valid model object found');
-                }
-                } else {
-                    console.error('Element with id "model_id" not found');
-                }
-
-
-            })
-            .catch(error => {
-                console.error('Error fetching models:', error);
-            });
-        }
-        });
+    });
 </script>
 
 

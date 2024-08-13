@@ -14,15 +14,15 @@
           <div class="col-xl-3 mb-primary">
             <div class="card card-with-shadow border-1">
               <div
-                class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
+                class="card-header bg-transparent p-primary d-flex  justify-content-between align-items-center"
               >
                 <h5 class="card-title mb-0">{{ $t("Active Data") }}</h5>
               </div>
-              <div class="card-body p-primary">
+              <div class="card-body  p-primary">
                 <div
                   v-for="(item, index) in okrlist"
                   :key="index"
-                  :class="index == contactList.length - 1 ? '' : 'pb-primary'"
+                  :class="index == okrlist.length - 1 ? '' : 'pb-primary'"
                   class="dashboard-widgets dashboard-icon-widget"
                 >
                   <div class="icon-wrapper">
@@ -51,6 +51,7 @@
                   :type="'app-widget-with-circle'"
                   :label="$t('Obectives  progress')"
                   :number="objectivesProgress"
+                  
                 />
               </div>
           </div>
@@ -64,12 +65,15 @@
               >
                 <h5 class="card-title mb-0">{{ $t("Actions Rate per week") }}</h5>
               </div>
+              <div class="row dashboard-circle-widget">
+
               <div class="col-xl-12 mb-4 mb-xl-0">
                 <app-widget
                   :type="'app-widget-with-circle'"
                   :label="$t('actions completion rate')"
                   :number="actionsRate"
                 />
+              </div>
               </div>
                 </div>
               </div> 
@@ -85,8 +89,8 @@
               <div class="col-xl-12 mb-4 mb-xl-0">
                 <app-widget
                   :type="'app-widget-with-circle'"
-                  :label="$t('Obectives Key results progress')"
-                  :number="sendingRate"
+                  :label="$t('Net Confidence score')"
+                  :number="netConfidenceScore"
                 />
               </div>
           </div>
@@ -96,51 +100,50 @@
 
               
       </div>
-
-
          
       <div class="row">
 
-          <div class="col-xl-6 mb-primary">
+        <div class="col-xl-6 mb-primary">
             <div class="card card-with-shadow border-0">
               <div
                 class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
               >
-                <h5 class="card-title mb-0">{{ $t("KeyResults ") }}</h5>
+                <h5 class="card-title mb-0">{{ $t("Key Results in Six Months") }}</h5>
               </div>
               <div class="card-body min-height-340">
-                <app-overlay-loader v-if="dataload" />
+                <app-overlay-loader v-if="barChartLoad" />
                 <app-chart
                   type="bar-chart"
                   v-else
                   :height="340"
-                  :labels="barChartLabel"
-                  :data-sets="barChartData"
+                  :labels="KeyResultsbarChartLabel"
+                  :data-sets="keyResultsbarChartData"
                 />
               </div>
             </div>
           </div>
-        
+                
           <div class="col-xl-6 mb-primary">
-            <div class="card card-with-shadow border-0">
-              <div
-                class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
-              >
-                <h5 class="card-title mb-0">{{ $t("Actions") }}</h5>
+              <div class="card card-with-shadow border-0">
+                <div
+                  class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
+                >
+                  <h5 class="card-title mb-0">{{ $t("Actions") }}</h5>
+                </div>
+                <div class="card-body min-height-340">
+                  <app-overlay-loader v-if="dataload" />
+                  <app-chart
+                    type="bar-chart"
+                    v-else
+                    :height="340"
+                    :labels="ActionsbarChartLabel"
+                    :data-sets="ActionsbarChartData"
+                  />
+                </div>
               </div>
-              <div class="card-body min-height-340">
-                <app-overlay-loader v-if="dataload" />
-                <app-chart
-                  type="bar-chart"
-                  v-else
-                  :height="340"
-                  :labels="barChartLabel"
-                  :data-sets="barChartData"
-                />
               </div>
-            </div>
-          </div>
-      </div>
+
+        </div>      
 
       <div class="row">
         <div class="col-xl-8 mb-primary">
@@ -426,7 +429,9 @@ export default {
     return {
       dataload: false,
       lineChartLoad: false,
+      barChartLoad: false,
       pipelineDataload: false,
+      keyResultsDataLoad: false,
       initialResponseCount: 0,
 
       // deals Overview - line chart
@@ -439,7 +444,9 @@ export default {
         { id: "this_year", value: this.$t("this_year") },
         { id: "total", value: this.$t("total") },
       ],
+      keyresultsFilterValue: "last_seven_days",
       dealsFilter: "last_seven_days",
+      barChartLabels:  ["sun", "Mon","Tue", "Wed", "Thu", "Fri", "Sat"],
       lineChartLabels: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
       lineChartData: [
         {
@@ -475,6 +482,7 @@ export default {
           data: [10, 30, 30, 25, 10, 5, 6],
         },
       ],
+
       // Total deals - pie chart
       totalDealsLabels: [this.$t("open"), this.$t("won"), this.$t("lost")],
       totalDealsDataSet: [
@@ -540,6 +548,11 @@ export default {
           title: this.$t("Total Actions"),
           value: 10247,
         },
+        {
+          icon: "check-square",
+          title: this.$t("Total Users"),
+          value: 10247,
+        },
       ],
 
       // Total Employees - App widget
@@ -566,9 +579,34 @@ export default {
         { id: "status_won", value: this.$t("won") },
         { id: "status_lost", value: this.$t("lost") },
       ],
+
+
+
       lineChartFilterValue: "status_open",
       HorizontalLineChartLabel: [],
       HorizontalLineChartData: [
+        {
+          label: "Data",
+          backgroundColor: [],
+          barThickness: 25,
+          data: [],
+          borderWidth: 0,
+        },
+      ],
+
+      KeyResultsbarChartLabel: [],
+      keyResultsbarChartData: [
+        {
+          label: "Data",
+          backgroundColor: [],
+          barThickness: 25,
+          data: [],
+          borderWidth: 0,
+        },
+      ],
+
+      ActionsbarChartLabel: [],
+      ActionsbarChartData: [
         {
           label: "Data",
           backgroundColor: [],
@@ -589,13 +627,13 @@ export default {
         },
       ],
 
-      keyResultsMonths:[],
-      keyResultsdata: [],
+        
       totalOkr:null,
       totalContact: null,
       totalEmployees: null,
       sendingRate: null,
       actionsRate: null,
+      netConfidenceScore:null,
       objectivesProgress:null,
       acceptanceRate: null,
       totalSendProposal: null,
@@ -650,6 +688,7 @@ export default {
             // Total send proposal
             this.totalSendProposal = response.data.total_send_proposal;
             this.actionsRate = response.data.actionRatePerWeek;
+            this.netConfidenceScore = response.data.net_Confidence_Score;
             // total accepted proposal
             this.totalAcceptedProposal = response.data.total_accepted_proposal;
 
@@ -658,8 +697,9 @@ export default {
 
             // ObjectivesProgress
             this.sendingRate = response.data.sending_rate;
-
-            //acceptance rate
+            this.prepareChartData(response.data.key_result_barchart_data);
+            this.prepareActionsChartData(response.data.action_barchart_data);
+                       //acceptance rate
             this.acceptanceRate = response.data.acceptance_rate;
 
             //Objectives Key results 
@@ -671,7 +711,10 @@ export default {
 
             // Deal on Pipeline
 
+            this.keyResultsVerticallLineChartLabel = response.data.deals_on_pipeline_name;
+
             this.HorizontalLineChartLabel = response.data.deals_on_pipeline_name;
+
 
             this.HorizontalLineChartData.forEach((bgColor, index) => {
               bgColor.backgroundColor = response.data.background_color;
@@ -696,6 +739,48 @@ export default {
           this.initialResponseCount++;
         });
     },
+    
+        prepareChartData(keyResultsData) {
+        // Extract titles and completion percentages
+        this.KeyResultsbarChartLabel = keyResultsData.map(result => result.title);
+        const data = keyResultsData.map(result => result.completion_percentage);
+
+        // Update the bar chart data
+        this.keyResultsbarChartData = [
+            {
+                label: 'Completion Percentage',
+                backgroundColor: "#4466F2",  // Assign a color to the bars
+                barThickness: 25,  // Set the thickness of the bars
+                data: data,  // The y-axis values (completion percentages)
+                borderWidth: 0,  // Set the border width to zero
+            }
+        ];
+
+        this.dataload = true;  // Data is ready, stop the loader
+      } 
+      , 
+
+      prepareActionsChartData(actionsData) {
+        // actionsData is an array with a single object at index 0
+        const actionDataObject = actionsData[0];
+
+        // Extract labels (keys) and data (values)
+        this.ActionsbarChartLabel = Object.keys(actionDataObject);  // ['New Actions', 'Active Actions', 'Due Actions']
+        const data = Object.values(actionDataObject);  // [61.111, 61.111, 0]
+
+        // Update the bar chart data
+        this.ActionsbarChartData = [
+            {
+                label: 'Action Distribution',
+                backgroundColor: "#FF6F61",  // Assign a color to the bars
+                barThickness: 25,  // Set the thickness of the bars
+                data: data,  // The y-axis values (percentages)
+                borderWidth: 0,  // Set the border width to zero
+            }
+        ];
+
+        this.dataload = true;  // Data is ready, stop the loader
+    } ,
 
     dealOverViewLineChartData() {
       this.lineChartLoad = true;
@@ -765,6 +850,95 @@ export default {
         });
     },
 
+
+    getLineChartFilterValue(filterValue) {
+      this.keyResultslineChartFilterValue = filterValue; // Update the selected filter value
+      this.barChartLoad = true; // Show loading state
+
+      // Send an Axios GET request with the selected filter value
+      this.axios
+        .get(route('dashboard') + `?status=${this.keyResultslineChartFilterValue}`)
+        .then((response) => {
+          // Update chart labels and data based on the response
+          this.keyResultsVerticallLineChartLabel = response.data.labels;
+          this.keyResultsVerticalLineChartData = response.data.data;
+
+          this.barChartLoad = false; // Hide loading state
+        })
+        .catch((error) => {
+          console.error('Error fetching chart data:', error);
+          this.barChartLoad = false; // Hide loading state
+        });
+    },
+
+    keyresultsOverViewLineChartData() {
+      this.barChartLoad = true;
+      this.axiosGet(route("okr.overview") + "?" + this.dealsFilter)
+        .then((response) => {
+          this.lineChartData.forEach((element, index) => {
+            element.data = response.data.deal_over_view[index];
+          });
+
+          this.openDeal = response.data.open_deal; // Total Open Deal
+          this.wonDeal = response.data.won_deal; // Total won Deal
+          this.lostDeal = response.data.lost_deal; // Total lost Deal
+          this.totalDealOverview = response.data.total_deal_overview;
+        })
+        .finally(() => {
+          this.barChartLoad = false;
+          this.initialResponseCount++;
+        });
+    },
+    keyresultsFilterValue(value) {
+      this.keyresultsFilter = value;
+      this.barChartLoad = true;
+      this.axiosGet(route("okr.overview") + "?" + this.keyresultsFilter)
+        .then((response) => {
+          if (
+            this.keyresultsFilter == "last_seven_days" ||
+            this.keyresultsFilter == "this_week" ||
+            this.keyresultsFilter == "last_week"
+          ) {
+            this.barChartLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+          } else if (
+            this.keyresultsFilter == "this_month" ||
+            this.keyresultsFilter == "last_month"
+          ) {
+            this.barChartLabels = response.data.deal_over_view[0].map((e, i) => {
+              return i + 1;
+            });
+          } else if (this.keyresultsFilter == "this_year" || this.keyresultsFilter == "total") {
+            this.barChartLabels = [
+              "Jan",
+              "Feb",
+              "Mar",
+              "Apr",
+              "May",
+              "Jun",
+              "Jul",
+              "Aug",
+              "Sep",
+              "Oct",
+              "Nov",
+              "Dec",
+            ];
+          }
+
+          this.lineChartData.forEach((element, index) => {
+            element.data = response.data.deal_over_view[index];
+          });
+
+          this.openDeal = response.data.open_deal; // Total Open Deal
+          this.wonDeal = response.data.won_deal; // Total won Deal
+          this.lostDeal = response.data.lost_deal; // Total lost Deal
+          this.totalDealOverview = response.data.total_deal_overview;
+        })
+        .finally(() => {
+          this.barChartLoad = false;
+        });
+    },
+
+
     getLineChartFilterValue(value) {
       this.lineChartFilterValue = value;
       this.pipelineDataload = true;
@@ -783,6 +957,27 @@ export default {
         })
         .finally(() => {
           this.pipelineDataload = false;
+        });
+    },
+
+    getKeyResultsLineChartFilterValue(value) {
+      this.keyResultslineChartFilterValue = value;
+      this.keyResultsDataLoad = true;
+      this.axiosGet(route("dashboard") + `?status=${this.keyResultslineChartFilterValue}`)
+        .then((response) => {
+          this.keyResultsVerticallLineChartLabel = response.data.deals_on_pipeline_name;
+
+          this.keyResultsVerticalLineChartData.forEach((bgColor, index) => {
+            bgColor.backgroundColor = response.data.background_color;
+          });
+
+          this.keyResultsVerticalLineChartData.forEach((element, index) => {
+            element.data = response.data.pipeline_total_deals;
+          });
+          this.keyResultsVerticalLineChartData[0].data.push(0);
+        })
+        .finally(() => {
+          this.keyResultsDataLoad = false;
         });
     },
   },
