@@ -60,11 +60,10 @@ class DashboardController extends Controller
         $keyResults = $this->service->getLastSixMonthsKeyResults();
         $keyResultsLabels = [];
 // TRUNCATE KEY RESULT TITLES
-foreach ($keyResults as $result) {
-    // Ensure $result is an array and has a 'title' key
-    if (is_array($result) && isset($result['title'])) {
-        $keyResultsLabels[] = Str::limit($result['title'], 50);
-    }
+            foreach ($keyResults as $result) {
+            if (is_array($result) && isset($result['title'])) {
+                 $keyResultsLabels[] = Str::limit($result['title'], 50);
+           }
 }
 
         $keyResultsdata = $keyResults;
