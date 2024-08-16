@@ -43,7 +43,7 @@
               <div
                 class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
               >
-                <h5 class="card-title mb-0">{{ $t("Objectives Rate") }}</h5>
+                <h5 class="card-title mb-0">{{ $t("Objectives Completion Rate") }}</h5>
               </div>
 
           <div class="row  h-5 dashboard-circle-widget ">
@@ -63,7 +63,7 @@
               <div
                 class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
               >
-                <h5 class="card-title mb-0">{{ $t("Actions Rate per week") }}</h5>
+                <h5 class="card-title mb-0">{{ $t("Actions Completion Rate") }}</h5>
               </div>
               <div class="row dashboard-circle-widget">
 
@@ -743,8 +743,8 @@ export default {
     
         prepareChartData(keyResultsData) {
         // Extract titles and completion percentages
-        this.KeyResultsbarChartLabel = keyResultsData.map(result => result.title.lenght > 30 ? 
-        result.title.substring(0, 30) + '...' : result.title);
+        this.KeyResultsbarChartLabel = keyResultsData.map(result => result.title.lenght > 5 ? 
+        result.title.substring(0, 5) + '...' : result.title);
         const data = keyResultsData.map(result => result.completion_percentage);
 
         // Update the bar chart data

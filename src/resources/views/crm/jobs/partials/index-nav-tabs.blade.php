@@ -8,7 +8,7 @@
 
 
 <!-- Nav tabs -->
-<ul style="display: block;background-color:white; gap: 5rem; list-style: none; padding: 10px; margin: 10px;">
+<ul style="display: block;background-color:white; gap: 5rem; list-style: none; padding: 3px; margin: 10px;">
     <li class="nav-item">
         {!! link_to_route($routeName, __('project.all'), $queryStrings, ['class' => 'nav-link', 'style' => $linkStyles . (request('status_id') == null ? $activeLinkStyles : '')]) !!}
     </li>

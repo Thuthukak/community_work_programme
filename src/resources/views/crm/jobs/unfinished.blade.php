@@ -81,10 +81,10 @@
 </div>
    <div class="filters" style="margin-left:20px;">
         <div class="filter-item">
-            <button class="btn filter-btn" type="button" id="projectstage" style="background-color: white; color: grey;" aria-haspopup="true" aria-expanded="false">
+            <button class="btn filter-btn" type="button" id="projectstage" style="background-color: white; color: grey; border-radius: 25px; padding:10px;" aria-haspopup="true" aria-expanded="false">
                 Project Progress <i class="fas fa-caret-down arrow-icon" id="dropdownArrow"></i>
             </button>
-            <div id="progressDropdown" class="dropdown-content">
+            <div id="progressDropdown" class="dropdown-content" style="margin-top:10px;">
                 @include('crm.jobs.partials.index-nav-tabs')
             </div>
         </div>
@@ -98,7 +98,7 @@
         </div>
         <div class="filter-item">
         <button class="filter-btn" id="Organizationlist" style="border-radius: 25px; padding:12px">Organization</button>
-        <div id="organizationDropdown" class="dropdown-content" style="display: none;">
+        <div id="organizationDropdown" class="dropdown-content" style="display: none; margin-top: 10px">
             <form id="organizationForm" class="filter-form">
                 <ul id="organizationListContainer"></ul>
                 <br>
@@ -109,7 +109,7 @@
         </div>
         <div class="filter-item">
         <button class="filter-btn" id="Projectvalue" style="border-radius: 25px; padding:12px">Project Value</button>
-        <div id="valueDropdown" class="dropdown-content" style="display: none;">
+        <div id="valueDropdown" class="dropdown-content" style="display: none; margin-top: 10px">
             <form id="projectValueForm" class="filter-form">
                 <div class="form-group">
                     <label for="minValue">Minimum Value</label>
@@ -126,7 +126,7 @@
         </div>
         <div class="filter-item">
         <button class="filter-btn" id="it-has" style="border-radius: 25px; padding:12px">Have</button>
-        <div id="classDropdown" class="dropdown-content" style="display: none;">
+        <div id="classDropdown" class="dropdown-content" style="display: none; margin-top: 10px">
             <form id="clausesForm" class="filter-form">
                 <label><input type="checkbox" name="Proposal">Proposal</label>
                 <label><input type="checkbox" name="Actions">Actions</label>
@@ -176,7 +176,7 @@
                 @endcan
                 <td>{{ $job->person->name }}</td>
                 <td>
-                    {{ link_to_route('jobs.show', __('app.show'), [$job], ['class' => 'btn btn-info btn-xs']) }}
+                    {{ link_to_route('jobs.show', __(''), [$job], ['class' => 'btn fa fa-search btn-info btn-xs']) }}
                 </td>
             </tr>
             @empty

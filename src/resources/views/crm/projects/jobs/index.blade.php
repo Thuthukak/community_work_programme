@@ -11,7 +11,7 @@
 <div class="action-buttons-container" style="margin-left:1250px">
 
 <div class="create-project-btn ml-auto">
-<button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#createTaskModal" data-project-id="{{ $project->id }}">{{ trans('Add Task') }}</button>
+<button class="btn btn-primary btn-sm p-2" data-toggle="modal" data-target="#createTaskModal" data-project-id="{{ $project->id }}">{{ trans('Add Task') }}</button>
     {!! html_link_to_route('projects.jobs.add-from-other-project', __('job.add_from_other_project'), [$project], ['class' => 'btn btn-success btn-sm p-2 mr-4', 'icon' => 'plus']) !!}
 </div>
 </div>
@@ -24,7 +24,7 @@
 @if ($jobs->isEmpty())
 <p class="no-task">{{ __('project.no_jobs') }},
 <div class="create-project-btn ml-auto">
-<a href="#" class="btn btn-warning btn-sm p-2"
+<a href="#" class="btn btn-primary btn-sm p-2"
    data-toggle="modal"
    data-target="#createTaskModal"
    data-project-id="{{ $project->id }}">
@@ -169,7 +169,7 @@
                     <div class="col-sm-4">
                         {!! FormField::price('price', [
                             'label'    => __('job.price'),
-                            'currency' => Option::get('money_sign', 'Rp'),
+                            'currency' => Option::get('money_sign', 'R'),
                             'value'    => 0,
                         ]) !!}
                     </div>

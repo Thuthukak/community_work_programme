@@ -119,7 +119,7 @@
     <!-- Filters on the left -->
     <div class="filters d-flex" style="margin-left: 20px;">
         <div class="filter-item">
-            <button class="btn filter-btn" type="button" id="projectstage" style="background-color: white; color: grey;" aria-haspopup="true" aria-expanded="false">
+            <button class="btn filter-btn" type="button" id="projectstage" style="background-color: white; color: grey; border-radius: 25px; padding:10px" aria-haspopup="true" aria-expanded="false">
                 Project Progress <i class="fas fa-caret-down arrow-icon" id="dropdownArrow"></i>
             </button>
             <div id="progressDropdown" class="dropdown-content">
@@ -137,8 +137,8 @@
         </div>
 
         <div class="filter-item">
-            <button class="filter-btn" id="Organizationlist" style="border-radius: 25px; padding:12px">Organization</button>
-            <div id="organizationDropdown" class="dropdown-content" style="display:none;">
+            <button class="filter-btn" id="Organizationlist" style="border-radius: 25px; padding:12px;">Organization</button>
+            <div id="organizationDropdown" class="dropdown-content" style="display:none; margin-top: 10px">
                 <form id="organizationForm" class="filter-form">
                     <ul id="organizationListContainer"></ul>
                     <br>
@@ -153,7 +153,7 @@
 
         <div class="filter-item">
             <button class="filter-btn" id="Projectvalue" style="border-radius: 25px; padding:12px">Project Value</button>
-            <div id="valueDropdown" class="dropdown-content" style="display: none;">
+            <div id="valueDropdown" class="dropdown-content" style="display: none; margin-top: 10px">
                 <form id="projectValueForm" class="filter-form">
                     <div class="form-group">
                         <label for="minValue">Minimum Value</label>
@@ -171,7 +171,7 @@
 
         <div class="filter-item">
             <button class="filter-btn" id="it-has" style="border-radius: 25px; padding:12px">Have</button>
-            <div id="classDropdown" class="dropdown-content" style="display: none;">
+            <div id="classDropdown" class="dropdown-content" style="display: none; margin-top: 10px">
                 <form id="clausesForm" class="filter-form">
                     <label><input type="checkbox" name="Proposal">Proposal</label>
                     <label><input type="checkbox" name="Actions">Actions</label>
@@ -249,7 +249,7 @@
                                 </td>
                                 <td>
                                     {!! html_link_to_route('projects.show', '', [$project->id], ['icon' => 'search', 'class' => 'btn btn-info btn-xs', 'title' => trans('app.show')]) !!}
-                                    <button class="btn btn-warning btn-xs edit-project-btn" data-id="{{ $project->id }}" data-toggle="modal" data-target="#editProjectModal" title="{{ trans('app.edit') }}">
+                                    <button class="btn btn-primary btn-xs edit-project-btn" data-id="{{ $project->id }}" data-toggle="modal" data-target="#editProjectModal" title="{{ trans('app.edit') }}">
                                         <i class="fas fa-edit"></i>
                                     </button>
                                 </td>
