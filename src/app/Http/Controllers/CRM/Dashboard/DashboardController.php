@@ -6,6 +6,7 @@ use App\Filters\CRM\Dashboard\DashboardFilter;
 use App\Http\Controllers\Controller;
 use App\Models\CRM\Deal\Deal;
 use App\Services\CRM\Dashboard\DashboardService;
+use Illuminate\Support\Str;
 
 class DashboardController extends Controller
 {
@@ -57,9 +58,17 @@ class DashboardController extends Controller
         $keyResultsdata = [];
 
         $keyResults = $this->service->getLastSixMonthsKeyResults();
-        $keyResultsLabels =array_column($keyResults, 'title');
+        $keyResultsLabels = [];
+// TRUNCATE KEY RESULT TITLES
+foreach ($keyResults as $result) {
+    // Ensure $result is an array and has a 'title' key
+    if (is_array($result) && isset($result['title'])) {
+        $keyResultsLabels[] = Str::limit($result['title'], 50);
+    }
+}
 
         $keyResultsdata = $keyResults;
+        
 
         $netConfidenceScore = $this->getNetConfidenceScore();
         $formattedNetConfidenceScore = $netConfidenceScore !== null ? number_format($netConfidenceScore, 2) : null;

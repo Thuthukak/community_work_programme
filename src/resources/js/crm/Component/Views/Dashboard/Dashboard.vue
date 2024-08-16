@@ -743,7 +743,8 @@ export default {
     
         prepareChartData(keyResultsData) {
         // Extract titles and completion percentages
-        this.KeyResultsbarChartLabel = keyResultsData.map(result => result.title);
+        this.KeyResultsbarChartLabel = keyResultsData.map(result => result.title.lenght > 30 ? 
+        result.title.substring(0, 30) + '...' : result.title);
         const data = keyResultsData.map(result => result.completion_percentage);
 
         // Update the bar chart data
