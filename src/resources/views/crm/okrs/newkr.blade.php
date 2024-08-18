@@ -54,7 +54,7 @@
                     <input type="number" class="form-control kr-init" name="krs_init" id="keyresult_initaial" value="{{ old('krs_init') ? old('krs_init') : '0' }}">
                 </div>
                 <div class="form-group col-md-2">
-                    <label class="text-primary" for="keyresult_target">The current value <strong class="text-danger">{{ $isError ? $errors->first('krs_now'): '' }}</strong></label>
+                    <label class="text-primary" for="keyresult_target">Current value <strong class="text-danger">{{ $isError ? $errors->first('krs_now'): '' }}</strong></label>
                     <input type="number" class="form-control kr-now" name="krs_now" id="keyresult_now" value="{{ old('krs_now') ? old('krs_now') : '0' }}">
                 </div>
                 <div class="form-group col-md-2">
