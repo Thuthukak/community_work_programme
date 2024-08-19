@@ -122,7 +122,7 @@
             <button class="btn filter-btn" type="button" id="projectstage" style="background-color: white; color: grey; border-radius: 25px; padding:10px" aria-haspopup="true" aria-expanded="false">
                 Project Progress <i class="fas fa-caret-down arrow-icon" id="dropdownArrow"></i>
             </button>
-            <div id="progressDropdown" class="dropdown-content">
+            <div id="progressDropdown" class="dropdown-content" style="padding:0px; margin-top:10px;">
                 @include('crm.projects.partials.index-nav-tabs')
             </div>
         </div>
