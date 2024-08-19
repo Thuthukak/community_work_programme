@@ -754,7 +754,7 @@ export default {
                 borderWidth: 0,  // Set the border width to zero
             },
             {
-                label: 'InProgress',
+                label: 'Active',
                 backgroundColor: "#36A2EB",  // Color for the second dataset
                 data: responseData.current_gt_0_and_lt_target_data,  // Data for the second dataset
                 barThickness: 25,

@@ -37,7 +37,10 @@
                     <div class="circle" data-value="{{ $company->okrs[$i]['objective']->getScore()/100 }}">
                         <div>{{ $company->okrs[$i]['objective']->getScore() }}%</div>
                     </div>
-                    <div class="circle-progress-text">{{ $company->okrs[$i]['objective']->title }}</div>
+                    <div class="circle-progress-text">
+    {{ Str::limit($company->okrs[$i]['objective']->title, 50) }}
+</div>
+
                 </div>
                 @endfor
             @endif
