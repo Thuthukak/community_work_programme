@@ -254,5 +254,17 @@ class Project extends Model
         return $this->hasMany(Issue::class);
     }
 
+
+    /**
+     * Project has many actions relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function actions()
+    {
+        return $this->hasMany(Action::class);
+    }
+
+
     
 }

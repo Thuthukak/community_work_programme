@@ -29,9 +29,16 @@ class DashboardController extends Controller
         $ActionbarChartLabel = [];
         $ActionbarChartData = [];
 
-        $actionsData = $this->getActionsdata($ActionbarChartData);
-        $ActionbarChartLabel = $actionsData['labels'];
-        $ActionbarChartData = $actionsData['data'];
+        $actionsData = $this->service->getActions();
+
+        // Extract month labels
+        $actionLabels = array_column($actionsData, 'month');
+    
+        // Extract the data for each category
+        $newActionsData = array_column($actionsData, 'new_actions');
+        $activeCurrentActionsData = array_column($actionsData, 'active_current_actions');
+        $dueActionsData = array_column($actionsData, 'due_actions');
+    
 
 
         // Deal Both
@@ -57,8 +64,15 @@ class DashboardController extends Controller
         $keyResultsdata = [];
 
         $keyResults = $this->service->getLastSixMonthsKeyResults();
-        $keyResultsLabels =array_column($keyResults, 'title');
 
+        // Extract month labels
+        $keyResultsLabels = array_column($keyResults, 'month');
+    
+        // Extract the data for each category
+        $initialEqualsCurrentData = array_column($keyResults, 'initial_equals_current');
+        $currentGt0AndLtTargetData = array_column($keyResults, 'current_gt_0_and_lt_target');
+        $currentEqualsTargetData = array_column($keyResults, 'current_equals_target');
+    
         $keyResultsdata = $keyResults;
 
         $netConfidenceScore = $this->getNetConfidenceScore();
@@ -145,16 +159,21 @@ class DashboardController extends Controller
                 'background_color' => $pipelineBackgroundColor,
                 'top_five_owners_name' => $fiveOwnerName,
                 'five_owner_deal' => $fiveOwnerDeals,
-                'action_barchart_labels' => $ActionbarChartLabel,
-                'action_barchart_data' => $ActionbarChartData,
+                'action_barchart_labels' => $actionLabels,
+                'new_actions_data' => $newActionsData,
+                'active_current_actions_data' => $activeCurrentActionsData,
+                'due_actions_data' => $dueActionsData,
                 'net_Confidence_Score' => $formattedNetConfidenceScore,
                 'total_Deals_Chart_Element' => $totalDealsChartElement,
                 'total_okr' => $totalOkr,
                 'okrs' => $okrs,
                 'objectives_Progress' => $formattedProgress,
                 'actionRatePerWeek' => $actionRatePerWeek,
-                'action_barchart_labels' => $keyResultsLabels,
-                'key_result_barchart_data' => $keyResultsdata,
+                'keyResults_barchart_labels' => $keyResultsLabels,
+                'keyResults_barchart_labels' => $keyResultsLabels,
+                'initial_equals_current_data' => $initialEqualsCurrentData,
+                'current_gt_0_and_lt_target_data' => $currentGt0AndLtTargetData,
+                'current_equals_target_data' => $currentEqualsTargetData,
                 'rateActionsCreatedPerDay' => $rateActionsCreatedPerDayArray,
                 'rateActionsDonePerDayArray' => $rateActionsDonePerDayArray,
                 'rateActionsCreatedPerWeek' => $rateActionsCreatedPerWeekArray,

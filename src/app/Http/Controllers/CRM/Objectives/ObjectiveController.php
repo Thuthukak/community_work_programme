@@ -34,4 +34,6 @@ class ObjectiveController extends Controller
     {
         return $objective->getRelatedKrRecord();
     }
+
+
 }

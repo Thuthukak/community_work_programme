@@ -58,10 +58,15 @@
     color: grey;
     border-radius: 25px;
 }
+.search-item {
+    margin-left: auto;
+}
+
 .search-field {
     padding: 12px;
     border-radius: 25px;
     border: 1px solid #ccc;
+    min-width: 200px; /* Adjust the width as needed */
 }
 </style>
 @section('title', __('job.on_progress'))
@@ -79,24 +84,30 @@
         </div>
             {!! Form::close() !!}
 </div>
-   <div class="filters" style="margin-left:20px;">
-        <div class="filter-item">
-            <button class="btn filter-btn" type="button" id="projectstage" style="background-color: white; color: grey;" aria-haspopup="true" aria-expanded="false">
-                Project Progress <i class="fas fa-caret-down arrow-icon" id="dropdownArrow"></i>
-            </button>
-            <div id="progressDropdown" class="dropdown-content">
-                @include('crm.jobs.partials.index-nav-tabs')
-            </div>
+<div class="filters" style="margin-left:20px;">
+    <div class="filter-item">
+        <button class="btn filter-btn" type="button" id="projectslist" style="background-color: white; color: grey;    padding:12px ; border-radius: 25px;" aria-haspopup="true" aria-expanded="false">
+            Projects all <i class="fas fa-caret-down arrow-icon" id="dropdownArrow"></i>
+        </button>
+        <div id="projectsDropdown" class="dropdown-content">
+            <form id="getTasks">
+                <ul class="projectsList" id="projectsListContainer">
+                </ul>   
+                <br>
+            <button type="button" id="clearProjects" class="btn btn-clear pl-sm-0">Clear</button>
+            <button type="button" id="applyProjects" class="btn btn-primary">Apply</button>
+            </form>
         </div>
-        <div class="filter-item">
-            <button class="filter-btn" style="border-radius: 25px; padding:12px" id="datefilter">Date Range</button>
-            <div id="dateDropdown" class="dropdown-content-date">
-                <form id="dateRangeForm" class="filter-form">
-                    @include('crm.projects.partials.dateFilterDropdownCustom')
-                </form>
-            </div>
+    </div>
+    <div class="filter-item">
+        <button class="filter-btn" style="border-radius: 25px; padding:12px" id="datefilter">Created at</button>
+        <div id="dateDropdown" class="dropdown-content">
+            <form id="dateRangeForm" class="filter-form">
+                @include('crm.projects.partials.dateFilterDropdownCustom')
+            </form>
         </div>
-        <div class="filter-item">
+    </div>
+    <div class="filter-item">
         <button class="filter-btn" id="Organizationlist" style="border-radius: 25px; padding:12px">Organization</button>
         <div id="organizationDropdown" class="dropdown-content" style="display: none;">
             <form id="organizationForm" class="filter-form">
@@ -106,25 +117,8 @@
                 <button type="button" id="applyOrganizations" class="btn btn-primary">Apply</button>
             </form>
         </div>
-        </div>
-        <div class="filter-item">
-        <button class="filter-btn" id="Projectvalue" style="border-radius: 25px; padding:12px">Project Value</button>
-        <div id="valueDropdown" class="dropdown-content" style="display: none;">
-            <form id="projectValueForm" class="filter-form">
-                <div class="form-group">
-                    <label for="minValue">Minimum Value</label>
-                    <input type="number" id="minValue" class="form-control" placeholder="Min value" step="1">
-                </div>
-                <div class="form-group">
-                    <label for="maxValue">Maximum Value</label>
-                    <input type="number" id="maxValue" class="form-control" placeholder="Max value" step="1">
-                </div>
-                <button type="button" id="clearValues" class="btn btn-clear pl-sm-0">Clear</button>
-                <button type="button" id="applyValues" class="btn btn-primary">Apply</button>
-            </form>
-            </div>
-        </div>
-        <div class="filter-item">
+    </div>
+    <div class="filter-item">
         <button class="filter-btn" id="it-has" style="border-radius: 25px; padding:12px">Have</button>
         <div id="classDropdown" class="dropdown-content" style="display: none;">
             <form id="clausesForm" class="filter-form">
@@ -135,14 +129,21 @@
                 <button type="button" id="applyClauses" class="btn btn-primary">Apply</button>
             </form>
         </div>
-        </div>
     </div>
+    
+    <!-- New Search Bar -->
+    <div class="filter-item search-item" style="margin-left:auto;">
+        <input type="text" class="search-field" id="filterSearch" placeholder="Search...">
+    </div>
+</div>
+
     <div class="table-wrapper shadow" style="margin:20px">
     <table class="task-progress-table table table-condensed">
         <thead>
             <th>{{ __('app.table_no') }}</th>
             <th>{{ __('job.name') }}</th>
             <th>{{ __('project.name') }}</th>
+            <th class="text-center">{{ __('job.created_at') }}</th>
             <th class="text-center">{{ __('job.tasks_count') }}</th>
             <th class="text-center">{{ __('job.progress') }}</th>
             @can('see-pricings', new App\Models\ProjectManagement\Projects\ProjectJob)
@@ -169,6 +170,7 @@
                     @endif
                 </td>
                 <td>{{ $job->project->nameLink() }}</td>
+                <td class="text-center" style="width: 120px;">{{ $job->project->created_at->format('Y-m-d') }}</td>
                 <td class="text-center">{{ $job->tasks_count = $job->tasks->count() }}</td>
                 <td class="text-center">{{ format_decimal($job->progress) }} %</td>
                 @can('see-pricings', $job)
@@ -185,6 +187,7 @@
         </tbody>
         <tfoot>
             <tr>
+                <th></th>
                 <th class="text-right" colspan="3">{{ __('app.total') }}</th>
                 <th class="text-center">{{ $jobs->sum('tasks_count') }}</th>
                 <th class="text-center">{{ format_decimal($jobs->avg('progress')) }} %</th>
@@ -201,46 +204,205 @@
 
 @section('script')
 <!-- Include Flatpickr JS from cdnjs -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.js"></script>
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById("projectstage").addEventListener("click", toggleDropdown);
+        document.getElementById("projectslist").addEventListener("click", toggleDropdown);
 
         function toggleDropdown() {
-            var dropdown = document.getElementById('progressDropdown');
+            var dropdown = document.getElementById('projectsDropdown');
             if (dropdown.style.display === "block") {
                 dropdown.style.display = "none";
             } else {
-                closeAllDropdowns();
                 dropdown.style.display = "block";
+
+
+                var url = `{{ route('projects.list') }}`;
+
+
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Clear any existing list items
+                    const projectListContainer = document.getElementById('projectsListContainer');
+                    projectListContainer.innerHTML = '';                  
+
+                    // Create list items for each project
+                    data.forEach(project => {
+                    const listItem = document.createElement('li');
+
+                    const checkbox = document.createElement('input');
+                    checkbox.type = 'checkbox';
+                    checkbox.id = `project-${project.id}`;
+                    checkbox.name = 'selected_projects';
+                    checkbox.value = project.id;
+
+                    const label = document.createElement('label');
+                    label.htmlFor = `project-${project.id}`;
+                    label.textContent = project.name;
+
+                    listItem.appendChild(checkbox);
+                    listItem.appendChild(label);
+                    projectListContainer.appendChild(listItem);
+                });
+
+                 
+
+                })
+                .catch(error => {
+                    console.error('Error fetching projects data:', error);
+                });
+
+
             }
         }
+        document.getElementById("clearProjects").addEventListener("click", function() {
+                const checkboxes = document.querySelectorAll('.projectsList input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+            });
 
-        document.getElementById("datefilter").addEventListener("click", function() { 
+            document.getElementById("applyProjects").addEventListener("click", function() {
+            const selectedProjects = [];
+            const checkboxes = document.querySelectorAll('.projectsList input[type="checkbox"]:checked');
+            checkboxes.forEach(checkbox => {
+                selectedProjects.push(checkbox.value);
+            });
+
+            if(selectedProjects.length > 0) {
+                console.log('Selected Projects:', selectedProjects);
+
+                const idsString =  selectedProjects.join(',');
+
+                var baseUrl = "{{ route('jobs.list') }}"
+
+                var url = `${baseUrl}?projects=${encodeURIComponent(idsString)}`;
+                console.log(url);
+
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                // Clear the existing table rows
+                const tableBody = document.querySelector('table tbody');
+                tableBody.innerHTML = ''; // Clear existing table rows
+
+                const jobs = data.jobs.data; // Assuming 'data.jobs.data' contains the filtered jobs
+
+                // Check if there are any jobs returned
+                if (jobs.length === 0) {
+                    const noResultsRow = `<tr><td colspan="8" class="text-center">{{ trans('No Tasks Found') }}</td></tr>`;
+                    tableBody.innerHTML = noResultsRow;
+                } else {
+                    console.log(data);
+
+                    jobs.forEach((job, key) => {
+                        const tasksList = job.tasks.map(task => `
+                            <li style="cursor:pointer" title="${task.progress} %">
+                                <i class="fa fa-battery-${Math.ceil(4 * task.progress / 100)}"></i>
+                                ${task.name}
+                            </li>
+                        `).join('');
+
+                        const row = `
+                            <tr>
+                                <td>${data.jobs.from + key}</td>
+                                <td>
+                                    <a href="${job.show_url}">${job.name}</a>
+                                    ${tasksList ? `<ul>${tasksList}</ul>` : ''}
+                                </td>
+                                <td><a href="${job.project_Show_Link}">${job.project_name}</a></td>
+                                <td class="text-center" style="width: 120px;">${job.target_start_date}</td>
+                                <td class="text-center">${job.tasks_count || 0}</td>
+                                <td class="text-center">${job.progress}</td>
+                               <td class="text-right">${job.formatted_price}</td>
+                                <td>${job.person_name}</td>
+                                <td>
+                                    <a href="${job.show}" class="btn btn-info btn-xs" title="${job.name}">
+                                        <i class="fas fa-search"></i> {{ __('app.show') }}
+                                    </a>
+                                </td>
+                            </tr>`;
+                        
+                        tableBody.innerHTML += row; // Append the new row to the table
+                    });
+
+                    const tableFooter = document.querySelector('table tfoot');
+                    const footerRow = `
+                            <tr>
+                                <th></th>
+                                <th class="text-right" colspan="3">{{ __('app.total') }}</th>
+                                <th class="text-center">${data.totalTasksCount}</th>
+                                <th class="text-center">${data.formattedAvgProgress}</th>
+                                @can('see-pricings', new App\Models\ProjectManagement\Projects\ProjectJob)
+                                <th class="text-right">${data.formattedTotalPrice}</th>
+                                @endcan
+                                <th colspan="2"></th>
+                            </tr>`;
+
+                tableFooter.innerHTML = footerRow;
+                }
+
+                })
+                .catch(error => {
+                    console.error('Error fetching project data:', error);
+                });
+                
+            } else {
+                console.log('No projects selected.');
+            }
+
+            
+
+            document.getElementById('projectsDropdown').style.display = 'none';
+        });
+
+        document.getElementById("datefilter").addEventListener("click", function(event) {
             event.stopPropagation();
             var dropdown = document.getElementById('dateDropdown');
             if (dropdown.style.display === "block") {
                 dropdown.style.display = "none";
             } else {
-                closeAllDropdowns();
+                closeAllDropdowns();  // Make sure this function is defined elsewhere to close other dropdowns
                 dropdown.style.display = "block";
 
-            flatpickr("#startDate", {
-                dateFormat: "Y-m-d"
-            });
-
-            flatpickr("#endDate", {
-                dateFormat: "Y-m-d"
-            });
-
-                }
+                // Initialize flatpickr for the start and end date inputs
+                flatpickr("#startDate", {
+                    dateFormat: "Y-m-d"
+                });
+                flatpickr("#endDate", {
+                    dateFormat: "Y-m-d"
+                });
+            }
         });
 
         document.getElementById("clearDates").addEventListener("click", function() {
             document.getElementById("startDate")._flatpickr.clear();
             document.getElementById("endDate")._flatpickr.clear();
         });
+
 
         document.getElementById("applyDates").addEventListener("click", function() {
             var startDate = document.getElementById("startDate").value;
@@ -249,6 +411,10 @@
             // Add your code to handle the selected dates
             toggleDropdown('dateDropdown');
         });
+
+
+
+
 
         function updateButtonText(buttonId, text) {
             var button = document.getElementById(buttonId);
@@ -324,14 +490,106 @@
         });
 
         document.getElementById("applyOrganizations").addEventListener("click", function() {
-            const selectedOrganizations = [];
-            const checkboxes = document.querySelectorAll('.organization-checkbox:checked');
-            checkboxes.forEach(checkbox => {
-                selectedOrganizations.push({
-                    id: checkbox.value,
-                    name: checkbox.nextElementSibling.textContent
+                const selectedOrganizations = [];
+                const checkboxes = document.querySelectorAll('.organization-checkbox:checked');
+                checkboxes.forEach(checkbox => {
+                    selectedOrganizations.push(checkbox.value); // Only push the ID (value) instead of an object
                 });
-            });
+
+                if (selectedOrganizations.length > 0) {
+                    console.log('Selected Organizations:', selectedOrganizations);
+
+                    const idsString = selectedOrganizations.join(','); // Join the IDs into a comma-separated string
+
+                    var baseUrl = "{{ route('jobs.list') }}";
+
+                    var url = `${baseUrl}?Organization=${encodeURIComponent(idsString)}`;
+                    console.log(url);
+
+
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                // Clear the existing table rows
+                const tableBody = document.querySelector('table tbody');
+                tableBody.innerHTML = ''; // Clear existing table rows
+
+                const jobs = data.jobs.data; // Assuming 'data.jobs.data' contains the filtered jobs
+
+                // Check if there are any jobs returned
+                if (jobs.length === 0) {
+                    const noResultsRow = `<tr><td colspan="8" class="text-center">{{ trans('No Tasks Found') }}</td></tr>`;
+                    tableBody.innerHTML = noResultsRow;
+                } else {
+                    console.log(data);
+
+                    jobs.forEach((job, key) => {
+                        const tasksList = job.tasks.map(task => `
+                            <li style="cursor:pointer" title="${task.progress} %">
+                                <i class="fa fa-battery-${Math.ceil(4 * task.progress / 100)}"></i>
+                                ${task.name}
+                            </li>
+                        `).join('');
+
+                        const row = `
+                            <tr>
+                                <td>${data.jobs.from + key}</td>
+                                <td>
+                                    <a href="${job.show_url}">${job.name}</a>
+                                    ${tasksList ? `<ul>${tasksList}</ul>` : ''}
+                                </td>
+                                <td><a href="${job.project_Show_Link}">${job.project_name}</a></td>
+                                <td class="text-center" style="width: 120px;">${job.target_start_date}</td>
+                                <td class="text-center">${job.tasks_count || 0}</td>
+                                <td class="text-center">${job.progress}</td>
+                               <td class="text-right">${job.formatted_price}</td>
+                                <td>${job.person_name}</td>
+                                <td>
+                                    <a href="${job.show}" class="btn btn-info btn-xs" title="${job.name}">
+                                        <i class="fas fa-search"></i> {{ __('app.show') }}
+                                    </a>
+                                </td>
+                            </tr>`;
+                        
+                        tableBody.innerHTML += row; // Append the new row to the table
+                    });
+
+                    const tableFooter = document.querySelector('table tfoot');
+                    const footerRow = `
+                            <tr>
+                                <th></th>
+                                <th class="text-right" colspan="3">{{ __('app.total') }}</th>
+                                <th class="text-center">${data.totalTasksCount}</th>
+                                <th class="text-center">${data.formattedAvgProgress}</th>
+                                @can('see-pricings', new App\Models\ProjectManagement\Projects\ProjectJob)
+                                <th class="text-right">${data.formattedTotalPrice}</th>
+                                @endcan
+                                <th colspan="2"></th>
+                            </tr>`;
+
+                tableFooter.innerHTML = footerRow;
+                }
+
+                })
+                .catch(error => {
+                    console.error('Error fetching project data:', error);
+                });
+                
+            } else {
+                console.log('No tasks selected.');
+            }
+
             console.log('Selected Organizations:', selectedOrganizations);
             document.getElementById('organizationDropdown').style.display = 'none';
         });
@@ -363,12 +621,102 @@
         });
 
         document.getElementById("applyClauses").addEventListener("click", function() {
-            const selectedClauses = [];
+            const selectedClasses = [];
             const checkboxes = document.querySelectorAll('#clausesForm input[type="checkbox"]:checked');
             checkboxes.forEach(checkbox => {
-                selectedClauses.push(checkbox.name);
+                selectedClasses.push(checkbox.name);
             });
-            console.log('Selected Clauses:', selectedClauses);
+
+            if (selectedClasses.length > 0) {
+                console.log('Selected Classes:', selectedClasses);
+
+                var baseUrl = "{{ route('jobs.list') }}";
+                var url = `${baseUrl}?classes=${encodeURIComponent(JSON.stringify(selectedClasses))}`;
+                console.log(url);
+
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                // Clear the existing table rows
+                const tableBody = document.querySelector('table tbody');
+                tableBody.innerHTML = ''; // Clear existing table rows
+
+                const jobs = data.jobs.data; // Assuming 'data.jobs.data' contains the filtered jobs
+
+                // Check if there are any jobs returned
+                if (jobs.length === 0) {
+                    const noResultsRow = `<tr><td colspan="8" class="text-center">{{ trans('No Tasks Found') }}</td></tr>`;
+                    tableBody.innerHTML = noResultsRow;
+                } else {
+                    console.log(data);
+
+                    jobs.forEach((job, key) => {
+                        const tasksList = job.tasks.map(task => `
+                            <li style="cursor:pointer" title="${task.progress} %">
+                                <i class="fa fa-battery-${Math.ceil(4 * task.progress / 100)}"></i>
+                                ${task.name}
+                            </li>
+                        `).join('');
+
+                        const row = `
+                            <tr>
+                                <td>${data.jobs.from + key}</td>
+                                <td>
+                                    <a href="${job.show_url}">${job.name}</a>
+                                    ${tasksList ? `<ul>${tasksList}</ul>` : ''}
+                                </td>
+                                <td><a href="${job.project_Show_Link}">${job.project_name}</a></td>
+                                <td class="text-center" style="width: 120px;">${job.target_start_date}</td>
+                                <td class="text-center">${job.tasks_count || 0}</td>
+                                <td class="text-center">${job.progress}</td>
+                               <td class="text-right">${job.formatted_price}</td>
+                                <td>${job.person_name}</td>
+                                <td>
+                                    <a href="${job.show}" class="btn btn-info btn-xs" title="${job.name}">
+                                        <i class="fas fa-search"></i> {{ __('app.show') }}
+                                    </a>
+                                </td>
+                            </tr>`;
+                        
+                        tableBody.innerHTML += row; // Append the new row to the table
+                    });
+
+                    const tableFooter = document.querySelector('table tfoot');
+                    const footerRow = `
+                            <tr>
+                                <th></th>
+                                <th class="text-right" colspan="3">{{ __('app.total') }}</th>
+                                <th class="text-center">${data.totalTasksCount}</th>
+                                <th class="text-center">${data.formattedAvgProgress}</th>
+                                @can('see-pricings', new App\Models\ProjectManagement\Projects\ProjectJob)
+                                <th class="text-right">${data.formattedTotalPrice}</th>
+                                @endcan
+                                <th colspan="2"></th>
+                            </tr>`;
+
+                tableFooter.innerHTML = footerRow;
+                }
+
+                })
+                .catch(error => {
+                    console.error('Error fetching project data:', error);
+                });
+                
+            } else {
+                console.log('No tasks selected.');
+            }
+          
             document.getElementById('classDropdown').style.display = 'none';
         });
 
@@ -414,4 +762,6 @@
 
     });
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.js"></script>
+
 @endsection

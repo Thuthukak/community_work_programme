@@ -43,14 +43,14 @@
               <div
                 class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
               >
-                <h5 class="card-title mb-0">{{ $t("Objectives Rate") }}</h5>
+                <h5 class="card-title mb-0">{{ $t("Objectives ") }}</h5>
               </div>
 
           <div class="row  h-5 dashboard-circle-widget ">
               <div class="col-xl-12  mb-4 mb-xl-0" style= "margin-top:50px">
                 <app-widget
                   :type="'app-widget-with-circle'"
-                  :label="$t('Obectives  progress')"
+                  :label="$t('Obectives  Completion Rate')"
                   :number="objectivesProgress"
                 />
               </div>
@@ -63,14 +63,14 @@
               <div
                 class="card-header bg-transparent p-primary d-flex justify-content-between align-items-center"
               >
-                <h5 class="card-title mb-0">{{ $t("Actions Rate per week") }}</h5>
+                <h5 class="card-title mb-0">{{ $t("Actions") }}</h5>
               </div>
               <div class="row dashboard-circle-widget">
 
                 <div class="col-xl-12  mb-4 mb-xl-0" style= "margin-top:50px">
                   <app-widget
                   :type="'app-widget-with-circle'"
-                  :label="$t('actions completion rate')"
+                  :label="$t('Actions completion Rate')"
                   :number="actionsRate"
                 />
               </div>
@@ -698,9 +698,8 @@ export default {
 
             // ObjectivesProgress
             this.sendingRate = response.data.sending_rate;
-            this.prepareChartData(response.data.key_result_barchart_data);
-            this.prepareActionsChartData(response.data.action_barchart_data);
-                       //acceptance rate
+            this.prepareChartData(response.data);
+            this.prepareActionsChartData(response.data);                       //acceptance rate
             this.acceptanceRate = response.data.acceptance_rate;
 
             //Objectives Key results 
@@ -741,47 +740,69 @@ export default {
         });
     },
     
-        prepareChartData(keyResultsData) {
-        // Extract titles and completion percentages
-        this.KeyResultsbarChartLabel = keyResultsData.map(result => result.title);
-        const data = keyResultsData.map(result => result.completion_percentage);
+    prepareChartData(responseData) {
+        // Extract labels (months)
+        this.KeyResultsbarChartLabel = responseData.keyResults_barchart_labels;
 
-        // Update the bar chart data
+        // Update the bar chart data with the three different datasets
         this.keyResultsbarChartData = [
             {
-                label: 'Completion Percentage',
-                backgroundColor: "#4466F2",  // Assign a color to the bars
+                label: 'Initial = Current',
+                backgroundColor: "#FF6384",  // Color for the first dataset
+                data: responseData.initial_equals_current_data,  // Data for the first dataset
                 barThickness: 25,  // Set the thickness of the bars
-                data: data,  // The y-axis values (completion percentages)
                 borderWidth: 0,  // Set the border width to zero
+            },
+            {
+                label: 'Current > 0 and < Target',
+                backgroundColor: "#36A2EB",  // Color for the second dataset
+                data: responseData.current_gt_0_and_lt_target_data,  // Data for the second dataset
+                barThickness: 25,
+                borderWidth: 0,
+            },
+            {
+                label: 'Current = Target',
+                backgroundColor: "#FFCE56",  // Color for the third dataset
+                data: responseData.current_equals_target_data,  // Data for the third dataset
+                barThickness: 25,
+                borderWidth: 0,
             }
         ];
 
         this.dataload = true;  // Data is ready, stop the loader
-      } 
-      , 
+    },
 
-      prepareActionsChartData(actionsData) {
-        // actionsData is an array with a single object at index 0
-        const actionDataObject = actionsData[0];
+    prepareActionsChartData(responseData) {
+        // Extract labels (months)
+        this.ActionsbarChartLabel = responseData.action_barchart_labels;
 
-        // Extract labels (keys) and data (values)
-        this.ActionsbarChartLabel = Object.keys(actionDataObject);  // ['New Actions', 'Active Actions', 'Due Actions']
-        const data = Object.values(actionDataObject);  // [61.111, 61.111, 0]
-
-        // Update the bar chart data
+        // Update the bar chart data with the three different datasets
         this.ActionsbarChartData = [
             {
-                label: 'Action Distribution',
-                backgroundColor: "#FF6F61",  // Assign a color to the bars
+                label: 'New Actions',
+                backgroundColor: "#FF6384",  // Color for the first dataset
+                data: responseData.new_actions_data,  // Data for the first dataset
                 barThickness: 25,  // Set the thickness of the bars
-                data: data,  // The y-axis values (percentages)
                 borderWidth: 0,  // Set the border width to zero
+            },
+            {
+                label: 'Active Current Actions',
+                backgroundColor: "#36A2EB",  // Color for the second dataset
+                data: responseData.active_current_actions_data,  // Data for the second dataset
+                barThickness: 25,
+                borderWidth: 0,
+            },
+            {
+                label: 'Due Actions',
+                backgroundColor: "#FFCE56",  // Color for the third dataset
+                data: responseData.due_actions_data,  // Data for the third dataset
+                barThickness: 25,
+                borderWidth: 0,
             }
         ];
 
         this.dataload = true;  // Data is ready, stop the loader
-    } ,
+    },
 
     dealOverViewLineChartData() {
       this.lineChartLoad = true;

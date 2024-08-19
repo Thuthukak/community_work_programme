@@ -119,13 +119,18 @@ Route::get('proposal', function () {
 
 // Route::resource('projects', [ProjectsController::class]);
 
+//Project filters 
+
+Route::get('/projects/all'  , [ProjectsController::class, 'getProjectByFilter'])->name('projects.get');
+Route::get('/projects/list'  , [ProjectsController::class, 'getProjects'])->name('projects.list');
+
 Route::get('/projects', [ProjectsController::class, 'index'])->name('projects.index');
 Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.store');
 Route::get('projects/create', [ProjectsController::class, 'create'])->name('projects.create');
 Route::get('projects/{project}/delete', [ProjectsController::class, 'delete'])->name('projects.delete');
 Route::get('projects/destroy', [ProjectsController::class, 'destroy'])->name('projects.destroy');
 Route::delete('projects/{project}', [ProjectsController::class, 'destroy'])->name('projects.destroy');
-Route::post('projects/filter', [ProjectController::class, 'filter'])->name('projects.filter');
+Route::post('projects/filter', [ProjectsController::class, 'filter'])->name('projects.filter');
 
 
 
@@ -193,6 +198,7 @@ Route::post('subscriptions/store', [SubscriptionsController::class, 'store'])->n
      */
     Route::get('jobs/', [App\Http\Controllers\ProjectManagement\JobsController:: class ,'index'])->name('jobs.index');
     Route::get('jobs/{job}', [App\Http\Controllers\ProjectManagement\JobsController::class ,'show'])->name( 'jobs.show');
+    Route::get('tasks/list'  , [App\Http\Controllers\ProjectManagement\JobsController::class, 'getTasksByFilter'])->name('jobs.list');
 
 
       /*
@@ -259,6 +265,7 @@ Route::patch('issues/{issue}/options', [OptionController::class ,'update'])->nam
 
     //view list okrs 
     Route::get('Objectives/', [OkrController::class ,'listOKR'])->name('iokr.list');
+    Route::get('Objectives/all', [OkrController::class ,'getObjectives'])->name('objectives.list');
 
     // Edit OKR page
     Route::get('okr/{objective}/edit', [OkrController::class , 'edit'])->name('okr.edit');
