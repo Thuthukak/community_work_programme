@@ -747,21 +747,21 @@ export default {
         // Update the bar chart data with the three different datasets
         this.keyResultsbarChartData = [
             {
-                label: 'Initial = Current',
+                label: 'Not Started',
                 backgroundColor: "#FF6384",  // Color for the first dataset
                 data: responseData.initial_equals_current_data,  // Data for the first dataset
                 barThickness: 25,  // Set the thickness of the bars
                 borderWidth: 0,  // Set the border width to zero
             },
             {
-                label: 'Current > 0 and < Target',
+                label: 'InProgress',
                 backgroundColor: "#36A2EB",  // Color for the second dataset
                 data: responseData.current_gt_0_and_lt_target_data,  // Data for the second dataset
                 barThickness: 25,
                 borderWidth: 0,
             },
             {
-                label: 'Current = Target',
+                label: 'Finished',
                 backgroundColor: "#FFCE56",  // Color for the third dataset
                 data: responseData.current_equals_target_data,  // Data for the third dataset
                 barThickness: 25,
