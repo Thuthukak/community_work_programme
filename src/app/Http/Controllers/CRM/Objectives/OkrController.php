@@ -116,4 +116,9 @@ class OkrController extends Controller
 
         return redirect()->to($objective->model->getOKrRoute() . '#oid-' . $objective->id);
     }
+
+    public function getObjectives()
+    {
+        return Objective::all()->get();
+    }
 }

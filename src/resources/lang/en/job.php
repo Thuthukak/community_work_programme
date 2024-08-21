@@ -51,7 +51,7 @@ return [
     'actual_end_date'   => 'Actual End Date',
     'updated_at'        => 'Last Update',
     'position'          => 'Priority',
-
+    'created_at'        => 'Created at',
     // Types
     'main'       => 'Main',
     'additional' => 'Additional',

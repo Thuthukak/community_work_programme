@@ -181,4 +181,17 @@ class JobsRepository extends BaseRepository
 
         return $taskOrder;
     }
+
+
+    public function getProjectById($ids = null)
+    {
+        // Convert the comma-separated string of IDs into an array
+        $idArray = array_map('trim', explode(',', $ids));
+    
+        // Fetch projects by IDs
+        return Project::whereIn('id', $idArray)
+            ->with('organization')
+            ->get();
+    }
+    
 }

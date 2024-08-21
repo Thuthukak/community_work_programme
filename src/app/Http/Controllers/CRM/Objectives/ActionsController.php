@@ -63,7 +63,6 @@ class ActionsController extends Controller
     }
     
     
-    
 
     public  function get()
     {

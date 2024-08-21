@@ -22,46 +22,52 @@
 
 @section('content')
 <div id="project-issues" class="issue-table panel panel-default table-responsive">
-    <div class="panel-heading">
-        <h3 class="panel-title">{{ __('issue.issues') }}</h3>
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ __('issue.issues') }}</h3>
+            </div>
+            <div class="datatable mt-5 ml-3 mr-3">
+            <div class="table-responsive">
+                <table style="width: 100%;">
+                <thead>
+                    <tr style="border-bottom: 1px solid var(--default-border-color);">
+                    <th class="datatable-th">{{ __('app.table_no') }}</th>
+                    <th class="datatable-th">{{ __('issue.title') }}</th>
+                    <th class="datatable-th">{{ __('issue.priority') }}</th>
+                    <th class="datatable-th">{{ __('app.status') }}</th>
+                    <th class="datatable-th">{{ __('comment.comment') }}</th>
+                    <th class="datatable-th">{{ __('issue.pic') }}</th>
+                    <th class="datatable-th">{{ __('issue.creator') }}</th>
+                    <th class="datatable-th">{{ __('app.last_update') }}</th>
+                    <!-- <th>{{ __('issue.project') }}</th> -->
+                    <th class="datatable-th">{{ __('app.action') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse($issues as $key => $issue)
+                        @php
+                            $no = 1 + $key;
+                        @endphp
+                        <tr style="border-bottom: 1px solid var(--default-border-color);" id="{{ $issue->id }}">
+                            <td class="datatable-td">{{ $no }}</td>
+                            <td class="datatable-td">{{ $issue->title }}</td>
+                            <td class="datatable-td">{!! $issue->priority_label !!}</td>
+                            <td class="datatable-td">{!! $issue->status_label !!}</td>
+                            <td class="datatable-td">{{ $issue->comments_count }}</td>
+                            <td class="datatable-td">{{ $issue->pic->name }}</td>
+                            <td class="datatable-td">{{ $issue->creator->name }}</td>
+                            <td class="datatable-td">{{ $issue->updated_at->diffForHumans() }}</td>
+                            <!-- <td>{{ $issue->project->name }}</td> Display project name -->
+                            <td class="datatable-td">
+                                {{ link_to_route('issues.show', __('app.show'), [$issue], ['title' => __('issue.show')]) }}
+                            </td>
+                        </tr>
+                    @empty
+                        <tr><td colspan="10">{{ __('issue.not_found') }}</td></tr>
+                    @endforelse
+                </tbody>
+            </table>
+            {{ $issues->links() }} <!-- Pagination links -->
+        </div>
     </div>
-    <table class="table table-condensed table-striped">
-        <thead>
-            <th>{{ __('app.table_no') }}</th>
-            <th>{{ __('issue.title') }}</th>
-            <th>{{ __('issue.priority') }}</th>
-            <th>{{ __('app.status') }}</th>
-            <th class="text-center">{{ __('comment.comment') }}</th>
-            <th>{{ __('issue.pic') }}</th>
-            <th>{{ __('issue.creator') }}</th>
-            <th>{{ __('app.last_update') }}</th>
-            <!-- <th>{{ __('issue.project') }}</th> -->
-            <th class="text-center">{{ __('app.action') }}</th>
-        </thead>
-        <tbody>
-            @forelse($issues as $key => $issue)
-                @php
-                    $no = 1 + $key;
-                @endphp
-                <tr id="{{ $issue->id }}">
-                    <td>{{ $no }}</td>
-                    <td>{{ $issue->title }}</td>
-                    <td>{!! $issue->priority_label !!}</td>
-                    <td>{!! $issue->status_label !!}</td>
-                    <td class="text-center">{{ $issue->comments_count }}</td>
-                    <td>{{ $issue->pic->name }}</td>
-                    <td>{{ $issue->creator->name }}</td>
-                    <td>{{ $issue->updated_at->diffForHumans() }}</td>
-                    <!-- <td>{{ $issue->project->name }}</td> Display project name -->
-                    <td class="text-center">
-                        {{ link_to_route('issues.show', __('app.show'), [$issue], ['title' => __('issue.show')]) }}
-                    </td>
-                </tr>
-            @empty
-                <tr><td colspan="10">{{ __('issue.not_found') }}</td></tr>
-            @endforelse
-        </tbody>
-    </table>
-    {{ $issues->links() }} <!-- Pagination links -->
 </div>
 @endsection
