@@ -30,35 +30,37 @@
 <div class="panel-heading">
         <h3 class="panel-title custom-text-muted table-margin">{{ __('project.issues') }}</h3>
     </div>
-<div class="table-wrapper shadow">
-<div id="project-issues" class="panel panel-default table-responsive">  
-    <table class="table table-condensed">
-        <thead class="custom-th2">
-            <th>{{ __('app.table_no') }}</th>
-            <th>{{ __('issue.title') }}</th>
-            <th>{{ __('issue.priority') }}</th>
-            <th>{{ __('app.status') }}</th>
-            <th class="text-center">{{ __('comment.comment') }}</th>
-            <th>{{ __('issue.pic') }}</th>
-            <th>{{ __('issue.creator') }}</th>
-            <th>{{ __('app.last_update') }}</th>
-            <th class="text-center">{{ __('app.action') }}</th>
+    <div class="datatable mt-5 ml-3 mr-3">
+    <div class="table-responsive">
+        <table style="width: 100%;">
+        <thead>
+         <tr style="border-bottom: 1px solid var(--default-border-color);">
+            <th class="datatable-th">{{ __('app.table_no') }}</th>
+            <th class="datatable-th">{{ __('issue.title') }}</th>
+            <th class="datatable-th">{{ __('issue.priority') }}</th>
+            <th class="datatable-th">{{ __('app.status') }}</th>
+            <th class="datatable-th">{{ __('comment.comment') }}</th>
+            <th class="datatable-th">{{ __('issue.pic') }}</th>
+            <th class="datatable-th">{{ __('issue.creator') }}</th>
+            <th class="datatable-th">{{ __('app.last_update') }}</th>
+            <th class="datatable-th">{{ __('app.action') }}</th>
+        </tr>
         </thead>
         <tbody>
             @forelse($issues as $key => $issue)
             @php
             $no = 1 + $key;
             @endphp
-            <tr id="{{ $issue->id }}">
-                <td>{{ $no }}</td>
-                <td>{{ $issue->title }}</td>
-                <td>{!! $issue->priority_label !!}</td>
-                <td class="text-black" style="text-color: black">{!! $issue->status_label !!}</td>
-                <td class="text-center">{{ $issue->comments_count }}</td>
-                <td>{{ $issue->pic->name }}</td>
-                <td>{{ $issue->creator->name }}</td>
-                <td>{{ $issue->updated_at->diffForHumans() }}</td>
-                <td class="text-center">
+            <tr style="border-bottom: 1px solid var(--default-border-color);" id="{{ $issue->id }}">
+                <td class="datatable-td">{{ $no }}</td>
+                <td class="datatable-td">{{ $issue->title }}</td>
+                <td class="datatable-td">{!! $issue->priority_label !!}</td>
+                <td class="datatable-td">{!! $issue->status_label !!}</td>
+                <td class="datatable-td">{{ $issue->comments_count }}</td>
+                <td class="datatable-td">{{ $issue->pic->name }}</td>
+                <td class="datatable-td">{{ $issue->creator->name }}</td>
+                <td class="datatable-td">{{ $issue->updated_at->diffForHumans() }}</td>
+                <td class="datatable-td">
                     {{ link_to_route(
                         'projects.issues.show',
                         __('app.show'),

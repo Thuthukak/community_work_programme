@@ -86,6 +86,16 @@
             }
           }
         }
+        tfoot {
+          tr {
+            height: auto; /* Ensures the row auto-adjusts based on content */
+          }
+    
+          th {
+            padding: 1.5rem 1rem; /* Same padding as tbody rows */
+            vertical-align: middle;
+          }
+        }
 
         /*&:last-child {
           td {
@@ -386,3 +396,5 @@
     }
   }
 }
+
+

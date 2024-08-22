@@ -1059,3 +1059,9 @@ color: #6c757d !important;
     transition: background-color 0.3s, color 0.3s;
     width:fit-content;
 }
+.fixed-pill {
+    display: inline-block;
+    width: 100px; /* Adjust this value as necessary */
+    text-align: center;
+    padding: 0.65em 0.6em;
+}

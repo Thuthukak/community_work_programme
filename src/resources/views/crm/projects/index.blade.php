@@ -208,40 +208,42 @@
             {{ $status }} {{ trans('project.not_found') }}
         </div>
     @else
-        <div class="table-wrapper shadow">
-            <div class="panel panel-default table-responsive">
-                <table class="table table-condensed table-hover">
-                    <thead class="custom-th">
-                        <th>{{ trans('app.table_no') }}</th>
-                        <th>{{ trans('project.name') }}</th>
-                        <th class="text-center">{{ trans('project.start_date') }}</th>
-                        <th class="text-center">{{ trans('project.work_duration') }}</th>
+    <div class="datatable mt-5 ml-4 mr-4">
+    <div class="table-responsive">
+        <table style="width: 100%;">
+            <thead>
+                <tr style="border-bottom: 1px solid var(--default-border-color);">
+                        <th class="datatable-th">{{ trans('app.table_no') }}</th>
+                        <th class="datatable-th">{{ trans('project.name') }}</th>
+                        <th class="datatable-th">{{ trans('project.start_date') }}</th>
+                        <th class="datatable-th">{{ trans('project.work_duration') }}</th>
                         @if (request('status_id') == 2)
-                        <th class="text-right">{{ trans('project.overall_progress') }}</th>
-                        <th class="text-center">{{ trans('project.due_date') }}</th>
+                        <th class="datatable-th">{{ trans('project.overall_progress') }}</th>
+                        <th class="datatable-th">{{ trans('project.due_date') }}</th>
                         @endif
                         @can('see-pricings', new App\Models\ProjectManagement\Projects\Project)
-                        <th class="text-right">{{ trans('project.project_value') }}</th>
+                        <th class="datatable-th">{{ trans('project.project_value') }}</th>
                         @endcan
-                        <th class="text-center">{{ trans('app.status') }}</th>
-                        <th>{{ trans('Organization') }}</th>
-                        <th>{{ trans('app.action') }}</th>
+                        <th class="datatable-th">{{ trans('app.status') }}</th>
+                        <th class="datatable-th">{{ trans('Organization') }}</th>
+                        <th class="datatable-th">{{ trans('app.action') }}</th>
+                </tr>
                     </thead>
                     <tbody>
                         @foreach($projects as $key => $project)
-                            <tr>
-                                <td>{{ $projects->firstItem() + $key }}</td>
-                                <td>{{ $project->nameLink() }}</td>
-                                <td class="text-center">{{ $project->start_date }}</td>
-                                <td class="text-right">{{ $project->work_duration }}</td>
+                        <tr style="border-bottom: 1px solid var(--default-border-color);">
+                                <td  class="datatable-td">{{ $projects->firstItem() + $key }}</td>
+                                <td  class="datatable-td">{{ $project->nameLink() }}</td>
+                                <td  class="datatable-td">{{ $project->start_date }}</td>
+                                <td  class="datatable-td">{{ $project->work_duration }}</td>
                                 @if (request('status_id') == 2)
-                                <td class="text-right">{{ format_decimal($project->getJobOveralProgress()) }} %</td>
-                                <td class="text-center">{{ $project->due_date }}</td>
+                                <td  class="datatable-td">{{ format_decimal($project->getJobOveralProgress()) }} %</td>
+                                <td  class="datatable-td">{{ $project->due_date }}</td>
                                 @endif
                                 @can('see-pricings', new App\Models\ProjectManagement\Projects\Project)
-                                <td class="text-right">{{ format_money($project->project_value) }}</td>
+                                <td  class="datatable-td">{{ format_money($project->project_value) }}</td>
                                 @endcan
-                                <td class="text-center">{{ $project->present()->status }}</td>
+                                <td  class="datatable-td">{{ $project->present()->status }}</td>
                                 <td>
                                     <a href="{{ route('organizations.edit', $project->organization_id) }}">
                                         {{ is_object($project->organization) ? __($project->organization->name) : __($project->organization) }}

@@ -131,7 +131,7 @@
     </div>
     
     <!-- New Search Bar -->
-    <div class="filter-item search-item" style="margin-left:auto;">
+    <div class="filter-item search-item" style="margin-left:auto; margin-right:20px">
         <input type="text" class="search-field" id="filterSearch" placeholder="Search...">
     </div>
 </div>

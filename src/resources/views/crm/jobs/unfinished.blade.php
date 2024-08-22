@@ -131,31 +131,35 @@
     </div>
     
     <!-- New Search Bar -->
-    <div class="filter-item search-item" style="margin-left:auto;">
+    <div class="filter-item search-item" style="margin-left:auto; margin-right:20px">
         <input type="text" class="search-field" id="filterSearch" placeholder="Search...">
     </div>
 </div>
 
-    <div class="table-wrapper shadow" style="margin:20px">
-    <table class="task-progress-table table table-condensed">
+<div class="datatable mt-5 ml-3 mr-3">
+    <div class="table-responsive">
+        <table style="width: 100%;">
         <thead>
-            <th>{{ __('app.table_no') }}</th>
-            <th>{{ __('job.name') }}</th>
-            <th>{{ __('project.name') }}</th>
-            <th class="text-center">{{ __('job.created_at') }}</th>
-            <th class="text-center">{{ __('job.tasks_count') }}</th>
-            <th class="text-center">{{ __('job.progress') }}</th>
+        <tr style="border-bottom: 1px solid var(--default-border-color);">
+            <th class="datatable-th">{{ __('app.table_no') }}</th>
+            <th class="datatable-th">{{ __('job.name') }}</th>
+            <th class="datatable-th">{{ __('project.name') }}</th>
+            <th class="datatable-th">{{ __('job.created_at') }}</th>
+            <th class="datatable-th">{{ __('job.tasks_count') }}</th>
+            <th class="datatable-th">{{ __('job.progress') }}</th>
             @can('see-pricings', new App\Models\ProjectManagement\Projects\ProjectJob)
-            <th class="text-right">{{ __('job.price') }}</th>
+            <th class="datatable-th">{{ __('job.price') }}</th>
             @endcan
-            <th>{{ __('job.person') }}</th>
-            <th>{{ __('app.action') }}</th>
+            <th class="datatable-th">{{ __('job.person') }}</th>
+            <th class="datatable-th">{{ __('app.action') }}</th>
+            <th></th>
+        </tr>
         </thead>
         <tbody>
             @forelse($jobs as $key => $job)
-            <tr>
-                <td>{{ 1 + $key }}</td>
-                <td>
+            <tr style="border-bottom: 1px solid var(--default-border-color);">
+                <td class="datatable-td">{{ 1 + $key }}</td>
+                <td class="datatable-td">
                     {{ $job->nameLink() }}
                     @if ($job->tasks->isEmpty() == false)
                     <ul>
@@ -168,32 +172,34 @@
                     </ul>
                     @endif
                 </td>
-                <td>{{ $job->project->nameLink() }}</td>
-                <td class="text-center" style="width: 120px;">{{ $job->project->created_at->format('Y-m-d') }}</td>
-                <td class="text-center">{{ $job->tasks_count = $job->tasks->count() }}</td>
-                <td class="text-center">{{ format_decimal($job->progress) }} %</td>
+                <td class="datatable-td">{{ $job->project->nameLink() }}</td>
+                <td class="datatable-td">{{ $job->project->created_at->format('Y-m-d') }}</td>
+                <td class="datatable-td text-center">{{ $job->tasks_count = $job->tasks->count() }}</td>
+                <td class="datatable-td">{{ format_decimal($job->progress) }} %</td>
                 @can('see-pricings', $job)
-                <td class="text-right">{{ format_money($job->price) }}</td>
+                <td class="datatable-td text-left">{{ format_money($job->price) }}</td>
                 @endcan
-                <td>{{ $job->person->name }}</td>
-                <td>
-                    {{ link_to_route('jobs.show', __('app.show'), [$job], ['class' => 'btn btn-info btn-xs']) }}
+                <td class="datatable-td">{{ $job->person->name }}</td>
+                <td class="datatable-td">
+                {{ link_to_route('jobs.show', '', [$job], ['class' => 'btn btn-info btn-xs fas fa-search', 'title' => __('app.show')]) }}
                 </td>
             </tr>
             @empty
-            <tr><td colspan="8">{{ __('job.empty') }}</td></tr>
+            <tr style="border-bottom: 1px solid var(--default-border-color);">
+                <td colspan="8" class="datatable-td">{{ __('job.empty') }}</td>
+            </tr>
             @endforelse
         </tbody>
-        <tfoot>
-            <tr>
-                <th></th>
+        <tfoot class="tfoot">
+            <tr style="border-bottom: 1px solid var(--default-border-color);">
+                <th class="text-right"></th>
                 <th class="text-right" colspan="3">{{ __('app.total') }}</th>
                 <th class="text-center">{{ $jobs->sum('tasks_count') }}</th>
-                <th class="text-center">{{ format_decimal($jobs->avg('progress')) }} %</th>
+                <th class="text-left">{{ format_decimal($jobs->avg('progress')) }} %</th>
                 @can('see-pricings', new App\Models\ProjectManagement\Projects\ProjectJob)
-                <th class="text-right">{{ format_money($jobs->sum('price')) }}</th>
+                <th class="text-left">{{ format_money($jobs->sum('price')) }}</th>
                 @endcan
-                <th colspan="2"></th>
+                <th class="datatable-th" colspan="2"></th>
             </tr>
         </tfoot>
     </table>
