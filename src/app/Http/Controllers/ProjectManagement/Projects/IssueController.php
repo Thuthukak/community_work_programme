@@ -51,10 +51,6 @@ class IssueController extends Controller
                          ->where('fileable_id', $projectId)
                          ->get();
 
-                                //  dd(DB::getQueryLog()); // Show results of log
-
-        
-            // dd($project);
         }
 
         return view('crm.projects.issues.index', compact('project', 'issues','users','files'));
@@ -93,34 +89,20 @@ class IssueController extends Controller
 
     public function show(Project $project, Issue $issue)
     {
+
         $editableComment = null;
         $priorities = Priority::toArray();
         $statuses = IssueStatus::toArray();
         $users = User::pluck('first_name', 'id');
         $comments = $issue->comments()->with('creator')->get();
 
-
         if (empty($project->items)) {
-            // Retrieve the project from the database
-            $project = Project::find($project->id);
-        
-            // Retrieve the table name and id
+            $project = Project::find($project->id);        
             $tableName = $project->getTable();
-            // dd($tableName);
-
             $projectId = $project->id;
-            // dd($projectId);
-
-        
-            // Retrieve the associated files
             $files = File::where('fileable_type', $tableName)
                          ->where('fileable_id', $projectId)
                          ->get();
-
-                                //  dd(DB::getQueryLog()); // Show results of log
-
-        
-            // dd($project);
         }
 
         if (request('action') == 'comment-edit' && request('comment_id') != null) {

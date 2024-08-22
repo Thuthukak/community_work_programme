@@ -11,9 +11,10 @@ use App\Models\Core\Auth\User;
 use App\Http\Controllers\Core\UserConverter;
 use App\Http\Requests\ProjectManagement\Jobs\UpdateRequest;
 use App\Http\Requests\ProjectManagement\Jobs\DeleteRequest;
-
+use App\Filters\CRM\TasksFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Carbon\Carbon;
 
 
 /**
@@ -33,9 +34,10 @@ class JobsController extends Controller
      *
      * @param  \App\Models\ProjectManagement\Projects\JobsRepository  $repo
      */
-    public function __construct(JobsRepository $repo)
+    public function __construct(JobsRepository $repo ,TasksFilter $Filter)
     {
         $this->repo = $repo;
+        $this->filter = $Filter;
     }
 
     /**
@@ -65,31 +67,18 @@ class JobsController extends Controller
 
             $status = $this->repo->getStatusName($statusId);
         }
-
-    
-
-        // dd($statusId);
-
-
-
-
        // Convert authenticated user to ProjectManagement\Users\User instance
        $user = auth()->user();
 
        $projects = $this->repo->getProjects($request->get('q'), $statusId, $user);
-
-       
 
         // Fetch data related to the IDs
         $ids = $projects->getCollection()->map(function($project) {
             return $project->id;
         })->toArray();
 
-
         $jobs = ProjectJob::whereIn('project_id', $ids)->get();
-
-                // dd($jobs);
-
+        // dd($jobs);
 
         return view('crm.jobs.unfinished', compact('jobs', 'projects'));
     }
@@ -103,8 +92,6 @@ class JobsController extends Controller
      */
     public function show(Request $request, ProjectJob $job)
     {
-
-
 
         $this->authorize('view', $job);
 
@@ -130,6 +117,94 @@ class JobsController extends Controller
 
     return view('crm.jobs.show', compact('job', 'editableTask', 'comments', 'editableComment', 'persons','project'));
 }
+
+    /**
+     * get tasks by filters
+    * @param  \App\Models\ProjectManagement\Projects\Job  $job
+     * @return \Illuminate\View\View
+     */
+
+     public function getTasksByFilter(Request $request )
+     {
+
+        $classes = json_decode($request->get('classes'), true);
+
+        // dd($classes);
+        $user = auth()->user();
+
+        $query = ProjectJob::query();
+        $projects = $this->repo->getProjectById($request->get('projects'));
+        $this->filter->apply($query);
+
+
+        if($request->has('projects'))
+        {
+
+            $this->filter->tasks($request->get('projects'));
+        }
+        if($request->has('Organization')){
+            $this->filter->organization($request->get('organization'));
+        }
+        if($request->has('classes')){
+            $this->filter->classes($classes);
+        }
+
+
+        $jobs = $query->with('tasks')->paginate(10); // Ensure subtasks are eager loaded
+
+        $totalTasksCount = 0;
+        $totalProgress = 0;
+        $totalPrice = 0;
+        $jobCount = $jobs->count();
+    
+        // dd($jobs);
+        foreach ($jobs as $job) {
+            // dd($job->progress);
+            // Calculate total tasks count
+            $job->tasks_count = $job->tasks->count();
+            $job->show_url =  route('jobs.show', $job->id);
+            $job->project_Show_Link = route('projects.show', $job->project_id);
+            $job->created_at = Carbon::parse($job->created_at);
+            $job->created_at = date_format($job->created_at, "Y-m-d"); 
+            $job->tasks_count = $job->tasks->count();
+            $totalTasksCount += $job->tasks_count;
+            $job->progress = format_decimal($job->progress);
+            // $job->price = format_money($job->price);
+            $job->show = route('jobs.show', $job->id);
+            $job->person_name = $job->person->name;
+            $job->project_name = $job->project->name;
+    
+            // Sum the progress
+            $totalProgress += $job->progress;
+    
+            // Handle the formatted price if the user has permission
+            if (auth()->user()->can('see-pricings', $job)) {
+                $job->formatted_price = format_money($job->price);
+                $totalPrice += $job->price;
+            } else {
+                $job->formatted_price = null;
+            }
+        }
+        // dd($jobs);
+    
+        // Calculate average progress
+        $avgProgress = $jobCount > 0 ? $totalProgress / $jobCount : 0;
+    
+        // Format the total price and average progress for the view
+        $formattedTotalPrice = format_money($totalPrice);
+        $formattedAvgProgress = number_format($avgProgress, 2) . ' %';
+
+        $this->authorize('create', new ProjectJob());
+        // Return the projects and organization list as JSON if the request is AJAX
+        return response()->json([
+            'projects' => $projects,
+            'jobs' => $jobs,
+            'totalTasksCount' => $totalTasksCount, 
+            'formattedAvgProgress' => $formattedAvgProgress , 
+            'formattedTotalPrice' => $formattedTotalPrice,
+        ]);
+
+     } 
 
     /**
      * Show a job edit form.

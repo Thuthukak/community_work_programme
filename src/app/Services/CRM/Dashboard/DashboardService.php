@@ -341,35 +341,45 @@ class DashboardService extends ApplicationBaseService
 
     public function getActions()
     {
-        $startDate = Carbon::now()->subMonths(6)->startOfDay();
-        $endDate = Carbon::now()->endOfMonth();
-        
-
-        DB::enableQueryLog(); // Enable query log
-
-        $allActions = Action::all();
-
-        $newActions =  Action::whereMonth('created_at', $endDate->month)
-                        ->whereYear('created_at', $endDate->year)
-                        ->get();
+        // Initialize an array to hold the results
+        $actionsWithCounts = [];
     
-        $activeCurrentActions =  Action::whereDate('started_at', '<=', Carbon::today())
-                    ->whereDate('finished_at', '>=', Carbon::today())
-                    ->get();
-
-
-        $dueActions = Action::whereDate('finished_at', '>=', $endDate)->get();
-                    // dd(DB::getQueryLog()); // Show results of log
-
-        $data = [
-            'allActions' => $allActions,
-            'newActions' => $newActions,
-            'activeCurrentActions' => $activeCurrentActions, 
-            'dueActions' =>$dueActions,
-        ];       
-        
-        return $data;
+        // Loop through the last 6 months
+        for ($i = 5; $i >= 0; $i--) {
+            // Get the name of the month
+            $monthName = Carbon::now()->subMonths($i)->format('M');
+    
+            // Define the start and end of the current month
+            $monthStart = Carbon::now()->subMonths($i)->startOfMonth();
+            $monthEnd = Carbon::now()->subMonths($i)->endOfMonth();
+    
+            // Count new actions (created in the current month)
+            $newActionsCount = Action::whereBetween('created_at', [$monthStart, $monthEnd])->count();
+    
+            // Count active actions (started before today and not finished yet)
+            $activeCurrentActionsCount = Action::where('started_at', '<=', Carbon::today())
+                ->where('finished_at', '>=', Carbon::today())
+                ->whereBetween('created_at', [$monthStart, $monthEnd])
+                ->count();
+    
+            // Count due actions (finished in the future)
+            $dueActionsCount = Action::where('finished_at', '>=', $monthEnd)
+                ->whereBetween('created_at', [$monthStart, $monthEnd])
+                ->count();
+    
+            // Store the counts in the array for the current month
+            $actionsWithCounts[] = [
+                'month' => $monthName,
+                'new_actions' => $newActionsCount,
+                'active_current_actions' => $activeCurrentActionsCount,
+                'due_actions' => $dueActionsCount,
+            ];
+        }
+    
+        // Return the months with their respective action counts
+        return $actionsWithCounts;
     }
+    
 
     public function getEachObjectivesProgress()
     {
@@ -409,39 +419,51 @@ class DashboardService extends ApplicationBaseService
         return $objectivesProgress;
     }
 
-
             public function getLastSixMonthsKeyResults()
             {
-                // Define the time period for the past 6 months
-                $startDate = Carbon::now()->subMonths(6)->startOfDay();
-                $endDate = Carbon::now()->endOfDay();
+                // Initialize an array to hold the results
+                $keyResultsWithCounts = [];
             
-                // Query the KeyResult table for entries created within the last 6 months
-                $keyResults = KeyResult::whereBetween('created_at', [$startDate, $endDate])->get();
+                // Loop through the last 6 months
+                for ($i = 5; $i >= 0; $i--) {
+                    // Get the name of the month
+                    $monthName = Carbon::now()->subMonths($i)->format('M');
             
-                // Initialize an empty array to hold key results with completion percentages
-                $keyResultsWithCompletion = [];
+                    // Define the start and end of the current month
+                    $monthStart = Carbon::now()->subMonths($i)->startOfMonth();
+                    $monthEnd = Carbon::now()->subMonths($i)->endOfMonth();
             
-                // Calculate the completion percentage for each key result
-                foreach ($keyResults as $keyResult) {
-                    $initialValue = $keyResult->initial_value;
-                    $targetValue = $keyResult->target_value;
-                    $currentValue = $keyResult->current_value;
+                    // Count KeyResults where initial_value == current_value
+                    $initialEqualsCurrent = KeyResult::whereBetween('created_at', [$monthStart, $monthEnd])
+                        ->whereColumn('initial_value', 'current_value')
+                        ->count();
             
-                    $completionPercentage = 0;
-                    if ($targetValue > $initialValue) {
-                        $completionPercentage = (($currentValue - $initialValue) / ($targetValue - $initialValue)) * 100;
-                    }
+                    // Count KeyResults where current_value > 0 and current_value < target_value
+                    $currentGreaterThanInitialAndLessThanTarget = KeyResult::whereBetween('created_at', [$monthStart, $monthEnd])
+                        ->where('current_value', '>', 0)
+                        ->whereColumn('current_value', '<', 'target_value')
+                        ->count();
             
-                    array_push($keyResultsWithCompletion, [
-                        'title' => $keyResult->title,
-                        'completion_percentage' => $completionPercentage
-                    ]);
+                    // Count KeyResults where current_value == target_value
+                    $currentEqualsTarget = KeyResult::whereBetween('created_at', [$monthStart, $monthEnd])
+                        ->whereColumn('current_value', 'target_value')
+                        ->count();
+            
+                    // Store the counts in the array for the current month
+                    $keyResultsWithCounts[] = [
+                        'month' => $monthName,
+                        'initial_equals_current' => $initialEqualsCurrent,
+                        'current_gt_0_and_lt_target' => $currentGreaterThanInitialAndLessThanTarget,
+                        'current_equals_target' => $currentEqualsTarget,
+                    ];
                 }
             
-                // Return only the key results with their completion percentages
-                return $keyResultsWithCompletion;
+                // Return the months with their respective key result counts
+                return $keyResultsWithCounts;
             }
+            
+
+    
     
             public function getActionsRates()
         {

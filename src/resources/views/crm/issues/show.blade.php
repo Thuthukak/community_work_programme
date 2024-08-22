@@ -1,4 +1,4 @@
-@extends('crm.layouts.project')
+@extends('crm.layouts.issue')
 
 @section('subtitle', __('issue.detail'))
 
@@ -9,9 +9,9 @@
 @endcan
 @endsection
 
-@section('content-project')
+@section('content-issue')
 
-<div class="row showprojtable" >
+<div class="row showprojtable">
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -22,25 +22,45 @@
             </div>
             <table class="table table-condensed">
                 <tbody>
-                    <tr><th class="col-md-4">{{ __('issue.title') }}</th><td class="col-md-8">{{ $issue->title }}</td></tr>
-                    <tr><th>{{ __('issue.body') }}</th><td>{{ $issue->body }}</td></tr>
-                    <tr><th>{{ __('issue.priority') }}</th><td>{!! $issue->priority_label !!}</td></tr>
-                    <tr><th>{{ __('issue.pic') }}</th><td>{{ $issue->pic->name }}</td></tr>
-                    <tr><th>{{ __('app.created_by') }}</th><td>{{ $issue->creator->name }}</td></tr>
+                    <tr>
+                        <th class="col-md-4">{{ __('issue.title') }}</th>
+                        <td class="col-md-8">{{ $issue->title }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ __('issue.body') }}</th>
+                        <td>{{ $issue->body }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ __('issue.priority') }}</th>
+                        <td>{!! $issue->priority_label !!}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ __('issue.pic') }}</th>
+                        <td>{{ $issue->pic->name }}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ __('app.created_by') }}</th>
+                        <td>{{ $issue->creator->name }}</td>
+                    </tr>
                 </tbody>
             </table>
             <div class="panel-footer">
-            <button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#EditIssueModal" data-project-id="{{ $issue->id }}">{{ trans('Edit Issue') }}</button>
-                {{ link_to_route('projects.issues.index', __('issue.back_to_index'), [$project], ['class' => 'btn btn-info pull-right']) }}
+                <button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#EditIssueModal" data-project-id="{{ $issue->id }}">
+                    {{ trans('Edit Issue') }}
+                </button>
+                {{ link_to_route('issues.show', __('issue.back_to_index'), [$issue], ['class' => 'btn btn-info pull-right']) }}
             </div>
         </div>
         <hr>
         @include('crm.projects.issues.partials.comment-section')
     </div>
+    
     <div class="col-md-6" style="margin-top: 30px">
         {{ Form::model($issue, ['route' => ['issues.options.update', $issue], 'method' => 'patch']) }}
         <div class="panel panel-default">
-            <div class="panel-heading"><h3 class="panel-title">{{ __('app.action') }}</h3></div>
+            <div class="panel-heading">
+                <h3 class="panel-title">{{ __('app.action') }}</h3>
+            </div>
             <div class="panel-body">
                 {!! FormField::radios('priority_id', $priorities, ['label' => __('issue.priority')]) !!}
                 {!! FormField::radios('status_id', $statuses, ['label' => __('app.status')]) !!}
@@ -54,6 +74,7 @@
     </div>
 </div>
 
+
 <!-- Edit Modal -->
 <div id="EditIssueModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -63,12 +84,12 @@
                 <h4 class="modal-title">{{ __('Edit Issue') }}</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-            {!! Form::model($issue, ['route' => ['projects.issues.update', $project->id, $issue->id], 'method' => 'patch']) !!}
+            {!! Form::model($issue, ['route' => ['issues.update', $issue->id], 'method' => 'patch']) !!}
             <div class="modal-body">
                 <div class="panel-heading"><h3 class="panel-title">{{ __('issue.update') }}</h3></div>
                 <div class="panel-body">
-                    {!! FormField::text('title', ['label' => __('issue.title')]) !!}
-                    {!! FormField::textarea('body', ['label' => __('issue.body')]) !!}
+                    {!! FormField::text('title', ['label' => __('issue.title') ,'required' => true ]) !!}
+                    {!! FormField::textarea('body', ['label' => __('issue.body') , 'required' => true ]) !!}
                 </div>
             </div>
             <div class="modal-footer">
@@ -89,21 +110,25 @@
             <div class="modal-header">
                 <h4 class="modal-title">{{ __('Add New Issue') }}</h4>
             </div>
-                    {!! Form::open(['route' => ['projects.issues.store', $project->id], 'method' => 'POST']) !!}
+                    {!! Form::open(['route' => ['issues.store', $project->id], 'method' => 'POST']) !!}
             <div class="modal-body">
-                    {!! FormField::text('title', ['label' => __('issue.title')]) !!}
-                    {!! FormField::textarea('body', ['label' => __('issue.body')]) !!}
+                    {!! FormField::text('title', ['label' => __('issue.title') , 'required' => true]) !!}
+                    {!! FormField::textarea('body', ['label' => __('issue.body') , 'required' => true]) !!}
                 <div class="row">
-                {!! FormField::radios('priority_id', $priorities, ['label' => false, 'placeholder' => __('issue.all_priority'), 'value' => request('priority_id'),'class' => 'form-control form-control-xs droplist']) !!}
+                {!! FormField::radios('priority_id', $priorities, ['label' => false, 'placeholder' => __('issue.all_priority'), 'value' => request('priority_id'),'class' => 'form-control form-control-xs droplist' , 'required' => true]) !!}
                 </div>
                 <div class="row">
-                    {!! FormField::select('pic_id', $users, ['label' => __('issue.pic')]) !!}
+                    {!! FormField::select('pic_id', $users, ['label' => __('issue.pic') , 'required' => true ]) !!}
+
+                </div>
+                <div class="row">
+                    {!! FormField::select('project_id', $projects, ['label' => __('Project') , 'required' => true ]) !!}
 
                 </div>
             </div>
             <div class="modal-footer">
                     {{ Form::submit(__('Save'), ['class' => 'btn btn-primary']) }}
-                    {{ link_to_route('projects.issues.index', __('app.cancel'), [$project], ['class' => 'btn btn-default']) }}
+                    {{ link_to_route('issues.show', __('app.cancel'), [$issue], ['class' => 'btn btn-default']) }}
             </div>
             {!! Form::close() !!}
         </div>

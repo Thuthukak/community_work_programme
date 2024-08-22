@@ -24,6 +24,118 @@
 
 @endsection
 
+<style>
+.filters {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-right:20px;
+}
+.filter-item {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    list-style-type: none; 
+    padding: 10px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content-date {
+    display: none;
+    padding: 10px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    min-width: 500px;
+    z-index: 1;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Flexbox for the date-form */
+.date-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px; /* Space between elements */
+}
+
+/* Spacing for inputs and select */
+.date-form .form-control {
+    flex: 1; /* Ensures inputs take up available space */
+    min-width: 150px; /* Ensures a minimum width for input fields */
+}
+
+.date-form button {
+    flex-shrink: 0; /* Prevent the button from shrinking */
+}
+
+.dropdown-content ul li {
+        display: flex; 
+        align-items: center; 
+        margin-bottom: 5px; 
+    }
+.dropdown-content ul li input {
+   margin: 5px; 
+}
+.dropdown-content ul li {
+        display: flex; 
+        align-items: center; 
+        margin-bottom: 5px; 
+    }
+.dropdown-content ul li label {
+   margin: 5px; 
+}
+.filter-btn {
+    cursor: pointer;
+    padding: 12px;
+    border: none;
+    background-color: white;
+    color: grey;
+    border-radius: 25px;
+}
+.filter-item.search-item {
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.form-group-with-search {
+    position: relative;
+    width: 100%;
+}
+
+.form-control-feedback {
+    position: relative;
+    left: 0px; /* Adjust as needed */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    pointer-events: none; /* Prevents the icon from being clicked */
+}
+
+.form-control {
+    width: 100%;
+    padding-right: 30px; /* Space for the search icon */
+    border-radius: 25px;
+}
+
+.search-field {
+    padding: 10px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+}
+
+
+</style>
 @section('title','Objective')
 @section('contents')
 <div class="row align-items-center justify-content-between" style="margin-left:70px; margin-right:70px; margin-top:20px; margin-bottom:40px">
@@ -56,26 +168,35 @@
 <div class="container-fluid" style="margin-right:60px;">
     @include('crm.organization.company.show')
     <div class="tab-pane fade show pl-sm-4 pr-sm-4">
-        <div class="row m-3 pt-4 justify-content-center">
-            <div class="col-auto mb-2">
-            <form action="{{ $company->getOKrRoute() }}" class="form-inline search-form">
-                <input autocomplete="off" class="form-control input-sm" name="st_date" id="filter_started_at" value=""
-                    placeholder="Start date">
-                <input autocomplete="off" class="form-control input-sm ml-md-2" name="fin_date" id="filter_finished_at"
-                    value="" placeholder="Settlement date">
-                <select name="order" class="form-control input-sm mr-md-2 ml-md-2">
-                    <option value="">Sort by</option>
-                    <option value="started_at_asc">Start date, earliest to latest</option>
-                    <option value="started_at_desc">Start date, latest to earliest</option>
-                    <option value="finished_at_asc">Finish date, earliest to latest</option>
-                    <option value="finished_at_desc">Finish date, latest to earliest</option>
-                    <option value="updated_at_asc">Recently updated, earliest to latest</option>
-                    <option value="updated_at_desc">Recently updated, latest to earliest</option>
-                </select>
-                <button class="btn btn-info">Filter</button>
-            </form>
+        <!-- Filters on the left -->
+         
+    <div class="filters d-flex" style="margin-left: 30px; margin-right: 55px;">
+       
+
+        <div class="filter-item">
+            <button class="filter-btn" style="border-radius: 25px; padding:12px width:100px" id="datefilter">Date Range</button>
+            <div id="dateDropdown" class="dropdown-content">
+                <form id="dateRangeForm" class="filter-form">
+                    @include('crm.actions.partials.dateTimeFilter')
+                </form>
             </div>
         </div>
+
+
+        <div class="filter-item search-item" style="margin-left:auto; margin-right:50px;">
+            <div class="form-group form-group-with-search d-flex align-items-center relative">
+            <span class="form-control-feedback">
+                    <i>
+                        <svg class="feather feather-search" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </i>
+                </span>
+                <input type="text" class="form-control input-sm search-field" id="filterSearch" placeholder="Search...">
+            </div>
+        </div>
+    </div>
         @if ($company->okrs)
             @foreach($company->okrs as $okr)
                 @include('crm.okrs.okr', ['okr' => $okr, 'owner' => $company])
@@ -225,5 +346,73 @@
             }
         });
 
+
+        document.getElementById("datefilter").addEventListener("click", function() { 
+            event.stopPropagation();
+            var dropdown = document.getElementById('dateDropdown');
+            if (dropdown.style.display === "block") {
+                dropdown.style.display = "none";
+            } else {
+                closeAllDropdowns();
+                dropdown.style.display = "block";
+
+                flatpickr("#startDate", {
+                    dateFormat: "Y-m-d"
+                });
+
+                flatpickr("#endDate", {
+                    dateFormat: "Y-m-d"
+                });
+
+                }
+        });
+
+      
+
+        document.getElementById("applyDates").addEventListener("click", function() {
+            var startDate = document.getElementById("startDate").value;
+            var endDate = document.getElementById("endDate").value;
+
+            
+            console.log("Start Date:", startDate, "End Date:", endDate);
+
+            if (!startDate && !endDate) {
+                    console.log('No dates selected. No filter will be applied.');
+                    return; // Exit if no dates are selected
+                }
+
+                var baseUrl = "{{ route('projects.get') }}";
+                var url = `${baseUrl}`;
+
+                if (startDate) {
+                    url += `?startDate=${encodeURIComponent(startDate)}`;
+                }
+
+                if (endDate) {
+                    url += startDate ? `&endDate=${encodeURIComponent(endDate)}` : `?endDate=${encodeURIComponent(endDate)}`;
+                }
+        });
+
+        function updateButtonText(buttonId, text) {
+            var button = document.getElementById(buttonId);
+            button.innerText = text;
+        }
+
+      
+
+       
+
+        function closeAllDropdowns() {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            for (var i = 0; i < dropdowns.length; i++) {
+                dropdowns[i].style.display = "none";
+            }
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.filter-btn') && !event.target.closest('.dropdown-content')) {
+                closeAllDropdowns();
+            }
+        }
     });
 </script>

@@ -4,6 +4,119 @@
 
 @section('title','Objective')
 
+
+<style>
+.filters {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-right:20px;
+}
+.filter-item {
+    position: relative;
+}
+
+.dropdown-content {
+    display: none;
+    list-style-type: none; 
+    padding: 10px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content-date {
+    display: none;
+    padding: 10px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: white;
+    min-width: 500px;
+    z-index: 1;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+/* Flexbox for the date-form */
+.date-form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px; /* Space between elements */
+}
+
+/* Spacing for inputs and select */
+.date-form .form-control {
+    flex: 1; /* Ensures inputs take up available space */
+    min-width: 150px; /* Ensures a minimum width for input fields */
+}
+
+.date-form button {
+    flex-shrink: 0; /* Prevent the button from shrinking */
+}
+
+.dropdown-content ul li {
+        display: flex; 
+        align-items: center; 
+        margin-bottom: 5px; 
+    }
+.dropdown-content ul li input {
+   margin: 5px; 
+}
+.dropdown-content ul li {
+        display: flex; 
+        align-items: center; 
+        margin-bottom: 5px; 
+    }
+.dropdown-content ul li label {
+   margin: 5px; 
+}
+.filter-btn {
+    cursor: pointer;
+    padding: 12px;
+    border: none;
+    background-color: white;
+    color: grey;
+    border-radius: 25px;
+}
+.filter-item.search-item {
+    margin-left: auto;
+    margin-right: 20px;
+}
+
+.form-group-with-search {
+    position: relative;
+    width: 100%;
+}
+
+.form-control-feedback {
+    position: relative;
+    left: 0px; /* Adjust as needed */
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    pointer-events: none; /* Prevents the icon from being clicked */
+}
+
+.form-control {
+    width: 100%;
+    padding-right: 30px; /* Space for the search icon */
+    border-radius: 25px;
+}
+
+.search-field {
+    padding: 10px;
+    border-radius: 25px;
+    border: 1px solid #ccc;
+}
+
+
+</style>
 @section('contents')
 <div class="container-fluid" style="margin-top: 40px;">
     <div class="row align-items-center justify-content-between mb-4" style="margin-left: 10px;">
@@ -15,24 +128,88 @@
             </button>
         </div>
     </div>
-    <div class="row mb-4">
-        <div class="col-auto">
-            <form action="" class="form-inline search-form">
-                <input autocomplete="off" class="form-control input-sm" name="st_date" id="filter_started_at" placeholder="Start date">
-                <input autocomplete="off" class="form-control input-sm ml-md-2" name="fin_date" id="filter_finished_at" placeholder="Settlement date">
-                <select name="order" class="form-control input-sm mr-md-2 ml-md-2">
-                    <option value="">Sort by</option>
-                    <option value="started_at_asc">Start date, earliest to latest</option>
-                    <option value="started_at_desc">Start date, latest to earliest</option>
-                    <option value="finished_at_asc">Finish date, earliest to latest</option>
-                    <option value="finished_at_desc">Finish date, latest to earliest</option>
-                    <option value="updated_at_asc">Recently updated, earliest to latest</option>
-                    <option value="updated_at_desc">Recently updated, latest to earliest</option>
-                </select>
-                <button class="btn btn-info">Filter</button>
-            </form>
+
+    <!-- Filters -->
+
+    <!-- Filters on the left -->
+    <div class="filters d-flex" style="margin-left: 30px;">
+        <div class="filter-item">
+            <button class="filter-btn" style="border-radius: 25px; padding:12px" id="datefilter">Date Range</button>
+            <div id="dateDropdown" class="dropdown-content dropdown-content-date" >
+                <form id="dateRangeForm" class="filter-form" style="width:auto">
+                    @include('crm.actions.partials.dateTimeFilter')
+                </form>
+            </div>
         </div>
+
+        <div class="filter-item">
+            <button class="filter-btn" id="UsersLists" style="border-radius: 25px; padding:12px">Assigned To</button>
+            <div id="usersDropdown" class="dropdown-content" style="display:none;">
+                <form id="usersForm" class="filter-form">
+                    <ul id="usersListContainer"></ul>
+                    <br>
+                    <hr>
+                    <div class="d-flex justify-content-between mt-3">
+                        <button type="button" id="clearUsers" class="btn btn-clear">Clear</button>
+                        <button type="button" id="applyUsers" class="btn btn-primary">Apply</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="filter-item">
+            <button class="btn filter-btn" type="button" id="isdone"  style="background-color: white; color: grey;    padding:12px ; border-radius: 25px;" aria-haspopup="true" aria-expanded="false">
+               Is Done<i  id="dropdownArrow"></i>
+            </button>
+            <div id="isdoneDropdown" class="dropdown-content">
+            </div>
+        </div>
+        <div class="filter-item">
+            <button class="filter-btn" id="priority" style="border-radius: 25px; padding:12px">Priority</button>
+            <div id="priorityDropdown" class="dropdown-content" style="display: none;">
+            <form id="prioritiesForm" class="filter-form">
+                    <ul id="prioritiesListContainer"></ul>
+                    <br>
+                    <hr>
+                    <div class="d-flex justify-content-between mt-3">
+                        <button type="button" id="clearpriorities" class="btn btn-clear">Clear</button>
+                        <button type="button" id="applyPriorities" class="btn btn-primary">Apply</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="filter-item">
+            <button class="filter-btn" id="it-has" style="border-radius: 25px; padding:12px">Actions On</button>
+            <div id="classDropdown" class="dropdown-content" style="display: none;">
+                <form id="clausesForm" class="filter-form">
+                    <label><input type="checkbox" name="Proposal">Proposal</label>
+                    <label><input type="checkbox" name="Pipeline">Pipeline</label>
+                    <label><input type="checkbox" name="Objectives">Objectives</label>
+                    <label><input type="checkbox" name="Objectives">Project</label>
+                    <button type="button" id="clearClauses" class="btn btn-clear">Clear</button>
+                    <button type="button" id="applyClauses" class="btn btn-primary">Apply</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="filter-item search-item" style="margin-left:auto; margin-right:50px;">
+            <div class="form-group form-group-with-search d-flex align-items-center relative">
+            <span class="form-control-feedback">
+                    <i>
+                        <svg class="feather feather-search" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="11" cy="11" r="8"></circle>
+                            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                        </svg>
+                    </i>
+                </span>
+                <input type="text" class="form-control input-sm search-field" id="filterSearch" placeholder="Search...">
+            </div>
+        </div>
+
+
     </div>
+
     <!-- actions -->
     <div class="row">
         <div class="col-12" style="padding-left: 20px; padding-right: 20px;">
@@ -277,6 +454,537 @@
                 document.querySelector('#model_id').innerHTML = '<option value="">Select Target Entity</option>';
             }
         });
+
+
+
+        document.getElementById("isdone").addEventListener("click", toggleDropdown);
+
+            function toggleDropdown() {
+                var dropdown = document.getElementById('isdoneDropdown');
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                } else {
+                    closeAllDropdowns();
+                    dropdown.style.display = "block";
+
+
+
+                }
+            }
+            document.getElementById("datefilter").addEventListener("click", function() { 
+                event.stopPropagation();
+                var dropdown = document.getElementById('dateDropdown');
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                } else {
+                    closeAllDropdowns();
+                    dropdown.style.display = "block";
+                    }
+            });
+
+
+
+            document.getElementById("applyDates").addEventListener("click", function() {
+
+                event.preventDefault();
+
+                let startDate = document.getElementById("filter_started_at").value;
+                let finishedDate = document.getElementById("filter_finished_at").value;
+                const sortBy = document.getElementById("sort_by").value;
+
+                startDate = startDate.replace(/\//g, '-');
+                finishedDate = finishedDate.replace(/\//g, '-');
+
+                console.log('startDate:', startDate);
+                console.log('finished date:', finishedDate);
+                console.log('sortby:', sortBy);
+
+                const baseUrl = "{{ route('actions.filter') }}";
+                let url = `${baseUrl}`;
+                
+
+                const params = new URLSearchParams();
+                
+                if (startDate) {
+                    params.append('startDate', encodeURIComponent(startDate));
+                }
+                if (finishedDate) {
+                    params.append('finishedDate', encodeURIComponent(finishedDate));
+                }
+                if (sortBy) {
+                    params.append('sortBy', encodeURIComponent(sortBy));
+                }
+
+                if (params.toString()) {
+                    url += `?${params.toString()}`;
+                }
+
+                console.log(url);
+
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log("Fetched data:", data);
+                })
+                .catch(error => {
+                    console.error('Fetch error:', error);
+                });
+            });
+
+                  
+
+         
+          
+            function updateButtonText(buttonId, text) {
+                var button = document.getElementById(buttonId);
+                button.innerText = text;
+            }
+
+            document.getElementById("UsersLists").addEventListener("click", function() {
+                event.stopPropagation();
+                var dropdown = document.getElementById('usersDropdown');
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                } else {
+                    closeAllDropdowns();
+                    dropdown.style.display = "block";
+
+                    var url = `{{ route('users.get') }}`;
+
+                    console.log(url);
+
+                    fetch(url, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Fetched data:', data);
+
+                        const UsersListContainer = document.getElementById('usersListContainer');
+                        UsersListContainer.innerHTML = '';                  
+                        const hr = document.createElement('hr');
+
+                        // Iterate over each user object in the array
+                        data.forEach(user => {
+                            const listItem = document.createElement('li');
+
+                            const checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.id = `user-${user.id}`;
+                            checkbox.value = user.id;
+                            checkbox.classList.add('user-checkbox');
+
+                            const label = document.createElement('label');
+                            label.htmlFor = `user-${user.id}`;
+                            label.textContent = user.full_name;
+
+                            listItem.appendChild(checkbox);
+                            listItem.appendChild(label);
+                            listItem.classList.add('user-item');
+                            
+                            UsersListContainer.appendChild(listItem);
+                        });
+
+                        UsersListContainer.appendChild(hr);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching users data:', error);
+                    });
+
+                }
+            });
+
+            document.getElementById("clearUsers").addEventListener("click", function() {
+                const checkboxes = document.querySelectorAll('.user-checkbox');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+            });
+
+            document.getElementById("applyUsers").addEventListener("click", function() {
+                const selectedUsersIds = [];
+                const checkboxes = document.querySelectorAll('.user-checkbox:checked');
+                
+                checkboxes.forEach(checkbox => {
+                    selectedUsersIds.push(checkbox.value);
+                });
+
+                if (selectedUsersIds.length > 0) {
+                    console.log('Selected Users IDs:', selectedUsersIds);
+
+                    // Create a comma-separated string of IDs
+                    const idsString = selectedUsersIds.join(',');
+
+                    // Build the URL manually
+                    var baseUrl = "{{ route('actions.filter') }}";  // Get the base URL
+                    var url = `${baseUrl}?user=${encodeURIComponent(idsString)}`;
+
+                    // console.log(url);
+                    fetch(url, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Fetched data:', data);
+                        const projects = data.projects.data;
+
+                    // Clear the existing table rows
+                    const tableBody = document.querySelector('table tbody');
+                    tableBody.innerHTML = '';
+
+                    // Check if there are any projects returned
+                    if (projects.length === 0) {
+                        const noResultsRow = `<tr><td colspan="8" class="text-center">{{ trans('project.not_found') }}</td></tr>`;
+                        tableBody.innerHTML = noResultsRow;
+                    } else {
+
+                        const projects = data.projects.data;
+                        console.log(projects);
+                        // Loop through the filtered data and create rows
+                        projects.forEach((project, key) => {
+                        const row = `
+                            <tr>
+                                <td>${data.projects.from + key}</td>
+                                <td>${project.name}</td>
+                                <td class="text-center">${project.start_date}</td>
+                                <td class="text-right">${project.work_duration || 'N/A'}</td>
+                                <td class="text-right">${project.project_value || 'N/A'}</td>
+                                <td class="text-center">${project.status_text}</td>
+                                <td>
+                                    <a href="${project.organization}">
+                                        ${project.organization ? project.OrganizationName : 'N/A'}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="${project.show_url}" class="btn btn-info btn-xs" title="${project.OrganizationName}">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                    <button class="btn btn-warning btn-xs edit-project-btn" data-id="${project.id}" data-toggle="modal" data-target="#editProjectModal" title="${project.edit_text}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>`;
+                        tableBody.innerHTML += row;
+                    });
+
+
+                    }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching project data:', error);
+                    });
+                } else {
+                    console.log('No organizations selected');
+                }
+            });
+
+            function selectOrganization(id, name) {
+                document.getElementById('organizationDropdown').style.display = 'none';
+            }
+
+            document.getElementById("it-has").addEventListener("click", toggleIsWith);
+
+            function toggleIsWith(event) {
+                event.stopPropagation();
+                var dropdown = document.getElementById('classDropdown');
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                } else {
+                    closeAllDropdowns();
+                    dropdown.style.display = "block";
+                }
+            }
+
+            document.getElementById("clearClauses").addEventListener("click", function() {
+                const checkboxes = document.querySelectorAll('#clausesForm input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+            });
+
+            document.getElementById("applyClauses").addEventListener("click", function() {
+                const selectedClasses = [];
+                const checkboxes = document.querySelectorAll('#clausesForm input[type="checkbox"]:checked');
+                checkboxes.forEach(checkbox => {
+                    selectedClasses.push(checkbox.name);
+                });
+                console.log('Selected Clauses:', selectedClasses);
+
+                if(selectedClasses){
+
+                    var baseUrl = "{{ route('actions.filter') }}";
+                    var url = `${baseUrl}?classes=${selectedClasses.join(',')}`; 
+                fetch(url, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Fetched data:', data);
+                        const projects = data.projects.data;
+
+                    // Clear the existing table rows
+                    const tableBody = document.querySelector('table tbody');
+                    tableBody.innerHTML = '';
+
+                    // Check if there are any projects returned
+                    if (projects.length === 0) {
+                        const noResultsRow = `<tr><td colspan="8" class="text-center">{{ trans('project.not_found') }}</td></tr>`;
+                        tableBody.innerHTML = noResultsRow;
+                    } else {
+
+                        const projects = data.projects.data;
+                        console.log(projects);
+                        // Loop through the filtered data and create rows
+                        projects.forEach((project, key) => {
+                        const row = `
+                            <tr>
+                                <td>${data.projects.from + key}</td>
+                                <td>${project.name}</td>
+                                <td class="text-center">${project.start_date}</td>
+                                <td class="text-right">${project.work_duration || 'N/A'}</td>
+                                <td class="text-right">${project.project_value || 'N/A'}</td>
+                                <td class="text-center">${project.status_text}</td>
+                                <td>
+                                    <a href="${project.organization}">
+                                        ${project.organization ? project.OrganizationName : 'N/A'}
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="${project.show_url}" class="btn btn-info btn-xs" title="${project.OrganizationName}">
+                                        <i class="fas fa-search"></i>
+                                    </a>
+                                    <button class="btn btn-warning btn-xs edit-project-btn" data-id="${project.id}" data-toggle="modal" data-target="#editProjectModal" title="${project.edit_text}">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>`;
+                        tableBody.innerHTML += row;
+                    });
+
+
+                    }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching project data:', error);
+                    });
+
+
+
+                console.log("Final URL:", url);
+                }else{
+                    return;
+                }
+
+
+                document.getElementById('classDropdown').style.display = 'none';
+            });
+
+            document.getElementById("priority").addEventListener("click", toggleProjectValue);
+
+            function toggleProjectValue(event) {
+                event.stopPropagation();
+                var dropdown = document.getElementById('priorityDropdown');
+                if (dropdown.style.display === "block") {
+                    dropdown.style.display = "none";
+                } else {
+                    closeAllDropdowns();
+                    dropdown.style.display = "block";
+
+                    var url = `{{ route('priorities.get') }}`;
+
+                    console.log(url);
+
+                    fetch(url, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Requested-With': 'XMLHttpRequest'
+                        }
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        console.log('Fetched data:', data);
+
+                        const prioritiesListContainer = document.getElementById('prioritiesListContainer');
+                        prioritiesListContainer.innerHTML = '';                  
+                        const hr = document.createElement('hr');
+
+                        // Iterate over each user object in the array
+                        data.forEach(priority => {
+                            const listItem = document.createElement('li');
+
+                            const checkbox = document.createElement('input');
+                            checkbox.type = 'checkbox';
+                            checkbox.id = `priority-${priority.id}`;
+                            checkbox.value = priority.id;
+                            checkbox.classList.add('priority-checkbox');
+
+                            const label = document.createElement('label');
+                            label.htmlFor = `priority-${user.id}`;
+                            label.textContent = priority.priority;
+
+                            listItem.appendChild(checkbox);
+                            listItem.appendChild(label);
+                            listItem.classList.add('priority-item');
+                            
+                            prioritiesListContainer.appendChild(listItem);
+                        });
+
+                        prioritiesListContainer.appendChild(hr);
+                    })
+                    .catch(error => {
+                        console.error('Error fetching users data:', error);
+                    });
+
+                
+            
+                }
+            }
+
+            document.getElementById("applyPriorities").addEventListener("click", function() {
+            // Get all checked checkboxes within the priorityValueForm
+            const selectedPriorityIds = [];
+            const checkboxes = document.querySelectorAll('.priority-checkbox:checked');
+
+            // Collect the names of selected checkboxes
+            checkboxes.forEach(checkbox => {
+                selectedPriorityIds.push(checkbox.value);
+            });
+            
+            // console.log(selectedPriorityIds);
+
+            // Prepare the URL
+            const baseUrl = "{{ route('actions.filter') }}";
+            let url = `${baseUrl}`;
+            
+            if (selectedPriorityIds.length > 0) {
+                const params = new URLSearchParams();
+                params.append('priorities', selectedPriorityIds.join(','));
+                url += `?${params.toString()}`;
+            }
+
+            // Log the URL or make an AJAX request
+            console.log(url);
+            
+            // Example: Send the data to your method via an AJAX GET request
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Fetched data:", data);
+                // Handle the response data here
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+        });
+
+
+
+       // Event listener for when the search input changes or when the user presses enter
+        document.getElementById("filterSearch").addEventListener("input", function(event) {
+            const searchQuery = event.target.value;
+
+            const baseUrl = "{{ route('actions.filter') }}";
+            // Log the search query to the console or use it in an AJAX request
+            console.log('Search query:', searchQuery);
+
+            // Example: Append the search query to a URL and make an AJAX request
+            const url = `${baseUrl}?search=${encodeURIComponent(searchQuery)}`;
+
+            console.log(url);
+            fetch(url, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Fetched data:", data);
+                // Handle the response data, e.g., update the UI with the search results
+            })
+            .catch(error => {
+                console.error('Fetch error:', error);
+            });
+        });
+
+
+
+
+
+
+            function closeAllDropdowns() {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    dropdowns[i].style.display = "none";
+                }
+            }
+
+            window.onclick = function(event) {
+                if (!event.target.matches('.filter-btn') && !event.target.closest('.dropdown-content')) {
+                    closeAllDropdowns();
+                }
+            }
 
     });
 </script>

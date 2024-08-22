@@ -11,18 +11,22 @@ use App\Models\CRM\KeyResult\KeyResult;
 use App\Models\CRM\Priority\Priority;
 use App\Models\ProjectManagement\Projects\Project;
 use App\Models\CRM\Pipeline\Pipeline;
-use  App\Models\CRM\Proposal\Proposal;
+use App\Models\CRM\Proposal\Proposal;
 use Illuminate\Http\Request;
+use App\Filters\CRM\ActionsFilter;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\CRM\Objectives\ActionRequest;
 use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Testing\Fluent\Concerns\Debugging; // Include the Debugging trait
 use Illuminate\Support\Facades\Log;
+use DB;
+
 
 class ActionsController extends Controller
 {
-    public function __construct()
+    public function __construct(ActionsFilter $Filter )
     {
+        $this->filter = $Filter;
         $this->middleware('auth');
     }
 
@@ -62,8 +66,14 @@ class ActionsController extends Controller
         }
     }
     
-    
-    
+
+    /**
+     * get priorities
+     */
+    public function getPriorities()
+    {
+        return Priority::all();
+    }
 
     public  function get()
     {
@@ -86,6 +96,63 @@ class ActionsController extends Controller
     }
 
 
+    /**
+     * @param Request $request
+     * return array 
+     */
+
+     public function filterActions(Request $request)
+     {
+        $user = auth()->user();
+
+        // dd($request);
+        // Start building the query for projects
+        $query = Action::query();
+        // Apply the query builder to the filter
+        $this->filter->apply($query);
+        // Apply the organization filter if IDs are provided
+        if ($request->has('user')) {
+            $this->filter->belongsTo($request->get('user'));
+        }
+        
+        if ($request->has('priorities')) {
+            
+         $this->filter->priority($request->get('priorities'));
+        }
+        
+        if ($request->has('classes')) {
+            $this->filter->classes($request->has('classes'));
+        }
+        
+        if ($request->has('startDate') || $request->has('finishedDate')) {
+            $this->filter->createdAt($request->get('startDate'), $request->get('finishedDate'));
+        }
+        
+        if ($request->has('search')){
+            $this->filter->search($request->get('search'));
+        }
+
+        // Paginate the results
+        $actions = $query->paginate(10);
+
+        foreach ($actions as $action) {
+           $action->priority = $action->priority()->getResults()->priority;
+           $action->related_files = count($action->getRelatedFiles());
+           $action->user_name = $action->user->name;
+           $action->show_user_url = route('user.okr', $action->user->id);
+           $action->show_action_url =  route('actions.showloneaction',$action->id);
+
+        }
+
+        dd($actions);
+
+        $this->authorize('create', new Project());
+        // Return the projects and organization list as JSON if the request is AJAX
+        return response()->json([
+            'actions' => $actions,
+
+        ]);
+     }
 
     public function listActions()
     {
