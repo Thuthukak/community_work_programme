@@ -3,8 +3,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.css">
 
 @section('title','Objective')
-
-
 <style>
 .filters {
     position: relative;
@@ -114,8 +112,6 @@
     border-radius: 25px;
     border: 1px solid #ccc;
 }
-
-
 </style>
 @section('contents')
 <div class="container-fluid" style="margin-top: 40px;">
@@ -193,7 +189,6 @@
             </div>
         </div>
 
-
         <div class="filter-item search-item" style="margin-left:auto; margin-right:50px;">
             <div class="form-group form-group-with-search d-flex align-items-center relative">
             <span class="form-control-feedback">
@@ -209,60 +204,26 @@
         </div>
 
 
-
     </div>
 
-<!-- actions table -->
-<div class="datatable mt-5 ml-3 mr-3">
-    <div class="table-responsive">
-        <table style="width: 100%;">
-            <thead>
-                <tr style="border-bottom: 1px solid var(--default-border-color);">
-                    <th class="datatable-th">Started At</th>
-                    <th class="datatable-th">Priority</th>
-                    <th class="datatable-th">Title</th>
-                    <th class="datatable-th">Content</th>
-                    <th class="datatable-th">Key result</th>
-                    <th class="datatable-th">Model Type</th>
-                    <th class="datatable-th">Finished At</th>
-                    <th class="datatable-th">Person</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach($actions as $action)
-                <tr style="border-bottom: 1px solid var(--default-border-color);">
-                    <td class="datatable-td">{{ $action->started_at }}</td>
-                    <td class="datatable-td">
-                        @php
-                            $priorityMap = [
-                                1 => ['label' => 'Immediate', 'class' => 'danger'],
-                                2 => ['label' => 'Urgent', 'class' => 'warning'],
-                                3 => ['label' => 'Normal', 'class' => 'info'],
-                                4 => ['label' => 'Low', 'class' => 'success'],
-                                5 => ['label' => 'Postponed', 'class' => 'dark'],
-                            ];
-                        @endphp
-                        <span class="badge rounded-pill bg-{{ $priorityMap[$action->priority]['class'] ?? 'secondary' }} fixed-pill">
-                            {{ $priorityMap[$action->priority]['label'] ?? 'Unknown' }}
-                        </span>
-                    </td>
-                    <td class="datatable-td">{{ $action->title }}</td>
-                    <td class="datatable-td">{{ $action->content }}</td>
-                    <td class="datatable-td" style="word-wrap: break-word;
-                    overflow-wrap: break-word;">{{ $action->keyResult->title ?? 'Unknown' }}</td>
-                    <td class="datatable-td">{{ last(explode('\\', $action->model_type)) }}</td>
-                    <td class="datatable-td">{{ $action->finished_at }}</td>
-                    <td class="datatable-td">
-                        <img src="storage/icon/green.png" style="width: 14px; height: 14px;" class="avatar-xs mr-2">
-                        {{ $action->user->first_name ?? 'Unknown' }}
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
+    <!-- actions -->
+    <div class="row">
+        <div class="col-12" style="padding-left: 20px; padding-right: 20px;">
+            <div class="tab-pane fade show pl-sm-4 mt-4 pr-sm-4">
+                @if ($actions)
+                        @include('crm.actions.actions', ['actions' => $actions])
+                @else
+                    <div id="dragCard" class="row justify-content-md-center u-mt-16">
+                        <div class="alert alert-warning alert-dismissible fade show u-mt-32" role="alert">
+                            <strong><i class="fas fa-exclamation-circle pl-2 pr-2"></i></strong>
+                            No Actions have been established for the Company !!
+                        </div>
+                    </div>
+                @endif
+            </div>
+        </div>
     </div>
 </div>
-
 
 <!-- Modal -->
 <div id="createActionModal" class="modal fade" role="dialog">
@@ -568,7 +529,43 @@
                     return response.json();
                 })
                 .then(data => {
-                    console.log("Fetched data:", data);
+                        
+                        console.log(data);
+                       const actions = data.actions.data;
+                          // Clear the existing table rows
+                         const tableBody = document.querySelector('table tbody');
+                        tableBody.innerHTML = '';
+                        // Check if there are any actions returned
+                        if (actions.length === 0) {
+                            const noResultsRow = `<tr><td colspan="8" class="text-center">{{ trans('No Actions Found') }}</td></tr>`;
+                            tableBody.innerHTML = noResultsRow;
+                        } else {
+
+                        let actionsTableBody = document.querySelector('#actions-table tbody');
+                        actionsTableBody.innerHTML = ''; // Clear existing data
+
+                        data.actions.data.forEach(action => {
+                            let row = `
+                                <tr style="border-bottom: 1px solid var(--default-border-color);">
+                                    <td class="datatable-td">${action.started_at}</td>
+                                    <td class="datatable-td">
+                                        <span class="badge rounded-pill bg-${action.priority_color} fixed-pill">
+                                            ${action.priority_label}
+                                        </span>
+                                    </td>
+                                    <td class="datatable-td"> 
+                                      <a href="${action.show_action_url}">${action.title}</a>
+                                      </td>
+                                    <td class="datatable-td">${action.content}</td>
+                                    <td class="datatable-td">${action.KeyResult}</td>
+                                    <td class="datatable-td">${action.model_type}</td>
+                                    <td class="datatable-td">${action.finished_at}</td>
+                                    <td class="datatable-td">${action.user_name}</td>
+                                </tr>
+                            `;
+                            actionsTableBody.insertAdjacentHTML('beforeend', row);
+                        });
+                    }
                 })
                 .catch(error => {
                     console.error('Fetch error:', error);
@@ -687,58 +684,52 @@
                         return response.json();
                     })
                     .then(data => {
-                        console.log('Fetched data:', data);
-                        const projects = data.projects.data;
-
-                    // Clear the existing table rows
-                    const tableBody = document.querySelector('table tbody');
-                    tableBody.innerHTML = '';
-
-                    // Check if there are any projects returned
-                    if (projects.length === 0) {
-                        const noResultsRow = `<tr><td colspan="8" class="text-center">{{ trans('project.not_found') }}</td></tr>`;
-                        tableBody.innerHTML = noResultsRow;
-                    } else {
-
-                        const projects = data.projects.data;
-                        console.log(projects);
-                        // Loop through the filtered data and create rows
-                        projects.forEach((project, key) => {
-                        const row = `
-                            <tr>
-                                <td>${data.projects.from + key}</td>
-                                <td>${project.name}</td>
-                                <td class="text-center">${project.start_date}</td>
-                                <td class="text-right">${project.work_duration || 'N/A'}</td>
-                                <td class="text-right">${project.project_value || 'N/A'}</td>
-                                <td class="text-center">${project.status_text}</td>
-                                <td>
-                                    <a href="${project.organization}">
-                                        ${project.organization ? project.OrganizationName : 'N/A'}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="${project.show_url}" class="btn btn-info btn-xs" title="${project.OrganizationName}">
-                                        <i class="fas fa-search"></i>
-                                    </a>
-                                    <button class="btn btn-warning btn-xs edit-project-btn" data-id="${project.id}" data-toggle="modal" data-target="#editProjectModal" title="${project.edit_text}">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                </td>
-                            </tr>`;
-                        tableBody.innerHTML += row;
-                    });
 
 
+                        const actions = data.actions.data;
+
+                          // Clear the existing table rows
+                        const tableBody = document.querySelector('table tbody');
+                        tableBody.innerHTML = '';
+                        // Check if there are any Actions returned
+                        if (actions.length === 0) {
+                            const noResultsRow = `<tr><td colspan="8" class="text-center">{{ trans('No Actions Found') }}</td></tr>`;
+                            tableBody.innerHTML = noResultsRow;
+                        } else {
+
+                        let actionsTableBody = document.querySelector('#actions-table tbody');
+                        actionsTableBody.innerHTML = ''; // Clear existing data
+
+                        data.actions.data.forEach(action => {
+                            let row = `
+                                <tr style="border-bottom: 1px solid var(--default-border-color);">
+                                    <td class="datatable-td">${action.started_at}</td>
+                                    <td class="datatable-td">
+                                        <span class="badge rounded-pill bg-${action.priority_color} fixed-pill">
+                                            ${action.priority_label}
+                                        </span>
+                                    </td>
+                                    <td class="datatable-td"> 
+                                      <a href="${action.show_action_url}">${action.title}</a>
+                                      </td>
+                                    <td class="datatable-td">${action.content}</td>
+                                    <td class="datatable-td">${action.KeyResult}</td>
+                                    <td class="datatable-td">${action.model_type}</td>
+                                    <td class="datatable-td">${action.finished_at}</td>
+                                    <td class="datatable-td">${action.user_name}</td>
+                                </tr>
+                            `;
+                            actionsTableBody.insertAdjacentHTML('beforeend', row);
+                        });
                     }
-                    })
-                    .catch(error => {
-                        console.error('Error fetching project data:', error);
-                    });
-                } else {
-                    console.log('No organizations selected');
-                }
-            });
+                        })
+                        .catch(error => {
+                            console.error('Error fetching project data:', error);
+                        });
+                    } else {
+                        console.log('No organizations selected');
+                    }
+                });
 
             function selectOrganization(id, name) {
                 document.getElementById('organizationDropdown').style.display = 'none';
@@ -790,49 +781,41 @@
                         return response.json();
                     })
                     .then(data => {
-                        console.log('Fetched data:', data);
-                        const projects = data.projects.data;
+                       
+                        const actions = data.actions.data;
+                          // Clear the existing table rows
+                        const tableBody = document.querySelector('table tbody');
+                        tableBody.innerHTML = '';
+                        // Check if there are any actions returned
+                        if (actions.length === 0) {
+                            const noResultsRow = `<tr><td colspan="8" class="text-center">{{ trans('No Actions Found') }}</td></tr>`;
+                            tableBody.innerHTML = noResultsRow;
+                        } else {
 
-                    // Clear the existing table rows
-                    const tableBody = document.querySelector('table tbody');
-                    tableBody.innerHTML = '';
+                        let actionsTableBody = document.querySelector('#actions-table tbody');
+                        actionsTableBody.innerHTML = ''; // Clear existing data
 
-                    // Check if there are any projects returned
-                    if (projects.length === 0) {
-                        const noResultsRow = `<tr><td colspan="8" class="text-center">{{ trans('project.not_found') }}</td></tr>`;
-                        tableBody.innerHTML = noResultsRow;
-                    } else {
-
-                        const projects = data.projects.data;
-                        console.log(projects);
-                        // Loop through the filtered data and create rows
-                        projects.forEach((project, key) => {
-                        const row = `
-                            <tr>
-                                <td>${data.projects.from + key}</td>
-                                <td>${project.name}</td>
-                                <td class="text-center">${project.start_date}</td>
-                                <td class="text-right">${project.work_duration || 'N/A'}</td>
-                                <td class="text-right">${project.project_value || 'N/A'}</td>
-                                <td class="text-center">${project.status_text}</td>
-                                <td>
-                                    <a href="${project.organization}">
-                                        ${project.organization ? project.OrganizationName : 'N/A'}
-                                    </a>
-                                </td>
-                                <td>
-                                    <a href="${project.show_url}" class="btn btn-info btn-xs" title="${project.OrganizationName}">
-                                        <i class="fas fa-search"></i>
-                                    </a>
-                                    <button class="btn btn-warning btn-xs edit-project-btn" data-id="${project.id}" data-toggle="modal" data-target="#editProjectModal" title="${project.edit_text}">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                </td>
-                            </tr>`;
-                        tableBody.innerHTML += row;
-                    });
-
-
+                        data.actions.data.forEach(action => {
+                            let row = `
+                                <tr style="border-bottom: 1px solid var(--default-border-color);">
+                                    <td class="datatable-td">${action.started_at}</td>
+                                    <td class="datatable-td">
+                                        <span class="badge rounded-pill bg-${action.priority_color} fixed-pill">
+                                            ${action.priority_label}
+                                        </span>
+                                    </td>
+                                    <td class="datatable-td"> 
+                                      <a href="${action.show_action_url}">${action.title}</a>
+                                      </td>
+                                    <td class="datatable-td">${action.content}</td>
+                                    <td class="datatable-td">${action.KeyResult}</td>
+                                    <td class="datatable-td">${action.model_type}</td>
+                                    <td class="datatable-td">${action.finished_at}</td>
+                                    <td class="datatable-td">${action.user_name}</td>
+                                </tr>
+                            `;
+                            actionsTableBody.insertAdjacentHTML('beforeend', row);
+                        });
                     }
                     })
                     .catch(error => {
@@ -957,8 +940,40 @@
                 return response.json();
             })
             .then(data => {
-                console.log("Fetched data:", data);
-                // Handle the response data here
+              
+                const actions = data.actions.data;
+                        // Check if there are any actions returned
+
+                        if (actions.length === 0) {
+                            const noResultsRow = `<tr><td colspan="8" class="text-center">{{ trans('No Actions Found') }}</td></tr>`;
+                            tableBody.innerHTML = noResultsRow;
+                        } else {
+
+                        let actionsTableBody = document.querySelector('#actions-table tbody');
+                        actionsTableBody.innerHTML = ''; // Clear existing data
+
+                        data.actions.data.forEach(action => {
+                            let row = `
+                                <tr style="border-bottom: 1px solid var(--default-border-color);">
+                                    <td class="datatable-td">${action.started_at}</td>
+                                    <td class="datatable-td">
+                                        <span class="badge rounded-pill bg-${action.priority_color} fixed-pill">
+                                            ${action.priority_label}
+                                        </span>
+                                    </td>
+                                    <td class="datatable-td"> 
+                                      <a href="${action.show_action_url}">${action.title}</a>
+                                      </td>
+                                    <td class="datatable-td">${action.content}</td>
+                                    <td class="datatable-td">${action.KeyResult}</td>
+                                    <td class="datatable-td">${action.model_type}</td>
+                                    <td class="datatable-td">${action.finished_at}</td>
+                                    <td class="datatable-td">${action.user_name}</td>
+                                </tr>
+                            `;
+                            actionsTableBody.insertAdjacentHTML('beforeend', row);
+                        });
+                    }
             })
             .catch(error => {
                 console.error('Fetch error:', error);
@@ -993,8 +1008,42 @@
                 return response.json();
             })
             .then(data => {
-                console.log("Fetched data:", data);
-                // Handle the response data, e.g., update the UI with the search results
+              
+                     const actions = data.actions.data;
+                     // Clear the existing table rows
+                     const tableBody = document.querySelector('table tbody');
+                     tableBody.innerHTML = '';
+                        // Check if there are any actions returned
+                        if (actions.length === 0) {
+                            const noResultsRow = `<tr><td colspan="8" class="text-center">{{ trans('No Actions Found') }}</td></tr>`;
+                            tableBody.innerHTML = noResultsRow;
+                        } else {
+
+                        let actionsTableBody = document.querySelector('#actions-table tbody');
+                        actionsTableBody.innerHTML = ''; // Clear existing data
+
+                        data.actions.data.forEach(action => {
+                            let row = `
+                                <tr style="border-bottom: 1px solid var(--default-border-color);">
+                                    <td class="datatable-td">${action.started_at}</td>
+                                    <td class="datatable-td">
+                                        <span class="badge rounded-pill bg-${action.priority_color} fixed-pill">
+                                            ${action.priority_label}
+                                        </span>
+                                    </td>
+                                    <td class="datatable-td"> 
+                                      <a href="${action.show_action_url}">${action.title}</a>
+                                      </td>
+                                    <td class="datatable-td">${action.content}</td>
+                                    <td class="datatable-td">${action.KeyResult}</td>
+                                    <td class="datatable-td">${action.model_type}</td>
+                                    <td class="datatable-td">${action.finished_at}</td>
+                                    <td class="datatable-td">${action.user_name}</td>
+                                </tr>
+                            `;
+                            actionsTableBody.insertAdjacentHTML('beforeend', row);
+                        });
+                    }
             })
             .catch(error => {
                 console.error('Fetch error:', error);
@@ -1022,3 +1071,4 @@
     });
 </script>
 @endsection
+

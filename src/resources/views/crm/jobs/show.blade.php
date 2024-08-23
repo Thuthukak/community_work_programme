@@ -1,6 +1,7 @@
 @extends('crm.layouts.job')
 
 @section('subtitle', __('job.detail'))
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 @section('action-buttons')
 @can('create', new App\Models\ProjectManagement\Projects\ProjectJob)
@@ -66,7 +67,7 @@
             </div>
             <div class="modal-footer">
                 {{ Form::submit(__('Save'), ['class' => 'btn btn-primary']) }}
-                {{ link_to_route('projects.jobs.index', __('app.cancel'), [$project], ['class' => 'btn btn-default']) }}
+                {{ link_to_route('jobs.show', __('app.cancel'), [$job], ['class' => 'btn btn-default']) }}
 
             </div>
         </div>
@@ -159,7 +160,6 @@
 @endsection
 
 @section('ext_js')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.css">
 @endsection
 
 @section('script')

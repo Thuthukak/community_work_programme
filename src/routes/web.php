@@ -330,6 +330,7 @@ Route::get('actions/{action}/showloneaction', [ActionsController::class , 'showl
 
 // Delete personal Action
 Route::delete('actions/{action}/destroy', [ActionsController::class ,'destroy'])->name('actions.destroy');
+Route::delete('actions/{action}/destroyloneaction', [ActionsController::class ,'destroyloneAction'])->name('actions.destroyloneAction');
 // Delete Action's file
 Route::get('actions/{action}/media/{media}/destroy', [ActionsController::class , 'destroyFile'])->name('actions.destroyFile');
 // Return search

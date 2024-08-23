@@ -22,7 +22,7 @@
             <a href="#" data-toggle="dropdown" class="btn btn-danger btn-xs edit-project-btn mr-1">
                 <i class="fas fa-trash-alt text-white"></i>
             </a>
-            <form method="POST" id="deleteAct{{ $action->id }}" action="{{ route('actions.destroy', $action->id) }}">
+            <form method="POST" id="deleteAct{{ $action->id }}" action="{{ route('actions.destroyloneAction', $action->id) }}">
                 @csrf
                 {{ method_field('DELETE') }}
                 <div class="dropdown-menu u-padding-16">

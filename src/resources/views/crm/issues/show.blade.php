@@ -1,16 +1,12 @@
 @extends('crm.layouts.issue')
-
-@section('subtitle', __('issue.detail'))
-
 @section('action-buttons')
 <div class="action-btns-container">
 @can('create', new App\Models\ProjectManagement\Projects\Issue)
-<button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#createNewIssueModal" data-project-id="{{ $project->id }}">{{ trans('Add Issue') }}</button>
+<button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#createNewIssueModal" data-project-id="{{ $project->id }}">{{trans('Add Issue') }}</button>
+</div>
 @endcan
 @endsection
-
 @section('content-issue')
-
 <div class="row showprojtable">
     <div class="col-md-6">
         <div class="panel panel-default">
