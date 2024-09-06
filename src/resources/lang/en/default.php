@@ -343,9 +343,9 @@ return array_merge(
         'browse' => 'Browse',
 
         // No notification
-        'no_notification_one' => "It's very much boring to do as usual stuff, let's have a party with some beer!",
-        'no_notification_two' => 'Are you hungry there? Please have good food and get back to work.',
-        'no_notification_three' => 'Rock & role time! Turn on your music and have some fun with your team.',
+        'no_notification_one' => "No notifications",
+        'no_notification_two' => 'No notifications',
+        'no_notification_three' => 'No notifications',
         'all_notifications' => 'All Notifications',
 
         // Tooltip titles

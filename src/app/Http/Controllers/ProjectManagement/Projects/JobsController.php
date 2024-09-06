@@ -105,6 +105,37 @@ class JobsController extends Controller
         return view('crm.projects.jobs.add-from-other-project', compact('project', 'persons', 'projects', 'selectedProject','files'));
     }
 
+
+    /**
+     * get tasks by filters
+    * @param  \App\Models\ProjectManagement\Projects\Job  $job
+     * @return \Illuminate\View\View
+     */
+
+     public function getTasksByFilter(Request $request)
+     {
+
+        // dd($request);
+        $user = auth()->user();
+
+        $query = ProjectJob::query();
+
+        $filter->apply($query);
+
+        if($request->has(''))
+        {
+            
+        }
+
+        $this->authorize('create', new ProjectJob());
+        // Return the projects and organization list as JSON if the request is AJAX
+        return response()->json([
+            'projects' => $projects,
+            'jobs' => $tasks,
+        ]);
+
+     } 
+
     public function store(CreateRequest $req, Project $project)
     {
         // dd($project->id);

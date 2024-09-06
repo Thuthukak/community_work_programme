@@ -42,7 +42,6 @@ class CompanyController extends Controller
         $okrsWithPage = $company->getOkrsWithPage($request);
         $company['okrs'] = $okrsWithPage['okrs'];
 
-
         $data = [
             'user' => auth()->user(),
             'company' => $company,

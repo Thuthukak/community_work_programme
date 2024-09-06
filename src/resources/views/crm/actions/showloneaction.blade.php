@@ -15,14 +15,14 @@
                 @csrf
             </form>
 
-            <button class="btn btn-primary btn-xs edit-project-btn mr-1" data-id="{{ $action->id }}" data-toggle="modal" data-target="#EditActionModal">
+            <button class="btn btn-primary btn-xs edit-project-btn mr-1 edit-action-btn" id="edit-action-btn" data-id="{{ $action->id }}" data-toggle="modal" data-target="#EditActionModal">
                 <i class="fas fa-edit"></i>
             </button>
 
             <a href="#" data-toggle="dropdown" class="btn btn-danger btn-xs edit-project-btn mr-1">
                 <i class="fas fa-trash-alt text-white"></i>
             </a>
-            <form method="POST" id="deleteAct{{ $action->id }}" action="{{ route('actions.destroy', $action->id) }}">
+            <form method="POST" id="deleteAct{{ $action->id }}" action="{{ route('actions.destroyloneAction', $action->id) }}">
                 @csrf
                 {{ method_field('DELETE') }}
                 <div class="dropdown-menu u-padding-16">
@@ -132,19 +132,28 @@
 
                     <input type="hidden" name="action_id" id="action_id">
 
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="action_title">Action</label>
-                            <input type="text" class="form-control" name="act_title" id="action_title" required>
-                        </div>
 
-                        <div class="form-group col-md-6">
-                            <label for="priority">Priority</label>
-                            <select id="priority" class="form-control" name="priority" required>
-                                <option value="">Select Priority</option>
-                            </select>
-                        </div>
+                    <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="action_title">Action</label>
+                        <input type="text" class="form-control" name="act_title" id="action_title" required>
                     </div>
+
+                </div>
+                <div class="form-row">
+                <div class="form-group col-md-6">
+                        <label for="manager">Accountable Manager</label>
+                        <select id="manager" class="form-control" name="manager" required>
+                            <option value="">Select Manager</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="priority">Priority</label>
+                        <select id="priority" class="form-control" name="priority" required>
+                            <option value="">Select Priority</option>
+                        </select>
+                    </div>
+                </div>
 
                     <div class="form-row">
                         <div class="form-group col-md-6">
@@ -261,15 +270,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Find the action object with the matching ID
     const action = data.actions.find(action => action.id == actionId);
+        console.log(action);
 
-    if (action) {
-        // Populate the form fields with the action data
-        document.getElementById('action_id').value = action.id;
-        document.getElementById('action_title').value = action.title;
-        document.getElementById('started_at').value = action.started_at;
-        document.getElementById('finished_at').value = action.finished_at;
-        document.getElementById('action_content').value = action.content;
+        if (action) {
+            // Populate the form fields with the action data
+            document.getElementById('action_id').value = action.id;
+            document.getElementById('action_title').value = action.title;
+            document.getElementById('started_at').value = action.started_at;
+            document.getElementById('finished_at').value = action.finished_at;
+            document.getElementById('action_content').value = action.content;
 
+             // Populate users (managers)
+            var managerSelect = document.getElementById('manager');
+            managerSelect.innerHTML = '<option value="">Select Manager</option>';
+            data.user.forEach(function(manager) {
+                var option = document.createElement('option');
+                option.value = manager.id;
+                option.textContent = manager.first_name + ' ' + manager.last_name;
+                managerSelect.appendChild(option);
+            });
+
+            // Set the selected value of the manager
+            const selectedManager = data.user.find(manager => manager.id == action.user_id);
+            if (selectedManager) {
+                managerSelect.value = selectedManager.id;
+            }
+                
         // Populate priorities
         var prioritySelect = document.getElementById('priority');
         prioritySelect.innerHTML = '<option value=""></option>';
@@ -291,6 +317,8 @@ document.addEventListener('DOMContentLoaded', function () {
             objectiveSelect.appendChild(option);
         });
         objectiveSelect.value = action.keyresult.objective_id;
+        objectiveSelect.disabled = true;
+
 
         // Populate key results
         var keyresultSelect = document.getElementById('keyresult');
@@ -302,6 +330,8 @@ document.addEventListener('DOMContentLoaded', function () {
             keyresultSelect.appendChild(option);
         });
         keyresultSelect.value = action.keyresult.id;
+        keyresultSelect.disabled = true;
+
 
         // Clear and set the existing model type value
         var modelTypeSelect = document.getElementById('model_type');
@@ -314,6 +344,8 @@ document.addEventListener('DOMContentLoaded', function () {
         option.textContent = modelTypeLastSegment;
         option.selected = true;
         modelTypeSelect.appendChild(option);
+        modelTypeSelect.disabled = true;
+
 
         // Populate model IDs (example using model_id_object data)
         var modelIdSelect = document.getElementById('model_id');
@@ -321,10 +353,18 @@ document.addEventListener('DOMContentLoaded', function () {
         action.model_id_object.forEach(function (modelObject) {
             var option = document.createElement('option');
             option.value = modelObject.id;
+            if(modelObject.name){
             option.textContent = modelObject.name;
+            }if(modelObject.subject)
+            {
+                option.textContent = modelObject.subject;
+
+            }
             modelIdSelect.appendChild(option);
         });
         modelIdSelect.value = action.model_id;
+        modelIdSelect.disabled = true;
+
     } else {
         console.error('Action not found');
     }

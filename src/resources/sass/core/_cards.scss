@@ -42,6 +42,9 @@
   &.card-with-shadow {
     box-shadow: $default-card-shadow;
   }
+  &.card-with-shadow-custom{
+    box-shadow: rgb(0, 0, 0, 0) !important;
+  }
 
   &.card-with-search {
     .input-search-box {

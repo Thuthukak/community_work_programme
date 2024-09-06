@@ -62,6 +62,17 @@ class UserController extends Controller
         return created_responses('user');
     }
 
+    /**
+     * @return array
+     * 
+     */
+    public function getUsers()
+    {
+
+
+        return response()->json(User::all());
+    }
+    
 
     /**
      * @param User $user

@@ -9,34 +9,34 @@ use App\Models\CRM\Action\Action;
 use App\Models\CRM\Objective\Objective;
 use App\Models\CRM\KeyResult\KeyResult;
 use App\Models\CRM\Priority\Priority;
-
 use App\Models\ProjectManagement\Projects\Project;
 use App\Models\CRM\Pipeline\Pipeline;
-use  App\Models\CRM\Proposal\Proposal;
-
+use App\Models\CRM\Proposal\Proposal;
 use Illuminate\Http\Request;
+use App\Filters\CRM\ActionsFilter;
 use Illuminate\Support\Facades\File;
 use App\Http\Requests\CRM\Objectives\ActionRequest;
 use Spatie\MediaLibrary\Models\Media;
 use Illuminate\Testing\Fluent\Concerns\Debugging; // Include the Debugging trait
 use Illuminate\Support\Facades\Log;
+use DB;
+
 
 class ActionsController extends Controller
 {
-    public function __construct()
+    public function __construct(ActionsFilter $Filter )
     {
+        $this->filter = $Filter;
         $this->middleware('auth');
     }
 
     public function index()
     {
         $actions = Action::all();
-
         $data = [
          
             'actions' => $actions,
-         ];
-    
+         ];    
         return view('crm.actions.index', $data);
     }
 
@@ -47,12 +47,13 @@ class ActionsController extends Controller
             // Ensure the objective exists
             $priorities = Priority::all();
             $keyResults = KeyResult::where('objective_id', $objective)->get();
-    
+            $users = User::all();
+
             $data = [
+                'users' => $users,
                 'priorities' => $priorities,
                 'keyresults' => $keyResults,
             ];
-    
             return response()->json($data);
         } catch (\Exception $e) {
             Log::error('Error in create method:', ['exception' => $e]);
@@ -61,54 +62,105 @@ class ActionsController extends Controller
             ], 500);
         }
     }
-    
-    
-    
+    /**
+     * get priorities
+     */
+    public function getPriorities()
+    {
+        return Priority::all();
+    }
 
     public  function get()
     {
-
         try {
             $objectives = Objective::all();
             $priorities = Priority::all();
-    
+            $users = User::all();
             $data = [
+                'users' => $users,
                 'objectives' => $objectives,
                 'priorities' => $priorities,
-            ];
-    
+            ];    
             return response()->json($data);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         
     }
     }
+    /**
+     * @param Request $request
+     * return array 
+     */
 
+     public function filterActions(Request $request)
+     {
+        $user = auth()->user();
+
+        // dd($request);
+        // Start building the query for projects
+        $query = Action::query();
+        // Apply the query builder to the filter
+        $this->filter->apply($query);
+        // Apply the organization filter if IDs are provided
+        if ($request->has('user')) {
+            $this->filter->belongsTo($request->get('user'));
+        }       
+        if ($request->has('priorities')) {
+            
+         $this->filter->priority($request->get('priorities'));
+        }        
+        if ($request->has('classes')) {
+            $this->filter->classes($request->has('classes'));
+        }       
+        if ($request->has('startDate') || $request->has('finishedDate')) {
+            $this->filter->createdAt($request->get('startDate'), $request->get('finishedDate'));
+        }
+        if ($request->has('search')){
+            $this->filter->search($request->get('search'));
+        }
+        // Paginate the results
+        $actions = $query->paginate(10);
+
+        foreach ($actions as $action) {
+           $action->KeyResult = $action->KeyResult->title;
+           $action->priority_color = $action->priority()->getResults()->color ?? 'secondary';
+           $action->priority_label = $action->priority()->getResults()->priority;
+           $action->related_files = count($action->getRelatedFiles());
+           $action->user_name = $action->user->name;
+           $action->show_user_url = route('user.okr', $action->user->id);
+           $action->show_action_url =  route('actions.showloneaction',$action->id);
+           $action->model_type = last(explode('\\', $action->model_type));
+        }
+        // dd($actions);
+        $this->authorize('create', new Project());
+        // Return the projects and organization list as JSON if the request is AJAX
+        return response()->json([
+            'actions' => $actions,
+
+        ]);
+     }
 
 
     public function listActions()
-    {
-        $actions = Action::all();
+        {
+            $actions = Action::all();
 
-        $this->authorize('view', $actions);
+            $this->authorize('view', $actions);
 
-        $okrsWithPage = $company->getOkrsWithPage($request);
-        $company['okrs'] = $okrsWithPage['okrs'];
+            $okrsWithPage = $company->getOkrsWithPage($request);
+            $company['okrs'] = $okrsWithPage['okrs'];
 
-        $data = [
-            'user' => auth()->user(),
-            'company' => $company,
-            'pageInfo' => $okrsWithPage['pageInfo'],
-            'order' => $request->input('order', ''),
-        ];
+            $data = [
+                'user' => auth()->user(),
+                'company' => $company,
+                'pageInfo' => $okrsWithPage['pageInfo'],
+                'order' => $request->input('order', ''),
+            ];
 
-        return view('crm.actions.index', $data);
-    }
+            return view('crm.actions.index', $data);
+        }
     
-    
-
-    // fetch related entity for action selected 
-
+    // fetch related entity for action selected
     public function getModels(Request $request ,$actionOn)
     {
         try {
@@ -139,8 +191,6 @@ class ActionsController extends Controller
                 'models' => $models
             ];
     
-            Log::info('Data fetched successfully:', $data);
-    
             return response()->json($data);
             
                 // Return the models as JSON along with the actionOn
@@ -156,7 +206,6 @@ class ActionsController extends Controller
     
 
     // fetch related key results  for Objective selected 
-
     public function getKeyResults($id)
     {
         try {
@@ -172,12 +221,9 @@ class ActionsController extends Controller
 
     public function store(ActionRequest $request)
     {
-
-
-
         $this->authorize('storeObjective', KeyResult::find($request->krs_id)->objective->model);
 
-        $attr['user_id'] = auth()->user()->id;
+        $attr['user_id'] = $request->input('manager');
         $attr['related_kr'] = $request->input('krs_id');
         $attr['priority'] = $request->input('priority');
         $attr['model_type'] = $request->input('full_model_type');
@@ -187,21 +233,15 @@ class ActionsController extends Controller
         $attr['started_at'] = $request->input('st_date');
         $attr['finished_at'] = $request->input('fin_date');
        
-
         $action = Action::create($attr);
-
 
         if ($request->input('invite')) {
             $action->sendInvitation($request);
         }
         if ($request->hasFile('files')) {
-            $action->addRelatedFiles();
+           $action->addRelatedFiles();
         }
-
-
         $objective = $action->objective;
-        // dd($objective);
-
 
         return redirect()->to($objective->model->getOKrRoute() . '#oid-' . $objective->id);
     }
@@ -211,7 +251,7 @@ class ActionsController extends Controller
 
         $this->authorize('storeObjective', KeyResult::find($request->krs_id)->objective->model);
 
-        $attr['user_id'] = auth()->user()->id;
+        $attr['user_id'] = $request->input('manager');
         $attr['related_kr'] = $request->input('krs_id');
         $attr['priority'] = $request->input('priority');
         $attr['model_type'] = $request->input('full_model_type');
@@ -221,21 +261,14 @@ class ActionsController extends Controller
         $attr['started_at'] = $request->input('st_date');
         $attr['finished_at'] = $request->input('fin_date');
        
-
         $action = Action::create($attr);
-
-
         if ($request->input('invite')) {
             $action->sendInvitation($request);
         }
         if ($request->hasFile('files')) {
             $action->addRelatedFiles();
         }
-
-
         $objective = $action->objective;
-
-        // dd($objective);
 
         return redirect()->route('actions.index');
     }
@@ -253,7 +286,6 @@ class ActionsController extends Controller
             'action' => $action,
             'files' => $files,
         ];
-
         return view('crm.actions.show', $data);
     }
 
@@ -280,7 +312,7 @@ class ActionsController extends Controller
                 $this->authorize('update', $action);
 
                 $priorities = Priority::all();
-                $user = User::where('id', '=', auth()->user()->id)->first();
+                $user = User::all();
                 
 
                 //使用者的krs
@@ -311,9 +343,6 @@ class ActionsController extends Controller
 
                 $keyresults = KeyResult::where('objective_id', '=', $obj_id)->get();
                 $objective = Objective::where('id', '=', $obj_id)->get();
-                
-
-
 
                 $files = $action->getRelatedFiles();
 
@@ -326,8 +355,6 @@ class ActionsController extends Controller
                     'objective' => $objective,
 
                 ];
-
-                
                 return response()->json($data);
 
 
@@ -348,7 +375,7 @@ class ActionsController extends Controller
         if ($request->input('invite') && $request->input('invite') != $action->user_id) {
             $action->sendInvitation($request);
         }
-        $attr['user_id'] = auth()->user()->id;
+        $attr['user_id'] = $request->input('manager');
         $attr['related_kr'] = $request->input('krs_id');
         $attr['priority'] = $request->input('priority');
         $attr['model_type'] = $request->input('model_type');
@@ -358,13 +385,11 @@ class ActionsController extends Controller
         $attr['started_at'] = $request->input('st_date');
         $attr['finished_at'] = $request->input('fin_date');
 
-
         $action->update($attr);
 
         if ($request->hasFile('files')) {
             $action->addRelatedFiles();
         }
-
         $objective = $action->objective;
         return redirect()->to($objective->model->getOKrRoute() . '#oid-' . $objective->id);
     }
@@ -377,9 +402,7 @@ class ActionsController extends Controller
         if ($request->input('invite') && $request->input('invite') != $action->user_id) {
             $action->sendInvitation($request);
         }
-
-
-        $attr['user_id'] = auth()->user()->id;
+        $attr['user_id'] = $request->input('manager');
         $attr['related_kr'] = $request->input('krs_id');
         $attr['priority'] = $request->input('priority');
         $attr['model_type'] = $request->input('model_type');
@@ -389,14 +412,10 @@ class ActionsController extends Controller
         $attr['started_at'] = $request->input('st_date');
         $attr['finished_at'] = $request->input('fin_date');
 
-
-
         $action->update($attr);
-
         if ($request->hasFile('files')) {
             $action->addRelatedFiles();
         }
-
         $objective = $action->objective;
         return redirect()->route('actions.showloneaction', $action);
     }
@@ -412,6 +431,16 @@ class ActionsController extends Controller
         return redirect()->to($redirectURL . '#oid-' . $objective->id);
     }
 
+    public function destroyloneAction(Action $action)
+    {
+        $this->authorize('delete', $action);
+        $objective = $action->objective;
+        $redirectURL = $objective->model->getOKrRoute();
+        // $action->invitation()->delete();
+        $action->delete();
+
+        return redirect()->route('actions.index');
+    }
     public function destroyFile(Action $action, Media $media)
     {
         $this->authorize('delete', $action);
@@ -436,7 +465,6 @@ class ActionsController extends Controller
         $results = $objective->model->users;
         return response()->json($results);
     }
-
     /**
      * 拒絕邀請
      *
@@ -449,7 +477,6 @@ class ActionsController extends Controller
         $action->deleteInvitation($member);
         return redirect()->route('user.action', $member->id);
     }
-
     /**
      * 同意邀請
      *

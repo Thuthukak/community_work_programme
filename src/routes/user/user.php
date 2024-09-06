@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Core\Auth\User\PasswordResetController;
 use App\Http\Controllers\Core\Auth\UserConfirmController;
+use App\Http\Controllers\Core\Auth\User\UserController;
 
 Route::get('confirm', [ UserConfirmController::class, 'index' ])
     ->name('user-invite.index')

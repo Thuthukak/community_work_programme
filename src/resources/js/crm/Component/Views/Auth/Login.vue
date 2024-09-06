@@ -20,7 +20,7 @@
             </div>
             <div class="form-row">
               <div class="form-group col-12">
-                <h6 class="text-center mb-0">{{ $t("hi", { object: $t("there") }) }}!</h6>
+                
                 <label class="text-center d-block">{{
                   $t("login_to_your_dashboard")
                 }}</label>

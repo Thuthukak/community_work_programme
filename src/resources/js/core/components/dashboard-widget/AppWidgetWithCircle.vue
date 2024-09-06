@@ -1,5 +1,5 @@
 <template>
-    <div class="card card-with-shadow border border-0 py-primary">
+    <div class="card border h-6 border-0 py-primary">
         <div class="circular-progress-bar">
             <div class="progress" :data-percentage="parseInt(data.number)">
                 <span class="progress-left">

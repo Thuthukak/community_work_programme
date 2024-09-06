@@ -8,7 +8,7 @@
         <div class="row">
             <div class="col-auto">
                 <a class="u-ml-8 u-mr-8" href="{{ route('company.okr') }}">
-                    <img src="storage/icon/6683fbf1a4458.svg" alt="" class="avatar text-center bg-white">
+                    <img src="storage/logo/6683fbf19b192.png" alt="" class="avatar text-center bg-white">
                 </a>
             </div>
             <div class="col align-self-center text-truncate">
@@ -31,13 +31,16 @@
     </div>
     <div class="col-md-6 u-padding-16">
         <div class="row">
-            @if ($company->okrs)
+        @if ($company->okrs)
                 @for ($i = 0; $i < 4 && $i < count($company->okrs); $i++)
                 <div class="col-3 align-self-center">
                     <div class="circle" data-value="{{ $company->okrs[$i]['objective']->getScore()/100 }}">
                         <div>{{ $company->okrs[$i]['objective']->getScore() }}%</div>
                     </div>
-                    <div class="circle-progress-text">{{ $company->okrs[$i]['objective']->title }}</div>
+                    <div class="circle-progress-text">
+    {{ Str::limit($company->okrs[$i]['objective']->title, 50) }}
+</div>
+
                 </div>
                 @endfor
             @endif

@@ -11,9 +11,10 @@ use App\Models\CRM\Organization\Organization;
 use App\Http\Requests\ProjectManagement\Projects\CreateRequest;
 use App\Http\Requests\ProjectManagement\Projects\UpdateRequest;
 use App\Models\Core\Auth\User;
+use App\Filters\CRM\ProjectsFilter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use DB;
-
 
 /**
  * Projects Controller.
@@ -29,9 +30,10 @@ class ProjectsController extends Controller
      */
     private $repo;
 
-    public function __construct(ProjectsRepository $repo)
+    public function __construct(ProjectsRepository $repo , ProjectsFilter $Filter)
     {
         $this->repo = $repo;
+        $this->filter = $Filter;
     }
 
     /**
@@ -42,38 +44,127 @@ class ProjectsController extends Controller
      */
     public function index(Request $request)
     {
-
-
-        if (request()->ajax()) {
-          
-
-
-
-            return response()->json([
-                'status' => $status,
-                'statusId' => $statusId,
-                'projects' => $project,
-                'Organization' => $Organization
-            ]);
-            
-        }  
-
-
-
         $status = null;
         $statusId = $request->get('status_id');
         if ($statusId) {
             $status = $this->repo->getStatusName($statusId);
         }
+
        $user = auth()->user();
 
        $projects = $this->repo->getProjects($request->get('q'), $statusId, $user);
+    //    dd($projects);
        $this->authorize('create', new Project());
 
        $Organization = $this->repo->getOrganizationsList();
 
 
+            if (request()->ajax()) {
+                return response()->json([
+                    'status' => $status,
+                    'statusId' => $statusId,
+                    'projects' => $projects,
+                    'Organization' => $Organization
+                ]);    
+            }  
        return view('crm.projects.index', compact('projects', 'status', 'statusId','Organization'));
+    }
+
+    public function getProjects()
+    {
+        return response()->json(Project::all() );
+    }
+
+    public function getProjectByFilter(Request $request, ProjectsFilter $filter)
+    {
+        $statusId = null;
+        $user = auth()->user();
+
+        // dd($request);
+        Log::info('Received Organization IDs:', ['ids' => $request]);
+
+        // Start building the query for projects
+        $query = Project::query();
+        // Apply the query builder to the filter
+        $this->filter->apply($query);
+        // Apply the organization filter if IDs are provided
+        if ($request->has('Organization')) {
+
+            $this->filter->organization($request->get('Organization'));  // Apply the filter
+
+        }elseif($request->has('minValue') || $request->has('maxValue')) {
+
+            $this->filter->projectValue($request->get('minValue'), $request->get('maxValue'));  // Apply the filter
+
+        }elseif($request->has('classes')) {
+
+            $this->filter->classes($request->get('clauses'));  // Apply the filter
+
+        }elseif ($request->has('startDate') || $request->has('endDate')) {
+            $this->filter->createdAt($request->get('startDate'), $request->get('endDate'));  // Apply the filter
+        }
+        // Paginate the results
+        $projects = $query->paginate(10);
+        $Organization = $this->repo->getOrganizationsList();
+
+        foreach ($projects as $project) {
+            $project->organization = route('organizations.edit', $project->organization_id);
+            $project->show_url = route('projects.show', $project->id);
+            $project->status_text = $project->present()->status;
+            $project->progress =format_decimal($project->getJobOveralProgress());
+            $project->show_text = trans('app.show');
+            $project->edit_text = trans('app.edit');
+
+            if (isset($Organization[$project->organization_id])) {
+                $project->OrganizationName = $Organization[$project->organization_id];
+            }
+            
+            $project->work_duration = $project->work_duration ?? 'N/A';
+            $project->overall_progress = $project->overall_progress ?? '0.00 %';
+            $project->due_date = $project->due_date ?? 'N/A';
+            $project->project_value = $project->project_value ?? 'N/A';
+            $project->status_text = $project->present()->status ?? 'Unknown';
+
+            if (auth()->user()->can('see-pricings', $project)) {
+                $project->formatted_value = format_money($project->project_value);
+            } else {
+                $project->formatted_value = null; // or some default value if unauthorized
+            }
+        }
+        $this->authorize('create', new Project());
+        // Return the projects and organization list as JSON if the request is AJAX
+        return response()->json([
+            'status' => 'success',
+            'statusId' => $statusId,
+            'projects' => $projects,
+            'Organization' => $Organization
+        ]);
+    }
+
+    
+    
+    public function filter(Request $request)
+    {
+        $organizations = $request->input('organizations', []);
+
+        $projects = Project::whereIn('organization_id', $organizations)->get();
+
+        return response()->json([
+            'projects' => $projects->map(function($project) {
+                return [
+                    'id' => $project->id,
+                    'name' => $project->name,
+                    'start_date' => $project->start_date,
+                    'work_duration' => $project->work_duration,
+                    'progress' => $project->getJobOveralProgress(),
+                    'due_date' => $project->due_date,
+                    'project_value' => $project->project_value,
+                    'status' => $project->present()->status,
+                    'organization_id' => $project->organization_id,
+                    'organization_name' => is_object($project->organization) ? $project->organization->name : $project->organization
+                ];
+            })
+        ]);
     }
 
 

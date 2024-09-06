@@ -174,11 +174,11 @@ Build date: 2018-12-12 00:07:25
   width: 2px;
   height: 100%;
   margin-left: -1px;
-  background-color: #ff6f00;
+  background-color: #ff740b;
 }
 .irs--flat .irs-handle.state_hover > i:first-child,
 .irs--flat .irs-handle:hover > i:first-child {
-  background-color: #ff740b;
+  background-color: #095F56;
 }
 .irs--flat .irs-min,
 .irs--flat .irs-max {

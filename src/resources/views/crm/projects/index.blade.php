@@ -115,89 +115,90 @@
         @endcan
     </div>
 
-    
-    <div class="project-controls flex justify-between items-center mb-4" >
-       <div class="index-nav-tabs pull-left hidden-xs">
-         </div>
-          {!! Form::open(['method' => 'get', 'class' => 'form-inline search-form']) !!}
-          {{ Form::hidden('status_id') }}
-          <div class="relative">
-          <button type="submit" class="search-button">
-          <i class="fas fa-search "></i>
-          </button>
-          {!! Form::text('q', Request::get('q'), ['class' => 'form-control index-search-field ', 'placeholder' => trans('project.search')]) !!}
-       </div>
-          {!! Form::close() !!}
-    </div>
-
-            <div class="filters" style="margin-left:20px;">
-    <div class="filter-item">
-        <button class="btn filter-btn" type="button" id="projectstage" style="background-color: white; color: grey;" aria-haspopup="true" aria-expanded="false">
-            Project Progress <i class="fas fa-caret-down arrow-icon" id="dropdownArrow"></i>
-        </button>
-        <div id="progressDropdown" class="dropdown-content">
-            @include('crm.projects.partials.index-nav-tabs')
+<div class="project-controls flex justify-between items-center mb-4 single-filter single-search-wrapper">
+    <!-- Filters on the left -->
+    <div class="filters d-flex" style="margin-left: 20px;">
+        <div class="filter-item">
+            <button class="btn filter-btn" type="button" id="projectstage" style="background-color: white; color: grey;    padding:12px ; border-radius: 25px;" aria-haspopup="true" aria-expanded="false">
+                Project Progress <i class="fas fa-caret-down arrow-icon" id="dropdownArrow"></i>
+            </button>
+            <div id="progressDropdown" class="dropdown-content">
+                @include('crm.projects.partials.index-nav-tabs')
+            </div>
         </div>
-    </div>
 
-    <div class="filter-item">
-        <button class="filter-btn" style="border-radius: 25px; padding:12px" id="datefilter">Date Range</button>
-        <div id="dateDropdown" class="dropdown-content-date">
-            <form id="dateRangeForm" class="filter-form">
-                @include('crm.projects.partials.dateFilterDropdownCustom')
-            </form>
+        <div class="filter-item">
+            <button class="filter-btn" style="border-radius: 25px; padding:12px" id="datefilter">Date Range</button>
+            <div id="dateDropdown" class="dropdown-content">
+                <form id="dateRangeForm" class="filter-form">
+                    @include('crm.projects.partials.dateFilterDropdownCustom')
+                </form>
+            </div>
         </div>
-    </div>
 
-    <div class="filter-item">
+        <div class="filter-item">
             <button class="filter-btn" id="Organizationlist" style="border-radius: 25px; padding:12px">Organization</button>
-        <div id="organizationDropdown" class="dropdown-content" style="display:none;">
-            <form id="organizationForm" class="filter-form">
-                <ul id="organizationListContainer"></ul>
-                <br>
-                <hr>
-            <div class="d-flex justify-content-between mt-3">
-                <button type="button" id="clearOrganizations" class="btn btn-clear">Clear</button>
-                <button type="button" id="applyOrganizations" class="btn btn-primary">Apply</button>
+            <div id="organizationDropdown" class="dropdown-content" style="display:none;">
+                <form id="organizationForm" class="filter-form">
+                    <ul id="organizationListContainer"></ul>
+                    <br>
+                    <hr>
+                    <div class="d-flex justify-content-between mt-3">
+                        <button type="button" id="clearOrganizations" class="btn btn-clear">Clear</button>
+                        <button type="button" id="applyOrganizations" class="btn btn-primary">Apply</button>
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
-</div>
+        </div>
 
-
-
-    <div class="filter-item">
-    <button class="filter-btn" id="Projectvalue" style="border-radius: 25px; padding:12px">Project Value</button>
-    <div id="valueDropdown" class="dropdown-content" style="display: none;">
-        <form id="projectValueForm" class="filter-form">
-            <div class="form-group">
-                <label for="minValue">Minimum Value</label>
-                <input type="number" id="minValue" class="form-control" placeholder="Min value" step="1">
+        <div class="filter-item">
+            <button class="filter-btn" id="Projectvalue" style="border-radius: 25px; padding:12px">Project Value</button>
+            <div id="valueDropdown" class="dropdown-content" style="display: none;">
+                <form id="projectValueForm" class="filter-form">
+                    <div class="form-group">
+                        <label for="minValue">Minimum Value</label>
+                        <input type="number" id="minValue" value = '0'class="form-control" placeholder="Min value" step="1">
+                    </div>
+                    <div class="form-group">
+                        <label for="maxValue">Maximum Value</label>
+                        <input type="number" id="maxValue" class="form-control" placeholder="Max value" step="1">
+                    </div>
+                    <button type="button" id="clearValues" class="btn btn-clear pl-sm-0">Clear</button>
+                    <button type="button" id="applyValues" class="btn btn-primary">Apply</button>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="maxValue">Maximum Value</label>
-                <input type="number" id="maxValue" class="form-control" placeholder="Max value" step="1">
+        </div>
+
+        <div class="filter-item">
+            <button class="filter-btn" id="it-has" style="border-radius: 25px; padding:12px">Have</button>
+            <div id="classDropdown" class="dropdown-content" style="display: none;">
+                <form id="clausesForm" class="filter-form">
+                    <label><input type="checkbox" name="Proposal">Proposal</label>
+                    <label><input type="checkbox" name="Actions">Actions</label>
+                    <label><input type="checkbox" name="Objectives">Objectives</label>
+                    <button type="button" id="clearClauses" class="btn btn-clear pl-sm-0">Clear</button>
+                    <button type="button" id="applyClauses" class="btn btn-primary">Apply</button>
+                </form>
             </div>
-            <button type="button" id="clearValues" class="btn btn-clear pl-sm-0">Clear</button>
-            <button type="button" id="applyValues" class="btn btn-primary">Apply</button>
-        </form>
         </div>
     </div>
 
-    <div class="filter-item">
-    <button class="filter-btn" id="it-has" style="border-radius: 25px; padding:12px">Have</button>
-    <div id="classDropdown" class="dropdown-content" style="display: none;">
-        <form id="clausesForm" class="filter-form">
-            <label><input type="checkbox" name="Proposal">Proposal</label>
-            <label><input type="checkbox" name="Actions">Actions</label>
-            <label><input type="checkbox" name="Objectives">Objectives</label>
-            <button type="button" id="clearClauses" class="btn btn-clear pl-sm-0">Clear</button>
-            <button type="button" id="applyClauses" class="btn btn-primary">Apply</button>
-        </form>
+    <!-- Search on the right -->
+    {!! Form::open(['method' => 'get', 'class' => 'form-inline search-form d-flex align-items-center']) !!}
+    {{ Form::hidden('status_id') }}
+    <div class="form-group form-group-with-search d-flex align-items-center relative">
+        <span class="form-control-feedback">
+            <i>
+                <svg class="feather feather-search" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </i>
+        </span>
+        {!! Form::text('q', Request::get('q'), ['class' => 'form-control index-search-field', 'placeholder' => trans('project.search')]) !!}
     </div>
-    </div>
+    {!! Form::close() !!}
 </div>
-
 
 
     <small class="custom-text-muted" style="margin-left:20px;">{{ $projects->total() }} {{ trans('project.found') }}</small>
@@ -207,40 +208,42 @@
             {{ $status }} {{ trans('project.not_found') }}
         </div>
     @else
-        <div class="table-wrapper shadow">
-            <div class="panel panel-default table-responsive">
-                <table class="table table-condensed table-hover">
-                    <thead class="custom-th">
-                        <th>{{ trans('app.table_no') }}</th>
-                        <th>{{ trans('project.name') }}</th>
-                        <th class="text-center">{{ trans('project.start_date') }}</th>
-                        <th class="text-center">{{ trans('project.work_duration') }}</th>
+    <div class="datatable mt-5 ml-4 mr-4">
+    <div class="table-responsive">
+        <table style="width: 100%;">
+            <thead>
+                <tr style="border-bottom: 1px solid var(--default-border-color);">
+                        <th class="datatable-th">{{ trans('app.table_no') }}</th>
+                        <th class="datatable-th">{{ trans('project.name') }}</th>
+                        <th class="datatable-th">{{ trans('project.start_date') }}</th>
+                        <th class="datatable-th">{{ trans('project.work_duration') }}</th>
                         @if (request('status_id') == 2)
-                        <th class="text-right">{{ trans('project.overall_progress') }}</th>
-                        <th class="text-center">{{ trans('project.due_date') }}</th>
+                        <th class="datatable-th">{{ trans('project.overall_progress') }}</th>
+                        <th class="datatable-th">{{ trans('project.due_date') }}</th>
                         @endif
                         @can('see-pricings', new App\Models\ProjectManagement\Projects\Project)
-                        <th class="text-right">{{ trans('project.project_value') }}</th>
+                        <th class="datatable-th">{{ trans('project.project_value') }}</th>
                         @endcan
-                        <th class="text-center">{{ trans('app.status') }}</th>
-                        <th>{{ trans('Organization') }}</th>
-                        <th>{{ trans('app.action') }}</th>
+                        <th class="datatable-th">{{ trans('app.status') }}</th>
+                        <th class="datatable-th">{{ trans('Organization') }}</th>
+                        <th class="datatable-th">{{ trans('app.action') }}</th>
+                </tr>
                     </thead>
                     <tbody>
                         @foreach($projects as $key => $project)
-                            <tr>
-                                <td>{{ $projects->firstItem() + $key }}</td>
-                                <td>{{ $project->nameLink() }}</td>
-                                <td class="text-center">{{ $project->start_date }}</td>
-                                <td class="text-right">{{ $project->work_duration }}</td>
+                        <tr style="border-bottom: 1px solid var(--default-border-color);">
+                                <td  class="datatable-td">{{ $projects->firstItem() + $key }}</td>
+                                <td  class="datatable-td">{{ $project->nameLink() }}</td>
+                                <td  class="datatable-td">{{ $project->start_date }}</td>
+                                <td  class="datatable-td">{{ $project->work_duration }}</td>
                                 @if (request('status_id') == 2)
-                                <td class="text-right">{{ format_decimal($project->getJobOveralProgress()) }} %</td>
-                                <td class="text-center">{{ $project->due_date }}</td>
+                                <td  class="datatable-td">{{ format_decimal($project->getJobOveralProgress()) }} %</td>
+                                <td  class="datatable-td">{{ $project->due_date }}</td>
                                 @endif
                                 @can('see-pricings', new App\Models\ProjectManagement\Projects\Project)
-                                <td class="text-right">{{ format_money($project->project_value) }}</td>
+                                <td  class="datatable-td">{{ format_money($project->project_value) }}</td>
                                 @endcan
-                                <td class="text-center">{{ $project->present()->status }}</td>
+                                <td  class="datatable-td">{{ $project->present()->status }}</td>
                                 <td>
                                     <a href="{{ route('organizations.edit', $project->organization_id) }}">
                                         {{ is_object($project->organization) ? __($project->organization->name) : __($project->organization) }}
@@ -276,28 +279,28 @@
                 </div>
                 {!! Form::open(['route' => 'projects.store', 'method' => 'POST']) !!}
                 <div class="modal-body">
-                    {!! FormField::text('name', ['label' => trans('project.name')]) !!}
-                    {!! FormField::select('organization_id', $Organization, ['placeholder' => __('Organization'), 'required' => true]) !!}
+                    {!! FormField::text('name', ['label' => trans('project.name'), 'required' => true ]) !!}
+                    {!! FormField::select('organization_id', $Organization, ['placeholder' => ('Organization'), 'required' => true]) !!}
                     <div class="row">
                         <div class="col-md-6">
-                            {!! FormField::text('proposal_date', ['label' => trans('project.proposal_date')]) !!}
+                            {!! FormField::text('proposal_date', ['label' => trans('project.proposal_date') , 'required' => true ]) !!}
                         </div>
                         <div class="col-md-6">
-                            {!! FormField::price('proposal_value', ['label' => trans('project.proposal_value'), 'currency' => Option::get('money_sign', 'R')]) !!}
+                            {!! FormField::price('proposal_value', ['label' => trans('project.proposal_value'), 'currency' => Option::get('money_sign', 'R') , 'required' => true ]) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            {!! FormField::text('start_date', ['label' => __('project.start_date')]) !!}
+                            {!! FormField::text('start_date', ['label' => __('project.start_date') , 'required' => true ]) !!}
                         </div>
                         <div class="col-md-6">
-                            {!! FormField::text('due_date', ['label' => __('project.due_date')]) !!}
+                            {!! FormField::text('due_date', ['label' => __('project.due_date') , 'required' => true ]) !!}
                         </div>
                         <div class="col-md-6">
-                            {!! FormField::text('end_date', ['label' => __('project.end_date')]) !!}
+                            {!! FormField::text('end_date', ['label' => __('project.end_date') ,'required' => true]) !!}
                         </div>
                     </div>
-                    {!! FormField::textarea('description', ['label' => trans('project.description')]) !!}
+                    {!! FormField::textarea('description', ['label' => trans('project.description') ,'required' => true ]) !!}
                 </div>
                 <div class="modal-footer">
                     {!! Form::submit(trans('Save'), ['class' => 'btn btn-success']) !!}
@@ -320,34 +323,34 @@
             <div class="modal-body">
                 {!! Form::model($projects->first(), ['route' => ['projects.update', $projects->first()->id ?? 0], 'method' => 'patch', 'id' => 'editProjectForm']) !!}
                 <div class="panel-body">
-                    {!! FormField::text('name', ['label' => __('project.name')]) !!}
+                    {!! FormField::text('name', ['label' => __('project.name') ,'required' => true ]) !!}
                     <div class="row">
                         <div class="col-md-8">
-                            {!! FormField::textarea('description', ['label' => __('project.description'), 'rows' => 5]) !!}
+                            {!! FormField::textarea('description', ['label' => __('project.description'), 'rows' => 5 ,'required' => true  ]) !!}
                         </div>
                         <div class="col-md-4">
-                            {!! FormField::price('proposal_value', ['label' => __('project.proposal_value'), 'currency' => Option::get('money_sign', 'R')]) !!}
+                            {!! FormField::price('proposal_value', ['label' => __('project.proposal_value'), 'currency' => Option::get('money_sign', 'R' ) ,'required' => true ]) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            {!! FormField::text('proposal_date', ['label' => __('project.proposal_date')]) !!}
+                            {!! FormField::text('proposal_date', ['label' => __('project.proposal_date') ,'required' => true]) !!}
                         </div>
                         <div class="col-md-6">
-                            {!! FormField::text('start_date', ['label' => __('project.start_date')]) !!}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            {!! FormField::text('due_date', ['label' => __('project.due_date')]) !!}
-                        </div>
-                        <div class="col-md-6">
-                            {!! FormField::text('end_date', ['label' => __('project.end_date')]) !!}
+                            {!! FormField::text('start_date', ['label' => __('project.start_date') , 'required' => true ]) !!}
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-6">
-                            {!! FormField::select('status_id', ProjectStatus::toArray(), ['label' => __('app.status')]) !!}
+                            {!! FormField::text('due_date', ['label' => __('project.due_date') , 'required' => true]) !!}
+                        </div>
+                        <div class="col-md-6">
+                            {!! FormField::text('end_date', ['label' => __('project.end_date') , 'required' => true ]) !!}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            {!! FormField::select('status_id', ProjectStatus::toArray(), ['label' => __('app.status') , 'required' => true ]) !!}
                         </div>
                         <div class="col-md-6">
                             {!! FormField::select('organization_id', $Organization, ['label' => __('Organization'), 'required' => true]) !!}
@@ -376,15 +379,12 @@
 <!-- Your script to initialize Flatpickr -->
 <script>
 
-    
     document.addEventListener('DOMContentLoaded', function() {
         // Initialize Flatpickr on the date input fields
         flatpickr("#proposal_date, #start_date, #due_date, #end_date", {
             dateFormat: "Y-m-d",
             disableMobile: true // optional: to force the desktop version on mobile devices
         });
-
-
 
         document.querySelectorAll('.edit-project-btn').forEach(function(button) {
             button.addEventListener('click', function() {
@@ -449,9 +449,6 @@
         });
 
 
-       
-
-
         document.getElementById("projectstage").addEventListener("click", toggleDropdown);
 
         function toggleDropdown() {
@@ -463,7 +460,6 @@
                 dropdown.style.display = "block";
             }
         }
-
         document.getElementById("datefilter").addEventListener("click", function() { 
             event.stopPropagation();
             var dropdown = document.getElementById('dateDropdown');
@@ -473,13 +469,13 @@
                 closeAllDropdowns();
                 dropdown.style.display = "block";
 
-            flatpickr("#startDate", {
-                dateFormat: "Y-m-d"
-            });
+                flatpickr("#startDate", {
+                    dateFormat: "Y-m-d"
+                });
 
-            flatpickr("#endDate", {
-                dateFormat: "Y-m-d"
-            });
+                flatpickr("#endDate", {
+                    dateFormat: "Y-m-d"
+                });
 
                 }
         });
@@ -492,9 +488,93 @@
         document.getElementById("applyDates").addEventListener("click", function() {
             var startDate = document.getElementById("startDate").value;
             var endDate = document.getElementById("endDate").value;
+
+            
             console.log("Start Date:", startDate, "End Date:", endDate);
-            // Add your code to handle the selected dates
-            toggleDropdown('dateDropdown');
+
+            if (!startDate && !endDate) {
+                    console.log('No dates selected. No filter will be applied.');
+                    return; // Exit if no dates are selected
+                }
+
+                var baseUrl = "{{ route('projects.get') }}";
+                var url = `${baseUrl}`;
+
+                if (startDate) {
+                    url += `?startDate=${encodeURIComponent(startDate)}`;
+                }
+
+                if (endDate) {
+                    url += startDate ? `&endDate=${encodeURIComponent(endDate)}` : `?endDate=${encodeURIComponent(endDate)}`;
+                }
+
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Fetched data:', data);
+                    const projects = data.projects.data;
+
+                // Clear the existing table rows
+                const tableBody = document.querySelector('table tbody');
+                tableBody.innerHTML = '';
+
+                // Check if there are any projects returned
+                if (projects.length === 0) {
+                    const noResultsRow = `<tr><td colspan="8" class="text-center">{{ trans('project.not_found') }}</td></tr>`;
+                    tableBody.innerHTML = noResultsRow;
+                } else {
+
+                    const projects = data.projects.data;
+                    console.log(projects);
+                    // Loop through the filtered data and create rows
+                    projects.forEach((project, key) => {
+                    const row = `
+                        <tr>
+                            <td>${data.projects.from + key}</td>
+                            <td>${project.name}</td>
+                            <td class="text-center">${project.start_date}</td>
+                            <td class="text-right">${project.work_duration || 'N/A'}</td>
+                            <td class="text-right">${project.project_value || 'N/A'}</td>
+                            <td class="text-center">${project.status_text}</td>
+                            <td>
+                                <a href="${project.organization}">
+                                    ${project.organization ? project.OrganizationName : 'N/A'}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="${project.show_url}" class="btn btn-info btn-xs" title="${project.OrganizationName}">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                                <button class="btn btn-warning btn-xs edit-project-btn" data-id="${project.id}" data-toggle="modal" data-target="#editProjectModal" title="${project.edit_text}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>`;
+                    tableBody.innerHTML += row;
+                });
+
+
+                }
+                document.getElementById('dateDropdown').style.display = 'none';
+
+                })
+                .catch(error => {
+                    console.error('Error fetching project data:', error);
+                });
+
+                        // Add your code to handle the selected dates
+            // toggleDropdown('dateDropdown');
         });
 
         function updateButtonText(buttonId, text) {
@@ -571,22 +651,24 @@
         });
 
         document.getElementById("applyOrganizations").addEventListener("click", function() {
-            const selectedOrganizations = [];
+            const selectedOrganizationIds = [];
             const checkboxes = document.querySelectorAll('.organization-checkbox:checked');
+            
             checkboxes.forEach(checkbox => {
-                selectedOrganizations.push({
-                    id: checkbox.value,
-                    name: checkbox.nextElementSibling.textContent
-                });
+                selectedOrganizationIds.push(checkbox.value);
             });
 
-            if(selectedOrganizations)
-            {
-                console.log('Selected Organizations:', selectedOrganizations);
+            if (selectedOrganizationIds.length > 0) {
+                console.log('Selected Organization IDs:', selectedOrganizationIds);
 
+                // Create a comma-separated string of IDs
+                const idsString = selectedOrganizationIds.join(',');
 
-                var url = `{{ route('organization.get') }}`;
+                // Build the URL manually
+                var baseUrl = "{{ route('projects.get') }}";  // Get the base URL
+                var url = `${baseUrl}?Organization=${encodeURIComponent(idsString)}`;
 
+                // console.log(url);
                 fetch(url, {
                     method: 'GET',
                     headers: {
@@ -602,43 +684,57 @@
                 })
                 .then(data => {
                     console.log('Fetched data:', data);
+                    const projects = data.projects.data;
 
-                    const organizationListContainer = document.getElementById('organizationListContainer');
-                    organizationListContainer.innerHTML = '';                  
-                    const hr = document.createElement('hr');
+                // Clear the existing table rows
+                const tableBody = document.querySelector('table tbody');
+                tableBody.innerHTML = '';
+
+                // Check if there are any projects returned
+                if (projects.length === 0) {
+                    const noResultsRow = `<tr><td colspan="8" class="text-center">{{ trans('project.not_found') }}</td></tr>`;
+                    tableBody.innerHTML = noResultsRow;
+                } else {
+
+                    const projects = data.projects.data;
+                    console.log(projects);
+                    // Loop through the filtered data and create rows
+                    projects.forEach((project, key) => {
+                    const row = `
+                        <tr>
+                            <td>${data.projects.from + key}</td>
+                            <td>${project.name}</td>
+                            <td class="text-center">${project.start_date}</td>
+                            <td class="text-right">${project.work_duration || 'N/A'}</td>
+                            <td class="text-right">${project.project_value || 'N/A'}</td>
+                            <td class="text-center">${project.status_text}</td>
+                            <td>
+                                <a href="${project.organization}">
+                                    ${project.organization ? project.OrganizationName : 'N/A'}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="${project.show_url}" class="btn btn-info btn-xs" title="${project.OrganizationName}">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                                <button class="btn btn-warning btn-xs edit-project-btn" data-id="${project.id}" data-toggle="modal" data-target="#editProjectModal" title="${project.edit_text}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>`;
+                    tableBody.innerHTML += row;
+                });
 
 
-                    for (const [id, name] of Object.entries(data)) {
-                        const listItem = document.createElement('li');
-
-                        
-                        const checkbox = document.createElement('input');
-                        checkbox.type = 'checkbox';
-                        checkbox.id = `organization-${id}`;
-                        checkbox.value = id;
-                        checkbox.classList.add('organization-checkbox');
-
-                        const label = document.createElement('label');
-                        label.htmlFor = `organization-${id}`;
-                        label.textContent = name;
-
-                        listItem.appendChild(checkbox);
-                        listItem.appendChild(label);
-                        listItem.classList.add('organization-item');
-                        
-                        organizationListContainer.appendChild(listItem);
-                    }
-                    organizationListContainer.appendChild(hr);
-
+                }
                 })
                 .catch(error => {
-                    console.error('Error fetching organization data:', error);
+                    console.error('Error fetching project data:', error);
                 });
+            } else {
+                console.log('No organizations selected');
             }
-
-            document.getElementById('organizationDropdown').style.display = 'none';
         });
-
 
         function selectOrganization(id, name) {
             document.getElementById('organizationDropdown').style.display = 'none';
@@ -665,12 +761,89 @@
         });
 
         document.getElementById("applyClauses").addEventListener("click", function() {
-            const selectedClauses = [];
+            const selectedClasses = [];
             const checkboxes = document.querySelectorAll('#clausesForm input[type="checkbox"]:checked');
             checkboxes.forEach(checkbox => {
-                selectedClauses.push(checkbox.name);
+                selectedClasses.push(checkbox.name);
             });
-            console.log('Selected Clauses:', selectedClauses);
+            console.log('Selected Clauses:', selectedClasses);
+
+            if(selectedClasses){
+
+            var baseUrl = "{{ route('projects.get') }}";
+            var url = `${baseUrl}?classes=${encodeURIComponent(JSON.stringify(selectedClasses))}`;
+
+            fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Fetched data:', data);
+                    const projects = data.projects.data;
+
+                // Clear the existing table rows
+                const tableBody = document.querySelector('table tbody');
+                tableBody.innerHTML = '';
+
+                // Check if there are any projects returned
+                if (projects.length === 0) {
+                    const noResultsRow = `<tr><td colspan="8" class="text-center">{{ trans('project.not_found') }}</td></tr>`;
+                    tableBody.innerHTML = noResultsRow;
+                } else {
+
+                    const projects = data.projects.data;
+                    console.log(projects);
+                    // Loop through the filtered data and create rows
+                    projects.forEach((project, key) => {
+                    const row = `
+                        <tr>
+                            <td>${data.projects.from + key}</td>
+                            <td>${project.name}</td>
+                            <td class="text-center">${project.start_date}</td>
+                            <td class="text-right">${project.work_duration || 'N/A'}</td>
+                            <td class="text-right">${project.project_value || 'N/A'}</td>
+                            <td class="text-center">${project.status_text}</td>
+                            <td>
+                                <a href="${project.organization}">
+                                    ${project.organization ? project.OrganizationName : 'N/A'}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="${project.show_url}" class="btn btn-info btn-xs" title="${project.OrganizationName}">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                                <button class="btn btn-warning btn-xs edit-project-btn" data-id="${project.id}" data-toggle="modal" data-target="#editProjectModal" title="${project.edit_text}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>`;
+                    tableBody.innerHTML += row;
+                });
+
+
+                }
+                })
+                .catch(error => {
+                    console.error('Error fetching project data:', error);
+                });
+
+
+
+            console.log("Final URL:", url);
+            }else{
+                return;
+            }
+
+
             document.getElementById('classDropdown').style.display = 'none';
         });
 
@@ -694,13 +867,94 @@
 
         document.getElementById("applyValues").addEventListener("click", function() {
             var minValue = document.getElementById("minValue").value;
-            var maxValue = document.getElementById("maxValue").value;
-            console.log("Min Value:", minValue, "Max Value:", maxValue);
+            var maxValue = document.getElementById("maxValue").value 
+           
+
+        
+            if(minValue || maxValue){
+
+                if (!maxValue) {
+                    console.log('Max value is not set. No projects will be listed.');
+                    return;
+                }
+
+                // Build the base URL
+                var baseUrl = "{{ route('projects.get') }}";
+
+                // Append query strings for minValue and maxValue
+                var url = `${baseUrl}?minValue=${encodeURIComponent(minValue)}&maxValue=${encodeURIComponent(maxValue)}`;
+
+                console.log("Final URL:", url);
+                    fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    console.log('Fetched data:', data);
+                    const projects = data.projects.data;
+
+                // Clear the existing table rows
+                const tableBody = document.querySelector('table tbody');
+                tableBody.innerHTML = '';
+
+                // Check if there are any projects returned
+                if (projects.length === 0) {
+                    const noResultsRow = `<tr><td colspan="8" class="text-center">{{ trans('project.not_found') }}</td></tr>`;
+                    tableBody.innerHTML = noResultsRow;
+                } else {
+
+                    const projects = data.projects.data;
+                    console.log(projects);
+                    // Loop through the filtered data and create rows
+                    projects.forEach((project, key) => {
+                    const row = `
+                        <tr>
+                            <td>${data.projects.from + key}</td>
+                            <td>${project.name}</td>
+                            <td class="text-center">${project.start_date}</td>
+                            <td class="text-right">${project.work_duration || 'N/A'}</td>
+                            <td class="text-right">${project.project_value || 'N/A'}</td>
+                            <td class="text-center">${project.status_text}</td>
+                            <td>
+                                <a href="${project.organization}">
+                                    ${project.organization ? project.OrganizationName : 'N/A'}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="${project.show_url}" class="btn btn-info btn-xs" title="${project.OrganizationName}">
+                                    <i class="fas fa-search"></i>
+                                </a>
+                                <button class="btn btn-warning btn-xs edit-project-btn" data-id="${project.id}" data-toggle="modal" data-target="#editProjectModal" title="${project.edit_text}">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                            </td>
+                        </tr>`;
+                    tableBody.innerHTML += row;
+                });
+
+
+                }
+                })
+                .catch(error => {
+                    console.error('Error fetching project data:', error);
+                });
+
+            }else{
+                console.log('no Values selected to filtering with project value ');
+            }
+
             // Add your code to handle the selected values
             document.getElementById('valueDropdown').style.display = 'none';
         });
-
-
         function closeAllDropdowns() {
             var dropdowns = document.getElementsByClassName("dropdown-content");
             for (var i = 0; i < dropdowns.length; i++) {
@@ -716,5 +970,4 @@
     });
 </script>
 @endsection
-
 

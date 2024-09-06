@@ -1,13 +1,14 @@
 @extends('crm.layouts.job')
 
 @section('subtitle', __('job.detail'))
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
 @section('action-buttons')
 @can('create', new App\Models\ProjectManagement\Projects\ProjectJob)
-<button class="btn btn-warning btn-sm p-1" data-toggle="modal" data-target="#createTaskModal">{{ trans('Add New Task') }}</button>
+<button class="btn btn-success btn-sm p-2" data-toggle="modal" data-target="#createTaskModal">{{ trans('Add New Task') }}</button>
 @endcan
 @can('update', $job)
-<button class="btn btn-warning btn-sm p-1" data-toggle="modal" data-target="#EditTaskModal">{{ trans('Edit Task') }}</button>
+<button class="btn btn-warning btn-sm p-2" data-toggle="modal" data-target="#EditTaskModal">{{ trans('Edit Task') }}</button>
 @endcan
 @endsection
 
@@ -66,7 +67,7 @@
             </div>
             <div class="modal-footer">
                 {{ Form::submit(__('Save'), ['class' => 'btn btn-primary']) }}
-                {{ link_to_route('projects.jobs.index', __('app.cancel'), [$project], ['class' => 'btn btn-default']) }}
+                {{ link_to_route('jobs.show', __('app.cancel'), [$job], ['class' => 'btn btn-default']) }}
 
             </div>
         </div>
@@ -115,7 +116,7 @@
                             {!! Form::hidden('project_id', $job->project_id) !!}
                             {!! Form::submit(__('job.update'), ['class' => 'btn  btn-primary']) !!}
                             {{ link_to_route('jobs.show', __('app.show'), [$job], ['class' => 'btn btn-xs btn-success']) }}
-                            {{ link_to_route('projects.jobs.index', __('job.back_to_index'), [$job->project_id], ['class' => 'btn btn-xs btn-info']) }}
+                            {{ link_to_route('projects.jobs.index', __('job.back_to_index'), [$job->project_id], ['class' => 'btn btn-xs btn-info p-2']) }}
                             {{ link_to_route('jobs.delete', __('job.delete'), [$job], ['class' => 'btn btn-xs btn-danger pull-right']) }}
                         </div>
                     </div>
@@ -159,7 +160,6 @@
 @endsection
 
 @section('ext_js')
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.css">
 @endsection
 
 @section('script')

@@ -15,6 +15,7 @@ use App\Http\Controllers\ProjectManagement\IssueController as IssuesController;
 use App\Http\Controllers\ProjectManagement\Projects\TasksController;
 use  App\Http\Controllers\CRM\Contact\OrganizationController;
 use App\Models\Core\Auth\User;
+use App\Http\Controllers\Core\Auth\User\UserController;
 use App\Http\Controllers\CRM\Objectives\OkrController;
 use App\Http\Controllers\CRM\Objectives\KrController;
 use App\Http\Controllers\CRM\Objectives\FollowController;
@@ -119,13 +120,22 @@ Route::get('proposal', function () {
 
 // Route::resource('projects', [ProjectsController::class]);
 
+//Project filters 
+
+Route::get('/projects/all'  , [ProjectsController::class, 'getProjectByFilter'])->name('projects.get');
+Route::get('/projects/list'  , [ProjectsController::class, 'getProjects'])->name('projects.list');
+
 Route::get('/projects', [ProjectsController::class, 'index'])->name('projects.index');
 Route::post('/projects', [ProjectsController::class, 'store'])->name('projects.store');
 Route::get('projects/create', [ProjectsController::class, 'create'])->name('projects.create');
 Route::get('projects/{project}/delete', [ProjectsController::class, 'delete'])->name('projects.delete');
 Route::get('projects/destroy', [ProjectsController::class, 'destroy'])->name('projects.destroy');
 Route::delete('projects/{project}', [ProjectsController::class, 'destroy'])->name('projects.destroy');
+Route::post('projects/filter', [ProjectsController::class, 'filter'])->name('projects.filter');
 
+
+//get users 
+Route::get('/users/get' , [UserController::class, 'getUsers'])->name('users.get');
 
 //api calls 
 
@@ -154,12 +164,16 @@ Route::post('projects/{project}/jobs-reorder', [JobsController::class, 'jobsReor
 
 // Issue routes
 Route::get('projects/{project}/issues', [IssueController::class, 'index'])->name('projects.issues.index');
+
+
 Route::get('projects/{project}/issues/create', [IssueController::class, 'create'])->name('projects.issues.create');
 Route::post('projects/{project}/issues', [IssueController::class ,'store'])->name('projects.issues.store');
 Route::get('projects/{project}/issues/{issue}', [IssueController::class ,'show'])->name('projects.issues.show');
 Route::get('projects/{project}/issues/{issue}/edit',[IssueController::class ,'edit'])->name('projects.issues.edit');
 Route::patch('projects/{project}/issues/{issue}', [IssueController::class ,'update'])->name('projects.issues.update');
 Route::delete('projects/{project}/issues/{issue}', [IssueController::class ,'destroy'])->name('projects.issues.destroy');
+
+
 
 // Comment routes
 Route::get('projects/{project}/comments', [CommentsController::class, 'index'])->name('projects.comments.index');
@@ -191,6 +205,7 @@ Route::post('subscriptions/store', [SubscriptionsController::class, 'store'])->n
      */
     Route::get('jobs/', [App\Http\Controllers\ProjectManagement\JobsController:: class ,'index'])->name('jobs.index');
     Route::get('jobs/{job}', [App\Http\Controllers\ProjectManagement\JobsController::class ,'show'])->name( 'jobs.show');
+    Route::get('tasks/list'  , [App\Http\Controllers\ProjectManagement\JobsController::class, 'getTasksByFilter'])->name('jobs.list');
 
 
       /*
@@ -228,7 +243,11 @@ Route::post('subscriptions/store', [SubscriptionsController::class, 'store'])->n
     /*
  * Issue Options Routes
  */
-Route::get('/issues' , [App\Http\Controllers\ProjectManagement\Issues\IssueController::class , 'index'])->name('issues.issues');
+Route::get('/issues' , [App\Http\Controllers\ProjectManagement\Issues\IssueController::class , 'index'])->name('issues.index');
+Route::get('issues/{issue}', [App\Http\Controllers\ProjectManagement\Issues\IssueController::class, 'showIssue'])->name('issues.show');
+Route::post('issues/', [App\Http\Controllers\ProjectManagement\Issues\IssueController::class ,'store'])->name('issues.store');
+Route::patch('issues/{issue}', [App\Http\Controllers\ProjectManagement\Issues\IssueController::class ,'update'])->name('issues.update');
+
 Route::patch('issues/{issue}/options', [OptionController::class ,'update'])->name('issues.options.update');
 
 // Route::get('issues/', [IssuesController::class ,'index'])->name('issues.index');
@@ -257,6 +276,7 @@ Route::patch('issues/{issue}/options', [OptionController::class ,'update'])->nam
 
     //view list okrs 
     Route::get('Objectives/', [OkrController::class ,'listOKR'])->name('iokr.list');
+    Route::get('Objectives/all', [OkrController::class ,'getObjectives'])->name('objectives.list');
 
     // Edit OKR page
     Route::get('okr/{objective}/edit', [OkrController::class , 'edit'])->name('okr.edit');
@@ -281,6 +301,9 @@ Route::get('/actions', [ActionsController::class , 'index'])->name('actions.inde
 //get objective and priorities for creating a n Action
 
 Route::get('/actions/get', [ActionsController::class, 'get'])->name('actions.get');
+Route::get('/actions/getfiltered', [ActionsController::class, 'filterActions'])->name('actions.filter');
+Route::get('/priorities/get', [ActionsController::class, 'getPriorities'])->name('priorities.get');
+
 
 //get key results 
 Route::get('/actions/keyresults/{id}', [ActionsController::class, 'getKeyResults'])->name('actions.keyresults');
@@ -307,6 +330,7 @@ Route::get('actions/{action}/showloneaction', [ActionsController::class , 'showl
 
 // Delete personal Action
 Route::delete('actions/{action}/destroy', [ActionsController::class ,'destroy'])->name('actions.destroy');
+Route::delete('actions/{action}/destroyloneaction', [ActionsController::class ,'destroyloneAction'])->name('actions.destroyloneAction');
 // Delete Action's file
 Route::get('actions/{action}/media/{media}/destroy', [ActionsController::class , 'destroyFile'])->name('actions.destroyFile');
 // Return search
