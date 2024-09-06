@@ -13,14 +13,17 @@ use App\Http\Controllers\API\ProjectJobsController;
 use App\Http\Controllers\ProjectManagement\Issues\OptionController;
 use App\Http\Controllers\ProjectManagement\IssueController as IssuesController;
 use App\Http\Controllers\ProjectManagement\Projects\TasksController;
-use  App\Http\Controllers\CRM\Contact\OrganizationController;
+use App\Http\Controllers\CRM\Contact\OrganizationController;
 use App\Models\Core\Auth\User;
 use App\Http\Controllers\Core\Auth\User\UserController;
 use App\Http\Controllers\CRM\Objectives\OkrController;
 use App\Http\Controllers\CRM\Objectives\KrController;
 use App\Http\Controllers\CRM\Objectives\FollowController;
 use App\Http\Controllers\CRM\Objectives\CompanyController;
+use App\Http\Controllers\CRM\Ticket\TicketsController;
+use App\Http\Controllers\CRM\Department\DepartmentsController;
 use App\Http\Controllers\CRM\Objectives\ActionsController;
+use App\Http\Controllers\Core\HomeController;
 use Illuminate\Support\Facades\Route;
 
 // Root route
@@ -33,8 +36,12 @@ Route::get('/', function () {
             return redirect(route('organizations.lists'));
         }
     }
-    return redirect('admin/users/login');
+
+    return redirect('/Home');
 });
+
+
+Route::get('/Home', [HomeController::class,'index'])->name('homePage');
 
 // Documentation routes
 Route::get('doc/core/components', [\App\Http\Controllers\DocumentationController::class, 'index']);
@@ -429,3 +436,40 @@ Route::get('user/{user}/okr', 'UserController@listOKR')->name('user.okr');
     Route::get('follow/{type}/{owner}', [FollowController::class , 'follow'])->name('follow');
     //取消追蹤
     Route::get('follow/{type}/{owner}/cancel', [FollowController::class ,'cancel'])->name('follow.cancel');
+
+
+    //tickets route
+    Route::get('add-new-ticket', [TicketsController::class, 'create'])->name('submit-new-ticket.create');
+    Route::post('new-ticket-store', [TicketsController::class, 'store'])->name('new-ticket-store.store');
+    Route::get('ticket/{ticket_id}', [TicketsController::class, 'show'])->name('ticket.show');
+    Route::get('tickets', [TicketsController::class, 'index'])->name('tickets.index');
+    Route::get('opened-tickets', [TicketsController::class, 'openedTickets'])->name('opened-tickets.openedTickets');
+    Route::get('closed-tickets', [TicketsController::class, 'ClosedTickets'])->name('closed-tickets.ClosedTickets');
+    Route::post('close_ticket/{ticket_id}', [TicketsController::class, 'close'])->name('close_ticket.close');
+    Route::post('reopen/{ticket_id}', [TicketsController::class, 'reOpen'])->name('ticketReOpen');
+    Route::get('notifications', [NotificationController::class, 'allNotification'])->name('allNotification');
+    //ticket data
+    Route::get('get-ticket-data', [TicketsController::class, 'getTicketData'])->name('getTicketData');
+    Route::get('ticket-assign-to/{id}', [TicketsController::class, 'assignTo'])->name('assignTo');
+    Route::post('ticket-assigned/{id}', [TicketsController::class, 'assignToDepartment'])->name('assignToDepartment');
+
+    //department route
+    Route::get('/departments', [DepartmentsController::class, 'index'])->name('departments.index');
+    Route::get('get-departments-data', [DepartmentsController::class, 'getDepartmentData'])->name('getDepartmentData');
+    Route::get('/department-create', [DepartmentsController::class, 'create'])->name('department-create.create');
+    Route::get('/department/{id}/edit', [DepartmentsController::class, 'edit'])->name('department-edit');
+  
+    Route::get('department', [DepartmentsController::class, 'index'])->name('department.index');
+    Route::get('department/{id}', [DepartmentsController::class, 'departmentTickets'])->name('departmentTickets');
+  
+    Route::post('department-save', [DepartmentsController::class, 'store'])->name('department-save.store');
+    Route::get('department-edit/{id}', [DepartmentsController::class, 'edit'])->name('department-edit.edit');
+    Route::post('department-update/{id}', [DepartmentsController::class, 'update'])->name('department-update.update');
+    Route::delete('department-delete/{id}', [DepartmentsController::class, 'destroy'])->name('department-delete.destroy');
+
+    Route::get('/knowledge', [KnowledgeBaseController::class, 'KnowledgeBaseIndex'])->name('KnowledgeBaseIndex');
+    Route::get('contact-us', [ContactController::class,'index'])->name('contactPage');
+    Route::post('contact-store', [ContactController::class,'store'])->name('contactStore');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
