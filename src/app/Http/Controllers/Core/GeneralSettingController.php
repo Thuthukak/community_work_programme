@@ -179,7 +179,8 @@ class GeneralSettingController extends Controller
 
     public function contactus() {
         $setting = GeneralSetting::first();
-        return view('frontendSetting.contactus', compact('setting'));
+        $gs = GeneralSetting::first();
+        return view('frontendSetting.contactus', compact('setting','gs'));
     }
 
     public function updateContactus(Request $request) {

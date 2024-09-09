@@ -22,8 +22,10 @@ use App\Http\Controllers\CRM\Objectives\FollowController;
 use App\Http\Controllers\CRM\Objectives\CompanyController;
 use App\Http\Controllers\CRM\Ticket\TicketsController;
 use App\Http\Controllers\CRM\Department\DepartmentsController;
+use App\Http\Controllers\CRM\knowledgeBased\KnowledgeBaseController;
 use App\Http\Controllers\CRM\Objectives\ActionsController;
 use App\Http\Controllers\Core\HomeController;
+use App\Http\Controllers\CRM\ContactUs\ContactController;
 use Illuminate\Support\Facades\Route;
 
 // Root route
@@ -467,9 +469,56 @@ Route::get('user/{user}/okr', 'UserController@listOKR')->name('user.okr');
     Route::post('department-update/{id}', [DepartmentsController::class, 'update'])->name('department-update.update');
     Route::delete('department-delete/{id}', [DepartmentsController::class, 'destroy'])->name('department-delete.destroy');
 
-    Route::get('/knowledge', [KnowledgeBaseController::class, 'KnowledgeBaseIndex'])->name('KnowledgeBaseIndex');
     Route::get('contact-us', [ContactController::class,'index'])->name('contactPage');
     Route::post('contact-store', [ContactController::class,'store'])->name('contactStore');
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+// KnowledgeBase routes 
+
+Route::get('/knowledgeBase', [KnowledgeBaseController::class , 'index'] )->name('knowledge_base');
+Route::get('/knowledge', [KnowledgeBaseController::class, 'KnowledgeBaseIndex'])->name('KnowledgeBaseIndex');
+Route::get('/knowledge/{id}.details', [KnowledgeBaseController::class, 'viewArticle'])->name('Knowledge.viewArticle');
+Route::post('/knowledge-search', [KnowledgeBaseController::class, 'searchArticles'])->name('Knowledge.searchArticles');
+Route::get('/knowledge-pinned/{id}', [KnowledgeBaseController::class, 'pinnedArticle'])->name('Knowledge.pinnedArticle');
+Route::get('/category/{category}', [KnowledgeBaseController::class, 'categoryPost'])->name('Knowledge.categoryPost');
+Route::post('/kb-vote/{id}', [VoteController::class, 'KBvoteYes'])->name('KBvoteYes');
+
+
+//navigation routes 
+
+Route::get('contact-us', [ContactController::class,'index'])->name('contactPage');
+Route::post('contact-store', [ContactController::class,'store'])->name('contactStore');
+Route::get('/about-us', [HomeController::class, 'aboutusPage'])->name('aboutusPage');
+Route::resource('testimonial', TestimonialController::class);
+Route::put('testimonial', [TestimonialController::class, 'testimonialUpdate'])->name('setting.testimonialUpdate');
+
+
+Route::resource('service', ServiceController::class);
+Route::put('service-up', [ServiceController::class, 'servicesUpdate'])->name('setting.servicesUpdate');
+//how-we-work
+Route::resource('how-we-work', HowWorkController::class);
+Route::put('how-we-work', [HowWorkController::class, 'howWorkUpdate'])->name('setting.howWorkUpdate');
+
+
+Route::get('logo-icon', [GeneralSettingController::class, 'logoIcon'])->name('logoIcon.Setting');
+Route::put('logo-icon', [GeneralSettingController::class, 'logoIconUpdate'])->name('logoIconUpdate.Setting');
+Route::get('social-link', [GeneralSettingController::class, 'social'])->name('social.Setting');
+Route::post('social-link', [GeneralSettingController::class, 'socialAdd'])->name('socialAdd.Setting');
+Route::put('social-link/{social}', [GeneralSettingController::class, 'socialUpdate'])->name('socialUpdate.Setting');
+Route::delete('social-link-delete/{id}', [GeneralSettingController::class, 'socialDestroy'])->name('socialDestroy.Setting');
+
+Route::get('header-text', [GeneralSettingController::class, 'headerTextSetting'])->name('headerTextSetting');
+Route::put('header-text/{setting}', [GeneralSettingController::class, 'headerTextSettingUpdate'])->name('headerTextUpSetting');
+Route::get('footer-setting', [GeneralSettingController::class, 'footer'])->name('footer.Setting');
+Route::put('footer-setting', [GeneralSettingController::class, 'updateFooter'])->name('updateFooter.Setting');
+
+Route::get('aboutus', [GeneralSettingController::class, 'aboutus'])->name('aboutus.Setting');
+Route::put('aboutus', [GeneralSettingController::class, 'updateAboutUs'])->name('updateAboutUs.Setting');
+Route::get('counter', [GeneralSettingController::class, 'counter'])->name('counter.Setting');
+Route::put('counter/{setting}', [GeneralSettingController::class, 'updateCounter'])->name('updateCounter.Setting');
+//inbox
+Route::get('inbox', [InboxContactController::class, 'contactMessage'])->name('contactMessage');
+Route::get('read-message/{contact}', [InboxContactController::class, 'readMessage'])->name('readMessage');
+Route::delete('delete-message/{contact}', [InboxContactController::class, 'destroy'])->name('message.destroy');

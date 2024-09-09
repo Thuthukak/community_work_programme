@@ -1,36 +1,34 @@
-<!-- Login Modal -->
-<div class=" modal fade" id="loginModal"role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true" style="z-index: 1041;" >
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="loginModalLabel">{{ __('theme.login') }}</h5>
+                <h5 class="modal-title" id="loginModalLabel">Login</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
+                <!-- Login Form -->
                 <form method="POST" action="{{ route('users.login') }}">
-                    @csrf
+                    @csrf <!-- Important: CSRF token for form submission -->
+
+                    <!-- Email Field -->
                     <div class="form-group">
-                        <input type="email" class="form-control" id="login-email" name="email" required placeholder= "Username" autocomplete="Username">
+                        <label for="email">{{ __('Email Address') }}</label>
+                        <input type="email" name="email" class="form-control" id="email" placeholder="Enter your email" required>
                     </div>
+
+                    <!-- Password Field -->
                     <div class="form-group">
-                        <input type="password" class="form-control" id="login-password" name="login-password" required autocomplete="current-password" placeholder="Password">
+                        <label for="password">{{ __('Password') }}</label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password" required>
                     </div>
-                    <button type="submit" class="btn btn-primary">{{ __('theme.login') }}</button>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary">Login</button>
                 </form>
             </div>
-
-            <div id="formFooter">
-                   <div>
-                   <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#resetPasswordModal">{{ __("theme.forgot_your_password") }}</a>
-                   </div>
-                    <div>
-                        {{ __("theme.don't_have_account") }}
-                        <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#registerModal">{{ __('theme.register') }}</a>
-                        </div>
-                </div>
         </div>
     </div>
 </div>
-

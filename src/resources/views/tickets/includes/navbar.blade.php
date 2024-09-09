@@ -15,10 +15,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url(env('APP_URL').'/#top') }}">{{ __('theme.home') }}</a>
+                    <a class="nav-link" href="{{route('homePage') }}">{{ __('theme.home') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{{ __('theme.knowledge_base') }}</a>
+                    <a class="nav-link" href="{{route('KnowledgeBaseIndex') }}">{{ __('theme.knowledge_base') }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url(env('APP_URL').'/#services') }}">{{ __('theme.services') }}</a>
@@ -46,18 +46,12 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right custom-dw" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('dashboard') }}">
+                            <a class="dropdown-item" href="{{ request()->root().'/admin/dashboard' }}">
                                 {{__('theme.dashboard')}}
                             </a>
-                            <a class="dropdown-item" href="{{ route('auth.log_out') }}"
-                               onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                            <a class="dropdown-item" href="{{ route('auth.log_out') }}">
                                 {{ __('theme.logout') }}
                             </a>
-
-                            <form id="logout-form" action="{{ route('auth.log_out') }}" method="POST" style="display: none;">
-                                @csrf
-                            </form>
                         </div>
                     </li>
                 @endguest

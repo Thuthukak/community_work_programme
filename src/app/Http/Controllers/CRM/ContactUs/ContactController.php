@@ -5,13 +5,19 @@ namespace App\Http\Controllers\CRM\ContactUs;
 use Illuminate\Http\Request;
 use App\Models\CRM\Social\Social;
 use App\Models\CRM\ContactUs\Contact;
+use App\Http\Controllers\Controller;
+use App\Models\CRM\GeneralSettings\GeneralSetting;
+
+
 
 class ContactController extends Controller
 {
     public function index()
     {
     	$socials = Social::all();
-    	return view('contact', compact('socials'));
+        $gs = GeneralSetting::first();
+        
+    	return view('crm.contactus.contact', compact('socials','gs'));
     }
 
     public function store(Request $request)

@@ -11,6 +11,8 @@
     use App\Services\ApplicationBaseService;
     use App\Services\CRM\Traits\csvImportTrait;
     use App\Services\CRM\Traits\personOrganizationDetails;
+    use Illuminate\Support\Facades\Log;
+
 
     /**
      * @method paginate(array|\Illuminate\Http\Request|string $request)
@@ -73,6 +75,8 @@
         /** @noinspection PhpPossiblePolymorphicInvocationInspection */
         public function savePerson($request)
         {
+
+
             \DB::transaction(function () use ($request) {
                 $hasPhone = (object)collect($request->phone)->first();
                 $hasEmail = (object)collect($request->email)->first();

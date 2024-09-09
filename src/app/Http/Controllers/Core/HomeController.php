@@ -32,6 +32,9 @@ class HomeController extends Controller
 
     public function aboutusPage()
     {
-        return view('aboutus');
+
+        $gs = GeneralSetting::first();
+
+        return view('tickets.aboutus' , compact('gs'));
     }
 }

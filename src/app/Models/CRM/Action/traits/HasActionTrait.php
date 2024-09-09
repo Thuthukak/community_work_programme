@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\CRM\Objective\traits;
+namespace App\Models\CRM\Action\traits;
 
 use App\Models\CRM\Action\Action;
 use Illuminate\Http\Request;
@@ -10,7 +10,7 @@ use App\Models\CRM\Company\Company;
 use App\Models\CRM\Organization\Organization;
 use App\Models\ProjectManagement\Projects\Project;
 
-trait HasObjectiveTrait
+trait HasActionTrait
 {
     /**
      * Returns all objectives for this model.
