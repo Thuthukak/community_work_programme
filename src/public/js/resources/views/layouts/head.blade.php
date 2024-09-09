@@ -11,7 +11,7 @@
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset($publicPath.'/css/style.css') }}">
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset($publicPath.'/css/home-page.css') }}">
 
-    <link rel="stylesheet" type="text/css" href="{{ asset($publicPath.'/bootstrap-4.0.0/css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="/bootstrap-4.0.0/css/bootstrap.css">
 
 
     <link rel="stylesheet" type="text/css" href="{{ asset('font-awesome-4.7.0/css/font-awesome.css') }}">

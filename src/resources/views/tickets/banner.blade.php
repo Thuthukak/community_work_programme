@@ -43,7 +43,6 @@
 
                     <!-- Controls -->
                     <a class="carousel-control-prev" href="#imageCarousel" role="button" data-slide="prev" style="position: absolute; top: 50%; transform: translateY(-50%);
-                    
                     color: #fff;
                     font-weight: 600;
                     height: 40px !important;
