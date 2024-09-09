@@ -24,7 +24,11 @@ return [
     "logout" => "Logout",
 
     //home page
+    "tickets" => "Tickets",
     "submit_ticket" => "Submit Ticket",
+    "tickets_list" => "Tickets List",
+    "open_tickets" => "Open Tickets",
+    "closed_tickets" => " Closed Tickets",
     "read_more" => "Read More",
     "total_tickets" => "Total Tickets",
     "ticket_solved" => "Ticket Solved",
