@@ -1616,6 +1616,7 @@ class ComposerStaticInit846c0d5b03a8d09ff62b6bc630aa979f
         'App\\Services\\CRM\\Traits\\personOrganizationDetails' => __DIR__ . '/../..' . '/app/Services/CRM/Traits/personOrganizationDetails.php',
         'App\\Services\\CRM\\Traits\\showDealDetailsTrait' => __DIR__ . '/../..' . '/app/Services/CRM/Traits/showDealDetailsTrait.php',
         'App\\Services\\CRM\\User\\SystemUserService' => __DIR__ . '/../..' . '/app/Services/CRM/User/SystemUserService.php',
+        'App\\Services\\Core\\Auth\\RegistrationService' => __DIR__ . '/../..' . '/app/Services/Core/Auth/RegistrationService.php',
         'App\\Services\\Core\\Auth\\RoleService' => __DIR__ . '/../..' . '/app/Services/Core/Auth/RoleService.php',
         'App\\Services\\Core\\Auth\\Traits\\HasUserActions' => __DIR__ . '/../..' . '/app/Services/Core/Auth/Traits/HasUserActions.php',
         'App\\Services\\Core\\Auth\\UserInvitationService' => __DIR__ . '/../..' . '/app/Services/Core/Auth/UserInvitationService.php',

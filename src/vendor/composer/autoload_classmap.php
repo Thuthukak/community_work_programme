@@ -770,6 +770,7 @@ return array(
     'App\\Services\\CRM\\Traits\\personOrganizationDetails' => $baseDir . '/app/Services/CRM/Traits/personOrganizationDetails.php',
     'App\\Services\\CRM\\Traits\\showDealDetailsTrait' => $baseDir . '/app/Services/CRM/Traits/showDealDetailsTrait.php',
     'App\\Services\\CRM\\User\\SystemUserService' => $baseDir . '/app/Services/CRM/User/SystemUserService.php',
+    'App\\Services\\Core\\Auth\\RegistrationService' => $baseDir . '/app/Services/Core/Auth/RegistrationService.php',
     'App\\Services\\Core\\Auth\\RoleService' => $baseDir . '/app/Services/Core/Auth/RoleService.php',
     'App\\Services\\Core\\Auth\\Traits\\HasUserActions' => $baseDir . '/app/Services/Core/Auth/Traits/HasUserActions.php',
     'App\\Services\\Core\\Auth\\UserInvitationService' => $baseDir . '/app/Services/Core/Auth/UserInvitationService.php',

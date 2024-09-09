@@ -90,21 +90,21 @@
         [
             'id' => 'Tickets',
             'icon' => 'clipboard',
-            'name' => __('default.tickets',[],$locale),
+            'name' => __('theme.tickets',[],$locale),
             'permission' => authorize_any(['view_persons']),
             'subMenu' => [
                 [
-                    'name' => __('default.project_list',[],$locale),
+                    'name' => __('theme.tickets_list',[],$locale),
                     'url' => request()->root().'/tickets',
                     'permission' => authorize_any(['view_persons']),
                 ],
                 [
-                    'name' => __('default.open_tickets',[],$locale),
+                    'name' => __('theme.open_tickets',[],$locale),
                     'url' => request()->root().'/opened-tickets',
                     'permission' => authorize_any(['view_persons']),
                 ],
                 [
-                    'name' => __('default.closed_tickets',[],$locale),
+                    'name' => __('theme.closed_tickets',[],$locale),
                     'url' => request()->root().'/closed-tickets',
                     'permission' => authorize_any(['view_persons']),
                 ],

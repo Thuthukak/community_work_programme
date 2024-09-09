@@ -33,7 +33,9 @@ class Person extends BaseModel
         'contact_type_id',
         'owner_id',
         'created_by',
-        'attach_login_user_id'
+        'attach_login_user_id',
+        'cwp_no',
+        'id_number'
     ];
 
     protected static $logAttributes = [

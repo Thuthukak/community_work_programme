@@ -8,9 +8,10 @@ use App\Models\CRM\Ticket\Ticket;
 // use App\Models\CustomField;
 use App\Notifications\CRM\Ticket\TicketNotification;
 use App\Models\CRM\Ticket\traits\EmailTrait;
+use App\Models\CRM\Departments\Department;
 // use App\Models\CRM\Ticket\traits\CustomFieldTrait;
-use Illuminate\Http\Requests\Request;
-use App\Mailers\AppMailer;
+use Illuminate\Http\Request;
+use App\Mail\AppMailer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
@@ -155,6 +156,7 @@ class TicketsController extends Controller
         ]);
 
 	    $authUser = Auth::user();
+
 
 	    $deptUser = Department::with('user')->findOrFail($request->input('department'));
 

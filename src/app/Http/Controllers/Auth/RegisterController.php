@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\Core\Auth\User;
 
-use App\Http\Controllers\CRM\Contact\PersonController;
+use App\Services\Core\Auth\RegistrationService;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -41,10 +41,10 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct(PersonController $personController)
+    public function __construct(RegistrationService $RegistrationService)
     {
         $this->middleware('guest');
-        $this->person = $personController;
+        $this->registerService = $RegistrationService;
 
     }
 
@@ -118,12 +118,17 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
+
         if($data['registration_type'] == 'new_applicant') {
             // Merge first_name and last_name into the name field
             $data = array_merge($data, [
                 'name' => $data['first_name'] . ' ' . $data['last_name'], // Append first name and last name
                 'owner_id' => 1,
             ]);
+            // dd($data);
+
+            $this->registerService->RegisterPerson($data);
+
         
             // Remove first_name and last_name from the array
             unset($data['first_name'], $data['last_name']);

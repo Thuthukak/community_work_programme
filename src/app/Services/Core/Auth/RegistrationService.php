@@ -13,6 +13,8 @@ use App\Models\Core\Auth\Role;
 use App\Models\CRM\Ticket\Ticket;
 use App\Http\Controllers\CRM\Deal\DealController;
 use App\Models\CRM\Person\Person;
+use App\Models\CRM\Email\Email;
+use App\Models\CRM\Phone\Phone;
 use App\Models\CRM\Contact\ContactType;
 use App\Models\CRM\Contact\PhoneEmailType;
 use App\Models\Core\Auth\User;
@@ -27,7 +29,7 @@ use Illuminate\Support\Facades\Log;
 
 
 
-class UserService extends BaseService
+class RegistrationService extends BaseService
 {
     use FileHandler, Helpers, HasWhen, HasUserActions;
         //  ThrottlesLogins;
@@ -99,51 +101,44 @@ class UserService extends BaseService
     public function RegisterPerson($data){
 
 
-        if($data['registration_type'] == 'cwp_candidate')
+        if($data['registration_type'] == 'new_applicant')
         {
 
          // Store the updated data
          $person = Person::create([
-            'name' => $data['first_name'],
-            'owner_id' => $data['last_name'],
-            'cell_no' => $data['cell_no'],
+            'name' => $data['name'],
+            'owner_id' => 1,
             'id_no' => $data['id_no'],
-            'cwp_no' => $data['cwp_no'],
-            'status_id' => 1,
-            'email' => $data['email'],
+            'created_by' => 1,
+            'contact_type_id' => 2,
+            'created_by' => 0,
         ]);
+
           if($person)
           {
-            $contactType = ContactType::create([
-                'value' => $data['phone_no'],
-                'type_id' => $data['last_name'],
-                'contextable_type' => $data['cell_no'],
-                'contextable_id' => $data['id_no'],
+            $email = Email::create([
+                'value' => $data['email'],
+                'type_id' => 1,
+                'contextable_type' => $person->model,
+                'contextable_id' => $person['id'],
             ]);
           }
 
-          if($person & $contactType)
+          if($person & $email)
           {
-            $contactType = PhoneEmailType::create([
+            $phone = Phone::create([
                 'value' => $data['phone_no'],
-                'type_id' => $data['last_name'],
-                'contextable_type' => $data['cell_no'],
-                'contextable_id' => $data['id_no'],
+                'type_id' => 1,
+                'contextable_type' =>$person->model,
+                'contextable_id' => $person['id'],
             ]);
           }
+          $this->createTicket($person);
+
 
         }elseif($data['registration_type'] == 'cwp_candidate')
         {
-            return User::create([
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'cell_no' => $data['cell_no'],
-                'id_no' => $data['id_no'],
-                'cwp_no' => $data['cwp_no'],
-                'status_id' => 1,
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
-            ]);
+     
         }elseif($data['registration_type'] == 'smart_partner')
         {
             return User::create([
@@ -176,7 +171,8 @@ class UserService extends BaseService
         }
     }
     
-    public function createTicket($user){
+    public function createTicket($user)
+    {
 
     }
 
