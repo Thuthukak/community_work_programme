@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\Core\Auth\User;
-use App\Models\CRM\Ticket\Ticket;
-use App\Http\Controllers\CRM\Deal\DealController;
+
+use App\Http\Controllers\CRM\Contact\PersonController;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -23,7 +23,10 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
+    /**
+     * properties for registering a application
+     */
+    protected $person;
     use RegistersUsers;
 
     /**
@@ -38,9 +41,11 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(PersonController $personController)
     {
         $this->middleware('guest');
+        $this->person = $personController;
+
     }
 
     /**
@@ -59,7 +64,6 @@ class RegisterController extends Controller
                 'cell_no' => ['required', 'numeric', 'digits_between:10,12'],
                 'id_no' => ['required', 'numeric', 'digits:13'],
                 'email' => 'required|string|email|max:255|unique:users',
-                'password' => 'required|string|min:6|confirmed',  // Change this to 'password'
             ];
             
             // Check for registration_type and add or remove rules accordingly
@@ -104,15 +108,7 @@ class RegisterController extends Controller
 
 
 
-    /**
-     * Create registering intances of a Ticket and Onboard them into a pipeline
-     *  Also Assign a CWP Employee to their application 
-     */
-
-     public function OnboardApplicants($user)
-     {
-
-     }
+  
     /**
      * Create a new user instance after a valid registration.
      *
@@ -122,46 +118,30 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
 
-            dd($data);
-       
-            if($data['registration_type'] == 'new_applicant')
-            {
-                return User::create([
-                    'first_name' => $data['first_name'],
-                    'last_name' => $data['last_name'],
-                    'cell_no' => $data['cell_no'],
-                    'id_no' => $data['id_no'],
-                    'status_id' => 3,
-                    'email' => $data['email'],
-                    'password' => Hash::make($data['password']),
-                ]);
+        if($data['registration_type'] == 'new_applicant') {
+            // Merge first_name and last_name into the name field
+            $data = array_merge($data, [
+                'name' => $data['first_name'] . ' ' . $data['last_name'], // Append first name and last name
+                'owner_id' => 1,
+            ]);
+        
+            // Remove first_name and last_name from the array
+            unset($data['first_name'], $data['last_name']);
+            // dd($data);
 
+            return $user;
+    
             }elseif($data['registration_type'] == 'cwp_candidate')
             {
-                return User::create([
-                    'first_name' => $data['first_name'],
-                    'last_name' => $data['last_name'],
-                    'cell_no' => $data['cell_no'],
-                    'id_no' => $data['id_no'],
-                    'cwp_no' => $data['cwp_no'],
-                    'status_id' => 1,
-                    'email' => $data['email'],
-                    'password' => Hash::make($data['password']),
-                ]);
+                return $user;
             }elseif($data['registration_type'] == 'smart_partner')
             {
-                return User::create([
-                    'first_name' => $data['first_name'],
-                    'last_name' => $data['last_name'],
-                    'cell_no' => $data['cell_no'],
-                    'id_no' => $data['id_no'],
-                    'cwp_no' => $data['cwp_no'],
-                    'status_id' => 1,
-                    'email' => $data['email'],
-                    'password' => Hash::make($data['password']),
-                ]);
+                return $user;
+       
             }
             
 
     }
+
+   
 }

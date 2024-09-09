@@ -1,5 +1,6 @@
 <section id="banner">
     <div class="container">
+
         <div class="row">
             <div class="col-md-5" data-aos="fade-down" data-aos-offset="200" data-aos-delay="20" data-aos-duration="700" data-aos-easing="ease-in-out"  data-aos-mirror="true">
                 <p class="banner-title">{{ $gs->header_title }}</p>

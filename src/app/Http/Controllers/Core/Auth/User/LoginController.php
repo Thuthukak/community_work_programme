@@ -51,8 +51,6 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
-
-
         try {
             $this->service->login();
             
@@ -61,7 +59,10 @@ class LoginController extends Controller
             // $this->sendLoginResponse($request);
             // custom hook  
             $route = CustomRoute::new(true)->handle();
+  
             $route = count($route) ? $route : home_route();
+
+            
             return route(
                 $route['route_name'],
                 $route['route_params']
@@ -79,6 +80,6 @@ class LoginController extends Controller
         auth()->logout();
         session()->flush();
 
-        return redirect()->route('users.login.index');
+        return redirect()->route('home');
     }
 }

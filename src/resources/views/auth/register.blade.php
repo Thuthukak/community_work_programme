@@ -44,30 +44,13 @@
                         </div>
                     </div>
 
-                    <!-- Company Name Field (for Smart Partners) -->
+                    <!-- Type of Company and Industry Sector -->
                     <div class="row smart-partner-fields" style="display:none;">
                         <div class="col-md-12">
                             <input type="text" id="company_name" class="fadeIn second form-control {{ $errors->has('company_name') ? ' is-invalid' : '' }}" name="company_name" value="{{ old('company_name') }}" placeholder="{{ __('theme.company_name') }}">
                             @if ($errors->has('company_name'))
                             <div class="invalid-feedback d-block">
                                 <strong>{{ $errors->first('company_name') }}</strong>
-                            </div>
-                            @endif
-                        </div>
-                    </div>
-
-                    <!-- Type of Company and Industry Sector -->
-                    <div class="row smart-partner-fields" style="display:none;">
-                        <div class="col-md-6">
-                            <select id="type_of_company" name="type_of_company" class="fadeIn second form-control {{ $errors->has('type_of_company') ? ' is-invalid' : '' }}">
-                                <option value="" disabled selected>{{ __('theme.select_type_of_company') }}</option>
-                                <option value="pty_ltd">(Pty) Ltd</option>
-                                <option value="ltd">Ltd</option>
-                                <option value="npc">NPC</option>
-                            </select>
-                            @if ($errors->has('type_of_company'))
-                            <div class="invalid-feedback d-block">
-                                <strong>{{ $errors->first('type_of_company') }}</strong>
                             </div>
                             @endif
                         </div>
@@ -87,18 +70,8 @@
                             @endif
                         </div>
                     </div>
-
                     <!-- Date of Establishment and Business Registration Number -->
                     <div class="row smart-partner-fields" style="display:none;">
-                        <div class="col-md-6">
-                        <small id="delay-element" class="form-text text-muted hidden">{{ __('theme.date_of_establishment') }}</small>
-                        <input type="date" id="date_of_establishment" name="date_of_establishment" class="fadeIn second form-control {{ $errors->has('date_of_establishment') ? ' is-invalid' : '' }}" value="{{ old('date_of_establishment') }}">
-                            @if ($errors->has('date_of_establishment'))
-                                <div class="invalid-feedback d-block">
-                                    <strong>{{ $errors->first('date_of_establishment') }}</strong>
-                                </div>
-                            @endif
-                        </div>
                         <div class="col-md-6">
                             <input type="text" id="business_registration_number" name="business_registration_number" class="fadeIn second form-control {{ $errors->has('business_registration_number') ? ' is-invalid' : '' }}" value="{{ old('business_registration_number') }}" placeholder="{{ __('theme.business_registration_number') }}">
                             @if ($errors->has('business_registration_number'))
@@ -133,7 +106,7 @@
                     <div class="row smart-partner-fields" style="display:none;">
                         <div class = "col-md-6">
                         <select id="areas_of_expertise" name="areas_of_expertise[]" class="fadeIn second form-control {{ $errors->has('areas_of_expertise') ? ' is-invalid' : '' }}">
-                            <option value="" disable selected> {{ __('theme.areas_of_expertise') }} </option>
+                            <option value="" disable selected> {{ __('theme.select_areas_of_expertise') }} </option>
                             <option value="project_management">Project Management</option>
                             <option value="software_development">Software Development</option>
                             <option value="marketing">Marketing</option>
@@ -194,23 +167,31 @@
                         </div>
                         @endif
                     </div>
-        <!-- Password Fields -->
-        <div class="row">
-            <div class="col-md-6">
-                <input type="password" id="register-password" class="fadeIn four form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ __('theme.password') }}" required autocomplete="new-password">
-                @if ($errors->has('password'))
-                <div class="invalid-feedback d-block">
-                    <strong>{{ $errors->first('password') }}</strong>
+
+                    <div class="form-group smart-partner-fields" style="display:none;">
+                        <button type="button" class="btn btn-secondary mt-3" id="addContactPersonBtn" onclick="toggleContactPersonFields()">Add Contact Person</button>
+                    </div>
+
+
+                    <div id="contactPersonFields" class="smart-partner-fields" style="display:none;">
+                    <h5 class="mt-4">Contact Person Details</h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="text" id="contact_first_name" class="form-control" name="contact_first_name" placeholder="Contact First Name">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="contact_last_name" class="form-control" name="contact_last_name" placeholder="Contact Last Name">
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <input type="text" id="contact_cell_no" class="form-control" name="contact_cell_no" placeholder="Contact Cell No">
+                        </div>
+                        <div class="col-md-6">
+                            <input type="email" id="contact_email" class="form-control" name="contact_email" placeholder="Contact Email">
+                        </div>
+                    </div>
                 </div>
-                @endif
-            </div>
-            <div class="col-md-6">
-                <input type="password" id="confirm-password" class="fadeIn five form-control" name="password_confirmation" placeholder="{{ __('theme.confirm_password') }}" required autocomplete="new-password">
-            </div>
-        </div>
-
-
-
                     <input type="submit" class="fadeIn fourth btn btn-primary mt-3" value="Sign Up">
                 </form>
 
@@ -262,6 +243,41 @@
         toggleFormFields();
     });
 
+
+    function toggleContactPersonFields() {
+    const contactPersonFields = document.getElementById('contactPersonFields');
+    
+        if (contactPersonFields.style.display === 'none' || contactPersonFields.style.display === '') {
+            contactPersonFields.style.display = 'block';
+        } else {
+            contactPersonFields.style.display = 'none';
+        }
+    }
+
+    // Form validation before submission
+    document.querySelector('form').addEventListener('submit', function(e) {
+        const isSmartPartner = document.getElementById('smart_partner').checked;
+        const contactPersonFields = document.getElementById('contactPersonFields');
+        
+        // If Smart Partner is selected and contact person fields are shown
+        if (isSmartPartner && contactPersonFields.style.display === 'block') {
+            // Validate that contact person fields are filled
+            const contactFirstName = document.getElementById('contact_first_name').value;
+            const contactLastName = document.getElementById('contact_last_name').value;
+            const contactCellNo = document.getElementById('contact_cell_no').value;
+            const contactEmail = document.getElementById('contact_email').value;
+            const contactPassword = document.getElementById('contact_password').value;
+            const contactConfirmPassword = document.getElementById('contact_confirm_password').value;
+
+            if (!contactFirstName || !contactLastName || !contactCellNo || !contactEmail || !contactPassword || !contactConfirmPassword) {
+                e.preventDefault(); // Prevent form submission
+                alert('Please fill out all contact person fields.');
+            } else if (contactPassword !== contactConfirmPassword) {
+                e.preventDefault(); // Prevent form submission
+                alert('Passwords do not match.');
+            }
+        }
+    });
     // Listen for the modal show event
         $('.modal').on('show.bs.modal', function (e) {
             // Hide all other open modals
