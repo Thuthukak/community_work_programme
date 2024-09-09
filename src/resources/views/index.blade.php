@@ -22,7 +22,7 @@
         <!--Sidebar-->
         <test-sidebar></test-sidebar>
 
-        <div class="container-fluid page-body-wrapper">
+        <div class=" page-body-wrapper">
             <div class="main-panel">
                 {{--<test-toaster></test-toaster>--}}
                 {{--<test-calendar-view></test-calendar-view>--}}

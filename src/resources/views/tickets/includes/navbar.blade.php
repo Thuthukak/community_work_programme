@@ -18,7 +18,7 @@
                     <a class="nav-link" href="{{ url(env('APP_URL').'/#top') }}">{{ __('theme.home') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">{{ __('theme.knowledge_base') }}</a>
+                <a class="nav-link" href="{{ route('KnowledgeBaseIndex') }}">{{ __('theme.knowledge_base') }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url(env('APP_URL').'/#services') }}">{{ __('theme.services') }}</a>
@@ -27,7 +27,7 @@
                     <a class="nav-link" href="{{ url(env('APP_URL').'/#testimonials') }}">{{ __('theme.testimonials') }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url(env('APP_URL').'/about-us') }}">{{ __('theme.about_us') }}</a>
+                <a class="nav-link" href="{{  url(env('APP_URL').'/about-us') }}">{{ __('theme.about_us') }}</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('contactPage') }}">{{ __('theme.contact') }}</a>

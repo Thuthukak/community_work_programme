@@ -11,12 +11,12 @@
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset($publicPath.'/css/style.css') }}">
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset($publicPath.'/css/home-page.css') }}">
 
-    <link rel="stylesheet" href="{{ asset($publicPath.'/bootstrap-4.0.0/css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset($publicPath.'/bootstrap-4.0.0/css/bootstrap.css') }}">
 
 
-    <link rel="stylesheet" href="{{ asset('font-awesome-4.7.0/css/font-awesome.css') }}">
-    <link rel="stylesheet" href="{{ asset($publicPath.'/css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href="{{ asset($publicPath.'/css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('font-awesome-4.7.0/css/font-awesome.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset($publicPath.'/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset($publicPath.'/css/owl.theme.default.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/toastr.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/aos.css') }}">
 
