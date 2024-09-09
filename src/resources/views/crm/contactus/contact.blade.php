@@ -2,7 +2,7 @@
 
 @section('title', __('theme.contact_us'))
 
-@section('content')
+@section('contents')
 
 <!--About Us -->
 <section id="aboutus">

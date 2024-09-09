@@ -10628,6 +10628,11 @@ class ComposerStaticInit846c0d5b03a8d09ff62b6bc630aa979f
         'phpDocumentor\\Reflection\\Types\\This' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/This.php',
         'phpDocumentor\\Reflection\\Types\\Void_' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Void_.php',
         'voku\\helper\\ASCII' => __DIR__ . '/..' . '/voku/portable-ascii/src/voku/helper/ASCII.php',
+        'App\\Widgets\\MostHelpfulArticles' => __DIR__ . '/../..' . '/app/Widgets/MostHelpfulArticles.php',
+        'App\\Widgets\\PinnedArticles' => __DIR__ . '/../..' . '/app/Widgets/PinnedArticles.php',
+        'App\\Widgets\\PopularArticles' => __DIR__ . '/../..' . '/app/Widgets/PopularArticles.php',
+        'App\\Widgets\\Categories' => __DIR__ . '/../..' . '/app/Widgets/Categories.php',
+        'App\\Widgets\\CategoryCard' => __DIR__ . '/../..' . '/app/Widgets/CategoryCard.php',
     );
 
     public static function getInitializer(ClassLoader $loader)

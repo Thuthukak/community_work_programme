@@ -4,7 +4,7 @@
 @section('style')
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset(env('APP_URL').'/css/custom.css') }}">
 @endsection
-@section('content')
+@section('contents')
 
 <section id="kb-welcome">
     <div class="container" data-aos="fade-down" data-aos-offset="200" data-aos-delay="20" data-aos-duration="1000">
