@@ -5,16 +5,17 @@
         <table style="width: 100%;" id="actions-table">
             <thead>
                 <tr style="border-bottom: 1px solid var(--default-border-color);">
-                    <th class="datatable-th">Started At</th>
-                    <th class="datatable-th">Priority</th>
-                    <th class="datatable-th">Title</th>
-                    <th class="datatable-th">Content</th>
-                    <th class="datatable-th">Key result</th>
-                    <th class="datatable-th">Model Type</th>
-                    <th class="datatable-th">Finished At</th>
-                    <th class="datatable-th">Person</th>
+                    <th class="datatable-th">{{ trans('actions.started_at') }}</th>
+                    <th class="datatable-th">{{ trans('actions.priority') }}</th>
+                    <th class="datatable-th">{{ trans('actions.action') }}</th>
+                    <th class="datatable-th">{{ trans('actions.content') }}</th>
+                    <th class="datatable-th">{{ trans('actions.key_result') }}</th>
+                    <th class="datatable-th">{{ trans('actions.model_type') }}</th>
+                    <th class="datatable-th">{{ trans('actions.finished_at') }}</th>
+                    <th class="datatable-th">{{ trans('actions.person') }}</th>
                 </tr>
-            </thead>
+        </thead>
+
             <tbody>
                 @foreach($actions as $action)
                 <tr style="border-bottom: 1px solid var(--default-border-color);">

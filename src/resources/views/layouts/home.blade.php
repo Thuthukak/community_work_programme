@@ -19,7 +19,7 @@
 
 <div id="app">
     <div class="container-scroller">
-        <div class="container-fluid page-body-wrapper">
+        <div class="page-body-wrapper">
             <div class="main-panel">
                 <!--Contents-->
                 @yield('contents')

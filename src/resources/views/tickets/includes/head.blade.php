@@ -19,8 +19,8 @@
 
 
     <link rel="stylesheet" href="src/public/font-awesome-4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href=" src/public/css/owl.carousel.min.css') }}">
-    <link rel="stylesheet" href=" scr/public/css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" href="src/public/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="src/public/css/owl.theme.default.min.css">
     <link rel="stylesheet" type="text/css" href="src/public/assets/css/toastr.min.css">
 
     @yield('style')

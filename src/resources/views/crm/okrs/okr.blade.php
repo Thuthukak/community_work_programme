@@ -20,7 +20,7 @@
         {{-- Card target --}}
         <div class="row align-items-center">
             <div class="col-md-2 font-weight-bold text-md-right pr-0" style="margin-top: 10px;">
-                <h4 style="font-size:18px;">Objective:</h4>
+                <h4 style="font-size:18px;">{{ trans('objectives.objective') }}:</h4>
             </div>
             <div class="col-md-10">
                 <div class="row">
@@ -51,32 +51,32 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="col-12 text-center">
-                                                <h4>Edit Objective</h4>
+                                                <h4>{{ trans('objectives.edit_objective') }}</h4>
                                             </div>
                                             <form method="POST" action="{{ route('okr.update',$okr['objective']->id) }}">
                                                 @csrf
                                                 {{ method_field('PATCH') }}
                                                 <div class="form-row">
                                                     <div class="form-group col">
-                                                        <label for="objective_title">Objective</label>
+                                                        <label for="objective_title">{{ trans('objectives.objective') }}/label>
                                                         <input type="text" class="form-control" name="obj_title" id="objective_title" value="{{ $okr['objective']->title }}" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col">
-                                                        <label for="started_at">Starting day</label>
+                                                        <label for="started_at">{{ trans('objectives.starting_date') }}</label>
                                                         <input autocomplete="off" class="form-control started_at" name="st_date" id="" value="{{ $okr['objective']->started_at }}" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-row">
                                                     <div class="form-group col">
-                                                        <label for="finished_at">Completion date</label>
+                                                        <label for="finished_at">{{ trans('objectives.completion_date') }}</label>
                                                         <input autocomplete="off" class="form-control finished_at" name="fin_date" id="" value="{{ $okr['objective']->finished_at }}" required>
                                                     </div>
                                                 </div>
                                                 <div class="form-row mb-4 mt-3 justify-content-center">
                                                     <div class="col-6">
-                                                        <button class="btn btn-primary btn-sm col-md-12 mt-3" type="submit">Add</button>  
+                                                        <button class="btn btn-primary btn-sm col-md-12 mt-3" type="submit">{{ trans('app.add') }}</button>  
                                                     </div>
                                                 </div>
                                             </form>
@@ -94,14 +94,17 @@
                                     </div>
                                     <div class="row">
                                         <div class="col text-center">
-                                            After deleting Objective,<br>
-                                            You will lose KR and ACTION under Objective section<br>
-                                            Do you confirm that you want to delete Objective?<br>
+                                        {{ trans('objectives.delete_objective') }}
+                                            <br>
+                                            {{ trans('objectives.delete_message') }}
+                                            <br>
+                                            {{ trans('objectives.delete_message2') }}
+                                           <br>
                                         </div>
                                     </div>
                                     <div class="row justify-content-center mt-3">
-                                        <div class="col-auto text-center pr-2"><button class="btn btn-danger pl-4 pr-4" type="submit">delete</button></div>
-                                        <div class="col-auto text-center pl-2"><a class="btn btn-secondary text-white pl-4 pr-4">Cancel</a></div>
+                                        <div class="col-auto text-center pr-2"><button class="btn btn-danger pl-4 pr-4" type="submit">{{ trans('app.delete') }}</button></div>
+                                        <div class="col-auto text-center pl-2"><a class="btn btn-secondary text-white pl-4 pr-4">{{ trans('app.cancel') }}</a></div>
                                     </div>
                                 </div>
                             </form>
@@ -115,7 +118,7 @@
         {{-- Card indicator --}}
         <div class="row">
             <div class="col-md-2 font-weight-bold text-md-right align-self-center pr-0">
-                <h4 style="font-size:18px;">Key Results</h4>
+                <h4 style="font-size:18px;">{{ trans('objectives.key_results') }}:</h4>
             </div>
             <div class="col-md-10">
                 @foreach ($okr['keyresults'] as $kr)
@@ -153,18 +156,18 @@
                                         </div>
                                         <div class="modal-body">
                                             <div class="col-12 text-center">
-                                                <h4>Edit KeyResult</h4>
+                                                <h4>{{ trans('objectives.edit_key_result') }}</h4>
                                             </div>
                                             <form method="POST" action="{{ route('okr.update', $okr['objective']->id) }}">
                                                 @csrf
                                                 {{ method_field('PATCH') }}
                                                 <div class="form-row mt-4">
                                                     <div class="form-group col-12 mt-4">
-                                                        <label for="keyresult_title">KeyResult</label>
+                                                        <label for="keyresult_title">{{ trans('objectives.delete_key_result') }}</label>
                                                         <input type="text" class="form-control" name="krs_title{{ $kr->id }}" id="keyresult_title" value="{{ $kr->title }}">
                                                     </div>
                                                     <div class="form-group col-12">
-                                                        <label for="keyresult_confidence">Reaching rate</label>
+                                                        <label for="keyresult_confidence">{{ trans('objectives.reaching_rate') }}</label>
                                                         <input type="text" class="js-range-slider kr-slider" id="keyresult_slider" name="krs_now{{ $kr->id }}" value="{{ $kr->current_value }}"
                                                             data-min="{{ $kr->initial_value }}"
                                                             data-max="{{ $kr->target_value }}"
@@ -173,20 +176,20 @@
                                                         />
                                                     </div>
                                                     <div class="form-group col-4">
-                                                        <label for="keyresult_initaial">Start value</label>
+                                                        <label for="keyresult_initaial">{{ trans('objectives.start_value') }}</label>
                                                         <input type="number" class="form-control kr-init" name="krs_init{{ $kr->id }}" id="keyresult_initaial" value="{{ $kr->initial_value }}">
                                                     </div>
                                                     <div class="form-group col-4">
-                                                        <label class="text-primary" for="keyresult_target">Current value</label>
+                                                        <label class="text-primary" for="keyresult_target">{{ trans('objectives.current_value') }}</label>
                                                         <input type="number" class="form-control kr-now" name="krs_now{{ $kr->id }}" id="keyresult_now" value="{{ $kr->current_value }}">
                                                     </div>
                                                     <div class="form-group col-4">
-                                                        <label for="keyresult_target">Target value</label>
+                                                        <label for="keyresult_target">{{ trans('objectives.target_value') }}</label>
                                                         <input type="number" class="form-control kr-target" name="krs_tar{{ $kr->id }}" id="keyresult_target" value="{{ $kr->target_value }}">
                                                     </div>
 
                                                     <div class="form-group col-6">
-                                                        <label for="keyresult_weight">Weights</label>
+                                                        <label for="keyresult_weight">{{ trans('objectives.weights') }}</label>
                                                         <input type="text" class="js-range-slider" name="krs_weight{{ $kr->id }}" value="{{ $kr->weight }}"
                                                             data-min="0.1"
                                                             data-max="2"
@@ -196,7 +199,7 @@
                                                         />
                                                     </div>
                                                     <div class="form-group col-6">
-                                                        <label for="keyresult_confidence">Confidence</label>
+                                                        <label for="keyresult_confidence">{{ trans('objectives.confidence') }}</label>
                                                         <input type="text" class="js-range-slider" name="krs_conf{{ $kr->id }}" value="{{ $kr->confidence }}"
                                                             data-min="0"
                                                             data-max="10"
@@ -208,7 +211,7 @@
                                                 </div>
                                                 <div class="form-row mb-4 mt-3 justify-content-center">
                                                     <div class="col-6">
-                                                        <button class="btn btn-primary btn-sm col-md-12 mt-3" type="submit">Modify</button>  
+                                                        <button class="btn btn-primary btn-sm col-md-12 mt-3" type="submit">{{ trans('objectives.modify') }}/button>  
                                                     </div>
                                                 </div>
                                             </form>
@@ -226,14 +229,14 @@
                                     </div>
                                     <div class="row">
                                         <div class="col text-center">
-                                            After deleting keyresult,<br>
-                                            You will lose the action under KeyResult section<br>
-                                            Do you confirm that you want to delete KeyResult?<br>
+                                        {{ trans('objectives.after_delete_key') }}<br>
+                                        {{ trans('objectives.will_lose') }}<br>
+                                        {{ trans('objectives.confirm') }}<br>
                                         </div>
                                     </div>
                                     <div class="row justify-content-center mt-3">
-                                        <div class="col-auto text-center pr-2"><button class="btn btn-danger pl-4 pr-4" type="submit">delete</button></div>
-                                        <div class="col-auto text-center pl-2"><a class="btn btn-secondary text-white pl-4 pr-4">Cancel</a></div>
+                                        <div class="col-auto text-center pr-2"><button class="btn btn-danger pl-4 pr-4" type="submit">{{ trans('app.delete') }}</button></div>
+                                        <div class="col-auto text-center pl-2"><a class="btn btn-secondary text-white pl-4 pr-4">{{ trans('app.cancel') }}</a></div>
                                     </div>
                                 </div>
                             </form>
@@ -257,17 +260,17 @@
         <div class="row text-center mb-3">
             <div class="col-4 align-self-center pl-0 pr-0">
                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#Action{{ $okr['objective']->id }}">
-                    <i class="fas fa-bullseye"></i> Actions
+                    <i class="fas fa-bullseye"></i> {{ trans('objectives.actions') }}
                 </button>
             </div>
             <div class="col-4 align-self-center pl-0 pr-0">
                 <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#Msg{{ $okr['objective']->id }}">
-                    <i class="far fa-comments"></i> message
+                    <i class="far fa-comments"></i> {{ trans('objectives.message') }}
                 </button>
             </div>
             <div class="col-4 align-self-center pl-0 pr-0">
                 <button class="btn btn-link historybtn" type="button" data-toggle="collapse" data-target="#History{{ $okr['objective']->id }} " data-oid="{{ $okr['objective']->id }}">
-                    <i class="fas fa-chart-line"></i> historical data
+                    <i class="fas fa-chart-line"></i> {{ trans('objectives.historical_data') }}
                 </button>
             </div>
         </div>

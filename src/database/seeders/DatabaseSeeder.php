@@ -24,6 +24,11 @@ use Database\Seeders\CRM\Contact\PhoneEmailTypeSeeder;
 use Database\Seeders\CRM\Template\TemplateTableSeeder;
 use Database\Seeders\CRM\Companies\CompaniesTableSeeder;
 use Database\Seeders\CRM\Country\CountrySeeder;
+use Database\Seeders\CRM\GeneralSettings\GeneralSettingTableSeeder;
+use Database\Seeders\CRM\HowWorks\HowWorkTableSeeder;
+use Database\Seeders\CRM\Services\ServicesTableSeeder;
+use Database\Seeders\CRM\Socials\SocialLinkTableSeeder;
+use Database\Seeders\CRM\Testimonials\TestimonialsTableSeeder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 
@@ -38,7 +43,11 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
         $this->disableForeignKeys();
-        
+        $this->call(GeneralSettingTableSeeder::class);
+        $this->call(TestimonialsTableSeeder::class);
+        $this->call(SocialLinkTableSeeder::class);
+        $this->call(HowWorkTableSeeder::class);
+        $this->call(ServicesTableSeeder::class);
         $this->call(CompaniesTableSeeder::class);
         $this->call(PrioritiesTableSeeder::class);
         $this->call(StatusSeeder::class);

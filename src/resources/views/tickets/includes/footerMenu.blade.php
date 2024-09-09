@@ -1,6 +1,6 @@
 <div class="col-md-4 footer-box footerContent" data-aos="fade-right" data-aos-offset="200" data-aos-delay="20" data-aos-duration="1000" data-aos-easing="ease-in-out"  data-aos-mirror="true">
     @php
-        $logoUrl = isset($gs) && $gs->logo ? asset(symImagePath() . $gs->logo) : asset('images/profile.png');
+        $logoUrl = isset($gs) && $gs->logo ? asset(symImagePath() . $gs->logo) : asset('images/logo/wcp_logo_only_b&w.png');
         $footerText = isset($gs) ? $gs->footer_text : '';
     @endphp
     <img src="{{ $logoUrl }}" style="height: 80px; width: 150px; filter:invert(100%);">

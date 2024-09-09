@@ -130,7 +130,7 @@
     <!-- Filters on the left -->
     <div class="filters d-flex" style="margin-left: 30px;">
         <div class="filter-item">
-            <button class="filter-btn" style="border-radius: 25px; padding:12px" id="datefilter">Date Range</button>
+            <button class="filter-btn" style="border-radius: 25px; padding:12px" id="datefilter">{{ trans('actions.date_range') }}</button>
             <div id="dateDropdown" class="dropdown-content dropdown-content-date" >
                 <form id="dateRangeForm" class="filter-form" style="width:auto">
                     @include('crm.actions.partials.dateTimeFilter')
@@ -139,15 +139,15 @@
         </div>
 
         <div class="filter-item">
-            <button class="filter-btn" id="UsersLists" style="border-radius: 25px; padding:12px">Assigned To</button>
+            <button class="filter-btn" id="UsersLists" style="border-radius: 25px; padding:12px">{{ trans('actions.assigned_to') }}</button>
             <div id="usersDropdown" class="dropdown-content" style="display:none;">
                 <form id="usersForm" class="filter-form">
                     <ul id="usersListContainer"></ul>
                     <br>
                     <hr>
                     <div class="d-flex justify-content-between mt-3">
-                        <button type="button" id="clearUsers" class="btn btn-clear">Clear</button>
-                        <button type="button" id="applyUsers" class="btn btn-primary">Apply</button>
+                        <button type="button" id="clearUsers" class="btn btn-clear">{{ trans('actions.clear') }}</button>
+                        <button type="button" id="applyUsers" class="btn btn-primary">{{ trans('actions.apply') }}</button>
                     </div>
                 </form>
             </div>
@@ -155,36 +155,36 @@
 
         <div class="filter-item">
             <button class="btn filter-btn" type="button" id="isdone"  style="background-color: white; color: grey;    padding:12px ; border-radius: 25px;" aria-haspopup="true" aria-expanded="false">
-               Is Done<i  id="dropdownArrow"></i>
+            {{ trans('actions.is_done') }}<i  id="dropdownArrow"></i>
             </button>
             <div id="isdoneDropdown" class="dropdown-content">
             </div>
         </div>
         <div class="filter-item">
-            <button class="filter-btn" id="priority" style="border-radius: 25px; padding:12px">Priority</button>
+            <button class="filter-btn" id="priority" style="border-radius: 25px; padding:12px">{{ trans('actions.priority') }}</button>
             <div id="priorityDropdown" class="dropdown-content" style="display: none;">
             <form id="prioritiesForm" class="filter-form">
                     <ul id="prioritiesListContainer"></ul>
                     <br>
                     <hr>
                     <div class="d-flex justify-content-between mt-3">
-                        <button type="button" id="clearpriorities" class="btn btn-clear">Clear</button>
-                        <button type="button" id="applyPriorities" class="btn btn-primary">Apply</button>
+                        <button type="button" id="clearpriorities" class="btn btn-clear">{{ trans('actions.clear') }}</button>
+                        <button type="button" id="applyPriorities" class="btn btn-primary">{{ trans('actions.apply') }}</button>
                     </div>
                 </form>
             </div>
         </div>
 
         <div class="filter-item">
-            <button class="filter-btn" id="it-has" style="border-radius: 25px; padding:12px">Actions On</button>
+            <button class="filter-btn" id="it-has" style="border-radius: 25px; padding:12px">{{ trans('actions.actions_on') }}</button>
             <div id="classDropdown" class="dropdown-content" style="display: none;">
                 <form id="clausesForm" class="filter-form">
-                    <label><input type="checkbox" name="Proposal">Proposal</label>
-                    <label><input type="checkbox" name="Pipeline">Pipeline</label>
-                    <label><input type="checkbox" name="Objectives">Objectives</label>
-                    <label><input type="checkbox" name="Objectives">Project</label>
-                    <button type="button" id="clearClauses" class="btn btn-clear">Clear</button>
-                    <button type="button" id="applyClauses" class="btn btn-primary">Apply</button>
+                    <label><input type="checkbox" name="Proposal">{{ trans('actions.proposal') }}</label>
+                    <label><input type="checkbox" name="Pipeline">{{ trans('actions.pipeline') }}</label>
+                    <label><input type="checkbox" name="Objectives">{{ trans('actions.objective') }}</label>
+                    <label><input type="checkbox" name="Objectives">{{ trans('actions.project') }}</label>
+                    <button type="button" id="clearClauses" class="btn btn-clear">{{ trans('actions.clear') }}</button>
+                    <button type="button" id="applyClauses" class="btn btn-primary">{{ trans('actions.apply') }}</button>
                 </form>
             </div>
         </div>
@@ -216,7 +216,7 @@
                     <div id="dragCard" class="row justify-content-md-center u-mt-16">
                         <div class="alert alert-warning alert-dismissible fade show u-mt-32" role="alert">
                             <strong><i class="fas fa-exclamation-circle pl-2 pr-2"></i></strong>
-                            No Actions have been established for the Company !!
+                            {{ trans('actions.no_actions') }}                      
                         </div>
                     </div>
                 @endif
@@ -230,7 +230,7 @@
     <div class="modal-dialog modal-xl modal-dialog-scrollable" style="max-height: 100%;">
         <div class="modal-content" style="max-height: calc(100vh - 210px); overflow-y: auto;">
             <div class="modal-header">
-                <h4 class="modal-title">{{ __('Add Action') }}</h4>
+                <h4 class="modal-title">{{ trans('actions.add_action') }}</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -239,59 +239,59 @@
                 @csrf
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="action_title">Action</label>
+                        <label for="action_title">{{ trans('actions.action') }}</label>
                         <input type="text" class="form-control" name="act_title" id="action_title" required>
                     </div>
 
                 </div>
                 <div class="form-row">
                 <div class="form-group col-md-6">
-                        <label for="manager">Accountable Manager</label>
+                        <label for="manager">{{ trans('actions.accountable_manager') }}</label>
                         <select id="manager" class="form-control" name="manager" required>
                             <option value="">Select Manager</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="priority">Priority</label>
+                        <label for="priority">{{ trans('actions.priority') }}</label>
                         <select id="priority" class="form-control" name="priority" required>
-                            <option value="">Select Priority</option>
+                            <option value="">{{ trans('actions.select_priority') }}</option>
                         </select>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="started_at">Starting day</label>
+                        <label for="started_at">{{ trans('actions.starting_date') }}</label>
                         <input autocomplete="off" class="form-control" name="st_date" id="started_at" required>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="finished_at">Completion date</label>
+                        <label for="finished_at">{{ trans('actions.completion_date') }}</label>
                         <input autocomplete="off" class="form-control" name="fin_date" id="finished_at" required>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="Objective">Objective</label>
+                        <label for="Objective">{{ trans('actions.objective') }}</label>
                         <select class="form-control" name="objective_id" id="objective" required>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="keyresult">Associated KR</label>
+                        <label for="keyresult">{{ trans('actions.associated_keyresult') }}</label>
                         <select class="form-control" name="krs_id" id="keyresult" required>
                         </select>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="model_type">Action On</label>
+                        <label for="model_type">{{ trans('actions.action_on') }}</label>
                         <select id="model_type" class="form-control" name="model_type" required>
-                            <option value="">Select Action On</option>
-                            <option value="Onboarding">Onboarding</option>
-                            <option value="Project">Project</option>
-                            <option value="Proposal">Proposal</option>
+                            <option value="">{{ trans('actions.select_action_on') }}</option>
+                            <option value="Onboarding">{{ trans('actions.onboarding') }}</option>
+                            <option value="Project">{{ trans('actions.project') }}</option>
+                            <option value="Proposal">{{ trans('actions.proposal') }}</option>
                         </select>
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="model_id">Target Entity</label>
+                        <label for="model_id">{{ trans('actions.target_entity') }}</label>
                         <select id="model_id" class="form-control" name="model_id" required>
                         </select>
                     </div>
@@ -300,19 +300,19 @@
 
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <label for="action_content">Content</label>
+                        <label for="action_content">{{ trans('actions.content') }}</label>
                         <textarea class="form-control" id="action_content" rows="7" name="act_content" style="resize: none;" required></textarea>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-12">
-                        <label for="files">Upload Attachment</label>
+                        <label for="files">{{ trans('actions.upload_attachment') }}</label>
                         <input type="file" class="form-control-file" name="files[]" id="files" multiple>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group col-md-12 text-right">
-                        <button class="btn btn-primary" type="submit">Add</button>
+                        <button class="btn btn-primary" type="submit">{{ trans('app.add') }}</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">{{ __('app.cancel') }}</button>
                     </div>
                 </div>

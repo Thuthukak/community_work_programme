@@ -184,7 +184,7 @@
 
 
         <div class="filter-item search-item" style="margin-left:auto; margin-right:50px;">
-            <div class="form-group form-group-with-search d-flex align-items-center relative">
+            <div class="form-group form-group-with-search d-flex align-items-center relative" >
             <span class="form-control-feedback">
                     <i>
                         <svg class="feather feather-search" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
