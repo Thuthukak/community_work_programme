@@ -25,7 +25,7 @@
                         </div>
                         <!--end of col-->
                         <div class="col-auto pl-1">
-                            <button class="btn btn-lg btn-success theme-btn" type="submit">{{ __('theme.search') }}</button>
+                            <button class="btn btn-lg btn-primary theme-btn" type="submit">{{ __('theme.search') }}</button>
                         </div>
                         <!--end of col-->
                     </div>

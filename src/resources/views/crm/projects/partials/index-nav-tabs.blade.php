@@ -2,7 +2,7 @@
     $queryStrings = request(['q']);
     $routeName = $routeName ?? 'projects.index';
     $linkStyles = ' padding: 0.5rem 1rem;  color: inherit; ';
-    $activeLinkStyles = 'background-color: #007bff; color: white;';
+    $activeLinkStyles = 'background-color: #ff740b; color: white;';
 @endphp
 
 

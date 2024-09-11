@@ -146,6 +146,7 @@ canvas {
     font-size: 40px;
     font-weight: 600;
     margin-top: 100px;
+    line-height: 2.5rem;
 }
 
 .play-btn
@@ -212,7 +213,7 @@ canvas {
 .title::before
 {
     content: '';
-    background: #2F80ED;
+    background: #ff740b;
     height: 5px;
     width: 200px;
     margin-left: auto;
@@ -224,7 +225,7 @@ canvas {
 .title::after
 {
     content: '';
-    background: #2F80ED;
+    background: #ff740b;
     height: 10px;
     width: 50px;
     margin-left: auto;
@@ -288,7 +289,7 @@ canvas {
 
 .testimonials
 {
-    border-left: 4px solid #2F80ED;
+    border-left: 4px solid #ff740b;
     margin-top: 50px;
     margin-bottom: 50px;
 }
@@ -517,7 +518,7 @@ hr
 
 
 .custom-dw{
-    background-color: #51c2f1 !important; position: absolute !important; margin-left: 55% !important; right: 10px !important
+    background-color: #fe9a4e !important; position: absolute !important; margin-left: 55% !important; right: 10px !important
 }
 .nl-border{
     border: 2px solid #ffffff !important;

@@ -376,4 +376,6 @@ return [
     'what_we_do_paragraphlist2' => 'To contribute to the development of public assets and services in poor communities.',
     'what_we_do_paragraphlist3' => 'To strengthen community development approaches.',
     'what_we_do_paragraphlist4' => 'To strengthen the economic ‘agency’ of people in poor areas, providing work experience, enhancing dignity and promoting social and economic inclusion. ',
+
+    'select_application_type' => 'Select Application Type',
 ];
