@@ -43,8 +43,10 @@
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
 <script src="src/public/tinymce/tinymce.min.js"></script>
 <script src="src/public/tinymce/script.js"></script>
+<script src="src/public/assets/js/tickets/daterangepicker.min.js9"></script>
 <link rel="stylesheet" type="text/css" href="src/public/tinymce/skins/lightgray/content.min.css">
 <link rel="stylesheet" type="text/css" href="src/public/tinymce/skins/lightgray/skin.min.css">
+<link rel="stylesheet" type="text/css" href="src/public/assets/css/daterangepicker.css" />
  <script>
         window.localStorage.setItem('permissions', JSON.stringify(
             <?php echo json_encode(array_merge(

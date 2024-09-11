@@ -2,6 +2,8 @@
 
 @section('title', 'Tickets')
 
+
+
 @section('contents')
     <!-- Main content -->
     <div class="container-fluid mt-5">
@@ -20,6 +22,36 @@
 
         <div class="row">
             <div class="col-md-12 mt-3">
+
+            <!-- filters for tickets table -->
+                        <div class="">
+                            
+            <div class="row mb-2">
+                    <div class="col-md-4 mb-2">
+                        <select class="form-control" id="ticketDepartment">
+                            <option value="all" selected>{{ __('theme.all_department') }}</option>
+                            @foreach($departments as $department)
+                                <option value="{{ $department->id }}">{{ $department->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-2">
+                        <select class="form-control" id="ticketPriority">
+                            <option value="all" selected>{{ __('theme.all_priority') }}</option>
+                            <option value="low">{{ __('theme.low') }}</option>
+                            <option value="medium">{{ __('theme.medium') }}</option>
+                            <option value="medium">{{ __('theme.high') }}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4 mb-2">
+            <div id="reportrange" class="w-100 pointer pad-border">
+                <i class="fa fa-calendar"></i>&nbsp;
+                <span></span> <i class="fa fa-caret-down"></i>
+            </div>
+        </div>
+    </div>
+
+            </div>
                 <div class="card" id="ticketType" data-type="all">
                     <!-- /.box-header -->
                     @include('crm.tickets.table', ['departments' => $departments])
@@ -29,10 +61,7 @@
             </div>
         </div>
         
-        <div class="callout callout-warning">
-            <h4>{{ __('theme.access_denied') }}</h4>
-            <p>{{ __("theme.don't_have_permission") }}</p>
-        </div>
+       
     </div>
     <!-- /.content -->
 
@@ -70,10 +99,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="src/public/tinymce/tinymce.min.js"></script>
 <script src="src/public/tinymce/script.js"></script>
+
 <link rel="stylesheet" type="text/css" href="src/public/tinymce/skins/lightgray/content.min.css">
 <link rel="stylesheet" type="text/css" href="src/public/tinymce/skins/lightgray/skin.min.css">
-
-
 
 
     <script>
