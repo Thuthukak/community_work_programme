@@ -21,7 +21,7 @@
                 </div>
 
                 <!-- Vertical Navigation -->
-                <div class="px-primary py-primary">
+                <div class="px-primary py-primary app-text">
                     <div role="tablist" aria-orientation="vertical" class="nav flex-column nav-pills">
                         <a id="logo-tab" data-toggle="pill" href="#logoIcon" data-title="{{ __('theme.logo_icon') }}" class="tab-item-link d-flex justify-content-between my-sm-3 active">
                             <span>{{ __('theme.logo_icon') }}</span>
@@ -72,9 +72,9 @@
         <!-- Tab Content -->
         <div class="col-md-9 pl-md-3 pt-md-0 pt-sm-4 pt-4">
             <div class="card card-with-shadow border-0">
-                <div class="tab-content px-primary">
+                <div class="tab-content px-primary ">
                     <div class="d-flex justify-content-between">
-                        <h5 class="d-flex align-items-center text-capitalize mb-0 title tab-content-header" id="tabContentTitle">
+                        <h5 class="d-flex align-items-center text-capitalize mb-0 title-text tab-content-header" id="tabContentTitle">
                             {{ __('default.settings') }}
                         </h5>
                     </div>

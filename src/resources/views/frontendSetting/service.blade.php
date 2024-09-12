@@ -1,6 +1,5 @@
 
 <div class="container-fluid">
-    <h4 class="mb-4">{{ __('theme.service_setting') }}
         <a href="#" class="btn btn-primary btn-md pull-right" data-toggle="modal" data-target="#addNew">
             <i class="fa fa-plus"></i>  {{ __('theme.add_new') }}
         </a>
@@ -8,7 +7,7 @@
     @include('tickets.flash')
     <div class="row">
         <div class="col-md-4">
-            <div class="card mb-4">
+            <div class="mb-4">
                 <div class="card-body">
                     <form action="{{ route('setting.servicesUpdate') }}" method="post">
                         @csrf

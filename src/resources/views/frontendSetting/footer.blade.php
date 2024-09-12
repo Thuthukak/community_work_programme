@@ -1,7 +1,6 @@
 
 <div class="container-fluid">
-    <h4 class="page-title">{{ __('theme.footer_setting') }}</h4>
-    <div class="card mb-4">
+    <div class="mb-4">
         <div class="card-body">
             <form action="{{ route('updateFooter.Setting') }}" method="post">
                 @csrf

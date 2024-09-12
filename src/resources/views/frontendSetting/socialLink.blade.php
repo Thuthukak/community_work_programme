@@ -1,7 +1,5 @@
 
-<div class="container-fluid">
-
-    <h4 class="page-title">{{ __('theme.social_link') }}
+<div class="container-fluid mt-3">
         <a href="javascript:void(0);" class="btn btn-primary btn-md float-right" data-toggle="modal" data-target="#addNew">
             <i class="fa fa-plus"></i> {{ __('theme.add_new') }}
         </a>

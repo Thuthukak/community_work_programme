@@ -1,10 +1,9 @@
 
 <div class="container-fluid">
-    <h4 class="mb-4">{{ __('theme.how_we_work_setting') }}</h4>
     @include('tickets.flash')
     <div class="row">
         <div class="col-md-4">
-            <div class="card mb-4">
+            <div class="mb-4">
                 <div class="card-body">
                     <form action="{{ route('setting.howWorkUpdate') }}" method="post">
                         @csrf
