@@ -2,7 +2,7 @@
 
 @section('title', __('theme.department_tickets'))
 
-@section('content')
+@section('contents')
 
     <div class="container">
         <div class="pb-20p"></div>

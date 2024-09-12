@@ -4,7 +4,7 @@
 @section('style')
     <link rel="stylesheet" type="text/css" media="screen" href="{{ asset(env('APP_URL').'/css/custom.css') }}">
 @endsection
-@section('content')
+@section('contents')
 
 <section id="kb-welcome">
     <div class="container" data-aos="fade-down" data-aos-offset="200" data-aos-delay="20" data-aos-duration="1000">
@@ -25,7 +25,7 @@
                         </div>
                         <!--end of col-->
                         <div class="col-auto pl-1">
-                            <button class="btn btn-lg btn-success theme-btn" type="submit">{{ __('theme.search') }}</button>
+                            <button class="btn btn-lg btn-primary theme-btn" type="submit">{{ __('theme.search') }}</button>
                         </div>
                         <!--end of col-->
                     </div>

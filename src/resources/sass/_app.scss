@@ -485,7 +485,7 @@
         }
 
         a.active {
-            background-color: #007bff; /* Change the background color for active tab */
+            background-color: #ff740b; /* Change the background color for active tab */
             color: white;
         }
     }
@@ -737,7 +737,7 @@
 }
 
 .nav-tabs .nav-item.active .nav-link {
-    background-color: #007bff; /* Active tab background color */
+    background-color: #ff740b; /* Active tab background color */
     color: #fff; /* Active tab text color */
 }
 
@@ -883,7 +883,7 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px 20px; /* Adjust as needed for better spacing */
     margin: 5px; /* Add margin to separate the pills */
-    color: #007bff;
+    color: #ff740b;
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -893,7 +893,7 @@
 }
 
 .nav-tabs .active .custom-nav-link {
-    background-color: #007bff; /* Active tab background color */
+    background-color: #ff740b; /* Active tab background color */
     color: white; /* Active tab text color */
 }
 .action-buttons .btn {
@@ -998,7 +998,6 @@ color: #6c757d !important;
     background-color: #ffffff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     padding:10px;
-    
     margin:20px;
 }
 .custom-text-muted{
@@ -1055,7 +1054,7 @@ color: #6c757d !important;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 10px 20px; /* Adjust as needed for better spacing */
     margin: 5px; /* Add margin to separate the pills */
-    color: #007bff;
+    color: #ff740b;
     transition: background-color 0.3s, color 0.3s;
     width:fit-content;
 }

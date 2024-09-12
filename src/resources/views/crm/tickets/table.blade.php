@@ -2,50 +2,27 @@
     <!-- data table css -->
     <link rel="stylesheet" href="{{ asset('assets/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/fixedHeader.bootstrap.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/daterangepicker.css') }}" />
+    <link rel="stylesheet" type="text/css" href="src/public/assets/css/daterangepicker.css" />
 @stop
 
-<div class="card-body table-responsive">
-    <div class="row mb-2">
-        <div class="col-md-4 mb-2">
-            <select class="form-control" id="ticketDepartment">
-                <option value="all" selected>{{ __('theme.all_department') }}</option>
-                @foreach($departments as $department)
-                    <option value="{{ $department->id }}">{{ $department->title }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="col-md-4 mb-2">
-            <select class="form-control" id="ticketPriority">
-                <option value="all" selected>{{ __('theme.all_priority') }}</option>
-                <option value="low">{{ __('theme.low') }}</option>
-                <option value="medium">{{ __('theme.medium') }}</option>
-                <option value="medium">{{ __('theme.high') }}</option>
-            </select>
-        </div>
-        <div class="col-md-4 mb-2">
-            <div id="reportrange" class="w-100 pointer pad-border">
-                <i class="fa fa-calendar"></i>&nbsp;
-                <span></span> <i class="fa fa-caret-down"></i>
-            </div>
-        </div>
-    </div>
-
-    <table id="data_table" class="table table-bordered table-striped table-hover dataTable w-100">
-        <thead>
-        <tr>
-            <th>{{ __('theme.sl_no') }}</th>
-            <th>{{ __('theme.department') }}</th>
-            <th>{{ __('theme.id') }}</th>
-            <th>{{ __('theme.title') }}</th>
-            <th>{{ __('theme.priority') }}</th>
-            <th>{{ __('theme.user') }}</th>
-            <th>{{ __('theme.status') }}</th>
-            <th>{{ __('theme.last_updated') }}</th>
-            <th>{{ __('theme.actions') }}</th>
+<div class="datatable mt-5 ml-4 mr-4">
+    <div class="table-responsive">
+        <table style="width: 100%;">
+            <thead>
+        <tr style="border-bottom: 1px solid var(--default-border-color);"> 
+            <th class="datatable-th">{{ __('theme.sl_no') }}</th>
+            <th class="datatable-th">{{ __('theme.department') }}</th>
+            <th class="datatable-th">{{ __('theme.id') }}</th>
+            <th class="datatable-th">{{ __('theme.title') }}</th>
+            <th class="datatable-th">{{ __('theme.priority') }}</th>
+            <th class="datatable-th">{{ __('theme.user') }}</th>
+            <th class="datatable-th">{{ __('theme.status') }}</th>
+            <th class="datatable-th">{{ __('theme.last_updated') }}</th>
+            <th class="datatable-th">{{ __('theme.actions') }}</th>
         </tr>
         </thead>
     </table>
+    </div>
 </div>
 
 <!-- Edit Product Modal -->
@@ -101,6 +78,8 @@
     <script src="{{ asset('assets/js/dataTables.fixedHeader.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/moment.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
+
+    <script src="src/public/assets/js/tickets/daterangepicker.min.js9"></script>
 
     <script src="{{ asset('assets/js/dtMain.js') }}"></script>
 @endsection

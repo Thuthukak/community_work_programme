@@ -20,6 +20,19 @@
                         <label for="password">{{ __('Password') }}</label>
                         <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password" required>
                     </div>
+                    <div class="row">
+                        <div class="col-6">
+                        <p> Don't have an account? 
+                        <a href="javascript:void(0);" data-toggle="modal" data-target="#registerModal">Apply</a>
+                        </p>
+
+                        </div>
+                        <div class="col-6">
+                        <p class="text-right"> <a href="javascript:void(0);" data-toggle="modal" data-target="#resetPasswordModal">Forgot password? </a></p>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>
 
