@@ -8,13 +8,20 @@ use App\Helpers\Core\Traits\FileHandler;
 use App\Helpers\Core\Traits\HasWhen;
 use App\Helpers\Core\Traits\Helpers;
 use App\Hooks\User\AfterLogin;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use App\Hooks\User\BeforeLogin;
 use App\Models\Core\Auth\Role;
 use App\Models\CRM\Ticket\Ticket;
+use App\Models\CRM\Deal\Deal;
 use App\Http\Controllers\CRM\Deal\DealController;
 use App\Models\CRM\Person\Person;
+use App\Models\CRM\Organization\Organization;
+use App\Http\Controllers\CRM\Contact\OrganizationController;
 use App\Models\CRM\Email\Email;
 use App\Models\CRM\Phone\Phone;
+use App\Models\Core\Builder\Form\CustomFieldValue;
+use App\Models\Core\Builder\Form\CustomField;
 use App\Models\CRM\Contact\ContactType;
 use App\Models\CRM\Contact\PhoneEmailType;
 use App\Models\Core\Auth\User;
@@ -98,7 +105,10 @@ class RegistrationService extends BaseService
         return $user->delete();
     }
 
-    public function RegisterPerson($data){
+
+
+    public function RegisterPerson($data ){
+
 
 
         if($data['registration_type'] == 'new_applicant')
@@ -119,38 +129,87 @@ class RegistrationService extends BaseService
             $email = Email::create([
                 'value' => $data['email'],
                 'type_id' => 1,
-                'contextable_type' => $person->model,
+                'contextable_type' => get_class($person),
                 'contextable_id' => $person['id'],
             ]);
           }
 
-          if($person & $email)
+          
+          if($person && $email)
           {
             $phone = Phone::create([
-                'value' => $data['phone_no'],
+                'value' => $data['cell_no'],
                 'type_id' => 1,
-                'contextable_type' =>$person->model,
+                'contextable_type' => get_class($person),
                 'contextable_id' => $person['id'],
             ]);
           }
-          $this->createTicket($person);
 
+          if($phone && $email)
+          {
+            $ticket = $this->createTicket($person);
+          }
 
+          if($ticket)
+          {
+            $applicant = $this->OnboardApplicant($data,$person);
+          }
         }elseif($data['registration_type'] == 'cwp_candidate')
         {
      
         }elseif($data['registration_type'] == 'smart_partner')
         {
-            return User::create([
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'cell_no' => $data['cell_no'],
-                'id_no' => $data['id_no'],
-                'cwp_no' => $data['cwp_no'],
-                'status_id' => 1,
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
+
+
+
+          $organization =  Organization::create([
+                'name' => $data['company_name'],
+                'address' => $data['business_address'],
+                'contact_type_id' => 3,
+                'created_by' => 1,
+                'owner_id' => 1,
+           
             ]);
+
+            $contactPerson = Person::create([
+                'name' => $data['contact_first_name'],
+                'owner_id' => 1,
+                'id_no' => $data['id_no'],
+                'created_by' => 1,
+                'contact_type_id' => 2,
+                'created_by' => 0,
+            ]);
+
+            if($person)
+            {
+              $email = Email::create([
+                  'value' => $data['email'],
+                  'type_id' => 1,
+                  'contextable_type' => get_class($person),
+                  'contextable_id' => $person['id'],
+              ]);
+            }
+  
+            
+            if($person && $email)
+            {
+              $phone = Phone::create([
+                  'value' => $data['cell_no'],
+                  'type_id' => 1,
+                  'contextable_type' => get_class($person),
+                  'contextable_id' => $person['id'],
+              ]);
+            }
+  
+            if($phone && $email)
+            {
+              $ticket = $this->createTicket($person);
+            }
+  
+            if($ticket)
+            {
+              $applicant = $this->OnboardApplicant($data,$person);
+            }
         }
     }
 
@@ -173,7 +232,17 @@ class RegistrationService extends BaseService
     
     public function createTicket($user)
     {
+        $ticket = Ticket::create([
+            'user_id' => 1,
+            'company_id' => 1,
+            'ticket_id' => strtoupper(Str::random(10)),
+            'title' => "New Applicant",
+            'status' => "pending",
+            'priority' => "Normal",
+            'message' => "This is a new Application for :".$user['name'],
+        ]);
 
+        return $ticket;
     }
 
      /**
@@ -181,9 +250,30 @@ class RegistrationService extends BaseService
      *  Also Assign a CWP Employee to their application 
      */
 
-     public function OnboardApplicants($applicant)
+     public function OnboardApplicant($applicant, $person)
      {
+        $deal = Deal::create([
+            'title' => $applicant['name'],
+            'value' => 1,
+            'pipeline_id' => 2,
+            'stage_id' => 8,
+            'contextable_type' => get_class($person),
+            'contextable_id' => $person['id'],
+            'lost_reason_id' => null,
+            'status_id' => 13,
+            'created_by' => 1,
+            'owner_id' => 1,
 
+        ]);
+
+        return $deal;
      }
 
+
+     public function CheckEmail($email = '')
+     {
+        $user = Email::where('value', '=', $email)->first();
+
+        return $user;
+     }
 }

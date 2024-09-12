@@ -522,3 +522,7 @@ Route::put('counter/{setting}', [GeneralSettingController::class, 'updateCounter
 Route::get('inbox', [InboxContactController::class, 'contactMessage'])->name('contactMessage');
 Route::get('read-message/{contact}', [InboxContactController::class, 'readMessage'])->name('readMessage');
 Route::delete('delete-message/{contact}', [InboxContactController::class, 'destroy'])->name('message.destroy');
+
+
+// Front End settings routes
+Route::get('/FrontEnd-Settings' ,[HomeController::class ,'frontend' ])->name('frontend-settings');

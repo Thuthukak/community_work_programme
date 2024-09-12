@@ -35,6 +35,7 @@ class UserInvitationMail extends Mailable implements ShouldQueue
     public function build()
     {
         $template = $this->template();
+        $this->auth = auth()->user() ?? User::find(1);
 
         $tag = new UserTag($this->user, $this->auth);
 

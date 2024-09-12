@@ -35,20 +35,24 @@ class NewNotification implements ShouldBroadcast
      */
     public function __construct($action, $where, $deal)
     {
-        $this->user = \Auth::user();
-        $this->message = $this->user->full_name . ' ' . $action . ' ' . $where;
+        $this->user = \Auth::user() ?? User::find(1); // Use authenticated user or fallback to admin (id = 1)
+    
+        if ($this->user) {
+            $this->message = $this->user->full_name . ' ' . $action . ' ' . $where;
+        }
+    
         $this->deal = $deal;
-
+    
+        // Create the notification using either the authenticated user or the fallback admin user
         ExtendedNotification::create([
             'contextable_type' => get_class($this->deal),
             'contextable_id' => $this->deal->id,
             'user_id' => $this->user->id,
             'audience' => $this->audience(),
             'message' => $this->message,
-
         ]);
     }
-
+    
     /**
      * Get the channels the event should broadcast on.
      *

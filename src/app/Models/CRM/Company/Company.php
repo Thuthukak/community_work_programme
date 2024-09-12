@@ -10,6 +10,7 @@ use App\Models\CRM\Objective\traits\HasObjectiveTrait;
 use App\Models\CRM\Avatar\traits\HasAvatarTrait;
 use App\Models\CRM\Follow\traits\HasFollowTrait;
 use App\Interfaces\HasObjectiveInterface;
+use App\Models\CRM\Ticket\Ticket;
 use App\Models\Core\Auth\User;
 use App\Interfaces\HasInvitationInterface;
 // use App\Traits\HasInvitationTrait;
@@ -28,6 +29,12 @@ class Company extends Model implements HasObjectiveInterface, HasInvitationInter
     {
         return $this->hasMany('App\Models\Core\Auth\User', 'company_id');
     }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
+
 
     public function departments()
     {

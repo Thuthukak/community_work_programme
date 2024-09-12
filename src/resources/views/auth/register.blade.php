@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <!-- Registration Form -->
-                <form method="POST" action="{{ route('register') }}">
+                <form  id="registerForm" method="POST" action="{{ route('register') }}">
                     @csrf
 
                     <!-- Registration Type Selection -->
@@ -194,8 +194,6 @@
                 </div>
                     <input type="submit" class="fadeIn fourth btn btn-primary mt-3" value="Sign Up">
                 </form>
-
-                <!-- Remind Password -->
                 <div id="formFooter">
                     <div>
                         {{ __('theme.already_have_account') }}
@@ -266,16 +264,7 @@
             const contactLastName = document.getElementById('contact_last_name').value;
             const contactCellNo = document.getElementById('contact_cell_no').value;
             const contactEmail = document.getElementById('contact_email').value;
-            const contactPassword = document.getElementById('contact_password').value;
-            const contactConfirmPassword = document.getElementById('contact_confirm_password').value;
-
-            if (!contactFirstName || !contactLastName || !contactCellNo || !contactEmail || !contactPassword || !contactConfirmPassword) {
-                e.preventDefault(); // Prevent form submission
-                alert('Please fill out all contact person fields.');
-            } else if (contactPassword !== contactConfirmPassword) {
-                e.preventDefault(); // Prevent form submission
-                alert('Passwords do not match.');
-            }
+        
         }
     });
     // Listen for the modal show event
@@ -283,6 +272,11 @@
             // Hide all other open modals
             $('.modal').not($(this)).modal('hide');
         });
+
+
+    
+
+
 
 </script>
 @endsection

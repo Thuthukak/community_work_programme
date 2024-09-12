@@ -21,6 +21,8 @@ class UserInvitationCancelMail extends Mailable implements ShouldQueue
 
     public function __construct($user)
     {
+
+
         $tag = new UserTag($user, auth()->user(), $user);
         $template = $this->template();
 

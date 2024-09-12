@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\Core\Auth\User;
-
+use App\Http\Requests\Core\Auth\User\UserInvitationRequest;
+use Illuminate\Http\Request;
+use App\Http\Requests\Core\Auth\User\UserInvitationRequest as InvitationRequest;
+use App\Http\Controllers\Core\Auth\UserInvitationController;
 use App\Services\Core\Auth\RegistrationService;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -27,6 +30,7 @@ class RegisterController extends Controller
      * properties for registering a application
      */
     protected $person;
+    protected $Userinvite;
     use RegistersUsers;
 
     /**
@@ -41,10 +45,11 @@ class RegisterController extends Controller
      *
      * @return void
      */
-    public function __construct(RegistrationService $RegistrationService)
+    public function __construct(RegistrationService $RegistrationService ,UserInvitationController $UserInvitation)
     {
         $this->middleware('guest');
         $this->registerService = $RegistrationService;
+        $this->Userinvite = $UserInvitation;
 
     }
 
@@ -56,14 +61,13 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
         {
-            // dd($data);
             // Define the base validation rules
             $rules = [
                 'first_name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
                 'cell_no' => ['required', 'numeric', 'digits_between:10,12'],
                 'id_no' => ['required', 'numeric', 'digits:13'],
-                'email' => 'required|string|email|max:255|unique:users',
+                'email' => 'required|string|max:255|unique:emails,value',
             ];
             
             // Check for registration_type and add or remove rules accordingly
@@ -79,9 +83,7 @@ class RegisterController extends Controller
                     // Add rules specific to smart_partner
                     $rules = array_merge($rules, [
                         'company_name' => 'required|string|max:255',
-                        'type_of_company' => 'required|string',
                         'industry_sector' => 'required|string',
-                        'date_of_establishment' => 'required|date',
                         'business_registration_number' => 'required|string|max:255',
                         'business_address' => 'required|string|max:255',
                         'website_url' => 'required|url',
@@ -115,7 +117,7 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return \App\User
      */
-    protected function create(array $data)
+    protected function create(Request $request ,array $data )
     {
 
 
@@ -127,7 +129,7 @@ class RegisterController extends Controller
             ]);
             // dd($data);
 
-            $this->registerService->RegisterPerson($data);
+            $user = $this->registerService->RegisterPerson($data);
 
         
             // Remove first_name and last_name from the array
@@ -138,9 +140,32 @@ class RegisterController extends Controller
     
             }elseif($data['registration_type'] == 'cwp_candidate')
             {
+
+
+              // Extract the email from the original $request
+            $invitationData = $request->only('email');
+
+            // Append the 'roles' attribute with the value 'client'
+            $invitationData['roles'] = ['client'];
+
+            // Create a new instance of UserInvitationRequest
+            $NewinvitationRequest = new UserInvitationRequest();
+
+            // Merge the extracted and modified data into the new UserInvitationRequest instance
+            $invitationRequest = $NewinvitationRequest->merge($invitationData);
+
+            // Handle the invitation
+            $userInvite = $this->Userinvite->invite($invitationRequest);
+                    
+                // check if email exist 
+               $user =  $this->registerService->CheckEmail($data);
+
+            //    dd($user);
                 return $user;
             }elseif($data['registration_type'] == 'smart_partner')
             {
+
+                dd($request);
                 return $user;
        
             }

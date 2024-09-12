@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddCwpNoToPeopleTable extends Migration
+class ModifyDepartmentIdOnTableTickets extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddCwpNoToPeopleTable extends Migration
      */
     public function up()
     {
-        Schema::table('people', function (Blueprint $table) {
-            $table->string('cwp_no')->nullable();
+
+        Schema::table('tickets', function (Blueprint $table) {
+            $table->renameColumn('department_id', 'company_id');
         });
     }
 
@@ -25,8 +26,8 @@ class AddCwpNoToPeopleTable extends Migration
      */
     public function down()
     {
-        Schema::table('people', function (Blueprint $table) {
-            $table->dropColumn('cwp_no');
-        });
-    }
+        Schema::table('tickets', function (Blueprint $table) {
+            $table->renameColumn('company_id','department_id' );
+        });   
+     }
 }

@@ -114,6 +114,8 @@ return array_merge(
         'permissions' => 'Permissions',
         'permission' => 'Permission',
         'settings' => 'Settings',
+        'settings_general' => 'General Settings',
+        'frontend_settings' => 'Settings_FrontEnd',
         'password' => 'Password',
         'show_password' => 'Show password',
         'hide_password' => 'Hide password',

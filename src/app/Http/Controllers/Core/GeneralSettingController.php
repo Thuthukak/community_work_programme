@@ -56,7 +56,11 @@ class GeneralSettingController extends Controller
     public function social()
     {
         $socialList = Social::all();
-        return view('frontendSetting.socialLink', compact('socialList'));
+
+        return response()->json([
+            'socialList' => $socialList
+
+        ]);
     }
 
     public function socialAdd(Request $request, Social $social) {
@@ -122,8 +126,12 @@ class GeneralSettingController extends Controller
     {
         $setting = GeneralSetting::first();
 
-        return view('frontendSetting.headerText', compact('setting'));
-    }
+
+        return response()->json([
+            'setting' => $setting
+
+        ]);   
+     }
 
     public function headerTextSettingUpdate(Request $request, GeneralSetting $setting)
     {
@@ -142,8 +150,12 @@ class GeneralSettingController extends Controller
     public function aboutus()
     {
         $setting = GeneralSetting::first();
-        return view('frontendSetting.aboutus', compact('setting'));
-    }
+
+        return response()->json([
+            'setting' => $setting
+
+        ]);  
+      }
 
     public function updateAboutUs(Request $request)
     {
@@ -180,7 +192,13 @@ class GeneralSettingController extends Controller
     public function contactus() {
         $setting = GeneralSetting::first();
         $gs = GeneralSetting::first();
-        return view('frontendSetting.contactus', compact('setting','gs'));
+
+        return response()->json(
+            [
+             'setting' => $setting,
+             'gs' => $gs
+            ]
+        );
     }
 
     public function updateContactus(Request $request) {
@@ -207,7 +225,9 @@ class GeneralSettingController extends Controller
 
     public function footer() {
         $setting = GeneralSetting::first();
-        return view('frontendSetting.footer', compact('setting'));
+        return response()->json([
+            'settings' => $settings
+        ]);
     }
 
     public function updateFooter(Request $request) {
@@ -229,7 +249,10 @@ class GeneralSettingController extends Controller
     public function services() {
         $setting = GeneralSetting::first();
         $servicesList = Service::all();
-        return view('frontendSetting.service', compact('setting', 'servicesList'));
+        return response()->json([
+            'settings' => $settings,
+            'servicesList' => $servicesList
+        ]);
     }
 
     public function servicesUpdate(Request $request)
@@ -301,7 +324,11 @@ class GeneralSettingController extends Controller
 
     public function counter() {
         $setting = GeneralSetting::first();
-        return view('frontendSetting.counter', compact('setting'));
+        return response()->json(
+            [
+                'setting' => $setting
+            ]
+            );
     }
 
     public function updateCounter(Request $request, GeneralSetting $setting) {

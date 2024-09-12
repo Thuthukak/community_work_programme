@@ -240,12 +240,26 @@
            'permission' => authorize_any(['view_users']),
         ],
         [
+            'id' => 'settings',
             'icon' => 'settings',
             'name' => __('default.settings',[],$locale),
             'url' => request()->root().'/settings/page',
             'permission' => authorize_any(['view_settings']),
-
+            'subMenu' => [
+                [
+                    'name' => __('default.settings_general',[],$locale),
+                    'url' => request()->root().'/settings/page',
+                    'permission' => authorize_any(['view_settings']),
+                ],
+                [
+                    'name' => __('default.frontend_settings',[],$locale),
+                    'url' => request()->root().'/FrontEnd-Settings',
+                    'permission' => authorize_any(['view_settings']),
+                ],
+           
+            ],
         ],
+    
     ];
 @endphp
 <sidebar :data="{{ json_encode($data) }}"

@@ -32,15 +32,9 @@ trait RegistersUsers
 
     $this->validator($request->all())->validate();
        
-        // dd($this->validator($request->all()));
-
-
-        event(new Registered($user = $this->create($request->all())));
+        event(new Registered($user = $this->create($request, $request->all())));
         
-        
-        $this->OnboardApplicants($user);
-
-        $this->guard()->login($user);
+        // $this->guard()->login($user);
 
         if ($response = $this->registered($request, $user)) {
             return $response;

@@ -26,7 +26,7 @@ class HomeController extends Controller
         $works = HowWork::latest()->limit(3)->get();
         $gs = GeneralSetting::first();
 
-// dd($gs);
+// dd($gs);git 
         return view('welcome', compact('testimonials','services','departments','works' ,'gs'));
     }
 
@@ -36,5 +36,10 @@ class HomeController extends Controller
         $gs = GeneralSetting::first();
 
         return view('tickets.aboutus' , compact('gs'));
+    }
+
+    public function frontend()
+    {
+        return view('tickets.frontendsettings');
     }
 }
