@@ -1,29 +1,26 @@
 
 <div class="container-fluid mt-3">
-        <a href="javascript:void(0);" class="btn btn-primary btn-md float-right" data-toggle="modal" data-target="#addNew">
-            <i class="fa fa-plus"></i> {{ __('theme.add_new') }}
-        </a>
-    </h4>
-    
+       
     <div class="card mb-4">
-        <div class="card-header">
-            <div class="page-title">{{ __('theme.social_link') }}</div>
+        <div class="">
         </div>
-        <div class="card-body">
+        <div class="datatable mt-5 ml-4 mr-4">
+            <div class="table-responsive">
             <table id="table" class="table table-sm table-hover" cellspacing="0" width="100%">
                 <thead>
-                    <tr>
-                        <th>{{ __('theme.sl_no') }}</th>
-                        <th>{{ __('theme.name') }}</th>
-                        <th>{{ __('theme.icon') }}</th>
-                        <th>{{ __('theme.link') }}</th>
-                        <th>{{ __('theme.action') }}</th>
+                    <tr style="border-bottom: 1px solid var(--default-border-color);">
+                        <th class="datatable-th">{{ __('theme.sl_no') }}</th>
+                        <th class="datatable-th">{{ __('theme.name') }}</th>
+                        <th class="datatable-th">{{ __('theme.icon') }}</th>
+                        <th class="datatable-th">{{ __('theme.link') }}</th>
+                        <th class="datatable-th">{{ __('theme.action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
                  
                 </tbody>
             </table>
+        </div>
         </div>
     </div>
     <!-- add new modal -->

@@ -77,6 +77,11 @@
                         <h5 class="d-flex align-items-center text-capitalize mb-0 title-text tab-content-header" id="tabContentTitle">
                             {{ __('default.settings') }}
                         </h5>
+                        <div> 
+                        <a href="javascript:void(0);" class="btn btn-primary mt-4" data-toggle="modal" data-target="#addNew">
+                            <i class="fa fa-plus"></i> {{ __('theme.add_new') }}
+                        </a>
+                        </div>
                     </div>
                     <hr>
 
@@ -90,7 +95,7 @@
                     </div>
                     <!-- Banner Text Tab -->
                     <div id="bannerText" class="tab-pane fade">
-                    @include('frontendSetting.logoIcon')
+                    @include('frontendSetting.headerText')
                     </div>
                     <!-- How We Work Tab -->
                     <div id="howWeWork" class="tab-pane fade">
@@ -134,16 +139,21 @@
 <script>
 
 document.addEventListener('DOMContentLoaded', function () {
+    const tabContentTitle = document.getElementById('tabContentTitle');
+    const addButton = document.querySelector('.btn-primary[data-target="#addNew"]'); // Reference to the "Add New" button
+
     // Set the first tab as active when the page loads
     const firstNavItem = document.querySelector('.tab-item-link');
     const firstTabContent = document.querySelector(firstNavItem.getAttribute('href'));
-    const tabContentTitle = document.getElementById('tabContentTitle');
 
     // Activate the first nav item and tab content
     if (firstNavItem && firstTabContent) {
         firstNavItem.classList.add('active');
         firstTabContent.classList.add('show', 'active');
         tabContentTitle.textContent = firstNavItem.getAttribute('data-title');
+
+        // Show or hide the "Add New" button depending on the content
+        toggleAddButton(firstNavItem.getAttribute('id'));
     }
 
     // Handle click events for each tab item
@@ -167,9 +177,25 @@ document.addEventListener('DOMContentLoaded', function () {
             });
             const targetTab = document.querySelector(navItem.getAttribute('href'));
             targetTab.classList.add('show', 'active');
+
+            // Show or hide the "Add New" button based on the tab
+            toggleAddButton(navItem.getAttribute('id'));
         });
     });
+
+    // Function to toggle the "Add New" button visibility based on the tab
+    function toggleAddButton(tabId) {
+        // Here, you specify which tabs should show the button
+        const tabsWithAddButton = ['social-tab']; // Add any other tab IDs where the button should be displayed
+
+        if (tabsWithAddButton.includes(tabId)) {
+            addButton.style.display = 'block'; // Show the button
+        } else {
+            addButton.style.display = 'none'; // Hide the button for other tabs
+        }
+    }
 });
+
 
 </script>
 

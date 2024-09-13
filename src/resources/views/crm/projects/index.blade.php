@@ -210,7 +210,7 @@
     @else
     <div class="datatable mt-5 ml-4 mr-4">
     <div class="table-responsive">
-        <table style="width: 100%;">
+        <table class="table table-sm table-hover" style="width: 100%;">
             <thead>
                 <tr style="border-bottom: 1px solid var(--default-border-color);">
                         <th class="datatable-th">{{ trans('app.table_no') }}</th>

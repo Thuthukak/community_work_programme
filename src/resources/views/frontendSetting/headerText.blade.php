@@ -1,9 +1,9 @@
 
-<div class="container-fluid">
+<div class="container-fluid" style="margin-top:0px;">
     <div class="mb-4">
         <div class="card-body">
-            @include('includes.flash')
-            <form action="{{ route('headerTextUpSetting'}}" method="post" enctype="multipart/form-data">
+            @include('tickets.flash')
+            <form action="#" method="post" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="col-md-12">
