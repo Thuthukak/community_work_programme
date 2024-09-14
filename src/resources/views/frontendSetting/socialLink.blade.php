@@ -1,6 +1,6 @@
 
 <div class="container-fluid mt-3">
-       
+  
     <div class="card mb-4">
         <div class="">
         </div>
@@ -24,7 +24,7 @@
         </div>
     </div>
     <!-- add new modal -->
-    <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addNewSocial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">

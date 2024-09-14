@@ -1079,3 +1079,18 @@ color: #6c757d !important;
     line-height: 1.2;
     color:#474747;
 }
+
+.hidden {
+    display: none;
+}
+/* Initially hide the buttons */
+.add-button {
+    opacity: 0;
+    transition: opacity 0.5s ease-in; /* Smooth transition for appearance */
+}
+
+/* Add a class that makes the buttons visible */
+.add-button.visible {
+    opacity: 1;
+}
+

@@ -78,8 +78,14 @@
                             {{ __('default.settings') }}
                         </h5>
                         <div> 
-                        <a href="javascript:void(0);" class="btn btn-primary mt-4" data-toggle="modal" data-target="#addNew">
-                            <i class="fa fa-plus"></i> {{ __('theme.add_new') }}
+                        <a href="javascript:void(0);" class="btn btn-primary mt-4 add-button" data-tab="#socialLink" data-toggle="modal" data-target="#addNewSocial">
+                             {{ __('theme.add_new') }}
+                        </a>
+                        <a href="javascript:void(0);" class="btn btn-primary mt-4 add-button" data-tab="#service_setting" data-toggle="modal" data-target="#addNewService">
+                            {{ __('theme.add_new') }}
+                        </a>
+                        <a href="javascript:void(0);" class="btn btn-primary mt-4 add-button" data-tab="#testimonial" data-toggle="modal" data-target="#addNewTestimonial">
+                            {{ __('theme.add_new') }}
                         </a>
                         </div>
                     </div>
@@ -129,6 +135,9 @@
 </div>
 @endsection
 
+
+
+
 @section('script')
 <!-- Include Flatpickr JS from cdnjs -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.6/flatpickr.min.js"></script>
@@ -139,21 +148,16 @@
 <script>
 
 document.addEventListener('DOMContentLoaded', function () {
-    const tabContentTitle = document.getElementById('tabContentTitle');
-    const addButton = document.querySelector('.btn-primary[data-target="#addNew"]'); // Reference to the "Add New" button
-
     // Set the first tab as active when the page loads
     const firstNavItem = document.querySelector('.tab-item-link');
     const firstTabContent = document.querySelector(firstNavItem.getAttribute('href'));
+    const tabContentTitle = document.getElementById('tabContentTitle');
 
     // Activate the first nav item and tab content
     if (firstNavItem && firstTabContent) {
         firstNavItem.classList.add('active');
         firstTabContent.classList.add('show', 'active');
         tabContentTitle.textContent = firstNavItem.getAttribute('data-title');
-
-        // Show or hide the "Add New" button depending on the content
-        toggleAddButton(firstNavItem.getAttribute('id'));
     }
 
     // Handle click events for each tab item
@@ -178,22 +182,41 @@ document.addEventListener('DOMContentLoaded', function () {
             const targetTab = document.querySelector(navItem.getAttribute('href'));
             targetTab.classList.add('show', 'active');
 
-            // Show or hide the "Add New" button based on the tab
-            toggleAddButton(navItem.getAttribute('id'));
+            // Show the Add button only for the correct tab
+    document.querySelectorAll('.add-button').forEach(function (button) {
+            const buttonTab = button.getAttribute('data-tab');
+                if (navItem.getAttribute('href') === buttonTab) {
+                    button.style.display = 'inline-block';
+                } else {
+                    button.style.display = 'none';
+                }
+            });
         });
     });
 
-    // Function to toggle the "Add New" button visibility based on the tab
-    function toggleAddButton(tabId) {
-        // Here, you specify which tabs should show the button
-        const tabsWithAddButton = ['social-tab']; // Add any other tab IDs where the button should be displayed
-
-        if (tabsWithAddButton.includes(tabId)) {
-            addButton.style.display = 'block'; // Show the button
+    // Initially set visibility of Add buttons
+    document.querySelectorAll('.tab-pane').forEach(function (pane) {
+        const paneId = '#' + pane.id;
+        const addButton = document.querySelector(`[data-tab="${paneId}"]`);
+        if (pane.classList.contains('show')) {
+            if (addButton) {
+                addButton.style.display = 'inline-block';
+            }
         } else {
-            addButton.style.display = 'none'; // Hide the button for other tabs
+            if (addButton) {
+                addButton.style.display = 'none';
+            }
         }
-    }
+    });
+
+
+// Set the buttons to visible after the page is fully loaded (CSS transition approach)
+setTimeout(function () {
+        document.querySelectorAll('.add-button').forEach(function (button) {
+            button.classList.add('visible'); // Make buttons visible smoothly
+        });
+    }, 500); // Adjust the delay as needed
+
 });
 
 

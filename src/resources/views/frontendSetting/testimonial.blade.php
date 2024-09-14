@@ -1,8 +1,6 @@
 
 <div class="container-fluid">
-        <a href="#" class="btn btn-primary btn-md float-right" data-toggle="modal" data-target="#addNew">
-            <i class="fa fa-plus"></i> {{ __('theme.add_new') }}
-        </a>
+        
     </h4>
     <div class="row">
         <div class="col-md-4">
@@ -68,7 +66,7 @@
         </div>
     </div>
         <!-- add new modal -->
-        <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal fade" id="addNewTestimonial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
