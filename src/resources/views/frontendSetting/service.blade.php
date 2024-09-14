@@ -64,7 +64,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="myModalLabel"><i class="fa fa-share-square"></i> {{ __('theme.add_New_service') }}</h4>
+                        <h4 class="modal-title title-text" id="myModalLabel">{{ __('theme.add_New_service') }}</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                     </div>
                     <form method="POST" action="{{ route('service.store') }}">
@@ -91,8 +91,14 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-times"></i> {{ __('theme.close') }}</button>
-                            <button type="submit" class="btn btn-primary bold uppercase"><i class="fas fa-arrow-alt-circle-up"></i> {{ __('theme.save_service') }}</button>
+                        <div class="row">
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-info" data-dismiss="modal"> {{ __('theme.close') }}</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-primary bold uppercase"> {{ __('theme.save') }}</button>
+                                </div>
+                        </div>
                         </div>
                     </form>
                 </div>
