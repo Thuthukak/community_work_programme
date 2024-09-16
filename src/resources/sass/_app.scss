@@ -936,7 +936,9 @@
     border-radius: 50px;
  }
 
-
+.heading-font{
+    font-family: "Poppins", sans-serif !important;
+}
 
 
 ////////////   fonts  ////////////////////
@@ -1064,3 +1066,31 @@ color: #6c757d !important;
     text-align: center;
     padding: 0.65em 0.6em;
 }
+.app-text{
+    font-size: 0.935rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+}
+.title-text{
+    font-size: 1.25rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    line-height: 1.2;
+    color:#474747;
+}
+
+.hidden {
+    display: none;
+}
+/* Initially hide the buttons */
+.add-button {
+    opacity: 0;
+    transition: opacity 0.5s ease-in; /* Smooth transition for appearance */
+}
+
+/* Add a class that makes the buttons visible */
+.add-button.visible {
+    opacity: 1;
+}
+

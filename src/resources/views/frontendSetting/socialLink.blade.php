@@ -1,25 +1,19 @@
 
-<div class="container-fluid">
-
-    <h4 class="page-title">{{ __('theme.social_link') }}
-        <a href="javascript:void(0);" class="btn btn-primary btn-md float-right" data-toggle="modal" data-target="#addNew">
-            <i class="fa fa-plus"></i> {{ __('theme.add_new') }}
-        </a>
-    </h4>
-    
+<div class="container-fluid mt-3">
+  
     <div class="card mb-4">
-        <div class="card-header">
-            <div class="page-title">{{ __('theme.social_link') }}</div>
+        <div class="">
         </div>
-        <div class="card-body">
+        <div class="datatable mt-5 ml-4 mr-4">
+            <div class="table-responsive">
             <table id="table" class="table table-sm table-hover" cellspacing="0" width="100%">
                 <thead>
-                    <tr>
-                        <th>{{ __('theme.sl_no') }}</th>
-                        <th>{{ __('theme.name') }}</th>
-                        <th>{{ __('theme.icon') }}</th>
-                        <th>{{ __('theme.link') }}</th>
-                        <th>{{ __('theme.action') }}</th>
+                    <tr style="border-bottom: 1px solid var(--default-border-color);">
+                        <th class="datatable-th">{{ __('theme.sl_no') }}</th>
+                        <th class="datatable-th">{{ __('theme.name') }}</th>
+                        <th class="datatable-th">{{ __('theme.icon') }}</th>
+                        <th class="datatable-th">{{ __('theme.link') }}</th>
+                        <th class="datatable-th">{{ __('theme.action') }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,13 +21,14 @@
                 </tbody>
             </table>
         </div>
+        </div>
     </div>
     <!-- add new modal -->
-    <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addNewSocial" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" id="myModalLabel"><i class="fa fa-share-square"></i> {{ __('theme.manage_social') }}</h4>
+                    <h4 class="modal-title title-text" id="myModalLabel"> {{ __('theme.manage_social') }}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
                 <form method="POST" action="{{ route('socialAdd.Setting') }}">
@@ -60,8 +55,14 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-info" data-dismiss="modal"><i class="fa fa-times"></i> {{ __('theme.close') }}</button>
-                        <button type="submit" class="btn btn-primary bold uppercase"><i class="fas fa-arrow-alt-circle-up"></i> {{ __('theme.save_Social') }}</button>
+                        <div class="row">
+                                <div class="col-md-6">
+                                    <button type="button" class="btn btn-info" data-dismiss="modal"> {{ __('theme.close') }}</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button type="submit" class="btn btn-primary bold uppercase"> {{ __('theme.save') }}</button>
+                                </div>
+                        </div>
                     </div>
                 </form>
             </div>

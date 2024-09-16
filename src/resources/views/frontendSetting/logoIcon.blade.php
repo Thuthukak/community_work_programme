@@ -1,6 +1,5 @@
 <div class="container-fluid">
-                        <h4 class="page-title">{{ __('theme.logo_icon_setting') }}</h4>
-                        <div class="card mb-4">
+                        <div class="mb-4">
                             <div class="card-body">
                                 <form action="{{ route('logoIconUpdate.Setting') }}" method="post" enctype="multipart/form-data">
                                     @csrf
