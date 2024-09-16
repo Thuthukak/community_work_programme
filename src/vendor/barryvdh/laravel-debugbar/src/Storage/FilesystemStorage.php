@@ -31,6 +31,8 @@ class FilesystemStorage implements StorageInterface
      */
     public function save($id, $data)
     {
+
+        // dd($data);
         if (!$this->files->isDirectory($this->dirname)) {
             if ($this->files->makeDirectory($this->dirname, 0777, true)) {
                 $this->files->put($this->dirname . '.gitignore', "*\n!.gitignore\n");

@@ -61,6 +61,8 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
         {
+
+            // dd($data);
             // Define the base validation rules
             $rules = [
                 'first_name' => 'required|string|max:255',
@@ -96,9 +98,11 @@ class RegisterController extends Controller
             // Perform validation
             $validator = Validator::make($data, $rules);
             // Log errors if validation fails
-            if ($validator->fails()) {
-                \Log::info('Validation errors:', $validator->errors()->toArray());
-            } else {
+            if (!$validator) {
+                return response()->json([
+                    'errors' => $validator->errors()
+                ], 422);
+            }else {
                 // dd('$validator->errors()->toArray()');
 
                 \Log::info('Validation Successful');
@@ -165,8 +169,9 @@ class RegisterController extends Controller
             }elseif($data['registration_type'] == 'smart_partner')
             {
 
-                dd($request);
-                return $user;
+               $SmartPartner = $this->registerService ->RegisterSmartPartner($data);
+
+                return $SmartPartner;
        
             }
             

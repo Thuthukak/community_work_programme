@@ -9,6 +9,8 @@ use App\Models\CRM\Follower\Follower;
 use App\Models\CRM\Note\Note;
 use App\Models\CRM\File\File;
 use App\Models\CRM\Organization\Organization;
+use App\Models\CRM\Phone\Phone;
+use App\Models\CRM\Email\Email;
 use App\Models\CRM\Traits\CustomFieldRelationshipTrait;
 use App\Models\CRM\Traits\TagRelationshipTrait;
 use App\Models\CRM\Traits\NoteRelationshipTrait;
@@ -102,4 +104,15 @@ trait PersonsRelationship
     {
         return $this->morphMany(CustomFieldValue::class, 'contextable');
     }
+
+    public function emails()
+    {
+        return $this->morphMany(Email::class, 'contextable');
+    }
+
+    public function phones()
+    {
+        return $this->morphMany(Phone::class, 'contextable');
+    }
+
 }

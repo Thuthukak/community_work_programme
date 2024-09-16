@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <!-- Registration Form -->
-                <form  id="registerForm" method="POST" action="{{ route('register') }}">
+                <form  id="registerForm">
                     @csrf
 
                     <!-- Registration Type Selection -->
@@ -183,49 +183,49 @@
                     
 
                     <div class="form-group smart-partner-fields" style="display:none;">
-    <button type="button" class="btn btn-sm btn-secondary mt-3" id="addContactPersonBtn" onclick="toggleContactPersonFields()">
-        <i class="fa fa-plus"></i> Add Contact Person
-    </button>
-</div>
+                        <button type="button" class="btn btn-sm btn-secondary mt-3" id="addContactPersonBtn" onclick="toggleContactPersonFields()">
+                            <i class="fa fa-plus"></i> Add Contact Person
+                        </button>
+                    </div>
 
-<div id="contactPersonFields" class="smart-partner-fields" style="display:none;">
-    <!-- Add clearfix to separate button from fields -->
-    <div class="clearfix"></div>
+                    <div id="contactPersonFields" class="smart-partner-fields" style="display:none;">
+                        <!-- Add clearfix to separate button from fields -->
+                        <div class="clearfix"></div>
 
-    <!-- H5 Heading should be its own block -->
-    <div class="row">
-    <h5 class=" col-md-12 mt-4">Contact Person Details</h5>
-    </div>
+                        <!-- H5 Heading should be its own block -->
+                        <div class="row">
+                        <h5 class=" col-md-12 mt-4">Contact Person Details</h5>
+                        </div>
 
-    <!-- First and Last Name Row -->
-    <div class="row mt-10">
-        <div class="col-md-10">
-            <input type="text" id="contact_first_name" class="form-control" name="contact_first_name" placeholder="Contact First Name">
-        </div>
-        <div class="col-md-10">
-            <input type="text" id="contact_last_name" class="form-control" name="contact_last_name" placeholder="Contact Last Name">
-        </div>
-    </div>
+                        <!-- First and Last Name Row -->
+                        <div class="row mt-10">
+                            <div class="col-md-10">
+                                <input type="text" id="contact_first_name" class="form-control" name="contact_first_name" placeholder="Contact First Name">
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" id="contact_last_name" class="form-control" name="contact_last_name" placeholder="Contact Last Name">
+                            </div>
+                        </div>
 
-    <!-- Cell Number and Email Row -->
-    <div class="row">
-        <div class="col-md-10">
-            <input type="text" id="contact_cell_no" class="form-control" name="contact_cell_no" placeholder="Contact Cell No">
-        </div>
-        <div class="col-md-10">
-            <input type="email" id="contact_email" class="form-control" name="contact_email" placeholder="Contact Email">
-        </div>
-    </div>
-</div>
+                        <!-- Cell Number and Email Row -->
+                        <div class="row">
+                            <div class="col-md-10">
+                                <input type="text" id="contact_cell_no" class="form-control" name="contact_cell_no" placeholder="Contact Cell No">
+                            </div>
+                            <div class="col-md-10">
+                                <input type="email" id="contact_email" class="form-control" name="contact_email" placeholder="Contact Email">
+                            </div>
+                        </div>
+                    </div>
 
-<!-- Submit Button -->
-<div class="form-group mt-4">
-    <input type="submit" class="btn btn-primary" value="Sign Up">
-</div>
+                    <!-- Submit Button -->
+                    <div class="form-group mt-4">
+                        <input type="submit" class="btn btn-primary" value="Sign Up">
+                    </div>
 
 
-
-                <!-- Remind Password -->
+                    </form>
+                                    <!-- Remind Password -->
                 <div id="formFooter">
                     <div>
                         {{ __('theme.already_have_account') }}
@@ -247,7 +247,12 @@
     document.querySelectorAll('.applicant-fields').forEach(function (field) {
         field.style.display = (!isSmartPartner) ? 'flex' : 'none'; // Show for New Applicant and CWP Candidate, hide for Smart Partner
     });
+   // Form validation before submission
+   document.querySelector('form').addEventListener('submit', function(e) {
+      
 
+
+    });
     // Toggle fields for CWP Candidate
     document.querySelectorAll('.cwp-field').forEach(function (field) {
         field.style.display = isCWPCandidate ? 'flex' : 'none';
@@ -268,11 +273,6 @@
         idField.setAttribute('required', 'required'); // Add required attribute for other types
     }
 }
-    // Call toggleFormFields() on page load to ensure proper initialization
-    document.addEventListener('DOMContentLoaded', function () {
-        toggleFormFields();
-    });
-
 
     function toggleContactPersonFields() {
     const contactPersonFields = document.getElementById('contactPersonFields');
@@ -284,26 +284,92 @@
         }
     }
 
-    // Form validation before submission
-    document.querySelector('form').addEventListener('submit', function(e) {
-        const isSmartPartner = document.getElementById('smart_partner').checked;
-        const contactPersonFields = document.getElementById('contactPersonFields');
-        
-        // If Smart Partner is selected and contact person fields are shown
-        if (isSmartPartner && contactPersonFields.style.display === 'flex') {
-            // Validate that contact person fields are filled
-            const contactFirstName = document.getElementById('contact_first_name').value;
-            const contactLastName = document.getElementById('contact_last_name').value;
-            const contactCellNo = document.getElementById('contact_cell_no').value;
-            const contactEmail = document.getElementById('contact_email').value;
-        
-        }
-    });
     // Listen for the modal show event
         $('.modal').on('show.bs.modal', function (e) {
             // Hide all other open modals
             $('.modal').not($(this)).modal('hide');
         });
+
+
+      
+        $(document).ready(function () {
+
+
+            // Call toggleFormFields() only once on page load
+            toggleFormFields();
+            const originalFormContent = $('#registerModal .modal-body').html();
+
+            // Attach the submit handler to the form
+            $('#registerForm').off('submit').on('submit', function (e) {
+                e.preventDefault(); // Prevent the default form submission
+
+                // Disable the submit button to prevent multiple submissions
+                $('input[type="submit"]').prop('disabled', true);
+
+                // Clear previous errors
+                $('.invalid-feedback').remove();
+                $('.is-invalid').removeClass('is-invalid');
+
+                const isSmartPartner = document.getElementById('smart_partner').checked;
+                const contactPersonFields = document.getElementById('contactPersonFields');
+
+                // If Smart Partner is selected and contact person fields are shown
+                if (isSmartPartner && contactPersonFields.style.display === 'flex') {
+                    // Validate that contact person fields are filled
+                    const contactFirstName = document.getElementById('contact_first_name').value;
+                    const contactLastName = document.getElementById('contact_last_name').value;
+                    const contactCellNo = document.getElementById('contact_cell_no').value;
+                    const contactEmail = document.getElementById('contact_email').value;
+
+                    // Add your validation logic here...
+                }
+
+                // Perform the AJAX request
+                $.ajax({
+                    url: "{{ route('register') }}",  // The Laravel route for registration
+                    method: 'POST',
+                    data: $(this).serialize(),
+                    success: function (response) {
+                        // Handle successful form submission
+                        $('#registerModal .modal-body').html('<p>Registration successful!</p>');
+                    },
+                    error: function (xhr) {
+                        if (xhr.status === 422) {
+                            // Re-enable the submit button
+                            $('input[type="submit"]').prop('disabled', false);
+
+                            // Handle validation errors
+                            const errors = xhr.responseJSON.errors;
+                            for (const field in errors) {
+                                const input = $(`[name="${field}"]`);
+                                input.addClass('is-invalid');
+                                input.after(`<div class="invalid-feedback d-flex"><strong>${errors[field][0]}</strong></div>`);
+                            }
+
+                            // Ensure the modal stays open
+                            $('#registerModal').modal('show');
+                        }
+                    }
+                });
+            });
+
+            $('#registerModal').on('hidden.bs.modal', function () {
+        // Restore the original form content
+        $('#registerModal .modal-body').html(originalFormContent);
+
+        // Re-enable the submit button (in case it was disabled)
+        $('input[type="submit"]').prop('disabled', false);
+
+        // Reattach the form submit event
+        $('#registerForm').off('submit').on('submit', function (e) {
+            e.preventDefault(); // Prevent default form submission
+
+            // Your form submission logic here...
+        });
+    });
+        });
+
+</script>
 
 
     

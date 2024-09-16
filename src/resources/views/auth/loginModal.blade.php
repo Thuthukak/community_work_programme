@@ -40,38 +40,3 @@
         </div>
     </div>
 </div>
-
-
-<script>
-
-$(document).on('submit', '#loginForm', function (e) {
-    e.preventDefault();
-
-    var formData = $(this).serialize();
-
-    $.ajax({
-        type: 'POST',
-        url: '{{ route("users.login") }}',
-        data: formData,
-        success: function (response) {
-            // Handle success (e.g., redirect or close modal)
-            $('#loginModal').modal('hide');
-            location.reload();
-        },
-        error: function (xhr) {
-            var errors = xhr.responseJSON.errors;
-            // Clear previous errors
-            $('.invalid-feedback').remove();
-            $('.form-control').removeClass('is-invalid');
-
-            // Loop through the errors and show them in the form
-            $.each(errors, function (key, value) {
-                var input = $('[name=' + key + ']');
-                input.addClass('is-invalid');
-                input.after('<div class="invalid-feedback">' + value[0] + '</div>');
-            });
-        }
-    });
-});
-
-    </script>
