@@ -57,14 +57,18 @@ class PasswordBroker implements PasswordBrokerContract
         }
 
         if ($this->tokens->recentlyCreatedToken($user)) {
+
             return static::RESET_THROTTLED;
         }
+
+
 
         $token = $this->tokens->create($user);
 
         if ($callback) {
             $callback($user, $token);
         } else {
+
             // Once we have the reset token, we are ready to send the message out to this
             // user with a link to reset their password. We will then redirect back to
             // the current URI having nothing set in the session to indicate errors.

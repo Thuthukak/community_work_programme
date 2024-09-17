@@ -9,13 +9,12 @@
             </div>
             <div class="modal-body">
                 <!-- Registration Form -->
-                <form  id="registerForm">
+                <form id="registerForm">
                     @csrf
 
                     <!-- Registration Type Selection -->
-                   
-                        <label class="font-weight-bold">{{ __('theme.select_application_type') }}</label>
-                         <div class="mb-3">
+                    <label class="font-weight-bold">{{ __('theme.select_application_type') }}</label>
+                    <div class="mb-3">
                         <div class="form-check form-check-inline">
                             <input type="radio" id="new_applicant" name="registration_type" class="form-check-input" value="new_applicant" onclick="toggleFormFields()" checked required>
                             <label for="new_applicant" class="form-check-label">New Applicant</label>
@@ -30,28 +29,54 @@
                         </div>
                     </div>
 
-
-                    <!-- First Name and Last Name Fields -->
-                    <div class="row applicant-fields">
-                        <div class="col-md-6">
-                            <input type="text" id="first-name" class=" second form-control {{ $errors->has('first_name') ? ' is-invalid' : '' }}" name="first_name" value="{{ old('first_name') }}" placeholder="{{ __('theme.first_name') }}">
-                            @if ($errors->has('first_name'))
-                            <div class="invalid-feedback d-flex">
-                                <strong>{{ $errors->first('first_name') }}</strong>
+                    <!-- Fields for New Applicant -->
+                    <div id="newApplicantFields">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" id="first-name" class="form-control" name="first_name" value="{{ old('first_name') }}" placeholder="First Name">
                             </div>
-                            @endif
+                            <div class="col-md-6">
+                                <input type="text" id="last-name" class="form-control" name="last_name" value="{{ old('last_name') }}" placeholder="Last Name">
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <input type="text" id="last-name" class=" second form-control {{ $errors->has('last_name') ? ' is-invalid' : '' }}" name="last_name" value="{{ old('last_name') }}" placeholder="{{ __('theme.last_name') }}">
-                            @if ($errors->has('last_name'))
-                            <div class="invalid-feedback d-flex">
-                                <strong>{{ $errors->first('last_name') }}</strong>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="email" id="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Email">
                             </div>
-                            @endif
+                            <div class="col-md-6">
+                                <input type="text" id="cell-no" class="form-control" name="cell_no" value="{{ old('cell_no') }}" placeholder="Cell No.">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <input type="text" id="id-no" class="form-control" name="id_no" value="{{ old('id_no') }}" placeholder="ID Number">
+                            </div>
                         </div>
                     </div>
 
-                    <!-- Type of Company and Industry Sector -->
+                    <!-- Fields for CWP Candidate -->
+                    <div id="cwpFields" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="email" id="cwp-email" class="form-control" name="cwp_email" value="{{ old('cwp_email') }}" placeholder="Email">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="cwp-cell-no" class="form-control" name="cwp_cell_no" value="{{ old('cwp_cell_no') }}" placeholder="Cell No.">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" id="cwp-id-no" class="form-control" name="cwp_id_no" value="{{ old('cwp_id_no') }}" placeholder="ID Number">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" id="cwp-no" class="form-control" name="cwp_no" value="{{ old('cwp_no') }}" placeholder="CWP Number">
+                            </div>
+                        </div>
+                    </div>
+
+               <!-- Fields for Smart Partner -->
+                    <div id="smartPartnerFields" style="display: none;">
+
                     <div class="row smart-partner-fields" >
                         <div class="col-md-6">
                             <input type="text" id="company_name" class=" second form-control {{ $errors->has('company_name') ? ' is-invalid' : '' }}" name="company_name" value="{{ old('company_name') }}" placeholder="{{ __('theme.company_name') }}">
@@ -77,155 +102,87 @@
                             @endif
                         </div>
                     </div>
-                    <!-- Date of Establishment and Business Registration Number -->
-                    <div class="row smart-partner-fields" style="display:none;">
-                        <div class="col-md-12">
-                            <input type="text" id="business_registration_number" name="business_registration_number" class=" second form-control {{ $errors->has('business_registration_number') ? ' is-invalid' : '' }}" value="{{ old('business_registration_number') }}" placeholder="{{ __('theme.business_registration_number') }}">
-                            @if ($errors->has('business_registration_number'))
-                            <div class="invalid-feedback d-flex">
-                                <strong>{{ $errors->first('business_registration_number') }}</strong>
-                            </div>
-                            @endif
-                        </div>
-                    </div>
 
-                    <!-- Business Address and Website URL -->
-                    <div class="row smart-partner-fields" style="display:none;">
-                        <div class="col-md-6">
-                            <input type="text" id="business_address" name="business_address" class=" second form-control {{ $errors->has('business_address') ? ' is-invalid' : '' }}" value="{{ old('business_address') }}" placeholder="{{ __('theme.business_address') }}">
-                            @if ($errors->has('business_address'))
-                            <div class="invalid-feedback d-flex">
-                                <strong>{{ $errors->first('business_address') }}</strong>
-                            </div>
-                            @endif
-                        </div>
-                        <div class="col-md-6 mt-1">
-                            <input type="url" id="website_url" name="website_url" class=" second form-control {{ $errors->has('website_url') ? ' is-invalid' : '' }}" value="{{ old('website_url') }}" placeholder="{{ __('theme.website_url') }}">
-                            @if ($errors->has('website_url'))
-                            <div class="invalid-feedback d-flex">
-                                <strong>{{ $errors->first('website_url') }}</strong>
-                            </div>
-                            @endif
-                        </div>
-                    </div>
-
-                    <!--   Areas of Expertise and  Description of Services -->
-                    <div class="row smart-partner-fields mt-2" style="display:none;">
-                        <div class = "col-md-6">
-                        <select id="areas_of_expertise" name="areas_of_expertise[]" class=" second form-control {{ $errors->has('areas_of_expertise') ? ' is-invalid' : '' }}">
-                            <option value="" disable selected> {{ __('theme.select_areas_of_expertise') }} </option>
-                            <option value="project_management">Project Management</option>
-                            <option value="software_development">Software Development</option>
-                            <option value="marketing">Marketing</option>
-                            <option value="logistics">Logistics</option>
-                        </select>
-                        @if ($errors->has('areas_of_expertise'))
-                        <div class="invalid-feedback d-flex">
-                            <strong>{{ $errors->first('areas_of_expertise') }}</strong>
-                        </div>
-                        @endif
-                    </div>
-                    <div class="col-md-6">
-                            <textarea id="description_of_services" name="description_of_services" class=" second form-control {{ $errors->has('description_of_services') ? ' is-invalid' : '' }}" placeholder="{{ __('theme.description_of_services') }}">{{ old('description_of_services') }}</textarea>
-                            @if ($errors->has('description_of_services'))
-                            <div class="invalid-feedback d-flex">
-                                <strong>{{ $errors->first('description_of_services') }}</strong>
-                            </div>
-                            @endif
-                        </div>
-                    </div>
-
-                    <!-- Email Field -->
                     <div class="row">
-                        <div class="col-md-6">
-                            <input type="email" id="login" class=" third form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="{{ __('theme.email') }}" required autocomplete="Username">
-                            @if ($errors->has('email'))
-                            <div class="invalid-feedback d-flex">
-                                <strong>{{ $errors->first('email') }}</strong>
+                            <div class="col-md-6">
+                                <input type="text" id="business_registration_number" class="form-control" name="business_registration_number" value="{{ old('business_registration_number') }}" placeholder="Business Registration Number">
                             </div>
-                            @endif
-                        </div>
-                    <!-- Cellphone No. Field (Visible for All) -->
-                        <div class="col-md-6">
-                            <input type="text" id="cell-no" class="form-control {{ $errors->has('cell_no') ? ' is-invalid' : '' }}" name="cell_no" value="{{ old('cell_no') }}" placeholder="{{ __('theme.cell_no') }}" required>
-                            @if ($errors->has('cell_no'))
-                            <div class="invalid-feedback d-flex">
-                                <strong>{{ $errors->first('cell_no') }}</strong>
+
+                            <div class = "col-md-6">
+                                <select id="areas_of_expertise" name="areas_of_expertise[]" class=" second form-control {{ $errors->has('areas_of_expertise') ? ' is-invalid' : '' }}">
+                                    <option value="" disable selected> {{ __('theme.select_areas_of_expertise') }} </option>
+                                    <option value="project_management">Project Management</option>
+                                    <option value="software_development">Software Development</option>
+                                    <option value="marketing">Marketing</option>
+                                    <option value="logistics">Logistics</option>
+                                </select>
+                                @if ($errors->has('areas_of_expertise'))
+                                <div class="invalid-feedback d-flex">
+                                    <strong>{{ $errors->first('areas_of_expertise') }}</strong>
+                                </div>
+                                @endif
                             </div>
-                            @endif
-                        </div>  
-                    </div>
-
-                     <!-- ID Number (Visible for All) -->
-                     <div class="row">
-                        <div class="col-md-12">
-                            <input type="text" id="id-no" class=" second form-control {{ $errors->has('id_no') ? ' is-invalid' : '' }}" name="id_no" value="{{ old('id_no') }}" placeholder="{{ __('theme.id_no') }}" required>
-                            @if ($errors->has('id_no'))
-                            <div class="invalid-feedback d-flex">
-                                <strong>{{ $errors->first('id_no') }}</strong>
-                            </div>
-                            @endif
                         </div>
-                    </div>
-
-                    <!-- CWP No. Field (Only for CWP Candidates) -->
-                    <div class="row cwp-field" style="display:none;">
-                        <div class="col-md-12">
-                        <input type="text" id="cwp-no" class=" second form-control {{ $errors->has('cwp_no') ? ' is-invalid' : '' }}" name="cwp_no" value="{{ old('cwp_no') }}" placeholder="{{ __('theme.cwp_no') }}">
-                        @if ($errors->has('cwp_no'))
-                        <div class="invalid-feedback d-flex">
-                            <strong>{{ $errors->first('cwp_no') }}</strong>
-                        </div>
-                        @endif
-                        </div>
-                    </div>
-
-                    
-
-                    <div class="form-group smart-partner-fields" style="display:none;">
-                        <button type="button" class="btn btn-sm btn-secondary mt-3" id="addContactPersonBtn" onclick="toggleContactPersonFields()">
-                            <i class="fa fa-plus"></i> Add Contact Person
-                        </button>
-                    </div>
-
-                    <div id="contactPersonFields" class="smart-partner-fields" style="display:none;">
-                        <!-- Add clearfix to separate button from fields -->
-                        <div class="clearfix"></div>
-
-                        <!-- H5 Heading should be its own block -->
                         <div class="row">
-                        <h5 class=" col-md-12 mt-4">Contact Person Details</h5>
-                        </div>
-
-                        <!-- First and Last Name Row -->
-                        <div class="row mt-10">
-                            <div class="col-md-10">
-                                <input type="text" id="contact_first_name" class="form-control" name="contact_first_name" placeholder="Contact First Name">
+                            <div class="col-md-6">
+                                <input type="email" id="partner_email" class="form-control" name="partner_email" value="{{ old('partner_email') }}" placeholder="Partner Email">
                             </div>
-                            <div class="col-md-10">
-                                <input type="text" id="contact_last_name" class="form-control" name="contact_last_name" placeholder="Contact Last Name">
+                            <div class="col-md-6">
+                                <input type="text" id="partner-cell-no" class="form-control" name="partner_cell_no" value="{{ old('partner_cell_no') }}" placeholder="Partner Cell No.">
                             </div>
                         </div>
-
-                        <!-- Cell Number and Email Row -->
+   
                         <div class="row">
-                            <div class="col-md-10">
-                                <input type="text" id="contact_cell_no" class="form-control" name="contact_cell_no" placeholder="Contact Cell No">
+                            <div class="col-md-6">
+                                <input type="text" id="business_address" class="form-control" name="business_address" value="{{ old('business_address') }}" placeholder="Business Address">
                             </div>
-                            <div class="col-md-10">
-                                <input type="email" id="contact_email" class="form-control" name="contact_email" placeholder="Contact Email">
+                            <div class="col-md-6">
+                                <input type="url" id="website_url" class="form-control" name="website_url" value="{{ old('website_url') }}" placeholder="Website URL">
                             </div>
                         </div>
-                    </div>
 
+
+                        <hr>
+                        <div class="form-group smart-partner-fields" >
+                            <button type="button" class="btn btn-sm btn-secondary mt-3" id="addContactPersonBtn" onclick="toggleContactPersonFields()">
+                                <i class="fa fa-plus"></i> Add Contact Person
+                            </button>
+                        </div>
+                        <div id="contactPersonFields" class="smart-partner-fields" style="display:none;">
+                                <!-- Add clearfix to separate button from fields -->
+                                <div class="clearfix"></div>
+
+                                <!-- H5 Heading should be its own block -->
+                                <div class="row">
+                                <h5 class=" col-md-12 mt-4">Contact Person Details</h5>
+                                </div>
+
+                                <!-- First and Last Name Row -->
+                                <div class="row mt-10">
+                                    <div class="col-md-10">
+                                        <input type="text" id="contact_first_name" class="form-control" name="contact_first_name" placeholder="Contact First Name">
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input type="text" id="contact_last_name" class="form-control" name="contact_last_name" placeholder="Contact Last Name">
+                                    </div>
+                                </div>
+
+                                <!-- Cell Number and Email Row -->
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <input type="text" id="contact_cell_no" class="form-control" name="contact_cell_no" placeholder="Contact Cell No">
+                                    </div>
+                                    <div class="col-md-10">
+                                        <input type="email" id="contact_email" class="form-control" name="contact_email" placeholder="Contact Email">
+                                    </div>
+                                </div>
+                            </div>
+                    </div>
                     <!-- Submit Button -->
                     <div class="form-group mt-4">
                         <input type="submit" class="btn btn-primary" value="Sign Up">
                     </div>
-
-
                     </form>
-                                    <!-- Remind Password -->
                 <div id="formFooter">
                     <div>
                         {{ __('theme.already_have_account') }}
@@ -238,51 +195,28 @@
 </div>
 @section('script')
 <script>
- function toggleFormFields() {
-    // Determine which registration type is selected
-    const isCWPCandidate = document.getElementById('cwp_candidate').checked;
-    const isSmartPartner = document.getElementById('smart_partner').checked;
-
-    // Toggle fields for CWP Candidate and New Applicant (show first name and last name)
-    document.querySelectorAll('.applicant-fields').forEach(function (field) {
-        field.style.display = (!isSmartPartner) ? 'flex' : 'none'; // Show for New Applicant and CWP Candidate, hide for Smart Partner
-    });
-   // Form validation before submission
-   document.querySelector('form').addEventListener('submit', function(e) {
-      
-
-
-    });
-    // Toggle fields for CWP Candidate
-    document.querySelectorAll('.cwp-field').forEach(function (field) {
-        field.style.display = isCWPCandidate ? 'flex' : 'none';
-    });
-
-    // Toggle fields for Smart Partner
-    document.querySelectorAll('.smart-partner-fields').forEach(function (field) {
-        field.style.display = isSmartPartner ? 'flex' : 'none';
-    });
-
-     // Manage ID No field visibility and required attribute
-    const idField = document.getElementById('id-no');
-    if (isSmartPartner) {
-        idField.style.display = 'none';
-        idField.removeAttribute('required'); // Remove required attribute for Smart Partner
-    } else {
-        idField.style.display = 'flex';
-        idField.setAttribute('required', 'required'); // Add required attribute for other types
-    }
-}
-
-    function toggleContactPersonFields() {
-    const contactPersonFields = document.getElementById('contactPersonFields');
-    
-        if (contactPersonFields.style.display === 'none' || contactPersonFields.style.display === '') {
-            contactPersonFields.style.display = 'flex';
-        } else {
-            contactPersonFields.style.display = 'none';
+        function toggleFormFields() {
+            const isCWPCandidate = document.getElementById('cwp_candidate').checked;
+            const isSmartPartner = document.getElementById('smart_partner').checked;
+            
+            document.getElementById('newApplicantFields').style.display = !isCWPCandidate && !isSmartPartner ? 'block' : 'none';
+            document.getElementById('cwpFields').style.display = isCWPCandidate ? 'block' : 'none';
+            document.getElementById('smartPartnerFields').style.display = isSmartPartner ? 'block' : 'none';
         }
-    }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            toggleFormFields();
+        });
+
+
+        function toggleContactPersonFields(show = false) {
+            const contactPersonFields = document.getElementById('contactPersonFields');
+            if (show || contactPersonFields.style.display === 'none' || contactPersonFields.style.display === '') {
+                contactPersonFields.style.display = 'block';
+            } else {
+                contactPersonFields.style.display = 'none';
+            }
+        }
 
     // Listen for the modal show event
         $('.modal').on('show.bs.modal', function (e) {
@@ -291,9 +225,13 @@
         });
 
 
-      
-        $(document).ready(function () {
+        function showFieldError(fieldId, errorMessage) {
+                const input = document.getElementById(fieldId);
+                input.classList.add('is-invalid');
+                input.insertAdjacentHTML('afterend', `<div class="invalid-feedback d-flex"><strong>${errorMessage}</strong></div>`);
+            }
 
+        $(document).ready(function () {
 
             // Call toggleFormFields() only once on page load
             toggleFormFields();
@@ -303,35 +241,97 @@
             $('#registerForm').off('submit').on('submit', function (e) {
                 e.preventDefault(); // Prevent the default form submission
 
-                // Disable the submit button to prevent multiple submissions
-                $('input[type="submit"]').prop('disabled', true);
-
                 // Clear previous errors
                 $('.invalid-feedback').remove();
                 $('.is-invalid').removeClass('is-invalid');
 
+                // Get the registration type value
+                const isCWPCandidate = document.getElementById('cwp_candidate').checked;
                 const isSmartPartner = document.getElementById('smart_partner').checked;
-                const contactPersonFields = document.getElementById('contactPersonFields');
+                const partneremail = document.getElementById('partner_email').value;
+                const contactEmail = document.getElementById('contact_email').value;
 
-                // If Smart Partner is selected and contact person fields are shown
-                if (isSmartPartner && contactPersonFields.style.display === 'flex') {
-                    // Validate that contact person fields are filled
-                    const contactFirstName = document.getElementById('contact_first_name').value;
-                    const contactLastName = document.getElementById('contact_last_name').value;
-                    const contactCellNo = document.getElementById('contact_cell_no').value;
-                    const contactEmail = document.getElementById('contact_email').value;
 
-                    // Add your validation logic here...
+        
+                    if (isSmartPartner) {
+                        const contactFirstName = document.getElementById('contact_first_name').value.trim();
+                        const contactLastName = document.getElementById('contact_last_name').value.trim();
+                        const contactCellNo = document.getElementById('contact_cell_no').value.trim();
+                        const contactEmail = document.getElementById('contact_email').value.trim();
+
+                        // Check if contact person fields are filled
+                        let contactPersonFieldsMissing = false;
+                        if (!contactFirstName) {
+                            showFieldError('contact_first_name', 'Contact First Name is required.');
+                            contactPersonFieldsMissing = true;
+                        }
+                        if (!contactLastName) {
+                            showFieldError('contact_last_name', 'Contact Last Name is required.');
+                            contactPersonFieldsMissing = true;
+                        }
+                        if (!contactCellNo) {
+                            showFieldError('contact_cell_no', 'Contact Cell Number is required.');
+                            contactPersonFieldsMissing = true;
+                        }
+                        if (!contactEmail) {
+                            showFieldError('contact_email', 'Contact Email is required.');
+                            contactPersonFieldsMissing = true;
+                        }
+
+                        if (contactPersonFieldsMissing) {
+                            // If contact person fields are missing, show them and display the error message
+                            toggleContactPersonFields(true);
+                            $('html, body').animate({
+                                scrollTop: $('#contactPersonFields').offset().top
+                            }, 500); // Scroll to contact person fields for visibility
+                            return;
+                        }
+                        if (partneremail === contactEmail) {
+                        // Display error if emails match
+                        const contactEmailInput = document.getElementById('contact_email');
+                        contactEmailInput.classList.add('is-invalid');
+                        contactEmailInput.insertAdjacentHTML('afterend', 
+                            `<div class="invalid-feedback d-flex">
+                                <strong>The contact email should not be the same as the main email.</strong>
+                            </div>`);
+                        
+                        // Re-enable the submit button
+                        $('input[type="submit"]').prop('disabled', false);
+
+                        return;  // Stop form submission
+                    }
+
+                    }
+                // If Smart Partner is selected, check that email and contact_email are not the same
+                if (isSmartPartner) {
+                    if (email === contactEmail) {
+                        // Display error if emails match
+                        const contactEmailInput = document.getElementById('contact_email');
+                        contactEmailInput.classList.add('is-invalid');
+                        contactEmailInput.insertAdjacentHTML('afterend', 
+                            `<div class="invalid-feedback d-flex">
+                                <strong>The contact email should not be the same as the main email.</strong>
+                            </div>`);
+                        
+                        // Re-enable the submit button
+                        $('input[type="submit"]').prop('disabled', false);
+
+                        return;  // Stop form submission
+                    }
                 }
 
-                // Perform the AJAX request
+                // If validation passes, perform the AJAX request
                 $.ajax({
                     url: "{{ route('register') }}",  // The Laravel route for registration
                     method: 'POST',
                     data: $(this).serialize(),
                     success: function (response) {
-                        // Handle successful form submission
-                        $('#registerModal .modal-body').html('<p>Registration successful!</p>');
+                        // Show success message based on type of user
+                        if (isCWPCandidate) {
+                            $('#registerModal .modal-body').html('<p>Registration successful! An invite link has been sent to the contact email.</p>');
+                        } else {
+                            $('#registerModal .modal-body').html('<p>Registration successful!</p>');
+                        }
                     },
                     error: function (xhr) {
                         if (xhr.status === 422) {
@@ -354,29 +354,24 @@
             });
 
             $('#registerModal').on('hidden.bs.modal', function () {
-        // Restore the original form content
-        $('#registerModal .modal-body').html(originalFormContent);
+                // Restore the original form content
+                $('#registerModal .modal-body').html(originalFormContent);
 
-        // Re-enable the submit button (in case it was disabled)
-        $('input[type="submit"]').prop('disabled', false);
+                // Re-enable the submit button (in case it was disabled)
+                $('input[type="submit"]').prop('disabled', false);
 
-        // Reattach the form submit event
-        $('#registerForm').off('submit').on('submit', function (e) {
-            e.preventDefault(); // Prevent default form submission
+                // Reattach the form submit event
+                $('#registerForm').off('submit').on('submit', function (e) {
+                    e.preventDefault(); // Prevent default form submission
 
-            // Your form submission logic here...
-        });
-    });
-        });
-
-</script>
-
-
-    
-
+                    // Your form submission logic here...
+                });
+            });
+            });
 
 
 </script>
+
 @endsection
 
 

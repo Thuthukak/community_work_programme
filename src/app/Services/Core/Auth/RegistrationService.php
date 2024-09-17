@@ -129,6 +129,15 @@ class RegistrationService extends BaseService
             'created_by' => 0,
         ]);
 
+        if($person){
+            $customfield = CustomFieldValue::create([
+                'value' =>$data['id_no'],
+                'contextable_type' => get_class($person),
+                'contextable_id' => $person['id'],
+                'custom_field_id' => 2,
+            ]);  
+        }
+
         if ($person) {
             // Use the polymorphic relationship method to create the email
             $person->emails()->create([
@@ -204,28 +213,57 @@ class RegistrationService extends BaseService
                     'owner_id' => 1,
                 ]);
             }
+
+            $customFields = [
+                'website_url' => 3, 
+                'business_registration_number' => 4, 
+                'industry_sector' => 5, 
+                'areas_of_expertise' => 6,
+            ];
+
+
+            foreach ($customFields as $field => $customFieldId) {
+                    // If the field is an array (like areas_of_expertise), handle it separately
+                    if (is_array($data[$field])) {
+                        foreach ($data[$field] as $value) {
+                            CustomFieldValue::create([
+                                'value' => $value,
+                                'contextable_type' => get_class($organization),
+                                'contextable_id' => $organization->id,
+                                'custom_field_id' => $customFieldId,
+                            ]);
+                        }
+                    } else {
+                        CustomFieldValue::create([
+                            'value' => $data[$field],
+                            'contextable_type' => get_class($organization),
+                            'contextable_id' => $organization->id,
+                            'custom_field_id' => $customFieldId,
+                        ]);
+                    }
+                }
             if($organization)
             {
                 $organization->emails()->create([
-                    'value' => $data['email'],
+                    'value' => $data['partner_email'],
                     'type_id' => 3,
                   
                 ]);
                 $organization->phones()->create([
-                    'value' => $data['cell_no'],
+                    'value' => $data['partner_cell_no'],
                     'type_id' => 1,
                 ]);
             }          
              if ($contactPerson) {
                 // Use the polymorphic relationship method to create the email
                 $contactPerson->emails()->create([
-                    'value' => $data['email'],
+                    'value' => $data['contact_email'],
                     'type_id' => 1,
                 ]);
             
                 // Use the polymorphic relationship method to create the phone
                 $contactPerson->phones()->create([
-                    'value' => $data['cell_no'],
+                    'value' => $data['contact_cell_no'],
                     'type_id' => 1,
                 ]);
             }

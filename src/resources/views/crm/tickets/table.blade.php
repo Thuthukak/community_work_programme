@@ -11,7 +11,6 @@
             <thead>
         <tr style="border-bottom: 1px solid var(--default-border-color);"> 
             <th class="datatable-th">{{ __('theme.sl_no') }}</th>
-            <th class="datatable-th">{{ __('theme.department') }}</th>
             <th class="datatable-th">{{ __('theme.id') }}</th>
             <th class="datatable-th">{{ __('theme.title') }}</th>
             <th class="datatable-th">{{ __('theme.priority') }}</th>
