@@ -220,7 +220,7 @@
 
 <!-- Submit Button -->
 <div class="form-group mt-4">
-    <input type="submit" class="btn btn-primary" value="Sign Up">
+    <input type="submit" class="btn btn-primary" value="Apply">
 </div>
 
 
