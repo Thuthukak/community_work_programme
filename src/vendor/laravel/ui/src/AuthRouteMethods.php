@@ -59,6 +59,8 @@ class AuthRouteMethods
      */
     public function resetPassword()
     {
+
+        // dd('we are here');
         return function () {
             $this->get('password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
             $this->post('password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');

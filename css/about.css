@@ -1,0 +1,44 @@
+.list-single-main-media {
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+.list-single-main-media img {
+    width: 100%;
+    height: auto;
+}
+ab_text {
+    padding-left: 20px;
+}
+.fl-wrap {
+    float: left;
+    width: 100%;
+    position: relative;
+}
+.ab_text-title h3 {
+    color: #878C9F;
+    font-weight: 800;
+    text-align: left;
+    font-size: 22px;
+    font-family: 'Raleway', sans-serif;
+}
+.ab_text-title h4 {
+    font-size: 14px;
+    padding: 10px 0 0;
+    font-weight: 400;
+    color: #7d93b2;
+    text-align: left;
+}
+.section-separator {
+    float: left;
+    width: 100%;
+    position: relative;
+    margin: 20px 0;
+}
+.about-text {
+    text-align: left;
+    color: #878C9F;
+    font-size: 12px;
+    line-height: 24px;
+    padding-bottom: 10px;
+}

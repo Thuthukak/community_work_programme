@@ -2,6 +2,7 @@
 
 namespace App\Models\Core\Auth\Traits;
 
+use Illuminate\Auth\Notifications\ResetPassword as ResetPasswordNotification;
 
 
 /**
@@ -16,6 +17,7 @@ trait SendUserPasswordReset
      */
     public function sendPasswordResetNotification($token)
     {
+        $this->notify(new ResetPasswordNotification($token));
 
     }
 }

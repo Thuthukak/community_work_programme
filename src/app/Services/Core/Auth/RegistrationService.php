@@ -18,6 +18,9 @@ use App\Http\Controllers\CRM\Deal\DealController;
 use App\Models\CRM\Person\Person;
 use App\Models\CRM\Organization\Organization;
 use App\Http\Controllers\CRM\Contact\OrganizationController;
+use App\Filters\CRM\OrganizationFilter;
+use App\Services\CRM\Contact\OrganizationService;
+use App\Http\Requests\CRM\Organization\OrganizationRequest;
 use App\Models\CRM\Email\Email;
 use App\Models\CRM\Phone\Phone;
 use App\Models\Core\Builder\Form\CustomFieldValue;
@@ -33,6 +36,7 @@ use Illuminate\Auth\AuthenticationException;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use DB;
 
 
 
@@ -107,7 +111,8 @@ class RegistrationService extends BaseService
 
 
 
-    public function RegisterPerson($data ){
+    public function RegisterPerson($data )
+    {
 
 
 
@@ -124,28 +129,30 @@ class RegistrationService extends BaseService
             'created_by' => 0,
         ]);
 
-          if($person)
-          {
-            $email = Email::create([
+        if($person){
+            $customfield = CustomFieldValue::create([
+                'value' =>$data['id_no'],
+                'contextable_type' => get_class($person),
+                'contextable_id' => $person['id'],
+                'custom_field_id' => 2,
+            ]);  
+        }
+
+        if ($person) {
+            // Use the polymorphic relationship method to create the email
+            $person->emails()->create([
                 'value' => $data['email'],
                 'type_id' => 1,
-                'contextable_type' => get_class($person),
-                'contextable_id' => $person['id'],
             ]);
-          }
-
-          
-          if($person && $email)
-          {
-            $phone = Phone::create([
+        
+            // Use the polymorphic relationship method to create the phone
+            $person->phones()->create([
                 'value' => $data['cell_no'],
                 'type_id' => 1,
-                'contextable_type' => get_class($person),
-                'contextable_id' => $person['id'],
             ]);
-          }
+        }
 
-          if($phone && $email)
+          if($person)
           {
             $ticket = $this->createTicket($person);
           }
@@ -154,79 +161,123 @@ class RegistrationService extends BaseService
           {
             $applicant = $this->OnboardApplicant($data,$person);
           }
-        }elseif($data['registration_type'] == 'cwp_candidate')
-        {
-     
-        }elseif($data['registration_type'] == 'smart_partner')
-        {
-
-
-
-          $organization =  Organization::create([
-                'name' => $data['company_name'],
-                'address' => $data['business_address'],
-                'contact_type_id' => 3,
-                'created_by' => 1,
-                'owner_id' => 1,
-           
-            ]);
-
-            $contactPerson = Person::create([
-                'name' => $data['contact_first_name'],
-                'owner_id' => 1,
-                'id_no' => $data['id_no'],
-                'created_by' => 1,
-                'contact_type_id' => 2,
-                'created_by' => 0,
-            ]);
-
-            if($person)
-            {
-              $email = Email::create([
-                  'value' => $data['email'],
-                  'type_id' => 1,
-                  'contextable_type' => get_class($person),
-                  'contextable_id' => $person['id'],
-              ]);
-            }
-  
-            
-            if($person && $email)
-            {
-              $phone = Phone::create([
-                  'value' => $data['cell_no'],
-                  'type_id' => 1,
-                  'contextable_type' => get_class($person),
-                  'contextable_id' => $person['id'],
-              ]);
-            }
-  
-            if($phone && $email)
-            {
-              $ticket = $this->createTicket($person);
-            }
-  
-            if($ticket)
-            {
-              $applicant = $this->OnboardApplicant($data,$person);
-            }
         }
     }
 
     public function RegisterSmartPartner($data)
     {
+
+        DB::enableQueryLog(); // Enable query log
+
         if($data['registration_type'] == 'smart_partner')
         {
-            return User::create([
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'cell_no' => $data['cell_no'],
-                'id_no' => $data['id_no'],
-                'cwp_no' => $data['cwp_no'],
-                'status_id' => 1,
-                'email' => $data['email'],
-                'password' => Hash::make($data['password']),
+
+            $contactPerson = Person::create([
+                'name' => $data['contact_first_name'] . '' . $data['contact_last_name'],
+                'owner_id' => 1,
+                'created_by' => 1,
+                'contact_type_id' =>3,
+                'created_by' =>1 ,
             ]);
+
+        //     $Orgmodel  = new Organization();
+        //     $organizationService = new OrganizationService($Orgmodel);
+
+        //     $organizationFilter = new OrganizationFilter();
+        //   $organization =  new OrganizationController($organizationService,$organizationFilter);
+
+        //     $NewOrganizationRequest = new OrganizationRequest();
+
+
+        //     $data = array_merge($data, [
+        //         'name' => $data['company_name'] 
+        //     ]);
+
+        //     // dd($data);
+
+
+
+        //     $OrganizationRequest = $NewOrganizationRequest->merge($data);
+
+
+            // dd($OrganizationRequest->all());
+        // $Organization = $organization->store($OrganizationRequest);
+          
+         
+            if($contactPerson){
+                $organization =  Organization::create([
+                    'name' => $data['company_name'],
+                    'address' => $data['business_address'],
+                    'contact_type_id' => 3,
+                    'created_by' => 1,
+                    'owner_id' => 1,
+                ]);
+            }
+
+            $customFields = [
+                'website_url' => 3, 
+                'business_registration_number' => 4, 
+                'industry_sector' => 5, 
+                'areas_of_expertise' => 6,
+            ];
+
+
+            foreach ($customFields as $field => $customFieldId) {
+                    // If the field is an array (like areas_of_expertise), handle it separately
+                    if (is_array($data[$field])) {
+                        foreach ($data[$field] as $value) {
+                            CustomFieldValue::create([
+                                'value' => $value,
+                                'contextable_type' => get_class($organization),
+                                'contextable_id' => $organization->id,
+                                'custom_field_id' => $customFieldId,
+                            ]);
+                        }
+                    } else {
+                        CustomFieldValue::create([
+                            'value' => $data[$field],
+                            'contextable_type' => get_class($organization),
+                            'contextable_id' => $organization->id,
+                            'custom_field_id' => $customFieldId,
+                        ]);
+                    }
+                }
+            if($organization)
+            {
+                $organization->emails()->create([
+                    'value' => $data['partner_email'],
+                    'type_id' => 3,
+                  
+                ]);
+                $organization->phones()->create([
+                    'value' => $data['partner_cell_no'],
+                    'type_id' => 1,
+                ]);
+            }          
+             if ($contactPerson) {
+                // Use the polymorphic relationship method to create the email
+                $contactPerson->emails()->create([
+                    'value' => $data['contact_email'],
+                    'type_id' => 1,
+                ]);
+            
+                // Use the polymorphic relationship method to create the phone
+                $contactPerson->phones()->create([
+                    'value' => $data['contact_cell_no'],
+                    'type_id' => 1,
+                ]);
+            }
+            if($contactPerson && $contactPerson)
+            {
+              $ticket = $this->createTicket($organization);
+
+            }
+            if($ticket)
+            {
+              $applicant = $this->OnboardApplicant($data,$organization);
+
+            }
+            return $organization;
         }
     }
     
@@ -252,28 +303,41 @@ class RegistrationService extends BaseService
 
      public function OnboardApplicant($applicant, $person)
      {
-        $deal = Deal::create([
-            'title' => $applicant['name'],
-            'value' => 1,
-            'pipeline_id' => 2,
-            'stage_id' => 8,
-            'contextable_type' => get_class($person),
-            'contextable_id' => $person['id'],
-            'lost_reason_id' => null,
-            'status_id' => 13,
-            'created_by' => 1,
-            'owner_id' => 1,
 
-        ]);
+        if($applicant['registration_type'] == 'smart_partner'){
+            $deal = Deal::create([
+                'title' => $applicant['company_name'],
+                'value' => 1,
+                'pipeline_id' => 2,
+                'stage_id' => 8,
+                'contextable_type' => get_class($person),
+                'contextable_id' => $person['id'],
+                'lost_reason_id' => null,
+                'status_id' => 13,
+                'created_by' => 1,
+                'owner_id' => 1,
+    
+            ]);
+
+        }else{
+            $deal = Deal::create([
+                'title' => $applicant['name'],
+                'value' => 1,
+                'pipeline_id' => 2,
+                'stage_id' => 8,
+                'contextable_type' => get_class($person),
+                'contextable_id' => $person['id'],
+                'lost_reason_id' => null,
+                'status_id' => 13,
+                'created_by' => 1,
+                'owner_id' => 1,
+    
+            ]);
+        }
+        
 
         return $deal;
      }
 
 
-     public function CheckEmail($email = '')
-     {
-        $user = Email::where('value', '=', $email)->first();
-
-        return $user;
-     }
-}
+    }

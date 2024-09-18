@@ -34,7 +34,10 @@ class EmailValidator
      */
     public function isValid($email, EmailValidation $emailValidation)
     {
+
         $isValid = $emailValidation->isValid($email, $this->lexer);
+
+
         $this->warnings = $emailValidation->getWarnings();
         $this->error = $emailValidation->getError();
 

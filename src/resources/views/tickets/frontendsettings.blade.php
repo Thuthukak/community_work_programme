@@ -183,8 +183,8 @@ document.addEventListener('DOMContentLoaded', function () {
             targetTab.classList.add('show', 'active');
 
             // Show the Add button only for the correct tab
-    document.querySelectorAll('.add-button').forEach(function (button) {
-            const buttonTab = button.getAttribute('data-tab');
+            document.querySelectorAll('.add-button').forEach(function (button) {
+                const buttonTab = button.getAttribute('data-tab');
                 if (navItem.getAttribute('href') === buttonTab) {
                     button.style.display = 'inline-block';
                 } else {
@@ -209,15 +209,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-
-// Set the buttons to visible after the page is fully loaded (CSS transition approach)
-setTimeout(function () {
+    // Set the buttons to visible after the page is fully loaded (CSS transition approach)
+    setTimeout(function () {
         document.querySelectorAll('.add-button').forEach(function (button) {
             button.classList.add('visible'); // Make buttons visible smoothly
         });
     }, 500); // Adjust the delay as needed
 
 });
+
 
 
 </script>

@@ -1,0 +1,244 @@
+a{
+    text-decoration: none;
+}
+.ticket-status{
+    padding: 6px 10px;
+    border-radius: 6%;
+    color: white;
+    font-size: 75%;
+}
+
+.ticket-status:orange{
+    background-color: orange;
+}
+
+.ticket-status:green{
+    background-color: green;
+}
+
+.ticket-status:grey{
+    background-color: grey;
+}
+.ticket-status:red{
+    background-color: red;
+}
+
+.notification-badge {
+    position: relative;
+    left: 12px;
+    top: -31px;
+    color: #fff;
+    background-color: #ff4949;
+    border-radius: 13%;
+    font-family: "Raleway", "Roboto" !important;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1.59;
+    text-align: center;
+    padding: 0 4px;
+}
+
+@media (max-width: 600px) {
+    .notification-dropdown-button {
+        height: 56px;
+        padding: 0px 0.664rem !important;
+    }
+}
+
+.letter-spacing{
+    letter-spacing: .125rem;
+}
+
+.custom-border{
+    border: 2px solid #e9ecef;
+    border-radius: 4px;
+    margin: 5px !important;
+}
+.custom-border p{
+    height: 95px !important;
+}
+.custom-border:hover{
+    background: #fcfdff !important;
+}
+#kb .hover:hover{
+    box-shadow: 0 0 10px 3px #b3ebff;
+    background-image: linear-gradient(to right, #56CCF2, #0062cc) !important;
+}
+.still-need{
+    background: #fff;
+    padding: 25px 0;
+    -webkit-box-shadow: 0 0 10px 0 #999;
+    box-shadow: 0 0 10px 0 #999;
+}
+
+
+
+    .my-card {
+        position: absolute !important;
+        left: 40% !important;
+        top: -20px !important;
+        border-radius: 50% !important;
+    }
+    .counter-font{
+        font-size: 2.5rem !important;
+        font-weight: 500;
+    }
+    #counter {
+        background: rgb(246, 246, 246);
+        padding: 120px 0px 89px;
+    }
+    .need-help a {
+        padding-top: 13px !important;
+        color: #fff;
+        font-weight: 600;
+        height: 50px;
+        text-decoration: none;
+        box-shadow: none;
+        padding: 8px 25px;
+        border: none;
+        border-radius: 20px;
+        background-image: linear-gradient(to right, #ff740b, #fd9546);
+    }
+    .need-help a:hover {
+        color: rgba(0, 0, 0, 0.7) !important;
+        text-decoration: none;
+    }
+
+    /*----------------Containers--------------------*/
+
+    #banner-container-fluid
+    {
+        background-image: url("../images/bg/about_bg.jpg");
+        background-attachment:scroll;
+        background-repeat:no-repeat;
+        background-position:center;
+        background-size:cover;
+    }
+#banner-container-fluid  .jumbotron
+{
+    background-color:#9e9e9e54;
+    color:white;
+    max-height:500px;
+
+}
+
+#banner-container-fluid .jumbotron
+{
+    background: rgba(0, 0, 0, 0.5) !important;
+    color: #fff !important;
+}
+.jumbotron
+{
+    padding: 6rem 0 6rem 6rem !important;
+    border-radius: 0;
+}
+#banner-container-fluid  .jumbotron p
+{
+    font-weight: bold;
+
+}
+#banner-container-fluid  .jumbotron .active
+{
+    color: #fff !important;
+
+}
+#banner-container-fluid  .jumbotron p a:hover
+{
+    color: #ea0117;
+
+}
+.my-6rem {
+    margin-top: 6rem !important;
+    margin-bottom: 6rem !important;
+}
+.thm-container {
+    width: 100%;
+    max-width: 1200px;
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.contact-form-content {
+    background: #F5F6FA;
+    padding: 80px 0;
+    padding-left: 80px;
+    padding-right: 80px;
+}
+
+.thm-container .title {
+    margin-bottom: 50px;
+}
+
+.thm-container .title span {
+    font-family: 'Rubik', sans-serif;
+    font-size: 20px;
+    color: #FF4328;
+}
+
+.thm-container .title h2 {
+    color: #212121;
+    font-size: 60px;
+    line-height: 60px;
+    font-weight: bold;
+}
+
+.contact-form input,
+.contact-form textarea {
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 68px;
+    border-radius: 35px;
+    background: #fff;
+    color: #757575;
+    font-size: 16px;
+    padding-left: 50px;
+    margin-bottom: 20px;
+    display: block;
+}
+
+.contact-form textarea {
+    height: 182px;
+    padding-top: 20px;
+}
+
+.thm-btn {
+    border: none;
+    outline: none;
+    display: inline-block;
+    vertical-align: middle;
+    background: #FEC931;
+    color: #212121;
+    border-radius: 35px;
+    font-family: 'Rubik';
+    font-weight: 500;
+    font-size: 16px;
+    padding: 18px 69px;
+    -webkit-transition: all .4s;
+    transition: all .4s;
+}
+
+.contact-info {
+    margin-left: -30px;
+    border: 2px solid #EBEDF4;
+    padding-top: 75px;
+    padding-bottom: 80px;
+}
+
+.single-contact-info h4 {
+    color: #212121;
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.fs1em{
+    font-size: 1.5em !important;
+}
+.fs75em{
+    font-size: .75rem !important
+}
+

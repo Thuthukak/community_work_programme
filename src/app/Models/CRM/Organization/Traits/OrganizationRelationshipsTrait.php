@@ -8,6 +8,8 @@ use App\Models\CRM\Contact\ContactType;
 use App\Models\CRM\Deal\Deal;
 use App\Models\CRM\Follower\Follower;
 use App\Models\CRM\Person\Person;
+use App\Models\CRM\Phone\Phone;
+use App\Models\CRM\Email\Email;
 use App\Models\CRM\Traits\CustomFieldRelationshipTrait;
 use App\Models\CRM\Traits\EmailRelationshipTrait;
 use App\Models\CRM\Traits\FollowerRelationshipTrait;
@@ -89,4 +91,16 @@ trait OrganizationRelationshipsTrait
     // {
     //     return $this->hasMany(Objective::class , 'cotextable');
     // }
+
+
+    public function emails()
+    {
+        return $this->morphMany(Email::class, 'contextable');
+    }
+
+    public function phones()
+    {
+        return $this->morphMany(Phone::class, 'contextable');
+    }
+
 }

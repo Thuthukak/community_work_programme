@@ -13,6 +13,7 @@ use App\Services\Core\Auth\RegistrationService;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 class RegisterController extends Controller
 {
@@ -60,55 +61,75 @@ class RegisterController extends Controller
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
-        {
-            // Define the base validation rules
-            $rules = [
+    {
+        $rules = [
+            'registration_type' => 'required|string',
+        ];
+    
+        // Validation for new_applicant
+        if (isset($data['registration_type']) && $data['registration_type'] === 'new_applicant') {
+            $rules = array_merge($rules, [
                 'first_name' => 'required|string|max:255',
                 'last_name' => 'required|string|max:255',
-                'cell_no' => ['required', 'numeric', 'digits_between:10,12'],
-                'id_no' => ['required', 'numeric', 'digits:13'],
-                'email' => 'required|string|max:255|unique:emails,value',
-            ];
-            
-            // Check for registration_type and add or remove rules accordingly
-            if (isset($data['registration_type'])) {
-                if ($data['registration_type'] === 'cwp_candidate') {
-                    $rules['cwp_no'] = 'required|numeric';
-                }
-        
-                if ($data['registration_type'] === 'smart_partner') {
-                    // Remove first_name and last_name fields from the rules
-                    unset($rules['first_name'], $rules['last_name'], $rules['id_no']);
-        
-                    // Add rules specific to smart_partner
-                    $rules = array_merge($rules, [
-                        'company_name' => 'required|string|max:255',
-                        'industry_sector' => 'required|string',
-                        'business_registration_number' => 'required|string|max:255',
-                        'business_address' => 'required|string|max:255',
-                        'website_url' => 'required|url',
-                        'areas_of_expertise' => 'required|array',
-                        'description_of_services' => 'required|string|max:1000',
-                    ]);
-                }
-            }
-        
-            // Perform validation
-            $validator = Validator::make($data, $rules);
-            // Log errors if validation fails
-            if ($validator->fails()) {
-                \Log::info('Validation errors:', $validator->errors()->toArray());
-            } else {
-                // dd('$validator->errors()->toArray()');
+                'email' => 'required|email|unique:users,email',
+                'cell_no' => 'required|numeric|digits:10|unique:phones,value',
+                'id_no' => 'required|numeric|digits:13|unique:custom_field_values,value',
+            ]);
+        }
+    
+        // Validation for cwp_candidate
+        if (isset($data['registration_type']) && $data['registration_type'] === 'cwp_candidate') {
+            $rules = array_merge($rules, [
+                'cwp_email' => 'required|email|exists:users,email',
+                'cwp_cell_no' => 'required|numeric|digits:10|exists:phones,value',
+                'cwp_id_no' => 'required|numeric|digits:13|exists:custom_field_values,value',
+                'cwp_no' => 'required|numeric|exists:custom_field_values,value',
+            ]);
+        }
+    
+    
+        // Validation for smart_partner
+        if (isset($data['registration_type']) && $data['registration_type'] === 'smart_partner') {
+            $rules = array_merge($rules, [
+                'company_name' => 'required|string|max:255',
+                'business_registration_number' => 'required|string|max:255|unique:custom_field_values,value',
+                'business_address' => 'required|string|max:255',
+                'website_url' => 'required|url|unique:custom_field_values,value',
+                'partner_email' => 'required|email|unique:emails,value',
+                'partner_cell_no' => 'required|numeric|digits:10|unique:phones,value',
+                'areas_of_expertise.*' => 'required|string',
+            ]);
 
-                \Log::info('Validation Successful');
-            }
-        
-            // Return the validator instance
-            return $validator;
+
+           
         }
 
-
+         // Add conditional validation for contact person fields
+         if (!empty($data['contact_first_name']) || !empty($data['contact_last_name']) || !empty($data['contact_cell_no']) || !empty($data['contact_email'])) {
+            $rules = array_merge($rules, [
+                'contact_first_name' => 'required|string|max:255',
+                'contact_last_name' => 'required|string|max:255',
+                'contact_cell_no' => 'required|numeric|digits:10|unique:phones,value',
+                'contact_email' => 'required|email|unique:emails,value',
+            ]);
+        }
+    
+                // Perform validation
+                $validator = Validator::make($data, $rules);
+                // Log errors if validation fails
+                if (!$validator) {
+                    return response()->json([
+                        'errors' => $validator->errors()
+                    ], 422);
+                }else {
+                    // dd('$validator->errors()->toArray()');
+    
+                    \Log::info('Validation Successful');
+                }
+            
+                // Return the validator instance
+                return $validator;
+            }
 
   
     /**
@@ -142,6 +163,8 @@ class RegisterController extends Controller
             {
 
 
+
+
               // Extract the email from the original $request
             $invitationData = $request->only('email');
 
@@ -157,16 +180,16 @@ class RegisterController extends Controller
             // Handle the invitation
             $userInvite = $this->Userinvite->invite($invitationRequest);
                     
-                // check if email exist 
-               $user =  $this->registerService->CheckEmail($data);
+        
 
             //    dd($user);
-                return $user;
+                return $userInvite;
             }elseif($data['registration_type'] == 'smart_partner')
             {
 
-                dd($request);
-                return $user;
+               $SmartPartner = $this->registerService ->RegisterSmartPartner($data);
+
+                return $SmartPartner;
        
             }
             

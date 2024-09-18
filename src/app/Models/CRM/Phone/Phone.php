@@ -24,6 +24,8 @@ class Phone extends BaseModel
         return $this->morphTo();
     }
 
+    
+
     public function type()
     {
         return $this->belongsTo(PhoneEmailType::class);

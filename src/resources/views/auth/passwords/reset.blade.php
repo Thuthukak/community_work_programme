@@ -1,3 +1,7 @@
+@extends('layouts.home')
+
+
+@section('contents')
 <div class="modal fade" id="resetPasswordModal" role="dialog" aria-labelledby="resetPasswordModalLabel" aria-hidden="true" style="z-index: 1041;">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -57,3 +61,4 @@
         </div>
     </div>
 </div>
+@endsection

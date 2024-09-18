@@ -1,0 +1,118 @@
+.contact-bg-logo {
+    position: absolute;
+    top: 0;
+    z-index: -9;
+}
+.contact-bg-logo i {
+    font-size: 32rem;
+    color: rgba(239, 49, 57, 0.06);
+}
+.shadow {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+.bg-white {
+    background-color: #fff!important;
+}
+h3 {
+    font-size: 30px;
+}
+.form-control {
+    border: 1px solid #eeeeee;
+    border-radius: 0px;
+    height: 48px;
+    padding: 10px 20px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    font-size: 14px;
+    font-weight: 500;
+    background: #f6f6f6;
+    color: #022d62;
+    border-radius: 5px;
+    background-clip: inherit !important;
+}
+.form-control:focus {
+    box-shadow: none;
+    border-color: #ef3139;
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+}
+
+
+
+.bwc-nopad {
+    padding: 25px 0 0;
+}
+
+.box-widget-content {
+    float: left;
+    width: 100%;
+    position: relative;
+    padding: 25px 30px 30px;
+}
+.bottom-bcw-box {
+    margin-top: 10px;
+    padding: 12px 70px 12px 30px;
+    border-top: 1px solid #eee;
+}
+.list-author-widget-contacts.list-item-widget-contacts li {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+}
+
+.list-author-widget-contacts li {
+    float: left;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.list-author-widget-contacts li span {
+    min-width: 80px;
+}
+.list-author-widget-contacts li a {
+    margin-left: 20px;
+    color: #878C9F;
+}
+.list-author-widget-contacts li span, .list-author-widget-contacts li a {
+    float: left;
+    text-align: left;
+    font-weight: 500;
+}
+
+.list-widget-social li {
+    margin-right: 8px;
+}
+
+.list-widget-social li {
+    float: left;
+}
+.list-widget-social li a{
+    background: #fd9546;
+}
+.list-widget-social li a {
+    width: 30px;
+    height: 30px;
+    display: block;
+    line-height: 30px;
+    border-radius: 4px;
+    color: #fff;
+    text-align: center;
+}
+.list-widget-social li a:hover{
+    background: #384F95;
+}
+@media (max-width: 575px) {
+    .contact-bg-logo i {
+        font-size: 18rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .contact-bg-logo i {
+        font-size: 25rem;
+        margin-top: 25px;
+    }
+}

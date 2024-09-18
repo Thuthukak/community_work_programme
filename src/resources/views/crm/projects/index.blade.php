@@ -325,7 +325,7 @@
                 <div class="panel-body">
                     {!! FormField::text('name', ['label' => __('project.name') ,'required' => true ]) !!}
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="col-md-8 my-editor">
                             {!! FormField::textarea('description', ['label' => __('project.description'), 'rows' => 5 ,'required' => true  ]) !!}
                         </div>
                         <div class="col-md-4">

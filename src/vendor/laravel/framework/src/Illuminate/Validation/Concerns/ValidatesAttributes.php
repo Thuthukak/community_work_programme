@@ -728,6 +728,7 @@ trait ValidatesAttributes
      */
     public function validateEmail($attribute, $value, $parameters)
     {
+
         if (! is_string($value) && ! (is_object($value) && method_exists($value, '__toString'))) {
             return false;
         }
@@ -754,7 +755,14 @@ trait ValidatesAttributes
             ->values()
             ->all() ?: [new RFCValidation];
 
-        return (new EmailValidator)->isValid($value, new MultipleValidationWithAnd($validations));
+            // Initialize EmailValidator
+            $emailValidator = new EmailValidator();
+
+            // Initialize MultipleValidationWithAnd with the validation rules
+            $validationRules = new MultipleValidationWithAnd($validations);
+
+            // Perform the email validation
+            return $emailValidator->isValid($value, $validationRules);
     }
 
     /**

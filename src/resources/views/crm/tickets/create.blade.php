@@ -6,27 +6,12 @@
             <h2 class="card-title">{{ __('theme.whats_happening_write_us') }}</h2>
         </div>
         <div class="row">
-            <div class="form-group col-md-12 {{ $errors->has('title') ? ' has-error' : '' }}">
+            <div class="form-group col-md-8 {{ $errors->has('title') ? ' has-error' : '' }}">
                 <label for="department">Title</label>
                 <input id="title" type="text" class="form-control" name="title" value="{{ old('title') }}" placeholder="{{ __('theme.enter_problem_title') }}" required>
                 @if ($errors->has('title'))
                     <span class="text-danger">
                         {{ $errors->first('title') }}
-                    </span>
-                @endif
-            </div>
-
-            <div class="form-group col-md-6">
-                <label for="department">{{ __('theme.department') }}</label>
-                <select id="department" class="form-control {{ $errors->has('department') ? ' has-error' : '' }}" name="department">
-                    <option value="">{{ __('theme.select_department') }}</option>
-                    @foreach ($departments as $department)
-                        <option value="{{ $department->id }}">{{ $department->title }}</option>
-                    @endforeach
-                </select>
-                @if ($errors->has('department'))
-                    <span class="text-danger">
-                        {{ $errors->first('department') }}
                     </span>
                 @endif
             </div>
