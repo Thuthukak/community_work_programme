@@ -32,7 +32,7 @@ return [
     "read_more" => "Read More",
     "total_tickets" => "Total Tickets",
     "ticket_solved" => "Ticket Solved",
-    "happy_clients" => "Happy Clients",
+    "smart_partners" => "Smart Partners",
     "still_no_solutions" => "Still no solutions? We can help!",
     "contact_get_back_soon" => "Contact us and we’ll get back to you as soon as possible",
     "submit_a_ticket" => "Submit a Ticket",
