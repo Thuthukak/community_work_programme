@@ -6,19 +6,27 @@ use App\Models\CRM\Service\Service;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Intervention\Image\Facades\Image;
-use App\Models\CRM\Socials\Social;
+use App\Models\CRM\Social\Social;
 use App\Models\CRM\GeneralSettings\GeneralSetting;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
+
 
 class GeneralSettingController extends Controller
 {
     public function logoIcon()
     {
-        return view('frontendSetting.logoIcon');
+        $settings = GeneralSetting::select('logo', 'favicon_icon')->first();
+        
+        // Return JSON response with settings data
+        return response()->json([
+            'logo' => $settings->logo,
+            'favicon_icon' => $settings->favicon_icon,
+        ]);
     }
-
+    
     public function logoIconUpdate(Request $request) {
 
         $this->validate($request,[
@@ -135,6 +143,7 @@ class GeneralSettingController extends Controller
 
     public function headerTextSettingUpdate(Request $request, GeneralSetting $setting)
     {
+
         $data = $request->all();
         $saved = $setting->update($data);
 
@@ -224,16 +233,20 @@ class GeneralSettingController extends Controller
     }
 
     public function footer() {
-        $setting = GeneralSetting::first();
+        $settings = GeneralSetting::first();
         return response()->json([
             'settings' => $settings
         ]);
     }
 
-    public function updateFooter(Request $request) {
+    public function updateFooter(Request $request) 
+    {
 
+        $request->merge(['id' => '1']);
         $id = $request->get('id');
         $setting = GeneralSetting::find($id);
+   
+
         $data = $request->all();
         $saved = $setting->update($data);
 

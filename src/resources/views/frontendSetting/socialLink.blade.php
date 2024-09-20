@@ -6,7 +6,7 @@
         </div>
         <div class="datatable mt-5 ml-4 mr-4">
             <div class="table-responsive">
-            <table id="table" class="table table-sm table-hover" cellspacing="0" width="100%">
+            <table id="tablesocialLink" class="table table-sm table-hover" cellspacing="0" width="100%">
                 <thead>
                     <tr style="border-bottom: 1px solid var(--default-border-color);">
                         <th class="datatable-th">{{ __('theme.sl_no') }}</th>
@@ -31,7 +31,7 @@
                     <h4 class="modal-title title-text" id="myModalLabel"> {{ __('theme.manage_social') }}</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
                 </div>
-                <form method="POST" action="{{ route('socialAdd.Setting') }}">
+                <form method="POST" action="{{ route('socialAdd.Setting') }}" onsubmit="submitForm(event, this)">
                     @csrf
                     <div class="modal-body">
                         <div class="form-group error">

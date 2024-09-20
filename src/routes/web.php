@@ -1,4 +1,6 @@
 <?php
+
+
 use App\Http\Controllers\CRM\LeadWebFormController;
 use App\Http\Controllers\Core\LanguageController;
 use App\Http\Controllers\InstallDemoDataController;
@@ -18,18 +20,23 @@ use App\Models\Core\Auth\User;
 use App\Http\Controllers\Core\Auth\User\UserController;
 use App\Http\Controllers\CRM\Objectives\OkrController;
 use App\Http\Controllers\CRM\Objectives\KrController;
+use App\Http\Controllers\CRM\HowWeWork\HowWorkController;
+use App\Http\Controllers\CRM\Service\ServiceController;
+use App\Http\Controllers\CRM\Ticket\TestimonialController;
 use App\Http\Controllers\CRM\Objectives\FollowController;
 use App\Http\Controllers\CRM\Objectives\CompanyController;
 use App\Http\Controllers\CRM\Ticket\TicketsController;
 use App\Http\Controllers\CRM\Department\DepartmentsController;
 use App\Http\Controllers\CRM\knowledgeBased\KnowledgeBaseController;
 use App\Http\Controllers\CRM\Objectives\ActionsController;
+use App\Http\Controllers\Core\GeneralSettingController;
 use App\Http\Controllers\Core\HomeController;
 use App\Http\Controllers\CRM\ContactUs\ContactController;
 use Illuminate\Support\Facades\Route;
 
 // Root route
 Route::get('/', function () {
+
     if (auth()->check()) {
         $user = User::with(['roles'])->where('id', auth()->id())->first();
         if ($user->hasRole(['Agent'])) {
@@ -39,7 +46,7 @@ Route::get('/', function () {
         }
     }
 
-    return redirect('/Home');
+    return redirect('/home');
 });
 
 

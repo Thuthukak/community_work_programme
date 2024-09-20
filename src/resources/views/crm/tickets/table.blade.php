@@ -9,18 +9,34 @@
     <div class="table-responsive">
         <table style="width: 100%;">
             <thead>
-        <tr style="border-bottom: 1px solid var(--default-border-color);"> 
-            <th class="datatable-th">{{ __('theme.sl_no') }}</th>
-            <th class="datatable-th">{{ __('theme.id') }}</th>
-            <th class="datatable-th">{{ __('theme.title') }}</th>
-            <th class="datatable-th">{{ __('theme.priority') }}</th>
-            <th class="datatable-th">{{ __('theme.user') }}</th>
-            <th class="datatable-th">{{ __('theme.status') }}</th>
-            <th class="datatable-th">{{ __('theme.last_updated') }}</th>
-            <th class="datatable-th">{{ __('theme.actions') }}</th>
-        </tr>
-        </thead>
-    </table>
+                <tr style="border-bottom: 1px solid var(--default-border-color);">
+                    <th class="datatable-th">{{ __('theme.sl_no') }}</th>
+                    <th class="datatable-th">{{ __('theme.id') }}</th>
+                    <th class="datatable-th">{{ __('theme.title') }}</th>
+                    <th class="datatable-th">{{ __('theme.priority') }}</th>
+                    <th class="datatable-th">{{ __('theme.user') }}</th>
+                    <th class="datatable-th">{{ __('theme.status') }}</th>
+                    <th class="datatable-th">{{ __('theme.last_updated') }}</th>
+                    <th class="datatable-th">{{ __('theme.actions') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($tickets as $index => $ticket)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $ticket->ticket_id }}</td>
+                    <td>{{ $ticket->title }}</td>
+                    <td>{{ $ticket->priority }}</td>
+                    <td>{{ $ticket->user->name ?? 'N/A' }}</td> <!-- Assuming 'user' relationship is defined -->
+                    <td>{{ $ticket->status }}</td>
+                    <td>{{ \Carbon\Carbon::parse($ticket->updated_at)->format('Y-m-d H:i:s') }}</td>
+                    <td>
+                        <a href="{{ route('ticket.show', $ticket->id) }}" class="btn btn-primary">View</a>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -78,7 +94,7 @@
     <script type="text/javascript" src="{{ asset('assets/js/moment.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('assets/js/daterangepicker.min.js') }}"></script>
 
-    <script src="src/public/assets/js/tickets/daterangepicker.min.js9"></script>
+    <script src="src/public/assets/js/tickets/daterangepicker.min.js"></script>
 
     <script src="{{ asset('assets/js/dtMain.js') }}"></script>
 @endsection

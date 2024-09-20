@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <div class="mb-4">
         <div class="card-body">
-            <form action="{{ route('updateFooter.Setting') }}" method="post">
+            <form action="{{ route('updateFooter.Setting') }}" method="post" onsubmit="submitForm(event, this)">
                 @csrf
                 @method('PUT')
                 <div class="row">
@@ -10,8 +10,8 @@
                         <div class="form-group">
                             <label for="footer_text"><strong>{{ __('theme.footer_text') }}</strong></label>
                             <input id="footer_text" class="form-control mb-3" name="footer_text" value=""  type="text" required>
-                            <input type="hidden" value="{" name="id">
-                        </div>
+                            <input type="hidden" name="id" value="">
+                            </div>
                     </div>
                 </div>
                 <div class="col-md-12 font-weight-bold text-uppercase">{{ __('theme.contact_us') }}</div>

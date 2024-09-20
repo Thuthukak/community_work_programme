@@ -2,7 +2,7 @@
 <div class="container-fluid">
     <div class="mb-4">
         <div class="card-body">
-            <form action="{{ route('updateAboutUs.Setting') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('updateAboutUs.Setting') }}" method="post" enctype="multipart/form-data" onsubmit="submitForm(event, this)">
                 @csrf
                 @method('PUT')
                 <div class="row">

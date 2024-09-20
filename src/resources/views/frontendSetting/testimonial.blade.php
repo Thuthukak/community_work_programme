@@ -6,7 +6,7 @@
         <div class="col-md-4">
             <div class="mb-4">
                 <div class="card-body">
-                    <form action="{{ route('setting.testimonialUpdate') }}" method="post">
+                    <form action="{{ route('setting.testimonialUpdate') }}" method="post" onsubmit="submitForm(event, this)" >
                         @csrf
                         @method('PUT')
                         <div class="col-md-12">
@@ -47,7 +47,7 @@
                     <div class="page-title">{{ __('theme.testimonials') }}</div>
                 </div>
                 <div class="card-body table-responsive">
-                    <table id="testimonialTable" class="table table-sm table-hover" cellspacing="0" width="100%">
+                    <table id="testimonialsTable" class="table table-sm table-hover" cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th>{{ __('theme.sl_no') }}</th>
@@ -55,7 +55,7 @@
                                 <th>{{ __('theme.image') }}</th>
                                 <th>{{ __('theme.comment') }}</th>
                                 <th>{{ __('theme.role') }}</th>
-                                <th>{{ __('theme.role') }}</th>
+                                <th>{{ __('theme.action') }}</th>
                             </tr>
                         </thead>
                         <tbody>
