@@ -370,8 +370,12 @@ document.addEventListener('DOMContentLoaded', function () {
                             <td><i class="${workItem.icon}"></i></td>
                             <td>${workItem.details}</td>
                             <td>
-                                <button class="btn btn-primary" onclick="editWork(${workItem.id})">{{ __('theme.edit') }}</button>
-                                <button class="btn btn-danger" onclick="deleteWork(${workItem.id})">{{ __('theme.delete') }}</button>
+                                <button class="btn btn-primary" onclick="editWork(${workItem.id})">
+                                <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger" onclick="deleteWork(${workItem.id})">
+                                <i class="fas fa-trash"></i>
+                                </button>
                             </td>
                         </tr>
                     `;
@@ -410,8 +414,13 @@ document.addEventListener('DOMContentLoaded', function () {
                             <td><i class="${serviceItem.icon}"></i></td>
                             <td>${serviceItem.details}</td>
                             <td>
-                                <button class="btn btn-primary" onclick="editService(${serviceItem.id})">{{ __('theme.edit') }}</button>
-                                <button class="btn btn-danger" onclick="deleteService(${serviceItem.id})">{{ __('theme.delete') }}</button>
+                                <button class="btn btn-primary" onclick="editService(${serviceItem.id})">
+                                <i class="fas fa-edit"></i>
+                                </button>
+                                
+                                <button class="btn btn-danger" onclick="deleteService(${serviceItem.id})">
+                                <i class="fas fa-trash"></i>
+                                </button>
                             </td>
                         </tr>
                     `;
@@ -455,8 +464,12 @@ document.addEventListener('DOMContentLoaded', function () {
                             <td>${testimonialItem.designation}</td>
 
                             <td>
-                                <button class="btn btn-primary" onclick="editWork(${testimonialItem.id})">{{ __('theme.edit') }}</button>
-                                <button class="btn btn-danger" onclick="deleteWork(${testimonialItem.id})">{{ __('theme.delete') }}</button>
+                                <button class="btn btn-primary" onclick="editWork(${testimonialItem.id})">
+                                <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="btn btn-danger" onclick="deleteWork(${testimonialItem.id})">
+                                <i class="gas fa-trash"></i>
+                                </button>
                             </td>
                         </tr>
                     `;
