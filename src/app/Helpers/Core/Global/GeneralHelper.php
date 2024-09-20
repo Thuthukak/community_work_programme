@@ -8,6 +8,8 @@ if (! function_exists('home_route')) {
      */
     function home_route()
     {
+
+
         if (auth()->check()) {
             return [
                 'route_name' => 'home',

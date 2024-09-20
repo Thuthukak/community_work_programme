@@ -32,6 +32,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('contactPage') }}">{{ __('theme.contact') }}</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('contactPage') }}">{{ __('theme.opportunities') }}</a>
+                </li>
                 @guest
                 <li class="nav-item nl-border">
                     <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#loginModal">{{ __('theme.login') }}</a>

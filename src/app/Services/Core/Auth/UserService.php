@@ -196,16 +196,6 @@ class UserService extends BaseService
                 ->handle();
 
 
-                Log::info($user);
-                Log::info(session()->all());
-
-
-            // Log in the PM user
-            // $this->loginPMUser(request()->get('email'), request()->get('password'));
-
-          
-
-
             return $user;
         }
 
@@ -217,36 +207,7 @@ class UserService extends BaseService
         );
     }
 
-    protected function loginPMUser($email, $password)
-    {
-        $pmUser = PMUser::where('email', $email)->first();
-
-
-        Log::info($pmUser);
-
-
-        if ($pmUser && Hash::check($password, $pmUser->password)) {
-            auth()->guard('pm')->login($pmUser);
-
-                 // Manually generate the session for the PM user
-        // session()->put('pm_user', $pmUser->id);
-        session()->regenerate();
-
-        Log::info(session()->all());
-
-
-        } else {
-            throw new AuthenticationException(
-                trans('default.incorrect_user_password', [
-                    'password' => trans('default.password'),
-                    'email' => trans('default.email')
-                ])
-            );
-        }
-
-
-    }
-
+   
 
     public function getFormattedSettings()
     {

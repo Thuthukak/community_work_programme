@@ -366,6 +366,9 @@ return [
     'enter_sparkpost_api' => 'Enter sparkpost API',
     'select_once' => 'Select Once',
     'no_data_found' => 'No data found!',
+    'testimonial' => 'Testimonial',
+    'opportunities' => 'Opportunities',
+
 
 
     'what_we_do_paragraph1' => 'The CWP is an innovative offering from the government to provide a job safety net for unemployed people of working age. It provides a bridging opportunity for unemployed youth and others who are actively looking for employment opportunities.',

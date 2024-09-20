@@ -5,7 +5,7 @@
         <div class="col-md-4">
             <div class="mb-4">
                 <div class="card-body">
-                    <form action="{{ route('setting.howWorkUpdate') }}" method="post">
+                    <form action="{{ route('setting.howWorkUpdate') }}" method="post" onsubmit="submitForm(event, this)">
                         @csrf
                         @method('PUT')
                         <div class="col-md-12">

@@ -53,16 +53,8 @@ class LoginController extends Controller
     {
         try {
             $this->service->login();
-            
-            //  Log::info(session()->all());
-
-            // $this->sendLoginResponse($request);
-            // custom hook  
             $route = CustomRoute::new(true)->handle();
-  
             $route = count($route) ? $route : home_route();
-
-            
             return route(
                 $route['route_name'],
                 $route['route_params']

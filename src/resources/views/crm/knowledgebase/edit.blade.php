@@ -91,6 +91,6 @@
 @endsection
 
 @section('js')
-    <script src="{{asset('tinymce/tinymce.min.js')}}"></script>
+    <script src="{{asset('src/public/tinymce/tinymce.min.js')}}"></script>
     <script src="{{asset('tinymce/script.js')}}"></script>
 @endsection

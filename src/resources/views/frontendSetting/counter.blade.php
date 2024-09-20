@@ -3,7 +3,7 @@
     <div class="mb-4">
         <div class="card-body">
             @include('tickets.flash')
-            <form action="#" method="post">
+            <form  id="counterForm" method="post" onsubmit="submitForm(event, this)">
                 @csrf
                 @method('PUT')
                 <div class="row  container-fluid">

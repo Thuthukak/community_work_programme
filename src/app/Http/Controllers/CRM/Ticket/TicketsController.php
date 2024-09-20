@@ -30,7 +30,9 @@ class TicketsController extends Controller
 	{
         $departments = Company::all();
 
-	    return view('crm.tickets.index', compact('departments'));
+        $tickets = Ticket::all();
+
+	    return view('crm.tickets.index', compact('departments','tickets'));
 	}
 
 	public function getTicketData(Request $request)
@@ -128,14 +130,18 @@ class TicketsController extends Controller
 	public function openedTickets()
 	{
         $departments = Department::all();
+        $tickets = Ticket::where('status', 'open')->get();
 
-	    return view('crm.tickets.opened', compact('departments'));
+
+	    return view('crm.tickets.opened', compact('departments','tickets'));
 	}
 
 	public function ClosedTickets()
 	{
         $departments = Department::all();
-	    return view('crm.tickets.closed', compact('departments'));
+        $tickets = Ticket::where('status', 'closed')->get();
+
+	    return view('crm.tickets.closed', compact('departments','tickets'));
 	}
 
     public function create()

@@ -7,7 +7,7 @@
         <div class="col-md-4">
             <div class="mb-4">
                 <div class="card-body">
-                    <form action="{{ route('setting.servicesUpdate') }}" method="post">
+                    <form action="{{ route('setting.servicesUpdate') }}" method="post" onsubmit="submitForm(event, this)">
                         @csrf
                         @method('PUT')
                         <div class="col-md-12">
@@ -42,7 +42,7 @@
                     <div class="page-title">{{ __('theme.services') }}</div>
                 </div>
                 <div class="card-body table-responsive">
-                    <table id="testimonialTable" class="table table-sm table-hover" cellspacing="0" width="100%">
+                    <table id="testimonialTableServices" class="table table-sm table-hover" cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th>{{ __('theme.sl_no') }}</th>
