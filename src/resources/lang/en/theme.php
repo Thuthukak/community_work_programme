@@ -33,7 +33,7 @@ return [
     "total_tickets" => "Total Tickets",
     "ticket_solved" => "Ticket Solved",
     "smart_partners" => "Smart Partners",
-    "still_no_solutions" => "Still no solutions? We can help!",
+    "still_no_solutions" => "Want to enquire on th status of your application?",
     "contact_get_back_soon" => "Contact us and we’ll get back to you as soon as possible",
     "submit_a_ticket" => "Submit a Ticket",
     //knowledge base
