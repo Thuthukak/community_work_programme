@@ -213,7 +213,7 @@ canvas {
 .title::before
 {
     content: '';
-    background: #2F80ED;
+    background: #ff740b;
     height: 5px;
     width: 200px;
     margin-left: auto;
@@ -225,7 +225,7 @@ canvas {
 .title::after
 {
     content: '';
-    background: #2F80ED;
+    background: #ff740b;
     height: 10px;
     width: 50px;
     margin-left: auto;
@@ -289,7 +289,7 @@ canvas {
 
 .testimonials
 {
-    border-left: 4px solid #2F80ED;
+    border-left: 4px solid #ff740b;
     margin-top: 50px;
     margin-bottom: 50px;
 }

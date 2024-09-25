@@ -468,7 +468,7 @@ document.addEventListener('DOMContentLoaded', function () {
                                 <i class="fas fa-edit"></i>
                                 </button>
                                 <button class="btn btn-danger" onclick="deleteWork(${testimonialItem.id})">
-                                <i class="gas fa-trash"></i>
+                                <i class="fas fa-trash"></i>
                                 </button>
                             </td>
                         </tr>

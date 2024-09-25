@@ -31,7 +31,9 @@
                     <td>{{ $ticket->status }}</td>
                     <td>{{ \Carbon\Carbon::parse($ticket->updated_at)->format('Y-m-d H:i:s') }}</td>
                     <td>
-                        <a href="{{ route('ticket.show', $ticket->id) }}" class="btn btn-primary">View</a>
+                        <a href="{{ route('ticket.show', $ticket->id) }}">
+                            <i class="btn btn-primary btn-info fa fa-eye"></i>
+                            </a>
                     </td>
                 </tr>
                 @endforeach

@@ -15,7 +15,7 @@ class CreateUserActivitiesTable extends Migration
     {
         if (!Schema::hasTable('user_activities')) {
             Schema::create('user_activities', function (Blueprint $table) {
-                $table->increments('id');
+                $table->bigIncrements('id'); // Change to bigIncrements for BIGINT
                 $table->string('type');
                 $table->unsignedBigInteger('parent_id')->nullable()->comment('Parent Activity ID');
                 $table->unsignedBigInteger('user_id')->nullable();
@@ -29,8 +29,6 @@ class CreateUserActivitiesTable extends Migration
             });
         }
     }
-    
-    
 
     /**
      * Reverse the migrations.
