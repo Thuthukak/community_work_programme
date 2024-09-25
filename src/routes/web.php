@@ -471,6 +471,8 @@ Route::get('user/{user}/okr', 'UserController@listOKR')->name('user.okr');
     Route::get('department', [DepartmentsController::class, 'index'])->name('department.index');
     Route::get('department/{id}', [DepartmentsController::class, 'departmentTickets'])->name('departmentTickets');
   
+    Route::post('comment', [CommentsController::class, 'postComment'])->name('comment.postComment');
+
     Route::post('department-save', [DepartmentsController::class, 'store'])->name('department-save.store');
     Route::get('department-edit/{id}', [DepartmentsController::class, 'edit'])->name('department-edit.edit');
     Route::post('department-update/{id}', [DepartmentsController::class, 'update'])->name('department-update.update');
@@ -499,7 +501,7 @@ Route::get('contact-us', [ContactController::class,'index'])->name('contactPage'
 Route::post('contact-store', [ContactController::class,'store'])->name('contactStore');
 Route::get('/about-us', [HomeController::class, 'aboutusPage'])->name('aboutusPage');
 Route::resource('testimonial', TestimonialController::class);
-Route::put('testimonial', [TestimonialController::class, 'testimonialUpdate'])->name('setting.testimonialUpdate');
+Route::put('/testimonial/{testimonial}', [TestimonialController::class, 'update'])->name('setting.testimonialUpdate');
 
 
 Route::resource('service', ServiceController::class);

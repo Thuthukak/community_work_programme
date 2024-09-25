@@ -30,7 +30,7 @@
                             <option value="medium">{{ __('theme.high') }}</option>
                         </select>
                     </div>
-    </div>
+            </div>
             </div>
                 <div class="card" id="ticketType" data-type="all">
                     <!-- /.box-header -->

@@ -199,125 +199,171 @@ document.addEventListener('DOMContentLoaded', function () {
                         });
                     });
 
-            // Fetch tab content via AJAX
-            function fetchTabContent(url, targetTabId) {
+           
+            function previewImage(event, previewId) {
+            const reader = new FileReader();
+            reader.onload = function(){
+                const output = document.getElementById(previewId);
+                output.src = reader.result;
+            };
+            reader.readAsDataURL(event.target.files[0]);
+        }
 
-                console.log(url);
-                    fetch(url)
-                        .then(response => response.json())
-                        .then(data => {
+        });
 
 
-                            const lastSegment = url.split('/').pop();
-                            console.log(lastSegment);
 
-                            const targetTab = document.querySelector(targetTabId);
-                            console.log("Response Data:", data);  // Log the full response data
+         // Fetch tab content via AJAX
+         function fetchTabContent(url, targetTabId) {
 
-                            if (targetTab) {
-                                targetTab.classList.add('show', 'active');  // Make tab content visible
-                            }
+            console.log(url);
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
 
-                            if(lastSegment == 'logo-icon'){
-                            // Handle logo and favicon
-                            if (data.logo) {
-                                document.getElementById('logoPreview').src = '{{ asset('storage/') }}/' + data.logo;
-                            }
 
-                            if (data.favicon_icon) {
-                                document.getElementById('faviconPreview').src = '{{ asset('storage/') }}/' + data.favicon_icon;
-                            }
+                        const lastSegment = url.split('/').pop();
+                        console.log(lastSegment);
+
+                        const targetTab = document.querySelector(targetTabId);
+                        console.log("Response Data:", data);  // Log the full response data
+
+                        if (targetTab) {
+                            targetTab.classList.add('show', 'active');  // Make tab content visible
                         }
-                        if(lastSegment == 'social-link'){
-                            // Check if socialList exists and is an array
-                            if (Array.isArray(data.socialList)) {
-                                populateSocialLinks(data.socialList);
-                            } else {
-                                console.error('socialList is not an array or is undefined', data.socialList);
-                            }
-                        }
-                        if(lastSegment == 'header-text'){
-                            // Safely access header title and subtitle
-                            const form = document.getElementById('hearderform');
-                            
-                            form.action = `{{ url('headerTextUpSetting') }}/${data.setting.id}`; 
-                            const setting = data.setting || {};
-                            document.querySelector('input[name="header_title"]').value = setting.header_title || '';
-                            document.querySelector('input[name="header_subtitle"]').value = setting.header_subtitle || '';
 
+                        if(lastSegment == 'logo-icon'){
+                        // Handle logo and favicon
+                        if (data.logo) {
+                            document.getElementById('logoPreview').src = '{{ asset('storage/') }}/' + data.logo;
                         }
-                        if(lastSegment == 'how-we-work'){
-                            // Populate how it works data if it exists
-                            const worksData = data.works.data; // Array of work items
 
+                        if (data.favicon_icon) {
+                            document.getElementById('faviconPreview').src = '{{ asset('storage/') }}/' + data.favicon_icon;
+                        }
+                    }
+                    if(lastSegment == 'social-link'){
+                        // Check if socialList exists and is an array
+                        if (Array.isArray(data.socialList)) {
+                            populateSocialLinks(data.socialList);
+                        } else {
+                            console.error('socialList is not an array or is undefined', data.socialList);
+                        }
+                    }
+                    if(lastSegment == 'header-text'){
+                        // Safely access header title and subtitle
+                        const form = document.getElementById('hearderform');
+                        
+                        form.action = `{{ url('headerTextUpSetting') }}/${data.setting.id}`; 
+                        const setting = data.setting || {};
+                        document.querySelector('input[name="header_title"]').value = setting.header_title || '';
+                        document.querySelector('input[name="header_subtitle"]').value = setting.header_subtitle || '';
+
+                    }
+                    if(lastSegment == 'how-we-work'){
+                        // Populate how it works data if it exists
+                        const worksData = data.works.data; // Array of work items
+
+                        const settingData = data.setting;
+
+                        if (Array.isArray(worksData) && typeof settingData === 'object' && settingData !== null) {
+                    populateHowWorkData(worksData, settingData);
+                        } else {
+                            console.error('howWorkData is not an array or is undefined', worksData);
+                        }
+                    }
+                    if (lastSegment === 'service') {
+                        // Populate how it works data if it exists
+                        const servicesData = data.services.data; // Array of service items
+                        const settingData = data.setting;
+
+                        if (Array.isArray(servicesData) && typeof settingData === 'object' && settingData !== null) {
+                            populateServiceData(servicesData, settingData);
+                        } else {
+                            console.error('servicesData is not an array or is undefined', servicesData);
+                        }
+                    }
+                    if(lastSegment == 'counter'){
+                        const CounterData = data.setting;
+
+
+                        if (typeof CounterData === 'object' && CounterData !== null) {
+                            populateCounterData(CounterData);
+                        } else {
+                            console.error('CounterData is not an array or is undefined', CounterData);
+                        }
+                    }
+                    if(lastSegment == 'testimonial'){
+
+                            // Populate how it testimonials  if it exists
+                            const testimonialsData = data.testimonials.data; // Array of service items
                             const settingData = data.setting;
 
-                            if (Array.isArray(worksData) && typeof settingData === 'object' && settingData !== null) {
-                           populateHowWorkData(worksData, settingData);
-                            } else {
-                                console.error('howWorkData is not an array or is undefined', worksData);
-                            }
-                        }
-                        if (lastSegment === 'service') {
-                            // Populate how it works data if it exists
-                            const servicesData = data.services.data; // Array of service items
-                            const settingData = data.setting;
-
-                            if (Array.isArray(servicesData) && typeof settingData === 'object' && settingData !== null) {
-                                populateServiceData(servicesData, settingData);
-                            } else {
-                                console.error('servicesData is not an array or is undefined', servicesData);
-                            }
-                        }
-                        if(lastSegment == 'counter'){
-                            const CounterData = data.setting;
-
-
-                            if (typeof CounterData === 'object' && CounterData !== null) {
-                                populateCounterData(CounterData);
-                            } else {
-                                console.error('CounterData is not an array or is undefined', CounterData);
-                            }
-                        }
-                        if(lastSegment == 'testimonial'){
-
-                                 // Populate how it testimonials  if it exists
-                                const testimonialsData = data.testimonials.data; // Array of service items
-                                const settingData = data.setting;
-
-                                    if (Array.isArray(testimonialsData) && typeof settingData === 'object' && settingData !== null) {
-                                        populateTestimonials(testimonialsData, settingData);
-                                    } else {
-                                        console.error('testimonialsData is not an array or is undefined', AboutUsData);
-                                    }
+                                if (Array.isArray(testimonialsData) && typeof settingData === 'object' && settingData !== null) {
+                                    populateTestimonials(testimonialsData, settingData);
+                                } else {
+                                    console.error('testimonialsData is not an array or is undefined', AboutUsData);
                                 }
-
-                        if(lastSegment == 'aboutus'){
-
-                            const AboutUsData = data.setting;
-
-                            if (typeof AboutUsData === 'object' && AboutUsData !== null) {
-                                populateAboutUsData(AboutUsData);
-                            } else {
-                                console.error('AboutUsData is not an array or is undefined', AboutUsData);
                             }
-                        }
 
-                        if (lastSegment == 'footer-setting') {
-                            const FooterData = data.settings;
+                    if(lastSegment == 'aboutus'){
 
-                            if (FooterData && typeof FooterData === 'object') {
-                                populateFooterData(FooterData);
-                            } else {
-                                console.error('FooterData is not an object or is undefined', FooterData);
-                            }
+                        const AboutUsData = data.setting;
+
+                        if (typeof AboutUsData === 'object' && AboutUsData !== null) {
+                            populateAboutUsData(AboutUsData);
+                        } else {
+                            console.error('AboutUsData is not an array or is undefined', AboutUsData);
                         }
-                        })
-                        .catch(error => {
-                            console.error('Error fetching content:', error);
-                            // Handle error, e.g., display a message in the target tab
-                        });
-                }
+                    }
+
+                    if (lastSegment == 'footer-setting') {
+                        const FooterData = data.settings;
+
+                        if (FooterData && typeof FooterData === 'object') {
+                            populateFooterData(FooterData);
+                        } else {
+                            console.error('FooterData is not an object or is undefined', FooterData);
+                        }
+                    }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching content:', error);
+                        // Handle error, e.g., display a message in the target tab
+                    });
+            }
+
+
+
+
+
+            function editSocial(id) {
+                        // Get the social link data by ID (you can modify this part based on your actual data)
+                        const socialLink = socialList.find(s => s.id === id);
+
+                        // Populate the modal fields with the data
+                        document.getElementById('editSocialId').value = socialLink.id;
+                        document.getElementById('editSocialName').value = socialLink.name;
+                        document.getElementById('editSocialCode').value = socialLink.code;
+                        document.getElementById('editSocialLink').value = socialLink.link;
+
+                        // Show the modal
+                        $('#editSocialModal').modal('show');
+                    }
+
+                    function saveSocialChanges() {
+                        const id = document.getElementById('editSocialId').value;
+                        const name = document.getElementById('editSocialName').value;
+                        const code = document.getElementById('editSocialCode').value;
+                        const link = document.getElementById('editSocialLink').value;
+
+                        // Logic to save the edited social link data (make an AJAX request or handle accordingly)
+                        console.log('Saving social link with ID:', id);
+                        console.log('Name:', name, 'Code:', code, 'Link:', link);
+
+                        // Hide the modal after saving
+                        $('#editSocialModal').modal('hide');
+                    }
 
 
             // Function to populate social links
@@ -341,6 +387,19 @@ document.addEventListener('DOMContentLoaded', function () {
                     tableBody.innerHTML += row;
                 });
             }
+
+
+            function deleteSocial(id) {
+                if (confirm('{{ __('theme.confirm_delete') }}')) {
+                    // Proceed with deletion
+                    console.log('Deleting social link with ID:', id);
+
+                    // Logic to delete the social link (make an AJAX request or handle accordingly)
+                } else {
+                    console.log('Deletion canceled');
+                }
+            }
+
 
             // Function to populate how it works data
             function populateHowWorkData(worksData, settingData) {
@@ -421,10 +480,26 @@ document.addEventListener('DOMContentLoaded', function () {
             }
 
 
+
+            function editWork(testimonialId) {
+                const testimonial = testimonialsData.find(item => item.id === testimonialId);
+
+                if (testimonial) {
+                    document.querySelector('input[name="testimonial_title"]').value = testimonial.name || '';
+                    document.querySelector('textarea[name="testimonial_details"]').value = testimonial.comment || '';
+                    document.querySelector('input[name="id"]').value = testimonial.id; // Hidden ID field
+
+                    // Dynamically set the form action URL with testimonial ID
+                    document.querySelector('#testimonialForm').action = `/testimonial/${testimonial.id}`;
+                } else {
+                    console.error('Testimonial not found!');
+                }
+            }
+
+
             //populate testimonials data 
 
             function populateTestimonials(testimonialsData, settingData) {
-                console.log(settingData);
 
                 const testimonialTitleInput = document.querySelector('input[name="testimonial_title"]');
                 const testimonialDetailsInput = document.querySelector('textarea[name="testimonial_details"]'); // Changed to textarea
@@ -463,6 +538,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     TestimonialsTableBody.innerHTML += row;
                 });
             }
+
             function populateCounterData(counterData)
             {
 
@@ -550,24 +626,17 @@ document.addEventListener('DOMContentLoaded', function () {
                     console.log(idField.value);
                 }
 
-
-
-
                 function submitForm(event, form) {
                     event.preventDefault(); // Prevent default form submission
 
                     const formData = new FormData(form);
 
-                    // Log the form data before submission
+                    // Log form data before submission
                     console.log('FormData before submission:');
                     formData.forEach((value, key) => {
                         console.log(key + ': ' + value);
                     });
 
-                    // Ensure the id is correctly captured from the form
-                    console.log('Captured id:', form.querySelector('input[name="id"]').value);
-
-                    // Proceed with the request if formData looks correct
                     const options = {
                         method: 'POST',
                         body: formData,
@@ -592,19 +661,6 @@ document.addEventListener('DOMContentLoaded', function () {
                             alert('There was an error updating the settings.');
                         });
                 }
-
-
-    function previewImage(event, previewId) {
-    const reader = new FileReader();
-    reader.onload = function(){
-        const output = document.getElementById(previewId);
-        output.src = reader.result;
-    };
-    reader.readAsDataURL(event.target.files[0]);
-}
-
-});
-
 
 
 </script>

@@ -6,14 +6,14 @@
         <div class="col-md-4">
             <div class="mb-4">
                 <div class="card-body">
-                    <form action="{{ route('setting.testimonialUpdate') }}" method="post" onsubmit="submitForm(event, this)" >
+                    <form  id= "testimonialForm" method="post" onsubmit="submitForm(event, this)" >
                         @csrf
                         @method('PUT')
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="testimonial_title"><strong>{{ __('theme.title') }}</strong></label>
                                 <input class="form-control mb-3 {{ $errors->has('testimonial_title') ? ' is-invalid' : '' }}" name="testimonial_title" value=""  type="text" required>
-                                <input class="form-control mb-3" name="id" value=""  type="hidden">
+                                <input class="form-control mb-3" name="id" type="hidden"> <!-- Hidden ID Field -->
                                 @if ($errors->has('testimonial_title'))
                                     <span class="invalid-feedback d-block">
                                         <strong>{{ $errors->first('testimonial_title') }}</strong>
@@ -117,3 +117,5 @@
             </div>
         </div>
 </div>
+
+
