@@ -1,7 +1,7 @@
 
 <div class="container-fluid mt-3">
   
-    <div class="card mb-4">
+    <div class=" mb-4">
         <div class="">
         </div>
         <div class="datatable mt-5 ml-4 mr-4">
