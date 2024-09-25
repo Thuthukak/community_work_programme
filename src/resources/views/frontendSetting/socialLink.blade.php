@@ -70,3 +70,39 @@
     </div>
 </div>
 
+<!-- Edit Social Link Modal -->
+<div class="modal fade" id="editSocialModal" tabindex="-1" role="dialog" aria-labelledby="editSocialModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editSocialModalLabel">{{ __('theme.edit_social_link') }}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="editSocialForm">
+          <input type="hidden" id="editSocialId">
+          <div class="form-group">
+            <label for="editSocialName">{{ __('theme.name') }}</label>
+            <input type="text" class="form-control" id="editSocialName" required>
+          </div>
+          <div class="form-group">
+            <label for="editSocialCode">{{ __('theme.code') }}</label>
+            <input type="text" class="form-control" id="editSocialCode" required>
+          </div>
+          <div class="form-group">
+            <label for="editSocialLink">{{ __('theme.link') }}</label>
+            <input type="url" class="form-control" id="editSocialLink" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ __('theme.close') }}</button>
+        <button type="button" class="btn btn-primary" onclick="saveSocialChanges()">{{ __('theme.save_changes') }}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+

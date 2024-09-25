@@ -21,6 +21,7 @@ use Database\Seeders\CRM\Contact\ContactTypesTableSeeder;
 use Database\Seeders\CRM\priorities\PrioritiesTableSeeder;
 use Database\Seeders\CRM\Activity\ActivityTypesTableSeeder;
 use Database\Seeders\CRM\Contact\PhoneEmailTypeSeeder;
+use  Database\Seeders\CRM\EmailTemplate\EmailTemplateTableSeed;
 use Database\Seeders\CRM\Template\TemplateTableSeeder;
 use Database\Seeders\CRM\Companies\CompaniesTableSeeder;
 use Database\Seeders\CRM\Country\CountrySeeder;
@@ -43,6 +44,7 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
         $this->disableForeignKeys();
+        $this->call(EmailTemplateTableSeed::class);
         $this->call(GeneralSettingTableSeeder::class);
         $this->call(TestimonialsTableSeeder::class);
         $this->call(SocialLinkTableSeeder::class);

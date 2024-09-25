@@ -2,8 +2,8 @@
 
 namespace  App\Models\CRM\Ticket\traits;
 
-use App\Models\EmailTemplate;
-use App\Models\GeneralSetting;
+use App\Models\CRM\Email\EmailTemplate;
+use App\Models\CRM\GeneralSettings\GeneralSetting;
 
 trait EmailTrait
 {

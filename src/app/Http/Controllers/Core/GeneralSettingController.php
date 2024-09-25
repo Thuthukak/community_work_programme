@@ -143,7 +143,6 @@ class GeneralSettingController extends Controller
 
     public function headerTextSettingUpdate(Request $request, GeneralSetting $setting)
     {
-
         $data = $request->all();
         $saved = $setting->update($data);
 
@@ -168,6 +167,7 @@ class GeneralSettingController extends Controller
 
     public function updateAboutUs(Request $request)
     {
+
         $request->validate([
             'aboutus_title' => 'max:255',
             'aboutus_details' => 'required',
@@ -180,6 +180,7 @@ class GeneralSettingController extends Controller
             $imageObj->resize(530, 400)->save(public_path('images/bg/about_details.jpg'));
         }
 
+        $request->merge(['id' => '1']);
         $id = $request->get('id');
         $setting = GeneralSetting::find($id);
         $data = $request->only('aboutus_title','aboutus_details');

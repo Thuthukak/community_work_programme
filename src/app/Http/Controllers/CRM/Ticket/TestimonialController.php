@@ -8,6 +8,8 @@ use Intervention\Image\Facades\Image;
 use App\Models\CRM\Testimonial\Testimonial;
 use App\Models\CRM\GeneralSettings\GeneralSetting;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
+
 
 class TestimonialController extends Controller
 {
@@ -35,6 +37,7 @@ class TestimonialController extends Controller
      */
     public function store(Request $request, Testimonial $testimonial)
     {
+
         $request->validate([
             'name' => 'required|max:255',
             'designation' => 'max:255',
@@ -42,6 +45,7 @@ class TestimonialController extends Controller
             'image' => 'required|image|mimes:jpeg,jpg,png',
         ]);
         $data = $request->all();
+
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -76,6 +80,7 @@ class TestimonialController extends Controller
         ]);
 
         $data = $request->all();
+        Log::info($request);
 
         if ($request->hasFile('image')) {
             if (!$testimonial->image == 'images/testimonials/testimonial.png'){

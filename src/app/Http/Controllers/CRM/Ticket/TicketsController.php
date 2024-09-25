@@ -6,6 +6,8 @@ use  App\Models\CRM\Company\Company;
 use App\Http\Controllers\Controller;
 use App\Models\CRM\Ticket\Ticket;
 // use App\Models\CustomField;
+use App\Models\CRM\Email\EmailTemplate;
+use Illuminate\Support\Str;
 use App\Notifications\CRM\Ticket\TicketNotification;
 use App\Models\CRM\Ticket\traits\EmailTrait;
 use App\Models\CRM\Departments\Department;
@@ -154,28 +156,27 @@ class TicketsController extends Controller
 
 	public function store(Request $request, AppMailer $mailer)
 	{
+
 	    $this->validate($request, [
             'title'     => 'required',
-            'department'  => 'required',
             'priority'  => 'required',
             'message'   => 'required'
         ]);
+        
 
 	    $authUser = Auth::user();
-
-
-	    $deptUser = Department::with('user')->findOrFail($request->input('department'));
 
         $ticket = new Ticket();
         $ticket->title = $request->input('title');
         $ticket->user_id = $authUser->id;
-        $ticket->ticket_id = strtoupper(str_random(10));
-        $ticket->department_id = $request->input('department');
+        $ticket->ticket_id = strtoupper(Str::random(10));
         $ticket->priority = $request->input('priority');
         $ticket->message = $request->input('message');
+        $ticket->company_id = 1;
         $ticket->status = "Pending";
 
         if ($ticket->save()) {
+
 
             // $this->customFieldStoreLogic($request, $ticket->id);
 
@@ -186,14 +187,13 @@ class TicketsController extends Controller
             $mailer->sendEmail($mailText,$authUser->email,$subject);
             $details = ['title' => $subject, 'ticket_id' => $ticket->ticket_id];
             // send notification
-            if ($deptUser->user->isNotEmpty()){
-                $deptUser->user[0]->notify(new TicketNotification($details));
-            }else{
-                $authUser->isAdmin()->notify(new TicketNotification($details));
+            if ($authUser->isAdmin()) {
+                $authUser->notify(new TicketNotification($details));  // Notify if admin
             }
             $notify = storeNotify('Ticket');
 
         }else{
+
             $notify = errorNotify("Ticket submit");
         }
 
@@ -202,14 +202,15 @@ class TicketsController extends Controller
 
 	public function show($ticket_id)
 	{
-	    $ticket = Ticket::with('ticketCustomField')->where('ticket_id', $ticket_id)->firstOrFail();
 
-        $comments = $ticket->comments;
+	    $ticket = Ticket::where('id', $ticket_id)->firstOrFail();
+
+        $message = $ticket->message;
 
 	    $department = $ticket->department;
 	    $departments = Department::all();
 
-	    return view('crm.tickets.show', compact('ticket', 'department', 'comments','departments'));
+	    return view('crm.tickets.show', compact('ticket', 'department', 'message','departments'));
 	}
 
 	public function close($ticket_id, AppMailer $mailer)
