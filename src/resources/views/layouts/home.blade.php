@@ -7,7 +7,11 @@
     <link rel="shortcut icon" href="{{ env('APP_URL').config('settings.application.company_icon') }}"/>
     <link rel="apple-touch-icon" href="{{ env('APP_URL').config('settings.application.company_icon') }}"/>
     <link rel="apple-touch-icon-precomposed" href="{{ env('APP_URL').config('settings.application.company_icon') }}"/>
+     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css">
 
+
+     
 
     <title>@yield('title') - {{ config('app.name') }}</title>
     @include('tickets.includes.head')
@@ -15,7 +19,8 @@
 </head>
 <body>
 
-@include('tickets.includes.navbar')
+<div class="hidden md:block"> @include('tickets.includes.navbar') </div>
+<div class="block md:hidden"> @include('tickets.includes.navbar-mobile') </div>
 
 <div id="app">
     <div class="container-scroller">

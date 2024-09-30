@@ -1,13 +1,13 @@
-<section id="banner">
+<section id="banner" class="banner-section">
     <div class="container">
 
         <div class="row">
-            <div class="col-md-5" data-aos="fade-down" data-aos-offset="200" data-aos-delay="20" data-aos-duration="700" data-aos-easing="ease-in-out"  data-aos-mirror="true">
+            <div class="col-md-5 col-12 text-center text-md-left" data-aos="fade-down" data-aos-offset="200" data-aos-delay="20" data-aos-duration="700" data-aos-easing="ease-in-out" data-aos-mirror="true">
                 <p class="banner-title">{{ $gs->header_title }}</p>
                 <p>{{ $gs->header_subtitle }}</p>
-                <a href="{{ url('add-new-ticket') }}"><i class="fa fa-ticket" aria-hidden="true"></i> {{ __('theme.submit_ticket') }}</a>
+                <a href="{{ url('add-new-ticket') }}" class="btn btn-primary mt-3 mb-3 md:mb-0"><i class="fa fa-ticket" aria-hidden="true"></i> {{ __('theme.submit_ticket') }}</a>
             </div>
-            <div class="col-md-7 mb-5">
+            <div class="col-md-7 col-12 mb-0 md:col-md-7 col-12 mb-5">
                 <!-- Carousel starts here -->
                 <div id="imageCarousel" class="carousel slide" data-ride="carousel">
                     <!-- Indicators -->
@@ -73,3 +73,30 @@
         </div>
     </div>
 </section>
+<style>
+    .banner-section {
+    margin-top: -30px; /* Adjust this value to control how much you want to push it up */
+}
+
+@media (max-width: 768px) {
+    .banner-section {
+        margin-top: -20px; /* For mobile devices, a slightly smaller negative margin */
+    }
+}
+
+.banner-title {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.carousel img {
+    max-height: 400px; /* Limit image height on mobile */
+}
+
+@media (max-width: 576px) {
+    .carousel img {
+        max-height: 250px; /* Further limit image height on smaller screens */
+    }
+}
+
+</style>
