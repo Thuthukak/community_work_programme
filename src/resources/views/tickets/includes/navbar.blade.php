@@ -1,6 +1,7 @@
 <section id="nav-bar">
     <nav class="navbar navbar-expand-lg navbar-light">
     <a class="navbar-brand" href="{{ url(env('APP_URL')) }}">
+
             @php
                 $logoUrl = isset($gs) && $gs->logo ? asset(symImagePath() . $gs->logo) : asset(env('APP_URL') . '/images/logo/wcp_logo_only_b&w.png');
             @endphp
@@ -32,9 +33,20 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('contactPage') }}">{{ __('theme.contact') }}</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('contactPage') }}">{{ __('theme.opportunities') }}</a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Opportunities
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: white; z-index: 1000;">
+                        <li>
+                            <a class="dropdown-item" href="{{ route('jobSeekerOpportunities') }}" style="color: black; background-color: white; padding: 10px;">{{ __('theme.job_seekers') }}</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('adminPosts') }}" style="color: black; background-color: white; padding: 10px;">{{ __('theme.employers') }}</a>
+                        </li>
+                    </ul>
                 </li>
+
                 @guest
                 <li class="nav-item nl-border">
                     <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#loginModal">{{ __('theme.login') }}</a>

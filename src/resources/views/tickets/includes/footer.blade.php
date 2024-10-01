@@ -13,23 +13,27 @@
 </section>
 
 <!--script-->
-<script src="src/public/js/app.js"></script>
+<script src="{{ asset('src/public/js/app.js') }}"></script>
 
 @yield('script')
 
 <!--- Smooth Scroll --->
-<script type="text/javascript" src="src/public/js/smooth-scroll.js"></script>
+<script type="text/javascript" src="{{ asset('src/public/js/smooth-scroll.js') }}"></script>
 <!-- scripts -->
-<script src="src/public/js/particles.js"></script>
-<script src="src/public/js/particles-app.js"></script>
+<script src= "{{ asset('src/public/js/particles.js') }}"></script>
+<script src="{{ asset('src/public/js/particles-app.js') }}"></script>
 <!-- stats.js -->
-<script src="src/public/js/stats.js"></script>
+<script src="{{ asset('src/public/js/stats.js') }}"></script>
 
-<script src="src/public/js/aos.js"></script>
-<script src="src/public/js/owl.carousel.min.js"></script>
-<script src="src/public/assets/js/tickets/toastr.min.js"></script>
-<script src="src/public/js/custom.js"></script>
-<script src="src/public/js/main.js"></script>
+<script src="{{ asset('src/public/js/aos.js') }} "></script>
+<script src="{{ asset('src/public/js/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('src/public/assets/js/tickets/toastr.min.js') }}"></script>
+<script src="{{ asset('src/public/js/custom.js') }}"></script>
+<script src="{{ asset('src/public/js/main.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+
+
 
 <!--toaster message-->
 @include('tickets.toasterMessage')

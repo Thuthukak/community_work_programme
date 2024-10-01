@@ -40,11 +40,11 @@
 @section('script')
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="src/public/tinymce/tinymce.min.js"></script>
-<script src="src/public/tinymce/script.js"></script>
+<script src="{{ asset('src/public/tinymce/tinymce.min.js') }}"></script>
+<script src="{{ asset('src/public/tinymce/script.js') }}"></script>
 
-<link rel="stylesheet" type="text/css" href="src/public/tinymce/skins/lightgray/content.min.css">
-<link rel="stylesheet" type="text/css" href="src/public/tinymce/skins/lightgray/skin.min.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('src/public/tinymce/skins/lightgray/content.min.css') }}">
+<link rel="stylesheet" type="text/css" href="{{ asset('src/public/tinymce/skins/lightgray/skin.min.css') }} ">
 
 
     <script>

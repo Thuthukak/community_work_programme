@@ -9,6 +9,7 @@ use App\Models\CRM\Deal\Deal;
 use App\Models\CRM\Follower\Follower;
 use App\Models\CRM\Person\Person;
 use App\Models\CRM\Phone\Phone;
+use App\Models\CRM\Opportunity\Opportunity;
 use App\Models\CRM\Email\Email;
 use App\Models\CRM\Traits\CustomFieldRelationshipTrait;
 use App\Models\CRM\Traits\EmailRelationshipTrait;
@@ -58,6 +59,10 @@ trait OrganizationRelationshipsTrait
     public function deals()
     {
         return $this->morphMany(Deal::class, 'contextable');
+    }
+    public function opportunity()
+    {
+        return $this->morphMany(Opportunity::class);
     }
 
     public function openDeals()

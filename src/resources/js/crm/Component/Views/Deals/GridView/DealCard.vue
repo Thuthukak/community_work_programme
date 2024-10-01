@@ -67,9 +67,9 @@
                 {{ deal.owner.full_name }}
               </p>
             </div>
-            <p class="mb-0 text-primary text-nowrap">
+            <!-- <p class="mb-0 text-primary text-nowrap">
               {{ numberWithCurrencySymbol(deal.value) }}
-            </p>
+            </p> -->
           </div>
           <div class="d-flex align-items-center mt-3">
             <app-icon class="size-20 text-muted" name="briefcase" />

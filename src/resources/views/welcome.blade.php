@@ -4,10 +4,7 @@
 @section('style')
 
 @section('contents')
-    <!-- particles.js container -->
-    <div id="particles-js">
-  
-    </div>
+
 
     <!-- forms -->
 
@@ -23,6 +20,10 @@
 
     <!---how-work--->
     @include('tickets.howWork', ['works' => $works])
+
+
+    <!-- Opporties section -->
+
 
     <!---Service Section--->
     @include('tickets.services', ['services' => $services])

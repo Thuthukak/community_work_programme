@@ -1,4 +1,4 @@
-<div class="modal fade" id="registerModal" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true" style="z-index: 1041;" >
+<div class="modal fade" id="registerModal" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true" >
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -186,7 +186,7 @@
                 <div id="formFooter">
                     <div>
                         {{ __('theme.already_have_account') }}
-                        <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#loginModal">{{ __('theme.login') }}</a>
+                        <a class="nav-link" href="javascript:void(0);" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">{{ __('theme.login') }}</a>
                         </div>
                 </div>
             </div>

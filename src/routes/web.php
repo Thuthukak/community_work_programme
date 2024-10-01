@@ -19,8 +19,10 @@ use App\Http\Controllers\CRM\Contact\OrganizationController;
 use App\Models\Core\Auth\User;
 use App\Http\Controllers\Core\Auth\User\UserController;
 use App\Http\Controllers\CRM\Objectives\OkrController;
+use App\Http\Controllers\CRM\Opportunity\OpportunityController;
 use App\Http\Controllers\CRM\Objectives\KrController;
 use App\Http\Controllers\CRM\HowWeWork\HowWorkController;
+use App\Http\Controllers\CRM\JobFinder\OpportunityhomeController;
 use App\Http\Controllers\CRM\Service\ServiceController;
 use App\Http\Controllers\CRM\Ticket\TestimonialController;
 use App\Http\Controllers\CRM\Objectives\FollowController;
@@ -535,3 +537,68 @@ Route::delete('delete-message/{contact}', [InboxContactController::class, 'destr
 
 // Front End settings routes
 Route::get('/FrontEnd-Settings' ,[HomeController::class ,'frontend' ])->name('frontend-settings');
+
+// Opportunities routes 
+
+
+Route::get('Opportunities/', [OpportunityController::class, 'index'])->name('jobSeekerOpportunities');
+// web.php
+Route::get('/organizations/load-more/{offset}', [OpportunityController::class, 'loadMoreOrganizations']);
+
+Route::post('/opportunity/mail', [EmailController::class, 'send'])->name('mail');
+Route::get('/opportunity/show/{opportunity}', [OpportunityController::class, 'show'])->name('opportunity.show');
+Route::get('/Opportunity/create', [OpportunityController::class, 'create'])->name('opportunity.create');
+Route::post('/Opportunity/create', [OpportunityController::class, 'store'])->name('opportunity.store');
+Route::get('/Opportunity/{id}/edit', [OpportunityController::class, 'edit'])->name('opportunity.edit');
+Route::post('/Opportunity/{id}/edit', [OpportunityController::class, 'update'])->name('opportunity.update');
+Route::post('/Opportunity/{id}/delete', [OpportunityController::class, 'deleteJob'])->name('opportunity.delete');
+Route::get('/Opportunity/myjobs', [OpportunityController::class, 'myjob'])->name('myjobs');
+Route::get('/Opportunity/allOpportunities', [OpportunityController::class, 'allJobs'])->name('alljobs');
+Route::get('/Opportunity/applications', [OpportunityController::class, 'applicant'])->name('applicant');
+Route::get('/Opportunity/{id}/{job}', [OpportunityController::class, 'show'])->name('job.show');
+Route::get('/Opportunity/toggle/{id}', [OpportunityController::class, 'jobToggle'])->name('opportunity.toggle');
+
+ // All Categroy
+ Route::get('/OpportunityCategorie', [OpportunityhomeController::class, 'getAllCategory'])->name('adminCategory');
+ Route::get('/OpportunityCategorie/create', [OpportunityhomeController::class, 'categoryCreate'])->name('adminCatCreate');
+ Route::post('/OpportunityCategorie/create', [OpportunityhomeController::class, 'categoryStore'])->name('adminCatStore');
+ Route::get('/OpportunityCategorie/toggle/{id}', [OpportunityhomeController::class, 'categoryToggle'])->name('adminCatToggle');
+ Route::get('/OpportunityCategorie/edit/{id}', [OpportunityhomeController::class, 'editCategory'])->name('adminEditCat');
+ Route::post('/OpportunityCategorie/edit/{id}', [OpportunityhomeController::class, 'updateCategory'])->name('adminCatUpdate');
+ Route::post('/OpportunityCategorie/delete/{id}', [OpportunityhomeController::class, 'destroyCategory'])->name('adminCatDelete');
+
+ // All Categroy
+ Route::get('/OpportunityCategorie', [OpportunityhomeController::class, 'getAllCategory'])->name('adminCategory');
+ Route::get('/OpportunityCategorie/create', [OpportunityhomeController::class, 'categoryCreate'])->name('adminCatCreate');
+ Route::post('/OpportunityCategorie/create', [OpportunityhomeController::class, 'categoryStore'])->name('adminCatStore');
+ Route::get('/OpportunityCategorie/toggle/{id}', [OpportunityhomeController::class, 'categoryToggle'])->name('adminCatToggle');
+ Route::get('/OpportunityCategorie/edit/{id}', [OpportunityhomeController::class, 'editCategory'])->name('adminEditCat');
+ Route::post('/OpportunityCategorie/edit/{id}', [OpportunityhomeController::class, 'updateCategory'])->name('adminCatUpdate');
+ Route::post('/OpportunityCategorie/delete/{id}', [OpportunityhomeController::class, 'destroyCategory'])->name('adminCatDelete');
+ // Posts Route 
+ Route::get('/JobPosts', [OpportunityhomeController::class, 'getAllPosts'])->name('adminPosts');
+ Route::get('/JobPost/create', [OpportunityhomeController::class, 'postCreate'])->name('adminPostCreate');
+ Route::post('/JobPost/create', [OpportunityhomeController::class, 'postStore'])->name('adminPostStore');
+ Route::post('/JobPost/destroy', [OpportunityhomeController::class, 'postDestroy'])->name('adminPostDestroy');
+ Route::get('/JobPost/edit/{id}', [OpportunityhomeController::class, 'editPost'])->name('adminPostEdit');
+ Route::post('/JobPost/edit/{id}', [OpportunityhomeController::class, 'updatePost'])->name('adminPostUpdate');
+ Route::get('/JobPost/show/{id}', [OpportunityhomeController::class, 'showPost'])->name('adminPostShow');
+ 
+ Route::get('/JobPost/trash', [OpportunityhomeController::class, 'postTrash'])->name('adminPostTrash');
+ Route::get('/JobPost/trash/{id}', [OpportunityhomeController::class, 'postRestore'])->name('adminPostRestore');
+ 
+ Route::post('/JobPost/trash/permanant', [OpportunityhomeController::class, 'postDeletePermanantly'])->name('adminPostDelPermanent');
+ 
+ Route::get('/JobPost/toggle/{id}', [OpportunityhomeController::class, 'postToggle'])->name('adminPostToggle');
+
+ Route::get('/admins', [OpportunityhomeController::class, 'adminlist'])->name('dashboard.admin'); 
+ Route::get('/JobPost/show/{id}', [OpportunityhomeController::class, 'show'])->name('adminShow');
+ Route::get('/JobPost/create', [OpportunityhomeController::class, 'create'])->name('adminCreate');
+ Route::post('/JobPost/create', [OpportunityhomeController::class, 'jobStore'])->name('adminJobStore');
+ Route::get('/JobPost/edit/{id}', [OpportunityhomeController::class, 'edit'])->name('adminEdit');
+ Route::post('/JobPost/edit/{id}', [OpportunityhomeController::class, 'update'])->name('adminUpdate');
+ Route::get('/JobPost/featured/{id}', [OpportunityhomeController::class, 'jobFetureToggle'])->name('adminJobFeatureToggle');
+ Route::get('/JobPost/toggle/{id}', [OpportunityhomeController::class, 'jobToggle'])->name('adminJobToggle');
+
+ // Applicant
+Route::post('/applications/{id}', [OpportunityController::class, 'apply'])->name('opportunity.apply');

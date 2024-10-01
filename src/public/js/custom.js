@@ -42,5 +42,20 @@
         $('body,html').animate({
             scrollTop : 0                       // Scroll to top of body
         }, 1500);
+
+
     });
+
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+        dropdownItems.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                item.style.backgroundColor = '#f8f9fa'; // Light background on hover
+                item.style.color = 'black'; // Text color on hover
+            });
+            item.addEventListener('mouseleave', () => {
+                item.style.backgroundColor = 'white'; // Reset background
+                item.style.color = 'black'; // Reset text color
+            });
+        });
+        
 })(jQuery);

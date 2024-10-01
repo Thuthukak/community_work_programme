@@ -8,6 +8,7 @@ use App\Models\Core\Auth\Role;
 use App\Models\Core\Auth\SocialAccount;
 use App\Models\Core\Builder\Form\CustomFieldValue;
 use App\Models\Core\File\File;
+use App\Models\CRM\Opportunity\Opportunity;
 use App\Models\Core\Setting\Setting;
 use App\Models\Core\Traits\CreatedByRelationship;
 use App\Models\Core\Traits\StatusRelationship;
@@ -60,6 +61,12 @@ trait UserRelationship
     {
         return $this->hasOne(Profile::class);
     }
+
+    public function opportunities()
+        {
+            return $this->belongsToMany(Opportunity::class, 'opportunity_user', 'user_id', 'opportunity_id');
+        }
+
 
     public function profilePicture()
     {

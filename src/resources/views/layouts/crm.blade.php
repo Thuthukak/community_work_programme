@@ -8,7 +8,7 @@
     <link rel="apple-touch-icon" href="{{ env('APP_URL').config('settings.application.company_icon') }}"/>
     <link rel="apple-touch-icon-precomposed" href="{{ env('APP_URL').config('settings.application.company_icon') }}"/>
     <script src="{{ asset('src/public/tinymce/tinymce.min.js') }}"></script>
-    <script src="src/public/tinymce/script.js"></script>
+    <script src="{{ asset('src/public/tinymce/script.js') }}"></script>
     <title>@yield('title') - {{ config('app.name') }}</title>
     @include('layouts.includes.header')
 </head>
@@ -41,9 +41,9 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
-<script src="src/public/tinymce/tinymce.min.js"></script>
-<script src="src/public/tinymce/script.js"></script>
-<script src="src/public/assets/js/tickets/daterangepicker.min.js"></script>
+<script src="{{ asset('src/public/tinymce/tinymce.min.js') }}"></script>
+<script src="{{ asset('src/public/tinymce/script.js') }}"></script>
+<script src=" {{ asset('src/public/assets/js/tickets/daterangepicker.min.js') }}"></script>
 <link rel="stylesheet" type="text/css" href="src/public/tinymce/skins/lightgray/content.min.css">
 <link rel="stylesheet" type="text/css" href="src/public/tinymce/skins/lightgray/skin.min.css">
 <link rel="stylesheet" type="text/css" href="src/public/assets/css/daterangepicker.css" />

@@ -15,13 +15,12 @@
     <link rel="stylesheet" type="text/css" media="screen" href="css/style.css">
     <link rel="stylesheet" type="text/css" media="screen" href="css/home-page.css">
 
-    <link rel="stylesheet" href="src/public/bootstrap-4.0.0/css/bootstrap.css">
-
-
-    <link rel="stylesheet" href="src/public/font-awesome-4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="src/public/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="src/public/css/owl.theme.default.min.css">
-    <link rel="stylesheet" type="text/css" href="src/public/assets/css/toastr.min.css">
+    <link rel="stylesheet" href="{{ asset('src/public/bootstrap-4.0.0/css/bootstrap.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('src/public/font-awesome-4.7.0/css/font-awesome.css') }}">
+    <link rel="stylesheet" href="{{ asset('src/public/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('src/public/css/owl.theme.default.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('src/public/assets/css/toastr.min.css') }}">
 
     @yield('style')
 </head>

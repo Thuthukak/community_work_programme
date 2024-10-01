@@ -12,15 +12,14 @@ Vue.component(
 );
 
 Vue.component(
-    "projects",
-    require("./Component/Views/project/Projects").default
+    "apply-component",
+    require("./Component/Views/apply/ApplyComponent").default
 );
 
 Vue.component(
-    "ProjectJobs",
-    require("./Component/Views/project/ProjectJobs").default
+    "favorite-component",
+    require("./Component/Views/apply/FavoriteComponent").default
 );
-
 Vue.component(
     "indexNavTabs",
     require("./Component/Views/project/indexNavTabs").default
