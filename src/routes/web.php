@@ -576,13 +576,15 @@ Route::get('/Opportunity/toggle/{id}', [OpportunityController::class, 'jobToggle
  Route::post('/OpportunityCategorie/edit/{id}', [OpportunityhomeController::class, 'updateCategory'])->name('adminCatUpdate');
  Route::post('/OpportunityCategorie/delete/{id}', [OpportunityhomeController::class, 'destroyCategory'])->name('adminCatDelete');
  // Posts Route 
+ Route::get('/PostOpportunity', [OpportunityhomeController::class, 'index'])->name('employee');
+
  Route::get('/JobPosts', [OpportunityhomeController::class, 'getAllPosts'])->name('adminPosts');
- Route::get('/JobPost/create', [OpportunityhomeController::class, 'postCreate'])->name('adminPostCreate');
- Route::post('/JobPost/create', [OpportunityhomeController::class, 'postStore'])->name('adminPostStore');
  Route::post('/JobPost/destroy', [OpportunityhomeController::class, 'postDestroy'])->name('adminPostDestroy');
  Route::get('/JobPost/edit/{id}', [OpportunityhomeController::class, 'editPost'])->name('adminPostEdit');
  Route::post('/JobPost/edit/{id}', [OpportunityhomeController::class, 'updatePost'])->name('adminPostUpdate');
  Route::get('/JobPost/show/{id}', [OpportunityhomeController::class, 'showPost'])->name('adminPostShow');
+ Route::post('/JobPost/create', [OpportunityhomeController::class, 'postStore'])->name('OpportunityPostStore');
+
  
  Route::get('/JobPost/trash', [OpportunityhomeController::class, 'postTrash'])->name('adminPostTrash');
  Route::get('/JobPost/trash/{id}', [OpportunityhomeController::class, 'postRestore'])->name('adminPostRestore');
@@ -591,14 +593,7 @@ Route::get('/Opportunity/toggle/{id}', [OpportunityController::class, 'jobToggle
  
  Route::get('/JobPost/toggle/{id}', [OpportunityhomeController::class, 'postToggle'])->name('adminPostToggle');
 
- Route::get('/admins', [OpportunityhomeController::class, 'adminlist'])->name('dashboard.admin'); 
- Route::get('/JobPost/show/{id}', [OpportunityhomeController::class, 'show'])->name('adminShow');
- Route::get('/JobPost/create', [OpportunityhomeController::class, 'create'])->name('adminCreate');
- Route::post('/JobPost/create', [OpportunityhomeController::class, 'jobStore'])->name('adminJobStore');
- Route::get('/JobPost/edit/{id}', [OpportunityhomeController::class, 'edit'])->name('adminEdit');
- Route::post('/JobPost/edit/{id}', [OpportunityhomeController::class, 'update'])->name('adminUpdate');
- Route::get('/JobPost/featured/{id}', [OpportunityhomeController::class, 'jobFetureToggle'])->name('adminJobFeatureToggle');
- Route::get('/JobPost/toggle/{id}', [OpportunityhomeController::class, 'jobToggle'])->name('adminJobToggle');
+
 
  // Applicant
 Route::post('/applications/{id}', [OpportunityController::class, 'apply'])->name('opportunity.apply');

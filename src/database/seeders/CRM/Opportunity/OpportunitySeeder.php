@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders\CRMOpportunity;
+namespace Database\Seeders\CRM\Opportunity;
 
 use Illuminate\Database\Seeder;
 

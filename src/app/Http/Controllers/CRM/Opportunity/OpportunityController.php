@@ -59,9 +59,6 @@ class OpportunityController extends Controller
         return response()->json($organizations);
     }
     
-
-
-
     /**
      * Show the form for creating a new resource.
      */

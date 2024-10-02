@@ -25,6 +25,7 @@ use Database\Seeders\CRM\EmailTemplate\EmailTemplateTableSeed;
 use Database\Seeders\CRM\OpportunityCategory\OpportunityCategoryTableSeeder;
 use Database\Seeders\CRM\Template\TemplateTableSeeder;
 use Database\Seeders\CRM\Companies\CompaniesTableSeeder;
+use App\Models\CRM\JobPost\JobPost;
 use Database\Seeders\CRM\Country\CountrySeeder;
 use Database\Seeders\CRM\GeneralSettings\GeneralSettingTableSeeder;
 use Database\Seeders\CRM\HowWorks\HowWorkTableSeeder;
@@ -45,6 +46,8 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
         $this->disableForeignKeys();
+
+        JobPost::factory(50)->create();
         $this->call(OpportunityCategoryTableSeeder::class);
         $this->call(EmailTemplateTableSeed::class);
         $this->call(GeneralSettingTableSeeder::class);

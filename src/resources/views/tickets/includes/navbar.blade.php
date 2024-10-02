@@ -42,7 +42,7 @@
                             <a class="dropdown-item" href="{{ route('jobSeekerOpportunities') }}" style="color: black; background-color: white; padding: 10px;">{{ __('theme.job_seekers') }}</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="{{ route('adminPosts') }}" style="color: black; background-color: white; padding: 10px;">{{ __('theme.employers') }}</a>
+                            <a class="dropdown-item" href="{{ route('employee') }}" style="color: black; background-color: white; padding: 10px;">{{ __('theme.employers') }}</a>
                         </li>
                     </ul>
                 </li>

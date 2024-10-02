@@ -5,6 +5,8 @@
 
 @section('contents')
 
+@include('tickets.banner')
+
     <div class="container">
     <!-- Opportunities Section -->
     <div class="row">
