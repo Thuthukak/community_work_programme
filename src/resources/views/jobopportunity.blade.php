@@ -50,7 +50,10 @@
             <div class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h5 class="card-title">{{ $organization->name ?? 'No name available' }}</h5>
+
+                         <a href="{{ route('organizations.edit', $organization->id) }}">
+                            {{ $organization->name }}
+                        </a>
                         <p class="card-text"><strong>Address:</strong> {{ $organization->address ?? 'No address available' }}</p>
                     </div>
                 </div>
@@ -66,44 +69,6 @@
             </div>
         </div>
     @endif
-
-    </div>
-
-
-      <!-- Categories Section -->
-      <div class="row">
-        <div class="col-12">
-            <h2 class="text-center mb-4">Categories</h2>
-        </div>
-        </div>
-
-        <div class="row">
-            @if($categories->count())
-                @foreach($categories as $category)
-                <div class="col-md-4">
-                    <div class="card mb-4">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $category->name }}</h5>
-                            <p class="card-text"><strong>Slug:</strong> {{ $category->slug }}</p>
-                        </div>
-                    </div>
-                </div>
-                @endforeach
-            @else
-                <div class="col-12">
-                    <p class="text-center">No categories available at the moment.</p>
-                </div>
-            @endif
-        </div>
-
-        @if($categories->count() >= 8)
-        <div class="row">
-            <div class="col-12 text-center">
-                <button id="load-more" class="btn btn-primary">Show More</button>
-            </div>
-        </div>
-    @endif
-
-    </div>
+</div>
  @endsection
 

@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="newOpportunityModalLabel">Apply for Opportunity</h5>
+                <h5 class="modal-title" id="newOpportunityModalLabel">Create a new Opportunity</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -13,20 +13,14 @@
 
 <div class="card bg-white">
     <div class="card-body mt-5 mb-5">
-
-
     <form action="{{ route('opportunity.store') }}" method="post">
                     @csrf
                     <div class="card">
-                        <div class="card-header">
-                            <h3>Create a new Opportunity</h3>
-                        </div>
-        
                         <div class="card-body">
 
                             <div class="form-group">
                                 <label for="title">Title:</label>
-                                <input type="text" name="title" value="{{ old('title') }}" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}">
+                                <input type="text" name="title" value="{{ old('title') }}" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" required>
                                 @if ($errors->has('title'))
                                     <div style="color:red">
                                         <p class="mb-0">{{ $errors->first('title') }}</p>
@@ -36,7 +30,7 @@
                             </div>
                             <div class="form-group mt-3">
                                 <label for="position">Position:</label>
-                                <input type="text" name="position" value="{{ old('position') }}" class="form-control{{ $errors->has('position') ? ' is-invalid' : '' }}">
+                                <input type="text" name="position" value="{{ old('position') }}" class="form-control{{ $errors->has('position') ? ' is-invalid' : '' }}" required>
                                 @if ($errors->has('position'))
                                     <div style="color:red">
                                         <p class="mb-0">{{ $errors->first('position') }}</p>
@@ -46,7 +40,7 @@
                             </div>
                             <div class="form-group mt-3">
                                 <label for="experience">Year of experience:</label>
-                                <input type="text" name="experience" class="form-control{{ $errors->has('experience') ? ' is-invalid' : '' }}"  value="{{ old('experience') }}">
+                                <input type="text" name="experience" class="form-control{{ $errors->has('experience') ? ' is-invalid' : '' }}"  value="{{ old('experience') }}" required>
                                 @if ($errors->has('experience'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('experience') }}</strong>
@@ -56,7 +50,7 @@
         
                             <div class="form-group mt-3">
                                 <label for="type">Job Type: </label>
-                                <select name="type" id="type" class="form-control">
+                                <select name="type" id="type" class="form-control" required>
                                     <option value="fulltime">Fulltime</option>
                                     <option value="partime">Partime</option>
                                     <option value="remote">Remote</option>
@@ -70,7 +64,7 @@
                             </div>
                             <div class="form-group mt-3">
                                 <label for="category">Category:</label>
-                                <select name="category" id="category" class="form-control">
+                                <select name="category" id="category" class="form-control" required >
                                     @foreach (App\Models\CRM\OppCategorie\OpportunityCategorie::all() as $cat)
                                     <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                                         
@@ -85,7 +79,7 @@
                             </div>
                             <div class="form-group mt-3">
                                 <label for="address">Address:</label>
-                                <input type="text" name="address" value="{{ old('address') }}" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}">
+                                <input type="text" name="address" value="{{ old('address') }}" class="form-control{{ $errors->has('address') ? ' is-invalid' : '' }}" required>
                                 @if ($errors->has('address'))
                                     <div style="color:red">
                                         <p class="mb-0">{{ $errors->first('address') }}</p>
@@ -96,7 +90,7 @@
         
                             <div class="form-group mt-3">
                                 <label for="roles">Role:</label>
-                                <textarea name="roles" id="roles" style="height: 80px" value="{{ old('roles') }}" class="form-control{{ $errors->has('roles') ? ' is-invalid' : '' }}" ></textarea>
+                                <textarea name="roles" id="roles" style="height: 80px" value="{{ old('roles') }}" class="form-control{{ $errors->has('roles') ? ' is-invalid' : '' }}" required ></textarea>
                                 @if ($errors->has('roles'))
                                     <div style="color:red">
                                         <p class="mb-0">{{ $errors->first('roles') }}</p>
@@ -105,7 +99,7 @@
                             </div>
                             <div class="form-group mt-3">
                                 <label for="description">Description:</label>
-                                <textarea name="description" id="description" style="height: 120px" value="{{ old('description') }}" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" ></textarea>
+                                <textarea name="description" id="description" style="height: 120px" value="{{ old('description') }}" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"  required></textarea>
                                 @if ($errors->has('description'))
                                     <div style="color:red">
                                         <p class="mb-0">{{ $errors->first('description') }}</p>
@@ -115,7 +109,7 @@
                             </div>
                             <div class="form-group mt-3">
                                 <label for="number_of_vacancy">No of vacancy:</label>
-                                <input type="text" name="number_of_vacancy" class="form-control{{ $errors->has('number_of_vacancy') ? ' is-invalid' : '' }}"  value="{{ old('number_of_vacancy') }}">
+                                <input type="text" name="number_of_vacancy" class="form-control{{ $errors->has('number_of_vacancy') ? ' is-invalid' : '' }}"  value="{{ old('number_of_vacancy') }}" required >
                                 @if ($errors->has('number_of_vacancy'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $errors->first('number_of_vacancy') }}</strong>
@@ -127,7 +121,7 @@
                 
                             <div class="form-group mt-3">
                                 <label for="type">Gender:</label>
-                                <select class="form-control" name="gender">
+                                <select class="form-control" name="gender" required>
                                     <option value="any">Any</option>
                                     <option value="male">male</option>
                                     <option value="female">female</option>
@@ -136,7 +130,7 @@
                 
                             <div class="form-group mt-3">
                                 <label for="type">Salary/year:</label>
-                                <select class="form-control" name="salary">
+                                <select class="form-control" name="salary" required >
                                     <option value="negotiable">Negotiable</option>
                                     <option value="2000-5000">2000-5000</option>
                                     <option value="50000-10000">5000-10000</option>
@@ -150,7 +144,7 @@
                 
                             <div class="form-group mt-3">
                                 <label for="status">Status: </label>
-                                <select name="status" id="status" class="form-control">
+                                <select name="status" id="status" class="form-control" required>
                                     <option value="1">Live</option>
                                     <option value="0">Draft</option>
                                 </select>
@@ -165,7 +159,7 @@
                             
                             <div class="form-group mt-3">
                                 <label for="last_date">Job apply last date:</label>
-                                <input type="date" name="last_date" value="{{ old('last_date') }}" class="form-control{{ $errors->has('last_date') ? ' is-invalid' : '' }}">
+                                <input type="date" name="last_date" value="{{ old('last_date') }}" class="form-control{{ $errors->has('last_date') ? ' is-invalid' : '' }}" required>
                                 @if ($errors->has('last_date'))
                                     <div style="color:red">
                                         <p class="mb-0">{{ $errors->first('last_date') }}</p>

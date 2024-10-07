@@ -546,9 +546,9 @@ Route::get('Opportunities/', [OpportunityController::class, 'index'])->name('job
 Route::get('/organizations/load-more/{offset}', [OpportunityController::class, 'loadMoreOrganizations']);
 
 Route::post('/opportunity/mail', [EmailController::class, 'send'])->name('mail');
-Route::get('/opportunity/show/{opportunity}', [OpportunityController::class, 'show'])->name('opportunity.show');
+Route::get('/opportunity/{opportunity}', [OpportunityController::class, 'show'])->name('opportunity.show');
 Route::get('/Opportunity/create', [OpportunityController::class, 'create'])->name('opportunity.create');
-Route::post('/Opportunity/create', [OpportunityController::class, 'store'])->name('opportunity.store');
+Route::post('/Opportunity/store', [OpportunityController::class, 'store'])->name('opportunity.store');
 Route::get('/Opportunity/{id}/edit', [OpportunityController::class, 'edit'])->name('opportunity.edit');
 Route::post('/Opportunity/{id}/edit', [OpportunityController::class, 'update'])->name('opportunity.update');
 Route::post('/Opportunity/{id}/delete', [OpportunityController::class, 'deleteJob'])->name('opportunity.delete');
@@ -592,6 +592,11 @@ Route::get('/Opportunity/toggle/{id}', [OpportunityController::class, 'jobToggle
  Route::post('/JobPost/trash/permanant', [OpportunityhomeController::class, 'postDeletePermanantly'])->name('adminPostDelPermanent');
  
  Route::get('/JobPost/toggle/{id}', [OpportunityhomeController::class, 'postToggle'])->name('adminPostToggle');
+
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('verification.notice');
 
 
 
