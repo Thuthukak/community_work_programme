@@ -77,10 +77,6 @@
         </tbody>
     </table>
 
-    <div class="create-project-btn ml-auto" style="left:0">
-         <button class="btn btn-warning btn-sm p-2" >{{ trans('View more...') }}</button>
-    </div>
-
     <!-- Job Posts Section -->
     <h2 class="center">Recent Job Posts</h2>
 
@@ -140,10 +136,6 @@
             @endforeach
         </tbody>
     </table>
-
-    <div class="View-more-Posts-btn ml-auto" style="left:0">
-         <button class="btn btn-warning btn-sm p-2"  >{{ trans('View more...') }}</button>
-    </div>
 </div>
 @endsection
 

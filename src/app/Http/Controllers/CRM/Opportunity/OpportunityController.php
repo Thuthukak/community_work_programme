@@ -52,11 +52,13 @@ class OpportunityController extends Controller
         return view('jobopportunity', compact('Opportunities','organizations', 'categories', 'jobposts', 'testimonial','gs'));
     }
 
-    public function loadMoreOrganizations($offset)
+    public function getAll()
     {
-        $organizations = Organization::skip($offset)->take(8)->get();
+        $Opportunities = Opportunity::all();
+        $gs = GeneralSetting::all()->first();
+
     
-        return response()->json($organizations);
+        return view('crm.opportunities.index', compact('Opportunities','gs'));
     }
     
     /**

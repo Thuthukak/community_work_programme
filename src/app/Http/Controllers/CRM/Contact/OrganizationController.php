@@ -11,6 +11,7 @@
     use App\Models\CRM\Import\OrganizationImport;
     use App\Models\CRM\Organization\Organization;
     use App\Models\CRM\Person\Person;
+    use App\Models\CRM\GeneralSettings\GeneralSetting;
     use App\Repositories\Core\Status\StatusRepository;
     use App\Services\CRM\Activity\ActivityService;
     use App\Services\CRM\Contact\OrganizationService;
@@ -55,6 +56,17 @@
                         \Request::get('per_page') ?? 15
                     )
                 );
+        }
+
+        public function getAll()
+        {
+            $organizations = Organization::all();
+            $gs = GeneralSetting::all()->first();
+
+            
+            return view('crm.organization.index', compact('organizations','gs'));
+
+
         }
 
             //get list of organization names and ids 

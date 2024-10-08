@@ -543,8 +543,9 @@ Route::get('/FrontEnd-Settings' ,[HomeController::class ,'frontend' ])->name('fr
 
 Route::get('Opportunities/', [OpportunityController::class, 'index'])->name('jobSeekerOpportunities');
 // web.php
-Route::get('/organizations/load-more/{offset}', [OpportunityController::class, 'loadMoreOrganizations']);
+Route::get('/Opportunities/all', [OpportunityController::class, 'getAll'])->name('opportunities');
 
+Route::get('Organization/all', [OrganizationController::class, 'getAll'])->name('organizations');
 Route::post('/opportunity/mail', [EmailController::class, 'send'])->name('mail');
 Route::get('/opportunity/{opportunity}', [OpportunityController::class, 'show'])->name('opportunity.show');
 Route::get('/Opportunity/create', [OpportunityController::class, 'create'])->name('opportunity.create');
