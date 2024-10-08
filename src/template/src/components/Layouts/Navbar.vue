@@ -182,6 +182,10 @@
                                 <div class="dropdown-divider"/>
                                 <a class="dropdown-item" href="/my-profile">
                                     <Icon class="mr-3" :name="'user'"/>
+                                    Home
+                                </a>
+                                <a class="dropdown-item" href="/my-profile">
+                                    <Icon class="mr-3" :name="'user'"/>
                                     My Profile
                                 </a>
                                 <a class="dropdown-item" href="#">

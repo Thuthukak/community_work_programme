@@ -11,6 +11,8 @@ use App\Hooks\User\CustomRoute;
 use Illuminate\Testing\Fluent\Concerns\Debugging; // Include the Debugging trait
 use Illuminate\Support\Stringable;
 // use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Log;
 
 
@@ -52,19 +54,32 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         try {
-            $this->service->login();
-            $route = CustomRoute::new(true)->handle();
-            $route = count($route) ? $route : home_route();
-            return route(
-                $route['route_name'],
-                $route['route_params']
-            );
+            // Validate the request credentials
+            $credentials = $request->only('email', 'password');
+
+            // Attempt to authenticate the user
+            if (Auth::attempt($credentials)) {
+                // Regenerate session to prevent session fixation attacks
+                $request->session()->regenerate();
+
+                // Redirect to the intended page or home page after login
+                return redirect()->intended(route('home'));
+            } else {
+                // If authentication fails, return back with an error message
+                return redirect()->back()->withErrors([
+                    'email' => 'Invalid credentials, please try again.',
+                ]);
+            }
         } catch (\Exception $exception) {
-            return response()->json([
-                'message' => $exception instanceof ModelNotFoundException ? trans('default.resource_not_found', ['resource' => trans('default.user')]) : $exception->getMessage()
-            ], 400);
+            // Handle exceptions, including ModelNotFoundException
+            return redirect()->back()->withErrors([
+                'message' => $exception instanceof ModelNotFoundException
+                    ? trans('default.resource_not_found', ['resource' => trans('default.user')])
+                    : $exception->getMessage(),
+            ]);
         }
     }
+
 
     public function logOut(): RedirectResponse
     {

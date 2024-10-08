@@ -18,6 +18,7 @@
                         :img="user.img"
                         alt-text="image"/>
         </a>
+        
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
             <div class="dropdown-item profile">
                 <app-avatar :title="user.full_name"
