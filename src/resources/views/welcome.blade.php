@@ -1,5 +1,5 @@
 @extends('layouts.home')
-@section('title', 'Dashboard 1')
+@section('title', 'Home')
 
 @section('style')
 
