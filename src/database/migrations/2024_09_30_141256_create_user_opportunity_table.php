@@ -13,7 +13,7 @@ class CreateUserOpportunityTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_opportunity', function (Blueprint $table) {
+        Schema::create('opportunit_user', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->integer('opportunity_id');
@@ -28,6 +28,6 @@ class CreateUserOpportunityTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_opportunity');
+        Schema::dropIfExists('opportunit_user');
     }
 }

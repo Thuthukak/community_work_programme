@@ -1,0 +1,27 @@
+{
+    "name": "niaz/dbpanel",
+    "description": "developer panel for laravel application",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "niaz",
+            "email": "md.amirozzaman@gmail.com"
+        }
+    ],
+    "require": {
+        "doctrine/dbal": "^2.10",
+        "jenssegers/agent": "^2.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Niaz\\DBpanel\\":"src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers":[
+                "Niaz\\DBpanel\\DBpanelServiceProvider"
+            ]
+        }
+    }
+}

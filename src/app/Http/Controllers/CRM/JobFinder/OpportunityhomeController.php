@@ -21,9 +21,8 @@ use Illuminate\Support\Facades\Storage;
 class OpportunityhomeController extends Controller
 {
     public function index(){
+
         $opportunities = Opportunity::all();
-
-
         $organizations = Organization::all();
         $featuredOpportunities = Opportunity::where('featured', 1)->get();
         $activeOpportunities = Opportunity::where('status', 1)->get();

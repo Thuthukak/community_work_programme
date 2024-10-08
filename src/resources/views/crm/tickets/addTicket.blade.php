@@ -9,7 +9,7 @@
                 </div>
                 <div class="modal-body">
                     <!-- Include the form here, ensure the form has id="customerform" -->
-                    @include('crm.tickets.create', ['departments' => $departments])
+                    @include('crm.tickets.create')
                 </div>
                 <div class="modal-footer">
                     <div class="row">

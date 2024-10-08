@@ -57,5 +57,6 @@ class SetupSeeder extends Seeder
         $this->call(CountrySeeder::class);
         $this->call(LostReasonsTableSeeder::class);
         $this->call(ContactTypesTableSeeder::class);
+        
     }
 }

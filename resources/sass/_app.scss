@@ -1,0 +1,1096 @@
+@import "core/variables";
+@import "core/theme-colors";
+
+:root {
+    --kanban-scrollbar-track: #{lighten($sidebar-scrollbar-thumb-color, 55%)};
+    --kanban-scrollbar-thumb: #{lighten($sidebar-scrollbar-thumb-color, 45%)};
+}
+
+[theme="dark"] {
+    --kanban-scrollbar-track: #{lighten($sidebar-scrollbar-thumb-color, 10%)};
+    --kanban-scrollbar-thumb: #{darken($sidebar-scrollbar-thumb-color, 5%)};
+}
+
+// Step input selector
+.step-input-selector {
+    .step-input {
+        width: 100%;
+        height: 40px;
+        background-color: var(--base-color);
+
+        &:hover {
+            color: $white;
+            background-color: $brand-color;
+        }
+
+        &.selected {
+            color: $white;
+            background-color: $brand-color;
+        }
+
+        &:first-child {
+            border-radius: $default-radius 0 0 $default-radius;
+        }
+
+        &:last-child {
+            border-radius: 0 $default-radius $default-radius 0;
+        }
+    }
+}
+
+// Tags add-edit component
+.tags-organizer {
+    .btn-remove-tag {
+        width: 13px;
+        height: 13px;
+        color: #313131;
+        margin-left: 15px;
+        font-size: inherit;
+        border-radius: 50%;
+        background-color: #f7f7f747;
+        cursor: pointer;;
+    }
+}
+
+// Kanban view design
+.kanban-wrapper {
+    display: flex;
+    padding: 0 0.5rem 0.5rem 0.5rem;
+
+    &.custom-scrollbar {
+        &::-webkit-scrollbar {
+            height: 12px !important;
+        }
+    }
+
+    .kanban-column {
+        width: 250px;
+        min-width: 250px;
+        background-color: var(--base-color);
+        margin-right: .5rem;
+
+        &:last-child {
+            padding-right: 0;
+        }
+
+        .kanban-draggable-column {
+            overflow-y: auto;
+            height: 600px;
+            //max-height: 600px;
+            //min-height: 300px;
+            padding: 0 5px;
+
+            .draggable-item {
+                cursor: move;
+
+                .card-body {
+                    padding: 1rem !important;
+                }
+            }
+
+            &::-webkit-scrollbar {
+                width: $default-scrollbar-width;
+                height: $default-scrollbar-width;
+            }
+
+            &::-webkit-scrollbar-track {
+                background: var(--kanban-scrollbar-track);
+            }
+
+            &::-webkit-scrollbar-thumb {
+                background: var(--kanban-scrollbar-thumb);
+            }
+        }
+
+        .draggable-action-wrapper {
+            padding: 5px;
+            bottom: 0;
+        }
+
+        .text-truncate {
+            padding-bottom: 2px;
+        }
+    }
+
+    .sortable-ghost {
+        opacity: 0.1 !important;
+    }
+
+    //.sortable-chosen {
+    //    opacity: 0.1;
+    //    background-color: lighten($brand-color, 10%) !important;
+    //}
+
+    .stage-header {
+        border-bottom: .5rem solid var(--default-card-bg);
+
+        .stage-information {
+            span {
+                display: flex;
+                font-size: 90%;
+                align-items: center;
+                margin-right: 12px;
+
+                &:before {
+                    content: '';
+                    width: 4px;
+                    height: 4px;
+                    border-radius: 50%;
+                    margin-right: 4px;
+                    display: inline-block;
+                    background-color: $text-muted;
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+
+    .btn-stage-action {
+        width: 100%;
+        //font-size: 90%;
+        display: flex;
+        color: $text-muted;
+        align-items: center;
+        justify-content: center;
+        //padding: 0.2rem 1.2rem;
+        background-color: var(--default-card-bg);
+        transition: color $default-transition-duration $action-transition-timing-function,
+        background-color $default-transition-duration $action-transition-timing-function;
+
+        svg {
+            width: 14px;
+            height: 14px;
+            stroke-width: 1.5;
+        }
+
+        &:hover {
+            color: $white;
+            background-color: $brand-color;
+        }
+    }
+}
+
+.add-new-stage {
+    padding: 0 0 .5rem 0;
+
+    .wrapper {
+        width: 250px;
+        min-width: 250px;
+        background-color: var(--base-color);
+    }
+}
+
+// Activity filters and list
+.activity-filter-wrapper {
+    .activity-filtered-result-wrapper {
+        .activity-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background-color: var(--icon-hover-bg);
+        }
+    }
+}
+
+//user profile activity log
+.user-profile-activity-log {
+    .activity-filter-wrapper {
+        .tab-filter-btn {
+            box-shadow: var(--default-box-shadow) !important;
+
+            &.text-primary {
+                &:focus {
+                    box-shadow: var(--default-box-shadow) !important;
+                }
+            }
+        }
+
+        .activity-filtered-result-wrapper {
+            .card {
+                height: initial !important;
+            }
+        }
+    }
+}
+
+// Deal details page
+.deal-details {
+    @media (max-width: 1200px) {
+        .border-right {
+            &.second-border {
+                border: 0 !important;
+            }
+        }
+    }
+    @media (max-width: 768px) {
+        .border-right {
+            &.first-border {
+                border: 0 !important;
+            }
+        }
+    }
+}
+
+//Tag type Column
+.tags-type-column {
+    width: 150px !important;
+
+    .dropdown {
+        .dropdown-menu {
+            width: 300px;
+        }
+    }
+}
+
+// use this class for badge if text is to long
+.badge-text-truncate {
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding-bottom: 2px;
+    padding-top: 2px;
+}
+
+.badge {
+    span {
+        font-size: 100%;
+    }
+}
+
+.reports-table-divider {
+    margin-right: -30px;
+    margin-left: -30px;
+}
+
+// For dashboard
+.dashboard-badge {
+    background-color: var(--base-color) !important;
+    color: $brand-color !important;
+    height: 40px !important;
+    font-size: 20px;
+    padding: 0.52em 0.95em !important;
+}
+
+.dashboard-circle-widget {
+    .card {
+        padding: 59px 0 !important;
+    }
+}
+
+.dashboard-without-icon-widget {
+    h6 {
+        font-size: 16px !important;
+    }
+}
+
+// Date picker disabled date color - Core
+.vc-text-gray-400 {
+    color: $sidebar-dark-menu-color !important;
+    opacity: .8 !important;
+    cursor: not-allowed !important;
+
+    &:hover {
+        background-color: transparent !important;
+    }
+}
+
+// for date filter calendar view - Override core
+
+@mixin calendar-position {
+    .calendar-root {
+        .calendar {
+            @media (max-width: 991px) {
+                left: 30px !important;
+            }
+            @media (max-width: 575px) {
+                left: 0 !important;
+            }
+            left: 260px !important;
+        }
+    }
+}
+
+.calendar-position-modified {
+    @include calendar-position;
+}
+
+.sidebar-icon-only {
+    .calendar-position-modified {
+        .calendar-root {
+            .calendar {
+                @media (min-width: 992px) {
+                    left: 100px !important;
+                }
+            }
+        }
+    }
+}
+
+.reports, .activities-calendar-view, .kanban-view {
+    .calendar-root {
+        .calendar {
+            @media (max-width: 575px) {
+                left: 0 !important;
+            }
+            left: 15px !important;
+        }
+    }
+}
+
+.search-filter-dropdown {
+    .dropdown {
+        div {
+            &[data-toggle="dropdown"] {
+                margin-bottom: 0 !important;
+                margin-top: 0 !important;
+            }
+        }
+    }
+}
+
+// Time picker dropdown menu position
+.time-picker-dd-pos {
+    .dropdown-menu {
+        left: initial !important;
+        right: 0 !important;
+    }
+
+    .time-picker-input .dropdown .dropdown-menu[x-placement^=bottom-start]:before {
+        left: initial !important;
+        right: 15px !important;
+    }
+}
+
+//Icon size style in deal details
+.person-icon {
+    svg {
+        height: 18px;
+        width: 18px;
+    }
+}
+
+.org-icon {
+    svg {
+        height: 18px;
+        width: 18px;
+    }
+}
+
+.reset-pass-message {
+    font-size: 13px;
+}
+
+//Quick viw modal
+.quick-view-modal {
+    background-color: var(--base-color) !important;
+}
+
+.modal {
+    .modal-dialog {
+        .modal-content {
+            .modal {
+                .modal-dialog {
+                    box-shadow: var(--default-box-shadow) !important;
+                }
+            }
+        }
+    }
+}
+
+// Proposal Kanban-View
+.proposal-kanban-view {
+    .kanban-wrapper .kanban-column {
+        width: 320px;
+        min-width: 320px;
+        // background: #f9f9f9;
+        background: #e8e8e8;
+    }
+    .kanban-wrapper .kanban-column .kanban-draggable-column {
+        padding-bottom: 3.2rem !important;
+    }
+    .kanban-wrapper .stage-header {
+        margin-left: 0rem;
+    }
+    .tags-background {
+        background: #fbfbfb;
+        padding: 0.5rem;
+    }
+    .media {
+        overflow: hidden;
+        position: relative;
+    }
+    hr {
+        margin: 0.5rem -1rem 0.1rem;
+    }
+    .draft-bg-color{
+        background-color: #f2ebe3f2 !important;
+    }
+}
+
+
+//project management
+
+.project-header {
+    margin: 30px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    
+}
+.create-action-btns {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+.dropdown-container{
+    display:flex;
+    justify-content: flex-end;
+    
+}
+
+.project-title {
+    font-size: 1.8 rem;
+    font-weight: 600;
+ 
+}
+
+.create-project-btn {
+    // Add your custom styles here
+    margin-right: auto;
+    
+}
+
+.project-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    
+
+    .index-nav-tabs {
+        display: flex;
+        gap: 1rem; /* Space between nav tabs */
+
+        a {
+            background-color: #ffffff;
+            border-radius: 9999px; /* Rounded pill shape */
+            padding: 0.5rem 1rem; /* Padding for the pills */
+            text-decoration: none; /* Remove underline */
+            color: inherit; /* Inherit text color */
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+        }
+
+        a.active {
+            background-color: #ff740b; /* Change the background color for active tab */
+            color: white;
+        }
+    }
+
+    .search-form {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-right: 50px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+        .relative {
+            position: relative;
+
+            .index-search-field {
+                padding-right: 2.5rem; /* Make space for the button inside */
+                border-radius: 9999px; /* Rounded pill shape */
+                max-width: 350px;
+                border: 1px solid #ccc;
+            }
+
+            .search-button {
+                position: absolute;
+                right: 0.5rem;
+                top: 50%;
+                transform: translateY(-50%);
+                border: none;
+                background: none;
+                cursor: pointer;
+                padding: 0;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 50%;
+
+                i {
+                    font-size: 1rem;
+                    color: #000; /* Icon color */
+                }
+            }
+        }
+
+        .btn {
+            margin-left: 0.5rem;
+        }
+    }
+}
+
+
+
+.project-table {
+    // Add your custom styles here
+    margin: 0px 0px 0px 20px;
+    .table {
+        &-condensed {
+            // Custom styles for table-condensed
+        }
+        &-hover {
+            // Custom styles for table-hover
+        }
+    }
+}
+.index-nav-tabs {
+    margin: 0px 0px 0px 20px;
+
+    .nav-link {
+        padding: 0.5rem 1rem;
+    }
+}
+
+.breadcrumb-item {
+    padding: 0.5rem 1rem;
+    border-radius: 9999px; // fully rounded corners
+    background-color: #ffffff; // Tailwind's gray-200
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    font-size: 0.875rem; // Tailwind's text-sm
+    font-weight: 600; // Tailwind's font-semibold
+    color: #374151; // Tailwind's gray-700
+    margin: 0px 20px 0px 0px;
+    
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 0.5rem; // Tailwind's space-x-2 equivalent
+}
+
+.btn-sm {
+    font-size: 0.875rem; // Tailwind's text-sm
+    padding: 0.5rem 0.75rem; // Tailwind's py-1 px-2
+}
+
+.create_table {
+    margin: 30px 60px 30px 30px;
+}
+
+.page-header {
+    // Add your custom styles here
+    margin:20px;
+    
+    
+}
+
+.create-project-title {
+    // Add your custom styles here
+    line-height: 0.5 rem !important;
+    
+}
+
+.task-header{
+    margin: 30px 60px 30px 30px;
+}
+.task-panel-heading{
+    margin: 30px 60px 30px 30px;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.justify-content-end {
+    justify-content: flex-end;
+}
+
+.space-x-2 > :not(:last-child) {
+    margin-right: 0.5rem; /* Adjust spacing as needed */
+}
+.mr-2 {
+    margin-right: 0.5rem;
+}
+
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+.well-sm {
+    padding: 0.5rem;
+}
+
+.form-inline {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.project-detail-panel {
+    margin: 20px;
+}
+
+.project-detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #ddd;
+}
+
+.header-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-right {
+    display: flex;
+    gap: 10px;
+}
+
+.project-detail-table {
+    width: 100%;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+}
+
+.project-detail-table td {
+    padding: 8px;
+    vertical-align: middle;
+    border-top: 1px solid #ddd;
+}
+
+.project-detail-table .text-right {
+    text-align: right;
+}
+
+.custom-panel-heading{
+    margin: 20px;
+}
+.showprojtable{
+    margin:10px;
+    background: white;
+    padding:2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+.text-black{
+    color: black;
+}
+.update-status{
+    
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.75rem;
+}
+
+// edit project
+.main-area{
+    margin: 20px;
+}
+
+.main-areabg {
+    margin: 3px;
+    background-color: #fff;
+    border-radius: 5px; /* Makes it pill-shaped */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow */
+    color: #333;
+    padding-top:10px;
+}
+.main-area-main{
+    margin: 10px;
+}
+
+//custom navtabs
+
+.nav-tabs {
+    display: flex;
+    list-style-type: none;
+    padding: 0;
+    margin: 20px;
+}
+
+.nav-tabs .nav-item {
+    margin-right: 5px;
+}
+
+.nav-tabs .nav-link {
+    background-color: #fff;
+    border-radius: 20px; /* Makes it pill-shaped */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow */
+    color: #333;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: #f0f0f0; /* Lighter background color on hover */
+}
+
+.nav-tabs .nav-item.active .nav-link {
+    background-color: #ff740b; /* Active tab background color */
+    color: #fff; /* Active tab text color */
+}
+
+.stats{
+    margin:-20px 10px 10px 10px;
+    background-color: white;
+    border-radius:5px;
+    padding: 10px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.stat-box{
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding:4px;
+}
+.job-link{
+    color: rgb(47, 47, 47); /* Default color is black */
+    text-decoration: none; /* Optional: remove underline */
+}
+
+/* Hover state link color */
+.job-link:hover {
+    color: #FC6510; /* Change color to orange on hover */
+}
+
+// tasks
+.no-task{
+    margin: 20px;
+}
+.action-buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 20px;
+}
+
+
+//issues
+.action-buttons-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.filter-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.droplist {
+    margin-right: 10px;
+    width: 200px !important; 
+    font-size: 0.875rem !important;    
+    padding: 0.5rem 0.5rem !important;
+}
+
+.create-button-wrapper {
+    margin-left: auto;
+}
+
+.issue-table{
+    margin:20px;
+
+}
+.hidden-print{
+    display: flex;
+    justify-content: flex-start;
+    gap: 20px;
+    align-items: center;
+    margin: 20px;
+}
+.form-inline{
+    margin: 20px;
+}
+.filter-heading{
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px;
+}
+.filter-task-progress{
+    margin-top: -10px;
+}
+.task-progress-table{
+    margin: 0px;
+}
+
+.progress-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px; /* Space between the progress text and button */
+}
+
+.progress-text {
+    white-space: nowrap; 
+    align-items: center;
+    margin-top: -8px;
+}
+
+.btns {
+    padding: 0.25rem 0.5rem; /* Adjust button padding as needed */
+    font-size: 0.9rem; /* Adjust font size to ensure the button doesn't get squished */
+    border-radius: 6px;
+    white-space: nowrap; /* Prevent line break between number and percentage sign */
+}
+.btn-blue{
+    background-color: #38a4f8;
+    color: white;
+
+    &:hover{
+        background-color: #098df4;
+        color: white;
+    }
+}
+.sort-job-btn{
+    background-color: #38a4f8;
+    color: white;
+    margin-left:630px;
+    font-size:14px;
+
+    &:hover{    
+        background-color: #098df4;
+        color: white;
+    }
+}
+.sort-task-btn{
+    background-color: #38a4f8;
+    color: white;
+    margin-left:600px;
+    margin-top: 5px;
+    
+
+    &:hover{    
+        background-color: #098df4;
+        color: white;
+    }
+}
+.custom-nav-link {
+    background-color: white;
+    border-radius: 50px; /* Makes the pill shape */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px; /* Adjust as needed for better spacing */
+    margin: 5px; /* Add margin to separate the pills */
+    color: #ff740b;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-nav-link:hover {
+    background-color: #f8f9fa; /* Light grey background on hover */
+    color: #0056b3; /* Darker blue on hover */
+}
+
+.nav-tabs .active .custom-nav-link {
+    background-color: #ff740b; /* Active tab background color */
+    color: white; /* Active tab text color */
+}
+.action-buttons .btn {
+    padding: 0.25rem 0.5rem; 
+    font-size: 0.875rem;  
+    margin-right:3px;  
+    justify-content:center;
+}
+.progress-slider2{
+    margin-top:35px;
+}
+.custom-formfield{
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+.action-btns-container{
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px; 
+}
+
+.wrap-action-btns{
+     display: flex;
+     justify-content: flex-end;
+     width: 100%; 
+     margin-left: 40px;
+}
+.action-btns-container2 {
+    display: flex;
+    gap: 10px; 
+}
+.pill-container {
+    width: fit-content;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    justify-content: flex-end;
+    background-color: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 50px;
+ }
+
+.heading-font{
+    font-family: "Poppins", sans-serif !important;
+}
+
+
+////////////   fonts  ////////////////////
+.custom-th{
+font-family: "Poppins", sans-serif !important;
+font-size: 0.935rem !important;
+font-weight:700 !important;
+color: #6c757d !important;
+}
+.custom-th2{
+    font-family: "Poppins", sans-serif !important;
+    font-size: 1rem !important;
+    font-weight:700 !important;
+    color: #6c757d !important;
+    
+    }
+.custom-page-header{
+    
+    font-family: "Poppins", sans-serif !important;
+    color:#374151 !important;
+    line-height:27px  !important  ;
+    font-weight:500 !important;      
+}
+.custom-tables{
+    background: white;
+    padding:2px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding-bottom: 50px;
+}
+.page-header-pill{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0.5rem;
+    border-radius: 9999px;
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding:10px;
+}
+
+.page-header-pill-layouts{
+    
+    justify-content:flex-start;
+    align-items: center;
+    
+    border-radius: 9999px; 
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding:10px;
+    display:inline-block;
+}
+.header-pill{
+    
+    width: fit-content;
+    align-items: left;
+    padding: 0.5rem 0.5rem;
+    border-radius: 9999px; 
+    background-color: #ffffff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding:10px;
+    margin:20px;
+}
+.custom-text-muted{
+    color: #afb1b6 !important;
+    font-family: "Poppins", sans-serif;
+    font-size: 0.935rem;
+}
+.table-wrapper{
+    margin:20px;
+    background: white;
+    
+    justify-content:center;
+    padding-bottom: 100px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    
+}
+.custom-container-wrapper{
+    margin:20px;
+    background: white;
+    
+    justify-content:center;
+    padding-bottom: 50px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    
+}
+.custom-container-wrapperxmargin{
+   
+    background: white;
+    
+    justify-content:center;
+    padding-bottom: 50px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    
+}
+.upload-wrapper{
+    margin:20px;
+    background: white;
+    justify-content:center;
+    
+    
+}
+.table-margin{
+    margin-left:20px;
+}
+.blacktext{
+  color: #212529;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.935rem;
+  padding: 0.55rem 1.2rem;
+}
+.custom-pill {
+    background-color: white;
+    border-radius: 50px; /* Makes the pill shape */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px; /* Adjust as needed for better spacing */
+    margin: 5px; /* Add margin to separate the pills */
+    color: #ff740b;
+    transition: background-color 0.3s, color 0.3s;
+    width:fit-content;
+}
+.fixed-pill {
+    display: inline-block;
+    width: 100px; /* Adjust this value as necessary */
+    text-align: center;
+    padding: 0.65em 0.6em;
+}
+.app-text{
+    font-size: 0.935rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+}
+.title-text{
+    font-size: 1.25rem;
+    font-family: "Poppins", sans-serif;
+    font-weight: 500;
+    line-height: 1.2;
+    color:#474747;
+}
+
+.hidden {
+    display: none;
+}
+/* Initially hide the buttons */
+.add-button {
+    opacity: 0;
+    transition: opacity 0.5s ease-in; /* Smooth transition for appearance */
+}
+
+/* Add a class that makes the buttons visible */
+.add-button.visible {
+    opacity: 1;
+}
+

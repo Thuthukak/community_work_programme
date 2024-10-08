@@ -76,7 +76,6 @@
             @endforeach
         </tbody>
     </table>
-
     <!-- Job Posts Section -->
     <h2 class="center">Recent Job Posts</h2>
 

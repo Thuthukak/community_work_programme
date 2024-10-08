@@ -127,6 +127,11 @@ export default {
                     optionIcon: "log-out",
                     url: route("auth.log_out"),
                 },
+                {
+                    optionName: this.$t("Home"),
+                    optionIcon: "home",
+                    url: route("homePage") ,
+                },
             ],
         };
     },

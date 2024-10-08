@@ -13,6 +13,7 @@ use App\Http\Controllers\ProjectManagement\Projects\FilesController;
 use App\Http\Controllers\ProjectManagement\SubscriptionsController;
 use App\Http\Controllers\API\ProjectJobsController;
 use App\Http\Controllers\ProjectManagement\Issues\OptionController;
+use App\Http\Controllers\CRM\OppCategory\OpportunityCategorieController;
 use App\Http\Controllers\ProjectManagement\IssueController as IssuesController;
 use App\Http\Controllers\ProjectManagement\Projects\TasksController;
 use App\Http\Controllers\CRM\Contact\OrganizationController;
@@ -546,6 +547,9 @@ Route::get('Opportunities/', [OpportunityController::class, 'index'])->name('job
 Route::get('/Opportunities/all', [OpportunityController::class, 'getAll'])->name('opportunities');
 
 Route::get('Organization/all', [OrganizationController::class, 'getAll'])->name('organizations');
+Route::get('Categories', [OpportunityCategorieController::class ,'getAll'] )->name('categories');
+Route::get('Categorie/{categorie}', [OpportunityCategorieController::class ,'show'] )->name('categorie.show');
+
 Route::post('/opportunity/mail', [EmailController::class, 'send'])->name('mail');
 Route::get('/opportunity/{opportunity}', [OpportunityController::class, 'show'])->name('opportunity.show');
 Route::get('/Opportunity/create', [OpportunityController::class, 'create'])->name('opportunity.create');
