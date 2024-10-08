@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CRM\JobPostRequest\JobPostRequest;
 use App\Models\CRM\OppCategory\OpportunityCategorie;
 use App\Models\CRM\Company\Company;
+use App\Models\CRM\Organization\Organization;
+use App\Models\CRM\GeneralSettings\GeneralSetting;
 use App\Models\CRM\Opportunity\Opportunity;
 use App\Models\CRM\JobPost\JobPost;
 use App\Models\CRM\UserProfile\UserProfile;
@@ -19,15 +21,19 @@ use Illuminate\Support\Facades\Storage;
 class OpportunityhomeController extends Controller
 {
     public function index(){
-        $jobs = Opportunity::all();
-        $companies = Company::all();
-        $featuredJobs = Opportunity::where('featured', 1)->get();
-        $activeJobs = Opportunity::where('status', 1)->get();
+        $opportunities = Opportunity::all();
+
+
+        $organizations = Organization::all();
+        $featuredOpportunities = Opportunity::where('featured', 1)->get();
+        $activeOpportunities = Opportunity::where('status', 1)->get();
+        $jobPosts = JobPost::all();
+        $gs = GeneralSetting::all()->first();
         $users = User::where('status_id', 1)
                         ->get();
 
 
-        return view('admin.index', compact('jobs', 'activeJobs', 'companies', 'users'));
+        return view('tickets.index', compact('gs','opportunities', 'activeOpportunities','featuredOpportunities' , 'organizations', 'users', 'jobPosts'));
     }
 
 
@@ -112,15 +118,15 @@ class OpportunityhomeController extends Controller
 
         //$job = $request->request->all();
 
-        $company_id = request('company_id');
-        $company = Company::findOrFail($company_id);
+        $organization_id = request('organization_id');
+        $Organization = Organization::findOrFail($organization_id);
         $user_id = $company->user_id;
       
 
 
         Opportunity::create([
             'user_id'=> $user_id,
-            'company_id'=> $company_id,
+            'organization_id'=> $organization_id,
             'title' => request('title'),
             'slug' => Str::slug(request('title')),
             'description' => request('description'),
@@ -359,12 +365,14 @@ class OpportunityhomeController extends Controller
 
     // Post Store   
     public function postStore(Request $request){
+
+
+         
         $this->validate($request, [
             'title'=> 'required|min:4|unique:posts',
             'description'=> 'required',
             'post_thumbnail'=> 'required|mimes:jpeg,jpg,png|max:1024'
         ]);
-
 
         if ($request->hasFile('post_thumbnail')) {
             $file = $request->file('post_thumbnail');
@@ -379,7 +387,7 @@ class OpportunityhomeController extends Controller
             ]);
         }
 
-        return redirect('/dashboard/posts')->with('success', 'Post created Successfully!');
+        return redirect()->back()->with('success', 'Post created Successfully!');
 
     }
 
@@ -439,7 +447,6 @@ class OpportunityhomeController extends Controller
         return redirect('/dashboard/category')->with('success', 'Status Updated Successfully!');
     }
 
-
     /**
      * Store a category
      */
@@ -461,16 +468,6 @@ class OpportunityhomeController extends Controller
         return redirect('/dashboard/category')->with('success', 'Category created Successfully!');
     }
 
-
-
-
-
-
-
-
-
-
-
     // Get all posts
     public function getAllPosts(){
         $posts = JobPost::latest()->get();
@@ -489,8 +486,9 @@ class OpportunityhomeController extends Controller
 
     // Show single post
     public function showPost($id){
+        // dd($id);
         $post = JobPost::findOrFail($id);
-        return view('admin.posts.show', compact('post'));
+        return view('crm.jobposts.show', compact('post'));
 
     }
 

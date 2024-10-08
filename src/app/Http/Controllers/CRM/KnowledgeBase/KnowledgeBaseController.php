@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\CRM\KnowledgeBase;
 
 use App\Models\Department;
 use App\Models\KnowledgeBase; 

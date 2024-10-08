@@ -7,13 +7,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\CRM\OppCategory\OpportunityCategorie;
+use App\Models\CRM\JobPost\Traits\JobRules;
 use App\Models\CRM\Opportunity\Opportunity;
 
 
 
 class JobPost extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes,JobRules;
 
     use HasFactory;
 

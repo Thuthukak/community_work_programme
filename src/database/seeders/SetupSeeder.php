@@ -14,6 +14,7 @@ use Database\Seeders\CRM\Activity\ActivityTypesTableSeeder;
 use Database\Seeders\CRM\Contact\ContactTypesTableSeeder;
 use Database\Seeders\CRM\Contact\PhoneEmailTypeSeeder;
 use Database\Seeders\CRM\Country\CountrySeeder;
+use App\Models\CRM\JobPost\JobPost;
 use Database\Seeders\CRM\Deal\LostReasonsTableSeeder;
 use Database\Seeders\CRM\Stage\DefaultStagesTableSeeder;
 use Database\Seeders\Traits\DisableForeignKeys;
@@ -25,6 +26,8 @@ class SetupSeeder extends Seeder
 {
     use TruncateTable, DisableForeignKeys;
 
+    
+
     /**
      * Run the database seeds.
      *
@@ -34,6 +37,8 @@ class SetupSeeder extends Seeder
     {
         Model::unguard();
         $this->disableForeignKeys();
+
+        JobPost::factory(50)->create();
 
         /*For Basic Application*/
         $this->call(PermissionTableSeeder::class);

@@ -30,11 +30,21 @@
 @section('contents')
     <div class="container my-5">
 
+<<<<<<< HEAD
         <!-- Opportunities Section -->
         <div class="row">
             <div class="col-12">
                 <h2 class="section-title text-center">Opportunities</h2>
             </div>
+=======
+@include('tickets.banner')
+
+    <div class="container">
+    <!-- Opportunities Section -->
+    <div class="row">
+        <div class="col-12">
+            <h2 class="text-center mb-4">Opportunities</h2>
+>>>>>>> f1066b3603fa39fecfae7ba2b69b8c61443a3244
         </div>
 
         <div class="row">
@@ -68,6 +78,7 @@
         </div>
 
         <div class="row" id="organization-list">
+<<<<<<< HEAD
             @foreach($organizations as $organization)
                 <div class="col-md-4 mb-4">
                     <div class="card card-soft-shadow">
@@ -75,6 +86,17 @@
                             <h5 class="card-title">{{ $organization->name ?? 'No name available' }}</h5>
                             <p class="card-text"><strong>Address:</strong> {{ $organization->address ?? 'No address available' }}</p>
                         </div>
+=======
+        @foreach($organizations as $organization)
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+
+                         <a href="{{ route('organizations.edit', $organization->id) }}">
+                            {{ $organization->name }}
+                        </a>
+                        <p class="card-text"><strong>Address:</strong> {{ $organization->address ?? 'No address available' }}</p>
+>>>>>>> f1066b3603fa39fecfae7ba2b69b8c61443a3244
                     </div>
                 </div>
             @endforeach
@@ -95,6 +117,7 @@
                 <h2 class="section-title text-center">Categories</h2>
             </div>
         </div>
+<<<<<<< HEAD
 
         <div class="row">
             @if($categories->count())
@@ -133,6 +156,11 @@
         border-radius: 5px;
         font-weight: bold;
         cursor: pointer;
+=======
+    @endif
+</div>
+ @endsection
+>>>>>>> f1066b3603fa39fecfae7ba2b69b8c61443a3244
 
     }
 </style>

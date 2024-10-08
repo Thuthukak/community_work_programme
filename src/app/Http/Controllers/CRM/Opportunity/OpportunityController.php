@@ -21,7 +21,7 @@ class OpportunityController extends Controller
 
     public function __construct()
     {
-        $this->middleware(['employer','verified'], ['except'=> array('index', 'show', 'apply', 'allJobs', 'category', 'searchJobs')]);
+        $this->middleware(['verified'], ['except'=> array('index', 'show', 'apply', 'allJobs', 'category', 'searchJobs')]);
     }
 
 
@@ -60,9 +60,6 @@ class OpportunityController extends Controller
         return response()->json($organizations);
     }
     
-
-
-
     /**
      * Show the form for creating a new resource.
      */
@@ -76,32 +73,36 @@ class OpportunityController extends Controller
      */
     public function store(JobPostRequest $request)
     {
-        $user_id = auth()->user()->id;
-        $company = Company::where('user_id', $user_id)->first();
-        $company_id = $company->id;
 
+        $user_id = auth()->user()->id;
+        $organization = Organization::where('owner_id', $user_id)->first();
+        $organization_id = $organization->id;
+
+        // dd($organization);
 
 
         Opportunity::create([
             'user_id'=> $user_id,
-            'company_id'=> $company_id,
+            'organization_id'=> $organization_id,
             'title' => request('title'),
             'slug' => Str::slug(request('title')),
             'description' => request('description'),
             'roles' => request('roles'),
-            'category_id' => request('category'),
+            'opportunity_categorie_id' => request('category'),
             'position' => request('position'),
             'address' => request('address'),
             'type' => request('type'),
             'experience' => request('experience'),
             'number_of_vacancy' => request('number_of_vacancy'),
+            'featured' => 1,
+            'status' =>1,
             'gender' => request('gender'),
             'salary' => request('salary'),
             'last_date' => request('last_date'),
         ]);
 
 
-        return redirect()->back()->with('success', 'Job posted Successfully.');
+        return redirect()->back()->with('success', 'Opportunity posted Successfully.');
     }
 
     /**
