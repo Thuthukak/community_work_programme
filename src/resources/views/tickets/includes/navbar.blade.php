@@ -37,12 +37,12 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Opportunities
                     </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown" style="background-color: white; z-index: 1000;">
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown " style="background-color: #fe9a4e !important; z-index: 1000;">
                         <li>
-                            <a class="dropdown-item" href="{{ route('jobSeekerOpportunities') }}" style="color: black; background-color: white; padding: 10px;">{{ __('theme.job_seekers') }}</a>
+                            <a class="dropdown-item" href="{{ route('jobSeekerOpportunities') }}" style="color: black; background-color:#fe9a4e !important; padding: 10px; hover: background-color: #fe9a4e !important">{{ __('theme.job_seekers') }}</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="{{ route('adminPosts') }}" style="color: black; background-color: white; padding: 10px;">{{ __('theme.employers') }}</a>
+                            <a class="dropdown-item" href="{{ route('adminPosts') }}" style="color: black; background-color: #fe9a4e !important; padding: 10px;">{{ __('theme.employers') }}</a>
                         </li>
                     </ul>
                 </li>
@@ -60,7 +60,7 @@
                             {{ Auth::user()->name }} <span class="caret"></span>
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-right custom-dw" aria-labelledby="navbarDropdown">
+                        <div class="dropdown-menu dropdown-menu-right " aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="{{ request()->root().'/admin/dashboard' }}">
                                 {{__('theme.dashboard')}}
                             </a>
@@ -75,7 +75,28 @@
     </nav>
 </section>
 <style>
-    .custom-dw{
-        right: 20px !important;
-        left: -115px !important;
-    }
+.custom-dw {
+    right: 20px !important;
+    left: -115px !important;
+}
+
+    /* General styling for the dropdown menu background */
+.dropdown-menu {
+    background-color: #fe9a4e !important;
+    
+}
+
+/* Styling for the dropdown items */
+.dropdown-item {
+    color: black !important;
+    background-color: #fe9a4e !important;
+    padding: 10px;
+}
+
+/* Hover styling for dropdown items */
+.dropdown-item:hover {
+    color: black !important;
+    background-color: #fe9a4e !important; /* Keep the background color the same on hover */
+}
+
+</style>

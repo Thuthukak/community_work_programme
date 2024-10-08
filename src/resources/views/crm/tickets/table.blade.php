@@ -23,13 +23,13 @@
             <tbody>
                 @foreach($tickets as $index => $ticket)
                 <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $ticket->ticket_id }}</td>
-                    <td>{{ $ticket->title }}</td>
-                    <td>{{ $ticket->priority }}</td>
-                    <td>{{ $ticket->user->name ?? 'N/A' }}</td> <!-- Assuming 'user' relationship is defined -->
-                    <td>{{ $ticket->status }}</td>
-                    <td>{{ \Carbon\Carbon::parse($ticket->updated_at)->format('Y-m-d H:i:s') }}</td>
+                    <td class="datatable-td">{{ $index + 1 }}</td>
+                    <td class="datatable-td">{{ $ticket->ticket_id }}</td>
+                    <td class="datatable-td">{{ $ticket->title }}</td>
+                    <td class="datatable-td">{{ $ticket->priority }}</td>
+                    <td class="datatable-td">{{ $ticket->user->name ?? 'N/A' }}</td> <!-- Assuming 'user' relationship is defined -->
+                    <td class="datatable-td">{{ $ticket->status }}</td>
+                    <td class="datatable-td">{{ \Carbon\Carbon::parse($ticket->updated_at)->format('Y-m-d H:i:s') }}</td>
                     <td>
                         <a href="{{ route('ticket.show', $ticket->id) }}">
                             <i class="btn btn-primary btn-info fa fa-eye"></i>

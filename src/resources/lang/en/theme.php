@@ -382,4 +382,8 @@ return [
     'what_we_do_paragraphlist4' => 'To strengthen the economic ‘agency’ of people in poor areas, providing work experience, enhancing dignity and promoting social and economic inclusion. ',
 
     'select_application_type' => 'Select Application Type',
+
+    // job opportunities
+    'job_seekers' => 'Job Seekers',
+    'employers' => 'Employers',
 ];

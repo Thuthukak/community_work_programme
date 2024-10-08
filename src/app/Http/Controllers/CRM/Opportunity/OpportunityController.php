@@ -33,6 +33,7 @@ class OpportunityController extends Controller
 
         $Opportunities = Opportunity::latest()->limit(15)->where('status', 1)->get();
       
+
         $gs = GeneralSetting::all()->first();
 
         $organizations = Organization::inRandomOrder()->take(8)->get();
@@ -140,6 +141,8 @@ class OpportunityController extends Controller
     {
 
         $opportunityRecommendation = $this->jobRecommendation($opportunity);
+
+
 
         return view('crm.opportunities.show', compact('opportunityRecommendation','opportunity'));
     }
