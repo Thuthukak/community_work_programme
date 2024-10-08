@@ -1,5 +1,5 @@
 @extends('layouts.home')
-@section('title', 'Home')
+@section('title', 'Dashboard 1')
 
 @section('style')
     <style>
@@ -24,35 +24,17 @@
             font-style: italic;
             color: #777;
         }
-        .btn-crm {
-        background-color: #ff740b;
-        color: #fff;
-        padding: 10px 20px;
-        border-radius: 5px;
-        font-weight: bold;
-        cursor: pointer;
-    }
     </style>
 @endsection
 
 @section('contents')
     <div class="container my-5">
 
-
         <!-- Opportunities Section -->
         <div class="row">
             <div class="col-12">
                 <h2 class="section-title text-center">Opportunities</h2>
             </div>
-
-@include('tickets.banner')
-
-    <div class="container">
-    <!-- Opportunities Section -->
-    <div class="row">
-        <div class="col-12">
-            <h2 class="text-center mb-4">Opportunities</h2>
-
         </div>
 
         <div class="row">
@@ -86,7 +68,6 @@
         </div>
 
         <div class="row" id="organization-list">
-
             @foreach($organizations as $organization)
                 <div class="col-md-4 mb-4">
                     <div class="card card-soft-shadow">
@@ -94,17 +75,6 @@
                             <h5 class="card-title">{{ $organization->name ?? 'No name available' }}</h5>
                             <p class="card-text"><strong>Address:</strong> {{ $organization->address ?? 'No address available' }}</p>
                         </div>
-
-        @foreach($organizations as $organization)
-            <div class="col-md-4">
-                <div class="card mb-4">
-                    <div class="card-body">
-
-                         <a href="{{ route('organizations.edit', $organization->id) }}">
-                            {{ $organization->name }}
-                        </a>
-                        <p class="card-text"><strong>Address:</strong> {{ $organization->address ?? 'No address available' }}</p>
-
                     </div>
                 </div>
             @endforeach
@@ -125,7 +95,6 @@
                 <h2 class="section-title text-center">Categories</h2>
             </div>
         </div>
-
 
         <div class="row">
             @if($categories->count())
@@ -156,3 +125,14 @@
 
     </div>
 @endsection
+<style>
+    .btn-crm {
+        background-color: #ff740b;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+
+    }
+</style>
