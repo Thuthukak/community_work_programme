@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\CRM\GeneralSettings\GeneralSetting;
 use App\Models\CRM\HowWork\HowWork;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+
 
 class HowWorkController extends Controller
 {
@@ -129,6 +131,9 @@ class HowWorkController extends Controller
     }
 
     public function howWorkUpdate(Request $request) {
+
+   
+
         $request->validate([
             'how_work_title' => 'required',
             'how_work_details' => 'required',
@@ -136,6 +141,8 @@ class HowWorkController extends Controller
 
         $setting = GeneralSetting::first();
         $data = $request->all();
+
+        Log::info('Request data: ', $data);
         $saved = $setting->update($data);
 
         if ($saved) {

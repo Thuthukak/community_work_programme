@@ -3,7 +3,7 @@
     <div class="mb-4">
         <div class="card-body">
             @include('tickets.flash')
-            <form id="hearderform" method="post" enctype="multipart/form-data" onsubmit="submitForm(event, this)">
+            <form  id="hearderform" method="post" enctype="multipart/form-data" onsubmit="submitForm(event, this)">
                 @csrf
                 @method('PUT')
                 <div class="col-md-12">

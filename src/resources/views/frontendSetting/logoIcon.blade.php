@@ -18,8 +18,10 @@
                             @endif
                             <small class="text-danger">[{{ __('theme.image_format') }}: PNG]</small>
                         </div>
+
+                       
                         <!-- Display current logo and preview of the uploaded image -->
-                        <img id="logoPreview" class="thumbnail img-responsive" src="{{ isset($settings['logo']) ? asset('storage/' . $settings['logo']) : '#' }}" alt="Current Logo" width="100"/>
+                        <img id="logoPreview" class="thumbnail img-responsive" src="{{ isset($settings['company_logo']) ? asset('src/' . $settings['company_logo']) : '#' }}" alt="Current Logo" width="100"/>
                         </div>
                     
                     <!-- Favicon Icon Input -->
@@ -35,7 +37,7 @@
                             <small class="text-danger">[{{ __('theme.image_format') }}: PNG]</small>
                         </div>
                         <!-- Display current favicon and preview of the uploaded image -->
-                        <img id="faviconPreview" class="thumbnail img-responsive" src="{{ isset($settings['favicon_icon']) ? asset('storage/' . $settings['favicon_icon']) : '#' }}" alt="Current Favicon" width="32"/>
+                        <img id="faviconPreview" class="thumbnail img-responsive" src="{{ isset($settings['company_icon']) ? asset('src/' . $settings['company_icon']) : '#' }}" alt="Current Favicon" width="32"/>
                         </div>
                 </div>
 

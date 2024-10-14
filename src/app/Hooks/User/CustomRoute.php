@@ -12,18 +12,18 @@ class CustomRoute extends HookContract
 
     public function handle(): array
     {
-//        $user = User::with(['roles'])->where('id', auth()->id())->first();
-//        if ($user->hasRole(['Agent'])) {
-//            return [
-//                'route_name' => 'persons.lists',
-//                'route_params' => null
-//            ];
-//        } else if ($user->hasRole(['Client'])) {
-//            return [
-//                'route_name' => 'organizations.lists',
-//                'route_params' => null
-//            ];
-//        }
+       $user = User::with(['roles'])->where('id', auth()->id())->first();
+       if ($user->hasRole(['Agent'])) {
+           return [
+               'route_name' => 'persons.lists',
+               'route_params' => null
+           ];
+       } else if ($user->hasRole(['Client'])) {
+           return [
+               'route_name' => 'organizations.lists',
+               'route_params' => null
+           ];
+       }
         return [];
     }
 }

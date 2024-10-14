@@ -12,7 +12,7 @@
                             <div class="form-group">
                                 <label for="how_work_title"><strong>{{ __('theme.how_work_title') }}</strong></label>
                                 <input class="form-control form-control-lg mb-3 {{ $errors->has('how_work_title') ? ' is-invalid' : '' }}" name="how_work_title" value=""  type="text" required>
-                                <input class="form-control form-control-lg mb-3" name="id" value=""  type="hidden">
+                                <input class="form-control form-control-lg mb-3" name="id" value="{{ $settings->id}}"  type="hidden">
                                 @if ($errors->has('how_work_title'))
                                     <span class="invalid-feedback d-block">
                                         <strong>{{ $errors->first('how_work_title') }}</strong>
