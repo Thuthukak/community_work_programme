@@ -9,116 +9,94 @@
                 </button>
             </div>
 
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{{ route('OpportunityPostStore') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
 
-
-<div class="card bg-white">
-    <div class="card-body mt-5 mb-5">
-
-        <form action="{{ route('OpportunityPostStore') }}" method="POST" enctype="multipart/form-data">
-            @csrf
-
-            <div class="form-group row">
-                <div class="col-md-2">Title</div>
-                <div class="col-md-4">
-                    <input id="name" type="text" placeholder="Post Title" value="{{ old('title') }}" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" value=""  autofocus="" required>
-                    @if ($errors->has('title'))
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $errors->first('title') }}</strong>
-                    </span>
-                     @endif
-
-
-                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="category">Category:</label>
-                </div>
-                <div class="col-md-4">
-                    <select name="category_id" id="category_id" class="form-control{{ $errors->has('category') ? ' is-invalid' : '' }}" required>
-                        @foreach (App\Models\CRM\OppCategorie\OpportunityCategorie::all() as $cat)
-                        <option value="{{ $cat->id }}">{{ $cat->name }}</option>
-                            
-                        @endforeach
-                    </select>
-                    @if ($errors->has('category'))
-                        <div style="color:red">
-                            <p class="mb-0">{{ $errors->first('category') }}</p>
-                        </div>
-                    @endif
-
-                 </div>
-            </div>
-
-            <div class="form-group row">
-                <div class="col-md-2">Description</div>
-                <div class="col-md-10">
-
-                    <textarea name="description" id="editor" class="{{ $errors->has('description') ? ' is-invalid' : '' }}" required >{{ old('description') }}</textarea>
-                    @if ($errors->has('description'))
-                        <div style="color:red">
-                            <p class="mb-0">{{ $errors->first('description') }}</p>
-                        </div>
-                    @endif
-                 </div>
-            </div>
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="file-input-logo">Upload post Thumbnail:</label>
-                </div>
-                <div class="col-md-4">
-                    <div class="set_thumb">
-
-                        <div id='settings-logo'>
-                          <img id="preview-thumb" align='middle'src="{{ asset('backend/assets/images/icons/favicon.png') }}" alt="your image" title=''/>
-                        </div>
-                            <div class="fileUploadInput">
-                                <input type="file" name="post_thumbnail" id="file-input-logo" required />
-                                <button class="input-file-btn"><i class="material-icons"> cloud_upload </i></button>
+                            <!-- Title -->
+                            <div class="form-group row">
+                                <label for="title" class="col-md-3 col-form-label">Title</label>
+                                <div class="col-md-9">
+                                    <input id="title" type="text" placeholder="Post Title" value="{{ old('title') }}" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" required autofocus>
+                                    @if ($errors->has('title'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('title') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                             </div>
-                      </div>
-                      @if ($errors->has('post_thumbnail'))
-                            <div style="color:red">
-                                <p class="mb-0">{{ $errors->first('post_thumbnail') }}</p>
+
+                            <!-- Category -->
+                            <div class="form-group row">
+                                <label for="category_id" class="col-md-3 col-form-label">Category</label>
+                                <div class="col-md-9">
+                                    <select name="category_id" id="category_id" class="form-control{{ $errors->has('category') ? ' is-invalid' : '' }}" required>
+                                        <option value="" disabled selected>Select a category</option>
+                                        @foreach (App\Models\CRM\OppCategorie\OpportunityCategorie::all() as $cat)
+                                            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->has('category'))
+                                        <div class="text-danger mt-2">
+                                            <p class="mb-0">{{ $errors->first('category') }}</p>
+                                        </div>
+                                    @endif
+                                </div>
                             </div>
-                        @endif
-                 </div>
-            </div>
 
-            <div class="form-group row">
-                <div class="col-md-2">
-                    <label for="status">Status:</label>
+                            <!-- Description -->
+                            <div class="form-group row">
+                                <label for="description" class="col-md-3 col-form-label">Description</label>
+                                <div class="col-md-9">
+                                    <textarea name="description" id="editor" class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}" required>{{ old('description') }}</textarea>
+                                    @if ($errors->has('description'))
+                                        <div class="text-danger mt-2">
+                                            <p class="mb-0">{{ $errors->first('description') }}</p>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <!-- Thumbnail Upload -->
+                            <div class="form-group row">
+                                <label for="file-input-logo" class="col-md-3 col-form-label">Upload Thumbnail</label>
+                                <div class="col-md-9">
+                                    <div class="d-flex align-items-center">
+                                        <img id="preview-thumb" src="{{ asset('backend/assets/images/icons/favicon.png') }}" alt="preview" class="img-thumbnail mr-3" style="width: 90px;height: 90px">
+                                        <input type="file" name="post_thumbnail" id="file-input-logo" class="form-control-file" required>
+                                    </div>
+                                    @if ($errors->has('post_thumbnail'))
+                                        <div class="text-danger mt-2">
+                                            <p class="mb-0">{{ $errors->first('post_thumbnail') }}</p>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <!-- Status -->
+                            <div class="form-group row">
+                                <label for="status" class="col-md-3 col-form-label">Status</label>
+                                <div class="col-md-9">
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="1">Live</option>
+                                        <option value="0">Draft</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <div class="form-group row">
+                                <div class="col-md-9 offset-md-3">
+                                    <button class="btn btn-success" type="submit">Create Post</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <select name="status" id="status" class="form-control" required>
-                        
-                        <option value="1">Live</option>
-                        <option value="0">Draft</option>
-                            
-                       
-                    </select>
-                
-
-                 </div>
             </div>
 
-
-
-
-            <div class="form-group pt-2 row">
-                <div class="col-md-2"></div>
-                <div class="col-md-4">
-                    <button class="theme-primary-btn btn btn-success" type="submit">Create post</button>
-                   
-                 </div>
-            </div>
-
-        </form>
-  
-    </div>
-</div>
-        
-            </div>
         </div>
     </div>
 </div>

@@ -52,27 +52,18 @@
                         </div>
                     </div>
                 </div>
-
-            </div>
-            @endforeach
-        @else
-            <div class="col-12">
-                <p class="text-center">No opportunities available at the moment.</p>
-            </div>
-        @endif
+                @endforeach
+            @else
+                <div class="col-12">
+                    <p class="no-data">No opportunities available at the moment.</p>
+                </div>
+            @endif
         </div>
 
-        @if($Opportunities->count() >= 8)
-            <div class="row">
-                <div class="col-12 text-center">
-                    <a href="{{ route('opportunities')}}">Show More...</a>
-                </div>
-            </div>
-        @endif
         <!-- Organizations Section -->
         <div class="row">
             <div class="col-12">
-                <h2 class="text-center mb-4">Organizations</h2>
+                <h2 class="section-title text-center">Organizations</h2>
             </div>
         </div>
 
@@ -81,9 +72,7 @@
                 <div class="col-md-4 mb-4">
                     <div class="card card-soft-shadow">
                         <div class="card-body">
-                            <a href="{{ route('organizations.edit', $organization->id) }}">
-                            {{ $organization->name }}
-                        </a>
+                            <h5 class="card-title">{{ $organization->name ?? 'No name available' }}</h5>
                             <p class="card-text"><strong>Address:</strong> {{ $organization->address ?? 'No address available' }}</p>
                         </div>
                     </div>
@@ -95,7 +84,7 @@
         @if($organizations->count() >= 8)
             <div class="row">
                 <div class="col-12 text-center">
-                    <a href="{{ route('organizations')}}">Show More...</a>
+                    <button id="load-more" class=" btn-crm">Show More</button>
                 </div>
             </div>
         @endif
@@ -114,8 +103,6 @@
                     <div class="card card-soft-shadow">
                         <div class="card-body">
                             <h5 class="card-title">{{ $category->name }}</h5>
-                            {{ $organization->name }}
-                        </a>
                             <p class="card-text"><strong>Slug:</strong> {{ $category->slug }}</p>
                         </div>
                     </div>
@@ -131,7 +118,7 @@
         @if($categories->count() >= 8)
         <div class="row">
             <div class="col-12 text-center">
-            <a href="{{ route('categories')}}">Show More...</a>
+                <button id="load-more" class=" btn-crm">Show More</button>
             </div>
         </div>
         @endif
