@@ -236,7 +236,7 @@ abstract class BaseUser extends Authenticatable
 
     public function actions()
     {
-        return $this->hasMany('App\Action', 'user_id');
+        return $this->hasMany('App\Models\CRM\Action\Action', 'user_id');
     }
     
     public function invitation()

@@ -39,19 +39,18 @@ use Illuminate\Support\Facades\Route;
 
 // Root route
 Route::get('/', function () {
-
     if (auth()->check()) {
         $user = User::with(['roles'])->where('id', auth()->id())->first();
+
         if ($user->hasRole(['Agent'])) {
             return redirect(route('persons.lists'));
-        } elseif ($user->hasRole(['Client'])) {
+        } else if ($user->hasRole(['Client'])) {
             return redirect(route('organizations.lists'));
         }
     }
 
-    return redirect('/home');
+    return redirect('home');
 });
-
 
 Route::get('/Home', [HomeController::class,'index'])->name('homePage');
 
@@ -522,7 +521,7 @@ Route::put('social-link/{social}', [GeneralSettingController::class, 'socialUpda
 Route::delete('social-link-delete/{id}', [GeneralSettingController::class, 'socialDestroy'])->name('socialDestroy.Setting');
 
 Route::get('header-text', [GeneralSettingController::class, 'headerTextSetting'])->name('headerTextSetting');
-Route::put('header-text/{setting}', [GeneralSettingController::class, 'headerTextSettingUpdate'])->name('headerTextUpSetting');
+Route::put('header-text/{id}', [GeneralSettingController::class, 'headerTextSettingUpdate'])->name('headerTextUpdate');
 Route::get('footer-setting', [GeneralSettingController::class, 'footer'])->name('footer.Setting');
 Route::put('footer-setting', [GeneralSettingController::class, 'updateFooter'])->name('updateFooter.Setting');
 

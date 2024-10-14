@@ -20,6 +20,7 @@ class GeneralSettingController extends Controller
     {
         $settings = GeneralSetting::select('logo', 'favicon_icon')->first();
         
+        // dd($settings);
         // Return JSON response with settings data
         return response()->json([
             'logo' => $settings->logo,
@@ -58,7 +59,7 @@ class GeneralSettingController extends Controller
             $notify = errorNotify('Logo update');
         }
 
-        return back()->with($notify);
+        return response()->json(back()->with($notify));
     }
 
     public function social()
@@ -141,19 +142,41 @@ class GeneralSettingController extends Controller
         ]);   
      }
 
-    public function headerTextSettingUpdate(Request $request, GeneralSetting $setting)
-    {
-        $data = $request->all();
-        $saved = $setting->update($data);
-
-        if ($saved) {
-            $notify = updateNotify('Information');
-        }else{
-            $notify = errorNotify('Information update');
-        }
-
-        return back()->with($notify);
-    }
+     public function headerTextSettingUpdate(Request $request, GeneralSetting $setting)
+     {
+    
+     
+         Log::info('Request data: ', $request);
+         Log::info('Settings before update: ', $setting);
+     
+         // Update the settings
+         try {
+             $saved = $setting->update($validatedData);
+     
+             // Create a response message
+             if ($saved) {
+                 return response()->json([
+                     'status' => 'success',
+                     'message' => 'Header text updated successfully!',
+                     'setting' => $setting // Optionally return the updated setting data
+                 ]);
+             } else {
+                 return response()->json([
+                     'status' => 'error',
+                     'message' => 'Failed to update header text.'
+                 ], 500);
+             }
+         } catch (\Exception $e) {
+             Log::error('Error updating setting: ' . $e->getMessage());
+     
+             return response()->json([
+                 'status' => 'error',
+                 'message' => 'An error occurred: ' . $e->getMessage()
+             ], 500);
+         }
+     }
+     
+     
 
     public function aboutus()
     {
@@ -196,7 +219,7 @@ class GeneralSettingController extends Controller
         //cache clear
         Artisan::call('cache:clear');
 
-        return back()->with($notify);
+        return response()->json(back()->with($notify));
     }
 
     public function contactus() {
@@ -230,7 +253,7 @@ class GeneralSettingController extends Controller
             $notify = errorNotify('Information update');
         }
 
-        return back()->with($notify);
+        return response()->json(back()->with($notify));
     }
 
     public function footer() {
@@ -257,7 +280,7 @@ class GeneralSettingController extends Controller
             $notify = errorNotify('Information update');
         }
 
-        return back()->with($notify);
+        return response()->json(back()->with($notify));
     }
 
     public function services() {
@@ -284,7 +307,7 @@ class GeneralSettingController extends Controller
             $notify = errorNotify('Service update');
         }
 
-        return back()->with($notify);
+        return response()->json(back()->with($notify));
     }
 
     public function storeNewServices(Request $request, Service $service) {
@@ -321,7 +344,7 @@ class GeneralSettingController extends Controller
             $notify = errorNotify('Information update');
         }
 
-        return back()->with($notify);
+        return response()->json(back()->with($notify));
     }
 
     public function deleteServices($id) {
@@ -362,6 +385,6 @@ class GeneralSettingController extends Controller
             $notify = errorNotify('Information update');
         }
 
-        return back()->with($notify);
+        return response()->json(back()->with($notify));
     }
 }

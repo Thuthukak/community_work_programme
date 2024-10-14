@@ -61,9 +61,9 @@ class LoginController extends Controller
             if (Auth::attempt($credentials)) {
                 // Regenerate session to prevent session fixation attacks
                 $request->session()->regenerate();
-
+                
                 // Redirect to the intended page or home page after login
-                return redirect()->intended(route('home'));
+                return redirect()->intended(route('core.dashboard'));
             } else {
                 // If authentication fails, return back with an error message
                 return redirect()->back()->withErrors([

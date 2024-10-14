@@ -233,13 +233,14 @@ document.addEventListener('DOMContentLoaded', function () {
                         }
 
                         if(lastSegment == 'logo-icon'){
+
                         // Handle logo and favicon
                         if (data.logo) {
-                            document.getElementById('logoPreview').src = '{{ asset('storage/') }}/' + data.logo;
+                            document.getElementById('logoPreview').src = '{{ asset('src/storage/app/') }}/' + data.logo;
                         }
 
                         if (data.favicon_icon) {
-                            document.getElementById('faviconPreview').src = '{{ asset('storage/') }}/' + data.favicon_icon;
+                            document.getElementById('faviconPreview').src = '{{ asset('src/storage/app/') }}/' + data.favicon_icon;
                         }
                     }
                     if(lastSegment == 'social-link'){
@@ -253,8 +254,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     if(lastSegment == 'header-text'){
                         // Safely access header title and subtitle
                         const form = document.getElementById('hearderform');
-                        
-                        form.action = `{{ url('headerTextUpSetting') }}/${data.setting.id}`; 
+                        form.action = "{{ route('headerTextUpdate', ['id' => ':id']) }}".replace(':id', data.setting.id);
+
                         const setting = data.setting || {};
                         document.querySelector('input[name="header_title"]').value = setting.header_title || '';
                         document.querySelector('input[name="header_subtitle"]').value = setting.header_subtitle || '';
@@ -337,7 +338,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-            function editSocial(id) {
+                    function editSocial(id) {
                         // Get the social link data by ID (you can modify this part based on your actual data)
                         const socialLink = socialList.find(s => s.id === id);
 
@@ -405,6 +406,8 @@ document.addEventListener('DOMContentLoaded', function () {
             function populateHowWorkData(worksData, settingData) {
                 console.log(settingData);
 
+
+                
                 const howWorkTitleInput = document.querySelector('input[name="how_work_title"]');
                 const howWorkDetailsInput = document.querySelector('textarea[name="how_work_details"]'); // Changed to textarea
 
@@ -641,14 +644,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
                 function submitForm(event, form) {
                     event.preventDefault(); // Prevent default form submission
-
                     const formData = new FormData(form);
+
+                    console.log(formData);
 
                     // Log form data before submission
                     console.log('FormData before submission:');
                     formData.forEach((value, key) => {
                         console.log(key + ': ' + value);
                     });
+
+                    console.log(form.action);
 
                     const options = {
                         method: 'POST',
@@ -666,8 +672,13 @@ document.addEventListener('DOMContentLoaded', function () {
                             return response.json(); // Assuming the response is JSON
                         })
                         .then(data => {
-                            console.log('Success:', data);
-                            alert('Settings updated successfully!');
+                            if (data.status === 'success') {
+                                // Handle the success response
+                                console.log(data.message);
+                            } else {
+                                // Handle the error response
+                                console.error(data.message);
+                            }
                         })
                         .catch(error => {
                             console.error('Error:', error);

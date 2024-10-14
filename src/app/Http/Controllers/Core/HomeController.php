@@ -40,6 +40,7 @@ class HomeController extends Controller
 
     public function frontend()
     {
+
         return view('tickets.frontendsettings');
     }
 }
